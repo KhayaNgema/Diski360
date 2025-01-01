@@ -78,7 +78,8 @@
 
 
     var customers = _context.Divisions
-        .ToList();
+            .Where(c => !c.IsDeleted)
+            .ToList();
 }
 
 

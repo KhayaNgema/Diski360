@@ -73,7 +73,8 @@ namespace MyField.Controllers
                  (user as DivisionManager)?.DivisionId;
 
             var division = await _context.Divisions
-                .Where(d => d.DivisionId == divisionId)
+                .Where(d => d.DivisionId == divisionId &&
+                !d.IsDeleted)
                 .FirstOrDefaultAsync();
 
             return View(division);
@@ -86,6 +87,7 @@ namespace MyField.Controllers
             var user = await _userManager.GetUserAsync(User);
 
             var divisions = await _context.Divisions
+                .Where(d => !d.IsDeleted)
                 .Include(d => d.CreatedBy)
                 .Include(d => d.ModifiedBy)
                 .ToListAsync();
@@ -108,7 +110,8 @@ namespace MyField.Controllers
         public async Task<IActionResult> FindSoccerDivisions()
         {
             var soccerDivisions = await _context.Divisions
-                .Where(sd => sd.DivisionType == DivisionType.Soccer)
+                .Where(sd => sd.DivisionType == DivisionType.Soccer &&
+                !sd.IsDeleted)
                 .ToListAsync();
 
             return PartialView("_SoccerDivisionsPartial", soccerDivisions);
@@ -117,7 +120,8 @@ namespace MyField.Controllers
         public async Task<IActionResult> FindNetballDivisions()
         {
             var netballDivisions = await _context.Divisions
-              .Where(sd => sd.DivisionType == DivisionType.Netball)
+              .Where(sd => sd.DivisionType == DivisionType.Netball &&
+              !sd.IsDeleted)
               .ToListAsync();
 
             return PartialView("_NetballDivisionsPartial", netballDivisions);
@@ -127,6 +131,7 @@ namespace MyField.Controllers
         public async Task<IActionResult> Divisions()
         {
             var divisions = await _context.Divisions
+                .Where(d => !d.IsDeleted)
                 .ToListAsync();
 
             return View(divisions);
@@ -589,6 +594,7 @@ The Diski360 Team
                     ModifiedById = loggedInUser.Id,
                     ModifiedDateTime = DateTime.Now,
                     Status = DivisionStatus.Active,
+                    IsDeleted = false
                 };
 
                 await _activityLogger.Log($"Added {onboardingRequest.DivisionName} division into Diski360.", loggedInUser.Id);
@@ -1000,6 +1006,7 @@ The Diski360 Team
                 .FirstOrDefaultAsync();
 
             division.Status = DivisionStatus.Deleted;
+            division.IsDeleted = true;
 
             _context.Update(division);
             await _context.SaveChangesAsync();

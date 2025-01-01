@@ -46,6 +46,8 @@ namespace MyField.Models
 
         public string? SignedContract {  get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public Division()
         {
             DivisionBadge = "Images/division_logo.jpeg";

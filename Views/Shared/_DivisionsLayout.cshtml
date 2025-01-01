@@ -25,6 +25,7 @@
     ViewBag.DivisionName = division.DivisionName;
 
     var customers = _context.Divisions
+            .Where(c => !c.IsDeleted)
             .ToList();
 
 }

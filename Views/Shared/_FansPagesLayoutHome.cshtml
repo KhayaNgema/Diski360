@@ -60,7 +60,8 @@
     var encryptedUserId = EncryptionService.Encrypt(user.Id.ToString());
 
     var customers = _context.Divisions
-        .ToList();
+            .Where(c => !c.IsDeleted)
+            .ToList();
 }
 
 

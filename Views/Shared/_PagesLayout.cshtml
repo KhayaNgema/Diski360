@@ -10,7 +10,8 @@
 @using Microsoft.EntityFrameworkCore
 
 @{
-        var customers = _context.Divisions
+    var customers = _context.Divisions
+            .Where(c => !c.IsDeleted)
             .ToList();
 
     var user = await UserManager.GetUserAsync(User);

@@ -159,7 +159,7 @@
                                     </a>
                                 </form>
 
-                                <form action="@Url.Action("TerminateContract", "Divisions")" method="post" style="display:inline;">
+                                <form action="@Url.Action("DeleteDivision", "Divisions")" method="post" style="display:inline;">
                                     <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
                                     <a href="#" onclick="this.closest('form').submit();" class="tab-item">
                                         <i class="fas fa-trash" style="color: red;"></i> Delete

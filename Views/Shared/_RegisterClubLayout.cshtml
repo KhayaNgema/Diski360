@@ -6,8 +6,8 @@
 
 @{
     var customers = _context.Divisions
+            .Where(c => !c.IsDeleted)
             .ToList();
-
 }
 
 <!DOCTYPE html>
