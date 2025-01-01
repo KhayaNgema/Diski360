@@ -89,9 +89,17 @@ public class Startup
         services.AddDefaultIdentity<UserBaseModel>(options =>
         {
             options.SignIn.RequireConfirmedAccount = true;
+
         })
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<Ksans_SportsDbContext>();
+
+.AddDefaultTokenProviders()
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<Ksans_SportsDbContext>();
+
+        services.Configure<DataProtectionTokenProviderOptions>(options =>
+        {
+            options.TokenLifespan = TimeSpan.FromHours(72); 
+        });
 
         services.AddScoped<SignInManager<UserBaseModel>>();
 

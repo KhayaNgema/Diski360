@@ -284,7 +284,9 @@ namespace MyField.Areas.Identity.Pages.Account
                         .ToListAsync();
             ViewData["Roles"] = roles;
 
-            var divisions = await _context.Divisions.ToListAsync();
+            var divisions = await _context.Divisions
+                .Where(d => !d.IsDeleted)
+                .ToListAsync();
             ViewData["Divisions"] = divisions.Select(c => new SelectListItem
             {
                 Value = c.DivisionId.ToString(), 
