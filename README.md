@@ -1,4 +1,4 @@
-# Sports Management System
+# Diski360 Sports Management System
 
 ## Overview
 The **Diski360 Sport Management System** is a web-based application designed to manage various aspects of sports leagues and tournaments. The system allows administrators to efficiently manage teams, players, fixtures, results, standings, transfers, fines, and more. It provides easy access to important data for club managers, players, and administrators.
