@@ -122,7 +122,9 @@ namespace MyField.Areas.Identity.Pages.Account
                              (loggedInUser as SportsMember)?.DivisionId ??
                              (loggedInUser as Officials)?.DivisionId;
 
-            var divisions = await _context.Divisions.ToListAsync();
+            var divisions = await _context.Divisions
+                .Where(d => !d.IsDeleted)
+                .ToListAsync();
 
             ViewData["Divisions"] = divisions.Select(c => new SelectListItem
             {
