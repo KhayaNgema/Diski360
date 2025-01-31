@@ -1,0 +1,116 @@
+﻿@model IEnumerable<MyField.Models.Fixture>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Update Score";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+
+<h4 class="text-center">Update Score</h4>
+
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can upload match results or broadcast a match live to all connected users. This feature allows you to keep everyone informed with the latest match outcomes or provide real-time updates for ongoing matches.
+</p>
+<br />
+
+<div class="container">
+    <div class="fixturesContainer">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    @foreach (var item in Model)
+                    {
+                        var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+                        var encryptedHomeTeamId = encryptionService.Encrypt(item.HomeTeamId);
+                        var encryptedAwayTeamId = encryptionService.Encrypt(item.AwayTeamId);
+
+                        <tr>
+                            <td class="align-middle text-center">
+                                @if (item.HomeTeam != null)
+                                {
+                                    <div class="team-badge d-flex flex-column align-items-center">
+                                        <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubName" class="club-badge-image mb-2" />
+                                        <span class="team-name">@Html.DisplayFor(modelItem => item.HomeTeam.ClubName)</span>
+                                    </div>
+                                }
+                            </td>
+                            <td class="align-middle text-center">VS</td>
+                            <td class="align-middle text-center">
+                                @if (item.AwayTeam != null)
+                                {
+                                    <div class="team-badge d-flex flex-column align-items-center">
+                                        <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubName" class="club-badge-image mb-2" />
+                                        <span class="team-name">@Html.DisplayFor(modelItem => item.AwayTeam.ClubName)</span>
+                                    </div>
+                                }
+                            </td>
+                            @if(item.FixtureStatus == FixtureStatus.Upcoming)
+                            {
+                                <td class="align-middle text-right">
+                                    <a asp-controller="MatchResults" asp-action="Upload"
+                                       asp-route-homeClubName="@item.HomeTeam.ClubName"
+                                       asp-route-awayClubName="@item.AwayTeam.ClubName"
+                                       asp-route-fixtureId="@encryptedFixtureId"
+                                       asp-route-kickoffDate="@item.KickOffDate"
+                                       asp-route-kickoffTime="@item.KickOffTime"
+                                       asp-route-homeTeamBadge="@item.HomeTeam.ClubBadge"
+                                       asp-route-awayTeamBadge="@item.AwayTeam.ClubBadge"
+                                       asp-route-location="@item.Location"
+                                       asp-route-homeTeamId="@encryptedHomeTeamId"
+                                       asp-route-awayTeamId="@encryptedAwayTeamId"
+                                       class="btn btn-outline-success"
+                                       style="text-decoration: none;">
+                                        <i class="fas fa-futbol"></i> Upload
+                                    </a>
+                                </td>
+                                <td class="align-middle text-right">
+                                    <a asp-controller="Lives" asp-action="StartLive"
+                                       asp-route-fixtureId="@encryptedFixtureId"
+                                       class="btn btn-outline-success"
+                                       style="text-decoration: none;">
+                                        <i class="fas fa-broadcast-tower"></i> Go live
+                                    </a>
+                                </td>
+                            }
+                            else if (item.FixtureStatus == FixtureStatus.Live)
+                            {
+                                <td class="align-middle text-right">
+                                    <a asp-controller="Lives" asp-action="StartLive"
+                                       asp-route-fixtureId="@encryptedFixtureId"
+                                       class="btn btn-outline-primary"
+                                       style="text-decoration: none;">
+                                        <i class="fas fa-broadcast-tower"></i> Live
+                                    </a>
+                                </td>
+                            }
+                            else if (item.FixtureStatus == FixtureStatus.Interrupted)
+                            {
+                                <td class="align-middle text-right">
+                                    <a asp-controller="Lives" asp-action="StartLive"
+                                       asp-route-fixtureId="@encryptedFixtureId"
+                                       class="btn btn-outline-primary"
+                                       style="text-decoration: none;">
+                                        <i class="fas fa-broadcast-tower"></i> Resume live
+                                    </a>
+                                </td>
+                            }
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div style="border-bottom: 1px solid #ccc; margin: 2px 0;"></div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no fixtures yet.</p>
+        }
+    </div>
+</div>

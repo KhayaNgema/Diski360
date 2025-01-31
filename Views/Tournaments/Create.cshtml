@@ -1,0 +1,96 @@
+﻿@model MyField.Models.Tournament
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Tournament</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TournamentName" class="control-label"></label>
+                <input asp-for="TournamentName" class="form-control " />
+                <span asp-validation-for="TournamentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentDescription" class="control-label"></label>
+                <input asp-for="TournamentDescription" class="form-control" />
+                <span asp-validation-for="TournamentDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentType" class="control-label"></label>
+                <input asp-for="TournamentType" class="form-control" />
+                <span asp-validation-for="TournamentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentOrgarnizer" class="control-label"></label>
+                <input asp-for="TournamentOrgarnizer" class="form-control" />
+                <span asp-validation-for="TournamentOrgarnizer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JoiningFee" class="control-label"></label>
+                <input asp-for="JoiningFee" class="form-control" />
+                <span asp-validation-for="JoiningFee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentRules" class="control-label"></label>
+                <input asp-for="TournamentRules" class="form-control" />
+                <span asp-validation-for="TournamentRules" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentStatus" class="control-label"></label>
+                <input asp-for="TournamentStatus" class="form-control" />
+                <span asp-validation-for="TournamentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TournamentLocation" class="control-label"></label>
+                <input asp-for="TournamentLocation" class="form-control" />
+                <span asp-validation-for="TournamentLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDateTime" class="control-label"></label>
+                <input asp-for="CreatedDateTime" class="form-control" />
+                <span asp-validation-for="CreatedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedDateTime" class="control-label"></label>
+                <input asp-for="ModifiedDateTime" class="form-control" />
+                <span asp-validation-for="ModifiedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedById" class="control-label"></label>
+                <select asp-for="CreatedById" class ="form-control" asp-items="ViewBag.CreatedById"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedById" class="control-label"></label>
+                <select asp-for="ModifiedById" class ="form-control" asp-items="ViewBag.ModifiedById"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

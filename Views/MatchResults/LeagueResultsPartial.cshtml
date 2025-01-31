@@ -1,0 +1,68 @@
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Results</p>
+    <br />
+     <div class="col-12">
+         <div class="search-bar" style="margin-bottom:50px; display: flex; align-items: center; justify-content: center; padding-bottom:50px;">
+             <span style="margin-right:10px;">Season</span>
+            <select id="leagueResultsSelect" onchange="onLeagueResultsChange()" class="form-select">
+                 @if (ViewBag.Leagues != null)
+                 {
+                     foreach (var league in ViewBag.Leagues)
+                     {
+                         <option value="@league.LeagueId">@league.LeagueYears</option>
+                     }
+                 }
+             </select>
+         </div>
+     </div>
+</div>
+<div>
+    <div>
+        <div style="margin-bottom:10px;" id="resultsContent"> </div>
+    </div>
+</div>
+
+<script>
+    // function fetchResults() {
+
+    //     var divisionId = '@divisionId'
+
+    //     $.ajax({
+    //         url: '/MatchResults/ResultsMain',
+    //         data: {
+    //             divisionId: divisionId
+    //         },
+    //         success: function (data) {
+    //             $('#resultsContent').html(data);
+    //         }
+    //     });
+    // }
+
+    function onLeagueResultsChange() {
+        var selectedLeagueId = document.getElementById("leagueResultsSelect").value;
+        var divisionId = '@divisionId'
+
+        if (selectedLeagueId !== "") {
+            $.ajax({
+                url: '/MatchResults/ResultsMain',
+                data: {
+                    leagueId: selectedLeagueId,
+                    divisionId: divisionId
+                },
+                success: function (data) {
+                    $('#resultsContent').html(data);
+                }
+            });
+        }
+    }
+
+
+    $(document).ready(function () {
+        onLeagueResultsChange();
+    });
+</script>

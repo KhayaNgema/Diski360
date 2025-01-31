@@ -1,0 +1,59 @@
+﻿@model MyField.ViewModels.CreateClubFineViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">New Fine</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can create new fines and manage existing ones. This includes entering details such as due dates, amounts, and specific violations. This feature allows you to efficiently handle and track fines, ensuring accurate management and documentation.
+</p>
+<br />
+<div class="row fine-container">
+    <div class="col-md-12">
+        <form asp-action="CreateClubFine">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <select asp-for="ClubId" class="form-control border-bottom-only" asp-items="ViewBag.Clubs">
+                    <option value="">Select club</option>
+                </select>
+                <span asp-validation-for="ClubId" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="RuleViolated" class="form-control border-bottom-only" placeholder="RuleViolated"></input>
+
+                <label asp-for="RuleViolated" class="form-label">Rule violated</label>
+                <span asp-validation-for="RuleViolated" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="FineDetails" class="form-control border-bottom-only" placeholder="FineDetails" style="min-height: 150px;" maxlength=" 300"></textarea>
+
+                <label asp-for="FineDetails" class="form-label">Fine details</label>
+                <span asp-validation-for="FineDetails" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="FineAmount" class="form-control border-bottom-only" placeholder="FineAmount" type="number" , step="0.01" />
+                <label asp-for="FineAmount" class="form-label">Fine amount</label>
+                <span asp-validation-for="FineAmount" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="FineDuDate" class="form-control border-bottom-only" placeholder="FineDuDate" />
+                <label asp-for="FineDuDate" class="form-label">Fine due date</label>
+                <span asp-validation-for="FineDuDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Create" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

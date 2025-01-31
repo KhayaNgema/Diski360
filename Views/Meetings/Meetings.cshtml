@@ -1,0 +1,240 @@
+﻿@model IEnumerable<MyField.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Meetings";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 style="text-align:center;">Meetings</h4>
+<br />
+
+@if (Model.Any())
+{
+    if (User.IsInRole("Sport Administrator") || User.IsInRole("Division Manager"))
+    {
+        <p class="text-center" style="padding-right:10px; padding-left:10px;">
+            On this page, you can view and manage meetings, including creating new ones, updating existing meetings, and postponing as needed. All changes will be communicated to relevant parties via email, ensuring that everyone stays informed about updates and adjustments.
+        </p>
+        <br />
+        <div class="create-button mb-3">
+            <a href="@Url.Action("Create")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;">
+                <i class="fas fa-plus"></i> Create new
+            </a>
+        </div>
+    }
+    
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+
+    if(User.IsInRole("Sport Administrator"))
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+                <thead>
+                    <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                        <th>
+                            Attendees
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Venue
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Time
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        @if (User.IsInRole("Sport Administrator"))
+                        {
+                            <th>
+                                Actions
+                            </th>
+                        }
+                        else
+                        {
+
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="max-width:400px;">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetingAttendees)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetingTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Venue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetingDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetingTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetingStatus)
+                            </td>
+                            @if (User.IsInRole("Sport Administrator"))
+                            {
+                                <td class="text-right">
+                                    <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.MeetingId">
+                                        Actions
+                                    </button>
+                                    <div class="action-tab" id="actionTab-@item.MeetingId" style="display: none;">
+                                        <a class="tab-item" href="@Url.Action("MeetingDetails", "Meetings", new { meetingId = item.MeetingId })">
+                                            <i class="fas fa-info-circle" style="color: #28a745;"></i> Details
+                                        </a>
+                                        <a class="tab-item" href="@Url.Action("UpdateMeeting", "Meetings", new { meetingId = item.MeetingId })">
+                                            <i class="fas fa-pen" style="color: blue;"></i> Update
+                                        </a>
+                                        <a class="tab-item" href="@Url.Action("PostponeMeeting", "Meetings", new { meetingId = item.MeetingId })">
+                                            <i class="fas fa-clock" style="color: red;"></i> Postpone
+                                        </a>
+                                        <a class="tab-item" href="@Url.Action("CancelMeeting", "Meetings", new { meetingId = item.MeetingId })">
+                                            <i class="fas fa-trash" style="color: red;"></i> Cancel
+                                        </a>
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    @if(item.MeetingStatus == MeetingStatus.Cancelled)
+                    {
+                        <div class="col-sm-12 col-md-12 col-lg-4 mb-3">
+                            <div class="card shadow-sm meetings-card meetings-card-@item.MeetingId" style="text-decoration:line-through;">
+
+                                <div class="card-header d-flex" style="background-color: darkred; color: white; padding: 0.5rem;">
+                                    <h6 class="card-title mb-0">@Html.DisplayFor(modelItem => item.MeetingTitle)</h6>
+                                </div>
+
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Attendees:</strong> @Html.DisplayFor(modelItem => item.MeetingAttendees)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Status:</strong> @Html.DisplayFor(modelItem => item.MeetingStatus)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Date:</strong> @Html.DisplayFor(modelItem => item.MeetingDate)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Venue:</strong> @Html.DisplayFor(modelItem => item.Venue)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Time:</strong> @Html.DisplayFor(modelItem => item.MeetingTime)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Agenda:</strong> @Html.DisplayFor(modelItem => item.MeetingDescription)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Additional Comments:</strong> @Html.DisplayFor(modelItem => item.AdditionalComments)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-12 col-md-12 col-lg-4 mb-3">
+                            <div class="card shadow-sm meetings-card meetings-card-@item.MeetingId">
+
+                                @if (item.MeetingDate < DateTime.Now && item.MeetingStatus == MeetingStatus.Upcoming)
+                                {
+                                    <div class="card-header d-flex" style="background-color: green; color: white; padding: 0.5rem;">
+                                        <h6 class="card-title mb-0">@Html.DisplayFor(modelItem => item.MeetingTitle)</h6>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="card-header d-flex" style="background-color: #324260; color: white; padding: 0.5rem;">
+                                        <h6 class="card-title mb-0">@Html.DisplayFor(modelItem => item.MeetingTitle)</h6>
+                                    </div>
+                                }
+
+
+                                <div class="card-body" style="padding: 0.5rem;">
+                                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Attendees:</strong> @Html.DisplayFor(modelItem => item.MeetingAttendees)</p>
+                                    <div style="margin: 0.3rem  0; font-size: 14px;"><strong>Status:</strong> 
+                                        @if(item.MeetingDate < DateTime.Now && item.MeetingStatus == MeetingStatus.Upcoming)
+                                        {
+                                            <span style="color:green;">Successful<i class="fa fa-check-circle" style="color:green;"></i></span>
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.MeetingStatus)
+                                        }
+                                    </div>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Date:</strong> @Html.DisplayFor(modelItem => item.MeetingDate)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Venue:</strong> @Html.DisplayFor(modelItem => item.Venue)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Time:</strong> @Html.DisplayFor(modelItem => item.MeetingTime)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Agenda:</strong> @Html.DisplayFor(modelItem => item.MeetingDescription)</p>
+                                    <p style="margin: 0.3rem  0; font-size: 14px;"><strong>Additional Comments:</strong> @Html.DisplayFor(modelItem => item.AdditionalComments)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no meetings yet.</p>
+        @if (User.IsInRole("Sport Administrator"))
+        {
+            @if (TempData["Message"] != null)
+            {
+                <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+                    @TempData["Message"]
+                    <span class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </span>
+                </div>
+            }
+            <br />
+            <div class="create-button">
+                <a href="@Url.Action("Create")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;">
+                    <i class="fas fa-plus"></i> Create new
+                </a>
+            </div>
+        }
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

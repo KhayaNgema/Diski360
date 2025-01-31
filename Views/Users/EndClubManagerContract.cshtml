@@ -1,0 +1,65 @@
+﻿@model MyField.ViewModels.EndClubManagerContractViewModel
+
+@{
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">Are you sure you want to end @Model.FullNames' contract?</h4>
+<br />
+<div class="club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="EndClubmanagerContract" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <div style="display: flex; justify-content: center; position: relative;">
+                    <div class="profile-picture-container" style="border: 1px solid #ccc; padding: 0; border-radius: 50%; width: 120px; height: 120px; overflow: hidden; position: relative;">
+                        <img id="profile-image-preview" src="~/@Model.ProfilePicture" alt="Current Profile Picture" class="club-badge-image" style="border-radius: 50%; width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="FullNames" class="form-control border-bottom-only" placeholder="FullNames" readonly />
+                <label asp-for="FullNames">Full names</label>
+                <span asp-validation-for="FullNames" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="PhoneNumber" class="form-control border-bottom-only" placeholder="PhoneNumber" readonly />
+                <label asp-for="PhoneNumber">Phone number</label>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control border-bottom-only" autocomplete="username" aria-required="true" placeholder="name@example.com" readonly />
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="UserId" value="@Model?.UserId" />
+                        <input type="submit" value="End contract" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+            logMessages.forEach(function (message) {
+                console.log(message);
+            });
+        })();
+    </script>
+}

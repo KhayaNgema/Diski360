@@ -1,0 +1,129 @@
+﻿@model MyField.Models.Club
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<style>
+    .highlighted {
+        background-color: #E4E7EB; /* Light grey background */
+    }
+
+</style>
+<div class="club-header-container">
+    <br />
+    @await Html.PartialAsync("_HomeButton")
+    <br />
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, you'll find a comprehensive summary of the club, including an outline of its history and key achievements. You can explore detailed profiles of players, view in-depth match statistics, and check the current standings and performance metrics for the club. This overview provides a thorough insight into the club's activities and progress over time.
+    </p>
+    <br />
+    <div class="d-flex align-items-center">
+        <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="club-badge-image-club" style="margin-right:20px;" />
+        <h3>@Model.ClubName (@Model.ClubAbbr)</h3>
+    </div>
+    <br />
+    <ul class="nav nav-tabs" id="clubTabs" role="tablist" style="background-color:white; color:black;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="true" onclick="loadTab('summary', '@Model.ClubId')">Summary</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false" onclick="loadTab('players', '@Model.ClubId')">Players</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="h2h-tab" data-bs-toggle="tab" data-bs-target="#h2h" type="button" role="tab" aria-controls="h2h" aria-selected="false" onclick="loadTab('h2h', '@Model.ClubId')">Matches</button>
+        </li>
+
+        @*     <li class="nav-item" role="presentation">
+        <button class="nav-link" id="ranking-tab" data-bs-toggle="tab" data-bs-target="#ranking" type="button" role="tab" aria-controls="ranking" aria-selected="false" onclick="loadTab('ranking', 'Clubs', 'Ranking')">Ranking</button>
+        </li> *@
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings" type="button" role="tab" aria-controls="standings" aria-selected="false" onclick="loadTab('standings', '@Model.ClubId')">Table</button>
+        </li>
+
+    </ul>
+</div>
+
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab"></div>
+    <div class="tab-pane fade" id="players" role="tabpanel" aria-labelledby="players-tab"></div>
+    <div class="tab-pane fade" id="h2h" role="tabpanel" aria-labelledby="h2h-tab"></div>
+@*     <div class="tab-pane fade" id="ranking" role="tabpanel" aria-labelledby="ranking-tab"></div> *@
+    <div class="tab-pane fade" id="standings" role="tabpanel" aria-labelledby="standings-tab"></div>
+</div>
+
+<script>
+    // Function to load tab content
+    function loadTab(tabName, clubId) {
+        // Remove active class from all tabs
+        document.querySelectorAll('.nav-link').forEach(function (element) {
+            element.classList.remove('active');
+        });
+
+        // Add active class to the clicked tab
+        document.getElementById(tabName + '-tab').classList.add('active');
+
+        // Hide content of all tabs
+        document.querySelectorAll('.tab-pane').forEach(function (element) {
+            element.classList.remove('show', 'active');
+        });
+
+        // Show content of the clicked tab
+        document.getElementById(tabName).classList.add('show', 'active');
+
+        // Construct the URL based on the tabName
+        var url;
+        if (tabName === 'summary') {
+            url = '@Url.Action("ClubSummary", "Clubs")';
+        } else if (tabName === 'players') {
+            url = '@Url.Action("ClubPlayers", "Clubs")';
+        } else if (tabName === 'h2h') {
+            url = '@Url.Action("HeadtoHead", "Clubs")';
+        } else if (tabName === 'ranking') {
+            url = '@Url.Action("Ranking", "Clubs")';
+        } else if (tabName === 'standings') {
+            url = '@Url.Action("ClubStandings", "Standings")';
+        }
+
+        // Pass clubId as data in the AJAX request
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { tab: tabName, clubId: clubId },
+            success: function (data) {
+                $('#' + tabName).html(data);
+
+                // After loading content, highlight the club row
+                highlightClubRow(clubId);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            }
+        });
+    }
+
+    // Function to highlight club row
+    function highlightClubRow(clubId) {
+        // Remove highlight from all table rows
+        document.querySelectorAll('.table tbody tr').forEach(function (row) {
+            row.classList.remove('highlighted');
+        });
+
+        // Highlight the row corresponding to the selected clubId
+        var clubRow = document.querySelector('.table tbody tr[data-club-id="' + clubId + '"]');
+        if (clubRow) {
+            clubRow.classList.add('highlighted');
+        } else {
+            console.error('No table row found for clubId:', clubId);
+        }
+    }
+
+    // Load summary tab content by default on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        loadTab('summary', '@Model.ClubId');
+    });
+</script>
+
+
+

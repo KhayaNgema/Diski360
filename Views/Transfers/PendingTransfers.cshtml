@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MyField.Models.Transfer>
+
+
+<br />
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Player
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Jersey number
+                    </th>
+                    <th>
+                        Current club
+                    </th>
+                    <th>
+                        Market value (ZAR)
+                    </th>
+                    <th>
+                        Sale status
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="white-space:nowrap;">
+                        <td>
+                            <img src="~/@item.Player.ProfilePicture" alt="@item.Player.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                            @Html.DisplayFor(modelItem => item.Player.FirstName)
+                            @Html.DisplayFor(modelItem => item.Player.LastName)
+                        </td>
+                        <td> @Html.DisplayFor(modelItem => item.Player.Position)</td>
+                        <td> @Html.DisplayFor(modelItem => item.Player.JerseyNumber)</td>
+                        <td class="column-max-width">
+                            <img src="~/@item.SellerClub.ClubBadge" alt="@item.SellerClub.ClubName" class="club-badge-image" style="margin-right: 20px;" />
+                            @Html.DisplayFor(modelItem => item.SellerClub.ClubName)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Player.MarketValue)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <form method="post" asp-action="CancelPlayerTransfer" asp-route-transferId="@item.TransferId">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-times-circle"></i>
+                                    Cancel Transfer
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no pending player transfers for this club </p>
+}
+
+
+
+<script>
+    function filterTransfers() {
+        var input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("searchInput");
+        filter = input.value.toLowerCase();
+        cardContainer = document.getElementById("playerCardsContainer");
+        cards = cardContainer.getElementsByClassName("player-card");
+
+        var resultsFound = false;
+
+        for (i = 0; i < cards.length; i++) {
+            var club = cards[i].getAttribute("data-club").toLowerCase();
+            var player = cards[i].getAttribute("data-player").toLowerCase();
+            var position = cards[i].getAttribute("data-position").toLowerCase();
+            if (club.indexOf(filter) > -1 || player.indexOf(filter) > -1 || position.indexOf(filter) > -1) {
+                cards[i].style.display = "";
+                resultsFound = true;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+
+        var noResultsMessage = document.getElementById("noResultsFound");
+        if (!resultsFound) {
+            noResultsMessage.style.display = "block";
+        } else {
+            noResultsMessage.style.display = "none";
+        }
+    }
+</script>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MyField.Models.HeadTohead>
+
+<br />
+
+<div class="club-stats h2h-table">
+        @if (Model == null || !Model.Any())
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no matches for this club. </p>
+    }
+    else
+    {
+    <table>
+        <tr style="color:White;">
+            <th style="width:80px;">Match Day</th>
+            <th>Matches</th>
+            <th>Score</th>
+            <th>FT</th>
+        </tr>
+        @foreach (var headToHead in Model.OrderByDescending(h => h.HeadToHeadDate))
+        {
+            <tr>
+                <td>
+                    <span style="padding-bottom:10px; width:80px;">@headToHead.HeadToHeadDate.ToString("dd MMM yyyy")</span> <!-- Display date in the desired format -->
+                </td>
+               
+                <td>
+                    <span style="padding-bottom:10px;">
+                        <img src="~/@headToHead.HomeTeam.ClubBadge" alt="@headToHead.HomeTeam.ClubName" class="h2h-club-image" style="margin-right:20px;" />
+                        @headToHead.HomeTeam.ClubName
+                    </span>
+                    <br>
+                    <span style="padding-bottom:15px;">
+                        <img src="~/@headToHead.AwayTeam.ClubBadge" alt="@headToHead.AwayTeam.ClubName" class="h2h-club-image" style="margin-right:20px;" />
+                        @headToHead.AwayTeam.ClubName
+                    </span>
+                </td>
+                <td>
+                    <span style="padding-bottom:10px;">@headToHead.HomeTeamGoals</span>
+                    <br>
+                    <span style="padding-bottom:15px;">@headToHead.AwayTeamGoals</span>
+                </td>
+                <td>
+                    @if (headToHead.MatchResults == "W")
+                    {
+                        <span class="result-win">W</span>
+                    }
+                    else if (headToHead.MatchResults == "L")
+                    {
+                        <span class="result-lose">L</span>
+                    }
+                    else if (headToHead.MatchResults == "D")
+                    {
+                        <span class="result-draw" style="color:white!important;"><i class="fa fa-hands-helping"></i></span>
+
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    }
+</div>

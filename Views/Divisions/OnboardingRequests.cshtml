@@ -1,0 +1,201 @@
+﻿@model IEnumerable<MyField.ViewModels.CombinedOnboardingRequestViewModel>
+
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Diski360 Customer Onboarding Requests";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .chart-container {
+        width: 100%;
+        margin-bottom: 20px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .chart-title {
+        color: #030319;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .chart-description {
+        color: #030319;
+        margin-bottom: 15px;
+    }
+
+    .chart-container canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+</style>
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Diski360 Customer Onboarding Requests</h4>
+<br />
+@if (Model.Any())
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, you will see the onboarding requests from customers. You will have full management capabilities for these requests, allowing you to review details, adjust RequestStatuses, and oversee all aspects of the onboarding process effectively.
+    </p>
+    <br />
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+    <div class="row">
+        <!-- First Table: Chart Container -->
+        <div class="col-12 col-lg-4">
+            <div class="chart-container">
+                <h5 class="chart-title"><i class="fas fa-user-check"></i> Onboarding Requests</h5>
+                <p class="chart-description">Onboarding requests data visualization</p>
+                <canvas id="onboardingRequestsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Second Table: Onboarding Requests Details -->
+        <div class="col-12 col-lg-8">
+            <div class="table-responsive">
+                <table class="table table-striped table-borderless clubs-table">
+                    <thead>
+                        <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                            <th style="white-space: nowrap;">Reference number</th>
+                            <th style="white-space: nowrap;">Date received</th>
+                            <th style="white-space: nowrap;">Division name</th>
+                            <th style="white-space: nowrap;">Request status</th>
+                            <th style="white-space: nowrap;">Manager name</th>
+                            <th style="white-space: nowrap;">More Info.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var combinedItem in Model.OrderByDescending(ci => ci.OnboardingRequestsViewModel.Max(item => item.DateTime)))
+                        {
+                            foreach (var item in combinedItem.OnboardingRequestsViewModel.OrderByDescending(i => i.DateTime))
+                            {
+                                var encryptedRequestId = encryptionService.Encrypt(item.RequestId);
+
+                                <tr>
+                                    <td class="column-max-width">
+                                        @Html.DisplayFor(modelItem => item.ReferenceNumber)
+                                    </td>
+                                    <td class="column-max-width">
+                                        @item.DateTime.ToString("ddd, dd/MM/yyyy")
+                                    </td>
+                                    <td class="column-max-width">
+                                        @Html.DisplayFor(modelItem => item.DivisionName) (@Html.DisplayFor(modelItem => item.DivisionAbbr))
+                                    </td>
+                                    <td style="white-space: nowrap;">
+                                        @if (item.Status == RequestStatus.Pending)
+                                        {
+                                            <span style="color: blue;">Pending <i class="fa fa-hourglass-half"></i></span>
+                                        }
+                                        else if (item.Status == RequestStatus.Approved)
+                                        {
+                                            <span style="color: green;">Approved <i class="fa fa-check-circle"></i></span>
+                                        }
+                                        else if (item.Status == RequestStatus.Rejected)
+                                        {
+                                            <span style="color: red;">Rejected <i class="fa fa-times-circle"></i></span>
+                                        }
+                                        else if (item.Status == RequestStatus.Completed)
+                                        {
+                                            <span style="color: green;">Completed <i class="fa fa-user-check"></i></span>
+                                        }
+                                    </td>
+                                    <td class="column-max-width">
+                                        @Html.DisplayFor(modelItem => item.ManagerName)
+                                    </td>
+                                    <td class="text-right">
+                                        <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.RequestId">
+                                            Actions
+                                        </button>
+                                        <div class="action-tab" id="actionTab-@item.RequestId" style="display: none;">
+                                            <a class="tab-item" href="@Url.Action("ReviewRequest", "Divisions", new { requestId = encryptedRequestId })">
+                                                <i class="fas fa-eye" style="color: blue;"></i> Review
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no requests yet.</p>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctxOnboarding = document.getElementById('onboardingRequestsChart').getContext('2d');
+    var onboardingRequestsChart = new Chart(ctxOnboarding, {
+        type: 'bar',
+        data: {
+            labels: ['Total', 'Approved', 'Pending', 'Rejected', 'Completed'], 
+            datasets: [{
+                label: 'Onboarding Requests',
+                data: [
+    @Model.Sum(m => m.OnboardingRequestsReportViewModel.TotalOnboardingRequests),
+    @Model.Sum(m => m.OnboardingRequestsReportViewModel.ApprovedOnboardingRequests),
+    @Model.Sum(m => m.OnboardingRequestsReportViewModel.PendingOnboardingRequests),
+    @Model.Sum(m => m.OnboardingRequestsReportViewModel.RejectedOnboardingRequests),
+    @Model.Sum(m => m.OnboardingRequestsReportViewModel.CompletedOnboardingRequests) 
+                    ],
+                backgroundColor: [
+                    '#1E90FF',
+                    'rgba(50, 205, 50, 0.2)', 
+                    '#FFD700', 
+                    '#FF0000', 
+                    '#4CAF50'  
+                ],
+                borderColor: [
+                    '#1E90FF', 
+                    '#32CD32', 
+                    '#FFD700', 
+                    '#FF0000', 
+                    '#4CAF50'  
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

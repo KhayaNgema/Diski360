@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 80vh; ">
+    <div style="background-color: lightgray; padding: 70px; text-align: center; border: 1px solid #ddd; width:100%; border-radius:10px;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 100px; color: lightgray;"></i>
+        <p style="font-weight:bold; font-size:160px;">404</p>
+        <h4>Page not found</h4>
+        <div class="create-button">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-create" style="white-space: nowrap;" id="addButton">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </div>
+</div>

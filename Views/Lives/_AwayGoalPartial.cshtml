@@ -1,0 +1,53 @@
+﻿@model MyField.ViewModels.AwayGoalCombinedViewModel
+
+
+<div>
+    <form id="awayGoalForm" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group row">
+            <label for="awayGoalScoredBy" class="col-sm-3 col-form-label">Goal scored by:</label>
+            <div class="col-sm-9">
+                <select id="awayGoalScoredBy" name="goalScoredBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label for="awayAssistedBy" class="col-sm-3 col-form-label">Assisted by:</label>
+            <div class="col-sm-9">
+                <select id="awayAssistedBy" name="assistedBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </form>
+
+</div>

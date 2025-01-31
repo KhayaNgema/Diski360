@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MyField.Models.Fine>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+<br />
+@if (Model.Any())
+{
+    <div class="fixtures-search-create-container" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="create-button">
+                <a href="@Url.Action("CreateClubFine")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;">
+                    <i class="fas fa-plus"></i> Create new
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space:nowrap;">
+                    <th>Club</th>
+                    <th>Rule violated</th>
+                    <th>Fine details</th>
+                    <th>Fine amount</th>
+                    <th>Fine due date</th>
+                    <th>Payment status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var encryptedFineId = encryptionService.Encrypt(item.FineId);
+
+                    <tr class="ellipsis">
+                        <td style="white-space: nowrap;">
+                            <img src="~/@item.Club.ClubBadge" alt="@item.Club.ClubName" class="club-badge-image" />
+                            @Html.DisplayFor(modelItem => item.Club.ClubName)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.RuleViolated)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FineDetails)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FineAmount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FineDuDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentStatus)</td>
+                        <td class="text-right">
+                            <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.FineId">
+                                Actions
+                            </button>
+                            <div class="action-tab" id="actionTab-@item.FineId" style="display: none;">
+                                <a class="tab-item" href="@Url.Action("UpdateClubFine", "Fines", new { fineId = encryptedFineId })">
+                                    <i class="fas fa-pen" style="color: blue;"></i> Update
+                                </a>
+                                <a class="tab-item" href="@Url.Action("MarkOverDueClubFine", "Fines", new { fineId = encryptedFineId })">
+                                    <i class="fas fa-clock" style="color: red;"></i> Mark overdue
+                                </a>
+                                <a class="tab-item" href="@Url.Action("DropClubFine", "Fines", new { fineId = encryptedFineId})">
+                                    <i class="fas fa-trash" style="color: red;"></i> Drop charges
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh;">There are no pending club fines yet.</p>
+    <div class="text-center">
+        <a href="@Url.Action("CreateClubFine")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;  margin-bottom: 20vh;">
+            <i class="fas fa-plus"></i> Create new
+        </a>
+    </div>
+}

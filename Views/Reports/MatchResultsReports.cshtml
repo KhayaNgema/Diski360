@@ -1,0 +1,141 @@
+﻿@model IEnumerable<MyField.Models.MatchResultsReports>
+
+@{
+    ViewData["Title"] = ViewBag.CurrentSeason + " Match Results Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">@ViewBag.CurrentSeason Season Match Results Reports</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view match results reports, including both released and unreleased results. This section provides detailed information on match outcomes that have been officially published as well as those pending release, giving you a complete overview of match results.
+</p>
+<br />
+@if(Model.Any())
+{
+<div class="table-responsive">
+    <table class="table table-striped table-borderless">
+        <thead>
+            <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                <th class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                    Category
+                </th>
+                <th class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                    Data
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Season
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.Season.LeagueYears)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Overall results
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.ExpectedResultsCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Released results
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.ReleasedResultsCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Unreleased results
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.UnreleasedResultsCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Total wins
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.WinsCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Total loses
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.LosesCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Total draws
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.DrawsCount)
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Released results rate
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.ReleasedResultsRate) %
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Unreleased results rate
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.UnreleasedMatchesRate) %
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Win rate
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.WinningRate) %
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Lose rate
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.LosingRate) %
+                    </td>
+                </tr>
+                <tr class="ellipsis">
+                    <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Draw rate
+                    </td>
+                    <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        @Html.DisplayFor(modelItem => item.DrawingRate) %
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+
+else
+{
+<div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+    <p class="text-center">There are no reports yet.</p>
+</div>
+}

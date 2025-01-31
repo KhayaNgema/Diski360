@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Sports Coordinator Dashboard";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: none;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background: white;
+        width: 100%;
+        height: 30vh; /* Reduced height */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* 3D shadow effect */
+    }
+
+
+    .card-title {
+        color: #030319;
+        font-size: 20px; /* Adjusted font size */
+    }
+
+    .card-text {
+        color: #030319;
+    }
+
+    .btn-primary {
+        background-color: #B0E0FC;
+        color: #030319;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #030319;
+        }
+
+    .styled-button {
+        background-color: #ffffff;
+        color: #030319;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        text-decoration: none;
+    }
+
+        .styled-button span.arrow {
+            margin-left: 10px;
+        }
+
+    .center-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30%;
+        margin: 0;
+    }
+
+    h2 {
+        color: #D4D4D4;
+    }
+</style>
+
+<br />
+<h2>
+    <div style="display: flex; align-items: center;">
+        <img src="~/@ViewBag.DivisionBadge" alt="@ViewBag.DivisionName" style="width: 60px; height: 60px; margin-right: 20px; object-fit: cover;" />
+        <div style="display: flex; flex-direction: column; align-items: flex-start; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            <h2 style="margin: 0;">@ViewBag.DivisionName</h2>
+        </div>
+    </div>
+</h2>
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="card clubs-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="fas fa-users"></i> Participating Clubs</h5>
+                    <p class="card-text">Participating clubs will be listed here</p>
+                    <h1 class="card-text text-center center-number">@ViewBag.ClubsCount</h1>
+                    <a asp-controller="Clubs" asp-action="ClubsBackOffice" class="btn btn-primary mt-auto align-self-end styled-button">
+                        <span>Clubs</span>
+                        <span class="arrow">&#10148;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="card sport-members-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="fas fa-calendar-alt"></i>Fixtures</h5>
+                    <p class="card-text">Fixtures are listed here</p>
+                    <h1 class="card-text text-center center-number">@ViewBag.FixturesCount</h1>
+                    <a asp-controller="Fixtures" asp-action="FixturesBackOffice" class="btn btn-primary mt-auto align-self-end styled-button">
+                        <span>Fixtures</span>
+                        <span class="arrow">&#10148;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="card club-managers-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="fas fa-futbol"></i> Match Results</h5>
+                    <p class="card-text">Match Results are listed here</p>
+                    <h1 class="card-text text-center center-number">@ViewBag.MatchResultsCount</h1>
+                    <a asp-controller="MatchResults" asp-action="MatchResultsBackOffice" class="btn btn-primary mt-auto align-self-end styled-button">
+                        <span>Results</span>
+                        <span class="arrow">&#10148;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card meetings-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="fas fa-calendar"></i> Meetings</h5>
+                    <p class="card-text">Meetings are listed here</p>
+                    <h1 class="card-text text-center center-number">@ViewBag.SportCoordinatorsMeetingsCount</h1>
+                    <a asp-controller="Meetings" asp-action="Meetings" class="btn btn-primary mt-auto align-self-end styled-button">
+                        <span>Meetings</span>
+                        <span class="arrow">&#10148;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card aanouncement-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="fas fa-bullhorn"></i> Announcements</h5>
+                    <p class="card-text">Announcements will be listed here</p>
+                    <h1 class="card-text text-center center-number">@ViewBag.AnnouncementsCount</h1>
+                    <a asp-controller="Announcements" asp-action="Announcements" class="btn btn-primary mt-auto align-self-end styled-button">
+                        <span>Announcements</span>
+                        <span class="arrow">&#10148;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

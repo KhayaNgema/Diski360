@@ -1,0 +1,100 @@
+﻿@model IEnumerable<MyField.Models.FansAccountsReport>
+
+@{
+    ViewData["Title"] = "Fans Accounts Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Fans Accounts Reports</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view fan account reports, including details on all account statuses. This provides a comprehensive overview of fan accounts, helping you manage and track account activities and statuses effectively.
+</p>
+<br />
+@if(Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Category
+                    </th>
+                    <th class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        Data
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Overall accounts count
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.OverallFansAccountsCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Active accounts count
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.ActiveFansAccountsCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Inactive accounts count
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.InactiveFansAccountsCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Suspended accounts count
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.SuspendedFansAccountsCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Active accounts rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.ActiveFansAccountsRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Inactive accounts rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.InactiveFansAccountsRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Suspended accounts rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.SuspendedFansAccountsRate) %
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no reports yet.</p>
+    </div>
+}

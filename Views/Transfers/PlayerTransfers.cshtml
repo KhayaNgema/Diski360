@@ -1,0 +1,91 @@
+﻿@model MyField.Models.Transfer
+
+@{
+    ViewData["Title"] = ViewBag.CurrentSeason + " Player Transfer";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">@ViewBag.CurrentSeason Player Transfers</h4>
+<br />
+
+<ul class="nav nav-tabs" id="clubFinesTabs" role="tablist" style="overflow-x: auto; white-space: nowrap; display: flex; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0;">
+        <button class="nav-link active" id="pendingTranfsers-tab" data-bs-toggle="tab" data-bs-target="#pendingTranfsers" type="button" role="tab" aria-controls="pendingTranfsers" aria-selected="true" onclick="loadTab('pendingTranfsers')">Pending</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="acceptedTranfsers-tab" data-bs-toggle="tab" data-bs-target="#acceptedTranfsers" type="button" role="tab" aria-controls="acceptedTranfsers" aria-selected="false" onclick="loadTab('acceptedTranfsers')">Accepted</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="paidTranfsers-tab" data-bs-toggle="tab" data-bs-target="#paidTranfsers" type="button" role="tab" aria-controls="paidTranfsers" aria-selected="false" onclick="loadTab('paidTranfsers')">Paid</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="rejectedTranfsers-tab" data-bs-toggle="tab" data-bs-target="#rejectedTranfsers" type="button" role="tab" aria-controls="rejectedTranfsers" aria-selected="false" onclick="loadTab('rejectedTranfsers')">Rejected</button>
+    </li>
+</ul>
+
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close" onclick="closeMessage()">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="pendingTranfsers" role="tabpanel" aria-labelledby="pendingTranfsers-tab"></div>
+    <div class="tab-pane fade" id="acceptedTranfsers" role="tabpanel" aria-labelledby="acceptedTranfsers-tab"></div>
+    <div class="tab-pane fade" id="paidTranfsers" role="tabpanel" aria-labelledby="paidTranfsers-tab"></div>
+    <div class="tab-pane fade" id="rejectedTranfsers" role="tabpanel" aria-labelledby="rejectedTranfsers-tab"></div>
+</div>
+
+<div id="errorMessage" style="display: none;"></div>
+
+<script>
+    function loadTab(tabName) {
+        $('.nav-link').removeClass('active');
+        $('#' + tabName + '-tab').addClass('active');
+        $('.tab-pane').removeClass('show active');
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'pendingTranfsers') {
+                url = '@Url.Action("PendingTransfers", "Transfers")';
+            } else if (tabName === 'acceptedTranfsers') {
+                url = '@Url.Action("AcceptedTransfers", "Transfers")';
+            } else if (tabName === 'paidTranfsers') {
+                url = '@Url.Action("PaidTransfers", "Transfers")';
+            } else if (tabName === 'rejectedTranfsers') {
+                url = '@Url.Action("RejectedTransfers", "Transfers")';
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                }
+            });
+        }
+    }
+
+    function closeMessage() {
+        $('#tempDataMessage').hide();
+    }
+
+    $(document).ready(function () {
+        loadTab('pendingTranfsers');
+    });
+
+    setTimeout(function () {
+        closeMessage();
+    }, 3000);
+</script>

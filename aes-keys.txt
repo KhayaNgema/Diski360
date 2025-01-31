@@ -1,0 +1,2 @@
+AES Key (Base64): zFtaBO7f9koUfSNq5aALeSgnYJLpf6iiYWPC6jTfEcA=
+AES IV (Base64): vSwiy8UCeCLezLqpIR6THQ==

@@ -1,0 +1,53 @@
+﻿@model MyField.ViewModels.PayFineViewModel
+
+@{
+    ViewData["Title"] = "Pay fines";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Pay fine</h4>
+<br />
+
+<div class="d-flex justify-content-center">
+    <div class="player-transfer-card">
+        <div class="header" style="text-align:left;">
+        <div class="card-body">
+        <form asp-controller="Billings" asp-action="PayFines" method="post">
+
+          @Html.AntiForgeryToken()
+
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label><strong>Offence:</strong> @Model.FineDetails</label>
+            </div>
+
+            <div class="mb-3">
+                <label><strong>Amount: </strong> ZAR @Model.FineAmount </label>
+            </div>
+
+            <div class="mb-3">
+                <label><strong>Due Date:</strong> @Model.FineDueDate </label>
+            </div>
+
+                   
+                        <input type="hidden" asp-for="@Model.FineAmount" />
+                        <input type="hidden" asp-for="@Model.FineDetails" />
+                        <input type="hidden" asp-for="@Model.FineDueDate" />
+                        <input type="hidden" asp-for="@Model.PaymentStatus" />
+
+
+            <div class="text-end">
+                            <input type="hidden" asp-for="FineId" value="@Model?.FineId" />
+                <button type="submit" class="btn btn-success">Proceed <i class="fa fa-money-bill-wave"></i></button>
+            </div>
+          </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,257 @@
+﻿@model MyField.ViewModels.OverviewViewModel
+
+<style>
+    .event-container {
+        margin: 5px 0;
+        overflow:auto;
+    }
+
+    .col {
+        background-color: #f2f2f2; 
+        padding: 20px; 
+        border-radius: 2px;
+        margin-bottom:0px;
+    }
+
+    .event-card {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .home-event {
+        text-align: left;
+    }
+
+    .away-event {
+        text-align: right;
+    }
+
+    .half-time-label {
+        display: none;
+        background-color: white;
+        color: green;
+        padding: 5px 10px;
+        border: 1px solid green;
+        border-radius: 3px;
+        z-index: 1;
+        width: 80px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .half-time-text {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .scores {
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+
+<input asp-for="@Model.FixtureId" type="hidden" id="fixtureId" value="@Model.FixtureId" />
+
+<div class="container">
+    <div id="events-container" class="event-container"></div>
+    <div id="halftime-container" class="half-time-label">
+        <div class="half-time-text">HT</div>
+        <div id="halftime-scores" class="scores"></div>
+    </div>
+</div>
+<div>
+    <div class="kickoff-container">
+        <p style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size:16px;"><i class="fa fa-flag-checkered"> KickOff</i></p>
+    </div>
+</div>
+<div class="col">
+    <div class="actions-container">
+        <p><i class="fa fa-futbol goal"></i> Goal</p>
+        <p><i class="fa fa-futbol penalty"></i> Penalty</p>
+        <p><i class="fa fa-futbol own-goal"></i> Own goal</p>
+        <p><i class="fa fa-square red-card"></i> Red card</p>
+        <p><i class="fa fa-square yellow-card"></i> Yellow card</p>
+        <p><i class="fa fa-arrow-up" style="font-size:12px; color:green;"></i> Player in</p>
+        <p><i class="fa fa-arrow-down" style="font-size:12px; color:red;"></i> Player out</p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var fixtureId = $('#fixtureId').val();
+        var intFixtureId = parseInt(fixtureId, 10);
+        var debounceTimer;
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/matchHub")
+            .build();
+
+        connection.start()
+            .then(() => {
+                console.log("SignalR connected!");
+                if (intFixtureId) {
+                    connection.invoke("SendUpdate", intFixtureId)
+                        .catch(err => console.error(err.toString()));
+                }
+            })
+            .catch(err => console.error(err.toString()));
+
+        connection.on("ReceiveUpdate", (receivedFixtureId) => {
+            if (receivedFixtureId === intFixtureId) {
+                fetchEvents(fixtureId);
+                updateMatchStatus(fixtureId);
+            }
+        });
+
+        function debounce(func, delay) {
+            return function (...args) {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        const debouncedSendUpdate = debounce(function (intFixtureId) {
+            if (intFixtureId) {
+                connection.invoke("SendUpdate", intFixtureId)
+                    .catch(err => console.error(err.toString()));
+            }
+        }, 1000);
+
+        $('#someElement').on('someEvent', function () {
+            debouncedSendUpdate(intFixtureId);
+        });
+
+        function fetchEvents(fixtureId) {
+            $.when(
+                $.ajax({ url: `/Lives/GetHomeEvents?fixtureId=${fixtureId}`, type: 'GET' }),
+                $.ajax({ url: `/Lives/GetAwayEvents?fixtureId=${fixtureId}`, type: 'GET' })
+            ).done(function (homeData, awayData) {
+                let allEvents = processEventsData(homeData[0], 'home').concat(processEventsData(awayData[0], 'away'));
+                allEvents.sort((a, b) => new Date(b.recordedTime) - new Date(a.recordedTime));
+
+                const eventsHtml = allEvents.map(event => createEventHtml(event)).join('');
+                $('#events-container').html(eventsHtml);
+            }).fail(function (xhr, status, error) {
+                console.error('AJAX Error:', error);
+                console.error('Response Text:', xhr.responseText);
+            });
+        }
+
+        function processEventsData(data, type) {
+            let allEvents = [];
+            Object.keys(data).forEach(eventType => {
+                if (data[eventType] && Array.isArray(data[eventType])) {
+                    data[eventType].forEach(event => {
+                        let formattedEvent = { ...event, _eventType: eventType, eventType: type };
+                        switch (eventType) {
+                            case 'liveGoals':
+                                formattedEvent.scoredTime = event.scoredTime;
+                                break;
+                            case 'liveAssists':
+                                formattedEvent.assistedBy = event.assistedBy;
+                                break;
+                            case 'penalties':
+                                formattedEvent.scoredTime = event.penaltyTime;
+                                formattedEvent.scoreBy = event.takenBy;
+                                break;
+                            case 'redCards':
+                            case 'yellowCards':
+                                formattedEvent.scoredTime = event.issuedTime;
+                                formattedEvent.scoreBy = event.issuedTo;
+                                break;
+                            case 'substitutes':
+                                formattedEvent.scoredTime = event.substitutionTime;
+                                formattedEvent.scoreBy = `<i class="fa fa-arrow-up" style="font-size:12px; color:green;"> </i> In: ${event.playerIn}<br><i class="fa fa-arrow-down" style="font-size:12px; color:red;"> </i> Out: ${event.playerOut}`;
+                                break;
+                            case 'liveOwnGoals':
+                                formattedEvent.scoredTime = event.scoredTime;
+                                formattedEvent.scoreBy = event.ownGoalScoredBy;
+                                break;
+                        }
+                        allEvents.push(formattedEvent);
+                    });
+                }
+            });
+            return allEvents;
+        }
+
+        function createEventHtml(event) {
+            let icon = '';
+            let additionalInfo = '';
+
+            switch (event._eventType) {
+                case 'liveGoals':
+                    icon = '<i class="fa fa-futbol goal"></i>';
+                    additionalInfo = event.assist ? `<div style="color:#999999; margin-top:2px;">Assist: ${event.assist}</div>` : '';
+                    break;
+                case 'penalties':
+                    icon = '<i class="fa fa-futbol penalty"></i>';
+                    break;
+                case 'redCards':
+                    icon = '<i class="fa fa-square red-card"></i>';
+                    additionalInfo = event.redCardReason ? `<div style="color:#999999; margin-top:2px;">${event.redCardReason}</div>` : '';
+                    break;
+                case 'yellowCards':
+                    icon = '<i class="fa fa-square yellow-card"></i>';
+                    additionalInfo = event.yellowCardReason ? `<div style="color:#999999; margin-top:2px;">${event.yellowCardReason}</div>` : '';
+                    break;
+                case 'substitutes':
+                    icon = '';
+                    break;
+                case 'liveOwnGoals':
+                    icon = '<i class="fa fa-futbol own-goal"></i>';
+                    break;
+                default:
+                    icon = '';
+                    additionalInfo = '';
+                    break;
+            }
+
+            let alignmentClass = event.eventType === 'home' ? 'home-event' : 'away-event';
+
+            return `<div class="event-card ${alignmentClass}">
+                                <p>${icon} ${event.scoreBy || ''} - ${event.scoredTime || 'N/A'}</p>
+                                ${additionalInfo}
+                            </div>`;
+        }
+
+
+        function updateMatchStatus(fixtureId) {
+            $.ajax({
+                url: `/Lives/GetLiveMatchStatus?fixtureId=${fixtureId}`,
+                type: 'GET',
+                success: function (data) {
+                    if (data) {
+                        var liveTime = data.LiveTime;
+                        var matchTime = data.MatchTime;
+                        var halftime = data.HalfTime;
+                        if (liveTime && matchTime) {
+                            $('#halftime-container').hide();
+                            var timeDifference = calculateTimeDifference(liveTime, matchTime);
+                            $('#halftime-container').show();
+                            $('#halftime-scores').text(timeDifference);
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                    console.error('Response Text:', xhr.responseText);
+                }
+            });
+        }
+
+        function calculateTimeDifference(liveTime, matchTime) {
+            let live = new Date(liveTime);
+            let match = new Date(matchTime);
+            let difference = live - match;
+            let minutes = Math.floor(difference / 60000);
+            let seconds = ((difference % 60000) / 1000).toFixed(0);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+    });
+</script>
+

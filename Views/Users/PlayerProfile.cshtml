@@ -1,0 +1,280 @@
+﻿@using System.Security.Claims
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@model MyField.ViewModels.CombinedPlayerViewModel
+
+@{
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+
+    var encryptedUserId = encryptionService.Encrypt(Model.PlayerProfileViewModel.UserId);
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h5 class="text-center">@Model.PlayerProfileViewModel.Names @Model.PlayerProfileViewModel.LastName 's Profile</h5>
+<br />
+
+<div class="profile-info-container">
+    <div class="profile-details">
+        <h5>@Model.PlayerProfileViewModel.Names @Model.PlayerProfileViewModel.LastName</h5>
+        <p>@ViewBag.UserRole</p>
+    </div>
+    <div class="profile-picture-container">
+        <img id="profile-image-preview" src="~/@Model.PlayerProfileViewModel.ProfilePicture" alt="Current Profile Picture" class="club-badge-image" />
+    </div>
+</div>
+
+<div class="additional-info-container">
+    <div class="row mb-3">
+        <div class="col-6">
+            <label><i class="fa fa-user"></i> Club:</label>
+        </div>
+        <div class="col-6">
+            <p class="form-control-static">@ViewBag.Club</p>
+        </div>
+    </div>
+
+    @if (User.IsInRole("Club Administrator") || User.IsInRole("Personnel Administrator") || User.IsInRole("Player") || User.IsInRole("News Administrator") || User.IsInRole("News Updator") || User.IsInRole("Club Manager"))
+    {
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-phone-alt"></i> Phone number:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerProfileViewModel.Phone</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-envelope"></i> Email address:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerProfileViewModel.Email</p>
+            </div>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label><i class="fa fa-tshirt"></i> Jersey number:</label>
+        </div>
+        <div class="col-6">
+            <p class="form-control-static">@Model.PlayerProfileViewModel.JerseyNumber</p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+            <label><i class="fa fa-landmark"></i> Position:</label>
+        </div>
+        <div class="col-6">
+            <p class="form-control-static">@Model.PlayerProfileViewModel.Position</p>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-6">
+            <label><i class="fa fa-calendar-alt"></i> Date of Birth:</label>
+        </div>
+        <div class="col-6">
+            @Model.PlayerProfileViewModel.DateOfBirth.ToString("dd MMM, yyyy")
+        </div>
+    </div>
+
+    @if (ViewBag.UserSubscription == SubscriptionPlan.Premium || ViewBag.UserSubscription == SubscriptionPlan.Club_Premium)
+    {
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-user-check"></i> Appearances:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.Appearances</p>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-futbol"></i> Goals:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.Goals</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-futbol own-goal"></i> Own goals:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.OwnGoals</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-hands-helping"></i> Assists:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.Assists</p>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-square yellow-card-alt"></i> Yellow cards:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.YellowCards</p>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6">
+                <label><i class="fa fa-square red-card-alt"></i> Red cards:</label>
+            </div>
+            <div class="col-6">
+                <p class="form-control-static">@Model.PlayerStatsViewModel.RedCards</p>
+            </div>
+        </div>
+    }
+    else if (ViewBag.UserSubscription == SubscriptionPlan.Basic)
+    {
+        <div class="d-flex justify-content-center mb-3">
+            <div class="text-center me-3">
+                <p><i class="fa fa-lock"></i> Subscribe now to see full player statistics which includes, appearances, overall goals, yellow cards, red cards, and own goals.</p>
+            </div>
+            <div class="text-center">
+                <a href="@Url.Action("UserSubscribe", "Subscriptions")" class="btn"
+                   style="border-radius: 25px; background-color: #000325; color: white;">
+                    Subscribe
+                </a>
+            </div>
+        </div>
+    }
+
+
+
+
+    @if (User.IsInRole("Club Administrator"))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" style="display: flex; justify-content: flex-end;">
+                    <a href="@Url.Action("UpdatePlayerProfile", new { userId = encryptedUserId })" class="btn btn-outline-primary">
+                        <i class="fa fa-pen"></i> Update
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else if (User.IsInRole("Player"))
+    {
+        <p class="text-center" style="font-family:Arial;"><i class="fa fa-lock"> This profile is managed by @ViewBag.Club, if you want to update it, please contact your club administrator. </i></p>
+    }
+    else if (!User.Claims.Any(c => c.Type == ClaimTypes.Role))
+    {
+
+    }
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                function previewProfilePicture(event) {
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        var output = document.getElementById('profile-image-preview');
+                        output.src = reader.result;
+                        output.style.display = 'block';
+                    };
+                    reader.readAsDataURL(event.target.files[0]);
+                }
+
+                document.getElementById('Input_ProfilePicture').addEventListener('change', function (event) {
+                    previewProfilePicture(event);
+                });
+            });
+
+            (function () {
+                var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+                logMessages.forEach(function (message) {
+                    console.log(message);
+                });
+            })();
+        </script>
+    }
+
+    <style>
+        .profile-info-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .profile-picture-container {
+            border: 1px solid #ccc;
+            padding: 0;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            background-color: #fff;
+            margin-left: 5px;
+        }
+
+        .club-badge-image {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            flex-grow: 1;
+            text-align: center;
+            margin-left: 5px;
+        }
+
+            .profile-details h5 {
+                margin: 0;
+                font-size: 1.25rem;
+            }
+
+            .profile-details p {
+                margin: 0;
+                font-size: 1rem;
+            }
+
+        .additional-info-container {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control-static {
+            padding-top: .375rem;
+            padding-bottom: .375rem;
+            margin-bottom: 0;
+            line-height: 1.5;
+            display: block;
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-danger {
+            font-size: 0.875em;
+        }
+
+    </style>

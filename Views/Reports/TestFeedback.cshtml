@@ -1,0 +1,50 @@
+﻿@model MyField.ViewModels.FeedbackViewModel
+
+@{
+    ViewData["Title"] = "Beta Version Feedback Form";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 style="text-align:center;">Share your experience with us! &#x1F600;&#x1F600;</h4>
+<br />
+<div class="feedback-container"
+    <div class="row">
+        @if (TempData["Message"] != null)
+        {
+                <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+                @TempData["Message"]
+                    <span class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </span>
+                </div>
+        }
+        <div class="col-md-12">
+            <form asp-action="TestFeedback" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-3">
+                    <textarea asp-for="FeedbackText" class="form-control" placeholder="FeedbackText" style="min-height: 250px;"></textarea>
+                    <label asp-for="FeedbackText" class="form-label">Feedback</label>
+                    <span asp-validation-for="FeedbackText" class="text-danger"></span>
+                </div>
+                <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Submit" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>
+

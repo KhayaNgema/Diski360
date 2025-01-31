@@ -1,0 +1,143 @@
+﻿@model IEnumerable<MyField.Models.MatchReports>
+
+@{
+    ViewData["Title"] = ViewBag.CurrentSeason + " Matches Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">@ViewBag.CurrentSeason Season Matches Reports</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view match reports, including details on matches to be played, matches that have been played, and those that have been interrupted or postponed. This section provides a comprehensive overview of all match activities and statuses.
+</p>
+<br />
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                        Category
+                    </th>
+                    <th class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                        Data
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Season
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.Season.LeagueYears)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Overall matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.MatchesToBePlayedCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Fixtured matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.FixturedMatchesCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Unreleased matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.UnreleasedFixturesCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Played matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.PlayedMatchesCounts)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Postponed matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.PostponedMatchesCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Interrupted matches
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.InterruptedMatchesCount)
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Fixtured matches rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.FixturedMatchesRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Not fixtured matches rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.UnfixturedMatchesRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Played matches rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.PlayedMatchesRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Postponed matches rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.PostponedMatchesRate) %
+                        </td>
+                    </tr>
+                    <tr class="ellipsis">
+                        <td class="text-left vertical-align" style="width: 30%; padding-right: 20px;">
+                            Interrupted matches rate
+                        </td>
+                        <td class="text-right vertical-align" style="width: 70%; padding-left: 20px;">
+                            @Html.DisplayFor(modelItem => item.InterruptedMatchesRate) %
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no reports yet.</p>
+    </div>
+}

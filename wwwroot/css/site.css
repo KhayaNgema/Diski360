@@ -1,0 +1,3239 @@
+html, body {
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+}
+
+.layout-logo-container img {
+    width: 100px;
+    height: 40px;
+    object-fit: cover;
+    background-color: transparent;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+/* News Card CSS */
+/* Welcome and Home page news */
+
+.card {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 767px) {
+    .card {
+        height: auto;
+    }
+
+    .newsImageContainer {
+        height: 30vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .card {
+        height: auto;
+    }
+
+    .newsImageContainer {
+        height: 30vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        height: 70vh;
+    }
+
+    .newsImageContainer {
+        height: 37vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .card-title {
+        font-size: 22px;
+    }
+}
+
+
+    /* Club badge image (Fixtures) CSS */
+    /* Clubs page, Fixtures page, Update score page & Clubs list page */
+
+.fixtures-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 5px!important; 
+}
+
+
+.fixtures-card-body {
+    padding: 2px!important;
+}
+
+.fixtures-card-badge-image {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.fixtures-card-footer {
+    background-color: transparent;
+    border-top: none;
+}
+
+.fixtures-card-btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.fixtures-card .fa-video, .fixtures-card .fa-arrow-right {
+    font-size: 12px;
+}
+.custom-line {
+    border-top: 1px solid #ddd; 
+    height: 1px;
+    margin: 5px 0; 
+    width: 100%;
+}
+
+
+
+.fixtures-card .text-primary {
+    color: #007bff;
+}
+
+.fixtures-card .text-danger {
+    color: #dc3545;
+}
+
+.fixtures-card .card-text {
+    margin-bottom: 5px;
+}
+
+    .club-badge-image {
+        height: 30px;
+        width: 40px;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+    }
+
+    @media (min-width: 768px) {
+        .club-badge-image {
+            height: 30px;
+            width: 40px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .club-badge-image {
+            height: 40px;
+            width: 50px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    .club-badge-image-club {
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+    }
+
+    @media (min-width: 768px) {
+        .club-badge-image-club {
+            height: 50px;
+            width: 50px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .club-badge-image-club {
+            height: 60px;
+            width: 60px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+
+
+    /*Cub list page*/
+
+    .list-group {
+        border: none;
+    }
+
+    .card-footer {
+        background-color: white;
+        border: none !important;
+    }
+
+
+#loginNav {
+    background-color: #000325;
+    color: #2E5A88;
+    height: 60px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+#homeTabsNav {
+    background-color: #d8d8d8;
+    color: black;
+    height: 43px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 103px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+#homeTabsNav-lay {
+    background-color: #d8d8d8;
+    color: black;
+    height: 43px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+#divisionNav {
+    background-color: white;
+    color: black;
+    height: 43px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+
+
+#scrollTextNav {
+    background-color: #fff;
+    color: black;
+    height: 40px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 146px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+    justify-content: center;
+}
+
+#scrollTextNav-lay {
+    background-color: #fff;
+    color: black;
+    height: 40px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 103px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+    justify-content: center;
+}
+
+
+#scrollTextNav-pl {
+    background-color: #fff;
+    color: black;
+    height: 40px;
+    border-radius: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+    justify-content: center;
+}
+
+.division-button {
+    position: absolute;
+    left: 0;
+    background-color: white;
+    border: none;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 0;
+    z-index: 10;
+    padding: 10px;
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+.pages-footer {
+    transition: margin-left 0.4s ease, padding-left 0.4s ease;
+}
+
+    .division-button i {
+        margin-right: 8px;
+        font-size: 18px;
+    }
+
+        .division-button i:first-child {
+            margin-right: 5px;
+        }
+
+@media screen and (min-width: 992px) {
+    #page-content-wrapper {
+        height: 100%;
+        width: 100%;
+        transition: margin-left 0.4s ease, padding-left 0.4s ease;
+        margin-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    #loginNav.shifted, #homeTabsNav.shifted, #scrollTextNav-pl.shifted, #scrollTextNav.shifted, #scrollTextNav-lay.shifted, #divisionNav.shifted, #homeTabsNav-lay.shifted, .division-button.shifted, .pages-footer.shifted {
+        margin-left: 0px;
+        padding-left: 285px;
+    }
+
+    #page-content-wrapper.shifted {
+        margin-left: 0px;
+        padding-left: 285px;
+    }
+
+    #wrapper {
+        display: flex;
+    }
+
+        #wrapper.toggled #sidebar-wrapper {
+            width: 285px;
+        }
+
+    #page-content-wrapper {
+        width: 100%;
+        transition: margin-left 0.4s ease, padding-left 0.4s ease;
+        margin-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        margin-left: 285px;
+    }
+}
+
+#sidebar-wrapper {
+    position: fixed;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #000325;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: width 0.4s ease;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    color: white;
+    top: 0px;
+    padding-top: 0;
+    padding-bottom:20px;
+}
+
+@media screen and (max-width: 768px) {
+    #page-content-wrapper {
+        height: 100%;
+        width: 100%;
+        transition: margin-left 0.4s ease, padding-left 0.4s ease;
+        margin-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+
+    #loginNav.shifted, #homeTabsNav.shifted, #scrollTextNav-pl.shifted, #scrollTextNav.shifted, #scrollTextNav-lay.shifted, #divisionNav.shifted, #homeTabsNav-lay.shifted, .division-button.shifted, .pages-footer.shifted {
+        margin-left: 0px;
+        padding-left: 225px;
+    }
+
+    #page-content-wrapper.shifted {
+        margin-left: 0px;
+        padding-left: 225px;
+    }
+
+    #wrapper {
+        display: flex;
+    }
+
+        #wrapper.toggled #sidebar-wrapper {
+            width: 225px;
+        }
+
+    #page-content-wrapper {
+        width: 100%;
+        transition: margin-left 0.4s ease, padding-left 0.4s ease;
+        margin-left: 0;
+        padding-right: 0;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        margin-left: 225px;
+    }
+}
+
+    .white-icon {
+        color: white;
+    }
+
+        .white-icon:hover,
+        .white-icon:active {
+            color: white;
+        }
+
+    /* Loading page overlay CSS */
+    #loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Ensure it's above other content */
+    }
+
+    .loading-spinner {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        border: 10px solid rgba(255, 255, 255, 0.3);
+        border-top: 10px solid #ffffff;
+    }
+
+    .loading-text {
+        color: #ffffff;
+        font-size: 18px;
+        margin-top: 10px; /* Adjust spacing between spinner and text */
+    }
+
+
+    /* Animation for spinner */
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(90deg);
+        }
+
+        50% {
+            transform: rotate(180deg);
+        }
+
+        75% {
+            transform: rotate(270deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading-spinner {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+        color: #ffffff;
+        margin-top: 10px;
+    }
+
+
+    /* Match results card */
+    /* Landing page */
+
+    @media screen and (max-width: 768px) {
+        .match-card {
+            width: 350px;
+            height: 10vh;
+            white-space: nowrap;
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: auto; /* Pushes the card to the right end */
+            margin-left: auto; /* Pushes the card to the left end */
+            left: 0 !important;
+            right: 0 !important; /* Ensures the card spans the full width */
+        }
+
+        .vs {
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+        }
+
+        /* CSS */
+        .card-title {
+            white-space: nowrap; /* Prevents wrapping by default */
+            overflow: hidden; /* Hides overflow content */
+            text-overflow: ellipsis; /* Shows an ellipsis (...) when content overflows */
+        }
+
+        @media screen and (max-width: 768px) {
+            .card-title {
+                white-space: normal; /* Allows the club name to wrap to the next line */
+                overflow: unset; /* Resets overflow property */
+                text-overflow: unset; /* Resets text-overflow property */
+            }
+        }
+    }
+
+
+
+    @media screen and (min-width: 992px) {
+        .match-card {
+            width: 800px;
+            height: 20vh;
+            border: none !important;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .row.align-items-center.justify-content-center {
+            flex-direction: row; /* Ensure flex items stay in a row */
+        }
+
+        .col-sm-3.text-center {
+            flex-basis: 33.33%; /* Set flex basis to 33.33% for equal distribution */
+        }
+    }
+
+    /*Standings Last 5games circles*/
+
+    .outcome-circle {
+        border-radius: 50%;
+        padding: 3px;
+        width: 20px;
+        height: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+        .outcome-circle {
+            width: 15px;
+            height: 15px;
+            font-size: 10px;
+        }
+    }
+
+
+    .club-list-Container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+
+
+    /*Column max width for the clubs table*/
+
+    .column-max-width {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .fixture-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .team-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .team {
+        display: flex;
+        align-items: center;
+    }
+
+    .versus {
+        margin: 0 10px;
+    }
+
+    .actions {
+        font-size: 20px;
+        color: #000325;
+    }
+
+    .home-team span:before {
+        content: none; /* Remove the dot before Home Club name */
+    }
+
+    .actions a {
+        color: #000325;
+    }
+
+    /*News table css */
+
+    .news-table {
+        width: 100%;
+        border-collapse: collapse;
+        white-space: nowrap; /* Prevent text wrapping in table cells */
+        overflow-x: auto; /* Enable horizontal scrolling */
+    }
+
+        .news-table th,
+        .news-table td {
+            padding: 8px;
+            overflow: hidden; /* Hide overflowing content */
+            text-overflow: ellipsis; /* Add ellipsis for text overflow */
+        }
+
+        .news-table img {
+            max-width: 105px; /* Set max width for image */
+            height: 75px; /* Maintain aspect ratio */
+        }
+
+    /* For small screens, remove ellipsis and allow text to wrap */
+    @media only screen and (max-width: 768px) {
+        .news-table th,
+        .news-table td,
+        fixtures-table td,
+        fixtures-table th {
+            white-space: normal; /* Allow text wrapping */
+            text-overflow: initial; /* Remove ellipsis */
+            overflow: auto; /* Allow content overflow */
+            max-width: 400px;
+        }
+
+        .news-table img {
+            max-width: 85px; /* Set max width for image */
+            height: 55px; /* Maintain aspect ratio */
+        }
+    }
+
+    /*Match Results Date Background color css*/
+
+    .date-background {
+        background-color: #CCCCCC;
+        padding: 5px 10px;
+    }
+
+    /*H2H css*/
+
+
+    @media only screen and (min-width: 992px) {
+        .club-stats {
+            max-width: 100%; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the container */
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .club-stats {
+            width: 100%;
+        }
+    }
+
+    /*Club summary club badge css*/
+
+    .club-summary-image {
+        height: 100px;
+        width: 110px;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+    }
+
+
+    @media (min-width: 768px) {
+        .club-summary-image {
+            height: 100px;
+            width: 110px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .club-summary-image {
+            height: 150px;
+            width: 150px;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    .pane {
+        margin-bottom: 20px; /* Add some space between panes */
+        padding: 10px; /* Add padding for better appearance */
+        overflow-y: auto; /* Add vertical scroll if content exceeds the height */
+    }
+
+    @media (max-width: 991.98px) {
+        /* Apply styles for small and medium screens */
+        .col-md-4 {
+            flex: 0 0 100%; /* Make each pane take 100% width on small and medium screens */
+            height: auto; /* Let content determine the height on smaller screens */
+        }
+    }
+
+    @media (min-width: 992px) {
+        .pane {
+            height: 230px;
+        }
+    }
+
+
+    /* Updated styling with class name .h2h-table */
+    .h2h-table {
+        display: grid;
+        grid-template-columns: auto; /* Single column */
+        column-gap: 20px; /* Adjust the gap between columns */
+    }
+
+        .h2h-table .match-info {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Align items at the center */
+        }
+
+            .h2h-table .match-info li {
+                margin-bottom: 10px; /* Adjust the spacing between matches */
+            }
+
+            .h2h-table .match-info span {
+                display: block;
+            }
+
+            .h2h-table .match-info h6 {
+                padding: 5px 10px; /* Add padding for better readability */
+                border-radius: 5px; /* Optional: add border-radius for rounded corners */
+            }
+
+        .h2h-table table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .h2h-table th, .h2h-table td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        .h2h-table th {
+            background-color: #000325;
+        }
+
+        /* Add striped rows */
+        .h2h-table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        /* Styling for match results */
+        .h2h-table .result-lose, .h2h-table .result-win, .h2h-table .result-draw {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px; /* for circle */
+            vertical-align: middle; /* for vertical alignment */
+            font-size: 14px;
+            color: white !important;
+        }
+
+        .h2h-table .result-lose {
+            background-color: red;
+        }
+
+        .h2h-table .result-win {
+            background-color: green;
+        }
+
+        .h2h-table .result-draw {
+            background-color: grey;
+            color: white;
+        }
+
+    .h2h-club-image {
+        height: 30px;
+        width: 35px;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+    }
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+        .h2h-table .result-lose, .h2h-table .result-win, .h2h-table .result-draw {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 12px;
+            color: white !important;
+        }
+
+        .h2h-club-image {
+            height: 30px;
+            width: 35px;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .h2h-table .result-lose, .h2h-table .result-win, .h2h-table .result-draw {
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            font-size: 10px;
+            color: white !important;
+        }
+
+        .h2h-club-image {
+            height: 20px;
+            width: 25px;
+            object-fit: cover;
+            mix-blend-mode: multiply;
+        }
+    }
+
+    /*Width of the club list in larger screens*/
+
+    .clubsList li {
+        border-bottom: 1px solid #ccc; /* Light grey bottom border */
+        padding-bottom: 10px; /* Add padding to create space between items */
+        margin-bottom: 10px; /* Adjust margin for spacing */
+    }
+
+    @media (min-width: 992px) {
+        .clubsList {
+            max-width: 800px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the list horizontally */
+        }
+
+            .clubsList li {
+                padding-bottom: 10px; /* Add padding to create space between items */
+                margin-bottom: 10px; /* Adjust margin for spacing */
+            }
+    }
+
+    @media (max-width: 991.98px) {
+        .clubsList {
+            max-width: 800px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the list horizontally */
+        }
+
+            .clubsList li {
+                padding-bottom: 10px; /* Add padding to create space between items */
+                margin-bottom: 10px; /* Adjust margin for spacing */
+            }
+    }
+
+    @media (max-width: 768px) {
+        .clubsList {
+            max-width: 800px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the list horizontally */
+        }
+
+            .clubsList li {
+                padding-bottom: 10px; /* Add padding to create space between items */
+                margin-bottom: 10px; /* Adjust margin for spacing */
+            }
+    }
+
+
+    /* Sport News Tables css */
+    .sport-news-table-wrapper {
+        overflow-x: auto;
+    }
+
+
+
+    .sport-news-heading-column {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px; /* Adjust width as needed */
+    }
+
+    @media (min-width: 768px) {
+        .sport-news-heading-column {
+            max-width: 400px;
+        }
+
+        .sport-news-image {
+            width: 130px;
+            height: 70px;
+            object-fit: cover;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sport-news-image {
+            width: 70px;
+            height: 60px;
+            object-fit: cover;
+        }
+    }
+
+    #sportNewsModal .modal-dialog {
+        max-width: 1000px;
+        margin: auto;
+        top: 20px; /* Adjust this value as needed */
+        position: absolute; /* Position the modal */
+    }
+
+    @media (max-width: 992px) {
+        #sportNewsModal .modal-dialog {
+            margin: auto;
+            width: calc(100% - 20px);
+            max-width: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 20px !important; /* Adjust this value as needed */
+            position: absolute; /* Position the modal */
+        }
+    }
+
+    @media (max-width: 768px) {
+        #sportNewsModal .modal-dialog {
+            width: 100% !important; /* Increase the width to 90% */
+            max-width: none; /* Remove max-width constraint */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 20px !important;
+            position: absolute; /* Position the modal */
+        }
+    }
+
+    /* Sport news modal image css */
+    @media (min-width: 768px) {
+        .sport-news-image-modal {
+            width: 670px;
+            height: 50vh;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .sport-news-content {
+            padding-top: 30px !important;
+            margin-top: 30px !important;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+            border: solid 1px #CCCCCC;
+        }
+    }
+
+
+
+    /*Sport news modal image css*/
+    @media (max-width: 991.98px) {
+        .sport-news-image-modal {
+            width: 100%;
+            height: 30vh;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sport-news-image-modal {
+            width: 100%;
+            height: 25vh;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+    }
+
+    /*Search bar css */
+
+    #searchInput {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        width: 300px;
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+    }
+
+    /*Add XI Button */
+
+    .addXIButton {
+        padding: 5px 10px;
+        background-color: #34A85A;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    /*Add SUB Button */
+
+    .addSUBButton {
+        padding: 5px 10px;
+        background-color: #CCCCCC;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .button-row {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .addXIButton, .addSUBButton {
+        margin: 0 10px;
+    }
+
+
+    /* Container CSS */
+    #lineup-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    /*Club players table css*/
+
+    .club-players-container {
+        max-width: 800px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    .club-players-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .club-players-table th,
+        .club-players-table td {
+            border: none;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .club-players-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .club-players-table th {
+            background-color: #f2f2f2;
+        }
+
+    .club-players-container {
+        margin-top: 20px;
+    }
+
+
+    /* Container CSS */
+    #match-lineup-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    /* Players display css */
+    #matchLineUpClubPlayers,
+    #matchXIHolder,
+    #matchSubstitutesHolder {
+        margin-bottom: 20px; /* Add some space between the divs */
+    }
+
+    /*Match officials container css*/
+
+    .match-officials-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    /*btn active css*/
+    .btn:active {
+        background-color: #17ccdd;
+    }
+
+    /* Formation image css */
+
+    .formation-image-container {
+        position: relative;
+        width: 100%; /* full width */
+        height: 800px; /* default height */
+    }
+
+        .formation-image-container img {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* ensure the image fits without cutting */
+        }
+
+    @media (min-width: 922px) {
+        .formation-image-container {
+            height: 500px; /* adjust height for larger screens */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .formation-image-container {
+            height: 500px; /* adjust height for medium screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .formation-image-container {
+            height: 430px; /* adjust height for small screens */
+        }
+    }
+
+    #match-formation-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    #formation-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+
+    /*fixture form css*/
+
+    .form-group .row {
+        flex-wrap: nowrap;
+    }
+
+    .form-group .col-md-6 {
+        justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+        .form-group .col-md-6 {
+            width: 50% !important;
+            justify-content: space-between;
+        }
+
+        .form-control {
+            width: 100%;
+            background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 16 16'><path fill='none' stroke='%23343a40' stroke-width='2' d='M5 15l7-7-7-7'/></svg>");
+        }
+    }
+
+    /*fixtures container css*/
+
+    .fixture-create-container {
+        max-width: 700px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+
+    .fixtures-match-container {
+        max-width: 700px; 
+        margin: 0 auto; 
+        padding: 10px;
+        background-color: white;
+        border-radius:7px;
+    }
+
+    /*Fans match lineups container css*/
+    .fans-match-lineups-container {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+
+
+    /*Result set score css*/
+
+    .fixturesContainer {
+        max-width: 600px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+        overflow: hidden;
+    }
+
+    .team-badge {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .team-name {
+        margin-right: 10px; /* Add space between team name and badge */
+    }
+
+    /* For small screens */
+    @media only screen and (max-width: 600px) {
+        .team-badge {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-name {
+            margin-right: 0;
+            margin-top: 5px;
+            order: 2; /* Move team name below the badge on small screens */
+        }
+
+        .team-badge img {
+            margin-bottom: 5px;
+            order: 1; /* Keep badge above team name on small screens */
+        }
+    }
+
+    .matchResultContainer {
+        max-width: 800px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    .setResultsClubBadge {
+        object-fit: cover;
+    }
+
+    /*Edit club container css*/
+
+    .club-edit-container {
+        max-width: 700px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    .fixtures-table {
+        overflow-x: auto;
+    }
+
+    .fine-container {
+        max-width: 700px; /* Adjust the maximum width as needed */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 10px;
+        background-color: white; /* Add background color */
+    }
+
+    .meetings-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .comment-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .news-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .login-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        padding-top: 20px;
+        margin-top: 50px;
+        border-radius: 5px;
+        border: 1px solid #CCCCCC;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .login-container {
+            height: 60vh;
+            margin-top: 20px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .login-container {
+            height: 60vh;
+            padding-top: 0;
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .login-container {
+            height: 50vh;
+            margin-top: 30px;
+        }
+    }
+
+
+    .register-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    /*Camera icon upload profile photo*/
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.profile-picture-container {
+    border: 1px solid #ccc;
+    padding: 0;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-picture-image {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.club-picture-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.news-picture-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+    .camera-icon {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: white;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .camera-icon i {
+        font-size: 30px;
+        color: #333;
+    }
+
+
+    .border-bottom-only {
+        border-style: none none solid none;
+        border-bottom-width: 1px;
+        border-bottom-color: #ced4da;
+        border-radius: 0;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+
+    /*News camera icon*/
+
+    .news-camera-icon,
+    .player-card-camera-icon {
+        right: 50px
+    }
+
+    @media (max-width: 768px) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 50px
+        }
+    }
+
+    @media (min-width: 991.98px) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 200px
+        }
+    }
+
+    @media (min-width: 992px) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 200px
+        }
+    }
+
+    @media (max-width: 1280px) and (orientation: landscape) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 200px; /* Adjust the value as needed */
+        }
+    }
+
+    @media (max-width: 1280px) and (orientation: portrait) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 200px; /* Adjust the value as needed */
+        }
+    }
+
+    @media (max-width: 412px) and (max-height: 912px) {
+        .news-camera-icon,
+        .player-card-camera-icon {
+            right: 50px; /* Adjust the value as needed */
+        }
+    }
+
+    .my-club-badge-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 20px 0;
+    }
+
+    .my-club-card {
+        width: 90%;
+        max-width: 800px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .my-club-card-header {
+        height: 50px;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .my-club-card-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #ddd;
+        padding: 10px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn {
+        margin-left: 5px;
+    }
+
+    @media (min-width: 576px) {
+        .my-club-card {
+            width: 95%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .my-club-card {
+            width: 80%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .my-club-card {
+            width: 70%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .my-club-card {
+            width: 60%;
+        }
+    }
+
+    .league-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    /*Clubs table css*/
+
+
+
+
+    /*Search bar css*/
+
+    .search-bar {
+        position: relative;
+        display: inline-block;
+    }
+
+        .search-bar select {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+            .search-bar select:focus {
+                border-color: #aaa;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+        .search-bar .caret {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #666;
+            pointer-events: none;
+        }
+
+    /*Season Table indicators*/
+
+    .indicator {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+
+    .current {
+        background-color: #2ecc71; /* green */
+        color: #fff;
+    }
+
+    .previous {
+        background-color: #95a5a6; /* grey */
+        color: #fff;
+    }
+
+    /*All tables css*/
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+
+    /*Standings edit form css*/
+
+    .standings-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+
+    #addButton {
+        color: white;
+        background-color: #324260;
+    }
+
+    /*Player transfer card css*/
+
+    .player-transfer-card {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #fff;
+        max-width: 100%;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        .player-transfer-card {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .transfer-profile-picture-container {
+            width: 350px !important;
+            height: 350px !important;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .player-transfer-card {
+            max-width: 70%;
+            margin: 0 auto;
+        }
+
+        .transfer-profile-picture-container {
+            width: 400px !important;
+            height: 350px !important;
+        }
+    }
+
+    .transfer-profile-picture-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*Tables css*/
+
+    .ellipsis td {
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /*/ Dropdowns carret*/
+
+    .caret-rotate {
+        transition: transform 0.3s;
+    }
+
+        .caret-rotate.collapsed {
+            transform: rotate(0deg);
+        }
+
+        .caret-rotate:not(.collapsed) {
+            transform: rotate(180deg);
+        }
+
+
+    /*Payment search bars css*/
+
+    @media (max-width: 767px) {
+        .d-flex.flex-nowrap.mb-2 {
+            flex-direction: column;
+        }
+
+        .col-auto.p-0.me-2 {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+
+
+    .clearance-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+/*        background-color: #f2fcfe;*/
+        border-radius: 0;
+        border: 1px solid #CCCCCC;
+    }
+
+    .clearance-profile-picture-container {
+        width: 130px;
+        height: 130px;
+        border: 1px solid #ccc;
+        border-radius: 3%;
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+    }
+
+
+    @media (min-width: 992px) {
+        .clearance-profile-picture-container {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 3%;
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .clearance-profile-picture-container {
+            width: 130px;
+            height: 130px;
+            border: 1px solid #ccc;
+            border-radius: 3%;
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .clearance-profile-picture-container {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 3%;
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+        }
+    }
+
+
+    .fines-card {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .meetings-card {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    .announcements-card {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    @media (max-width: 576px) {
+        .fines-card {
+            max-height: 35vh;
+        }
+
+        .meetings-card {
+            max-height: 50vh;
+        }
+
+        .announcements-card {
+            max-height: 30vh;
+        }
+    }
+
+    @media (min-width: 577px) and (max-width: 991px) {
+        .fines-card {
+            max-height: 20vh;
+        }
+
+        .meetings-card {
+            max-height: 30vh;
+        }
+
+        .announcements-card {
+            max-height: 35vh;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .fines-card {
+            height: 50vh;
+        }
+
+        .meetings-card {
+            height: 55vh;
+        }
+
+        .announcements-card {
+            max-height: 40vh;
+        }
+    }
+
+    .activityLogs-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .fixture-details-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .floating-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .feedback-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+
+    .action-tab {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        right: 10px;
+        min-width: 150px;
+        white-space: nowrap;
+    }
+
+
+        .action-tab a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+            .action-tab a:hover {
+                background-color: #95a5a6;
+                color: white;
+            }
+
+
+    .whatsapp-button {
+        text-decoration: none;
+    }
+
+        .whatsapp-button button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .whatsapp-button button i {
+                margin-right: 10px;
+            }
+
+    .large-caret {
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+        cursor: pointer;
+        color: inherit;
+    }
+
+    .circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: #007bff;
+    }
+
+        .circle .caret {
+            transform: scaleX(2);
+        }
+
+    .see-more-text {
+        margin-top: 5px;
+        font-size: 0.875rem;
+        color: #007bff;
+    }
+
+    .large-caret:hover .circle,
+    .large-caret:hover .see-more-text {
+        color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .forget-password-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .reset-password-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .change-password-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+    }
+
+.user-profile-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius:7px;
+    background-color: white;
+}
+
+.security-description-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+/*User account management css*/
+
+
+.user-profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-details {
+    margin-left: 10px;
+}
+
+.profile-label {
+    font-weight: bold;
+    margin: 0;
+}
+
+.profile-username {
+    margin: 0;
+}
+
+.profile-arrow {
+    font-size: 18px;
+    text-decoration: none;
+    color: grey;
+    display: inline-block;
+    text-align: center;
+}
+
+    .profile-arrow:hover {
+        color: #007bff;
+    }
+
+
+.fa-shield-alt {
+    color: black;
+    margin-right: 5px;
+}
+
+.fa-lock {
+    color: black;
+    margin-right: 5px;
+}
+
+
+/*/Privacy policy container*/
+
+.privacy-policy-container,
+.about-us-container,
+.contact-us-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+/*Players container*/
+
+.players-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.h2h-container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 7px;
+    background-color: white;
+}
+
+/*Club hover css*/
+
+.club-item {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .club-item:hover {
+        transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .club-item div {
+        transition: background-color 0.3s;
+    }
+
+
+
+    /*Player table css*/
+
+.player-row {
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+    .player-row:hover {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+.player-row {
+    cursor: pointer;
+}
+
+/*All tables hover css*/
+
+.table tbody tr:hover {
+    background-color: #cff0f9;
+    cursor: pointer;
+}
+
+.table tbody tr.selected {
+    background-color: #c9eff5;
+}
+
+/*Standings tables*/
+
+.club-abbreviation {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .full-club-name {
+        display: inline;
+    }
+}
+
+@media (max-width: 767px) {
+    .full-club-name {
+        display: none;
+    }
+
+    .club-abbreviation {
+        display: inline;
+    }
+}
+
+
+.sportNewsContainer {
+    max-width: 1515px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+.standingsContainer {
+    max-width: 1550px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+/*Nav links css */
+
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+    .navLinks .nav-item {
+        margin-right: 10px;
+        padding: 0;
+    }
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-tabs .nav-link:focus,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:active {
+    background-color: #000325 !important;
+    color: white;
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+.nav-tabs .nav-link {
+    color: black;
+}
+
+
+.overflow-auto {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+    .overflow-auto::-webkit-scrollbar {
+        display: none;
+    }
+
+.overflow-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.nav-item {
+    bottom: 0 !important;
+}
+
+.tab-container::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+/*Cookie banner css*/
+
+
+.cookie-banner {
+    font-family: Arial, sans-serif;
+    border-radius: 12px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000325;
+    padding: 30px;
+    max-width: 600px;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cookie-message {
+    color: #fff;
+    font-size: 14px;
+    margin: 0;
+    flex: 1;
+}
+
+.cookie-button {
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.5;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+    .cookie-button:hover {
+        background-color: #e0c000;
+    }
+
+.btn-sm {
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.cookie-link {
+    color: #fff;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.cookie-prefs-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+.secret-codes-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.codes-card {
+    padding: 20px;
+    border-radius: 7px;
+}
+
+
+/*Login container css*/
+
+@media (max-width: 320px) {
+    .login-container {
+        padding: 5px;
+        max-width: 100%;
+        min-height: 450px; /* Increased min-height */
+        max-height: 550px; /* Increased max-height */
+    }
+
+    .logo-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .form-control, .form-label, .btn-primary {
+        font-size: 0.8rem;
+    }
+
+    .form-floating {
+        margin-bottom: 0.5rem;
+    }
+
+    .account-link-wrapper {
+        display: block;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p,
+        .account-link-wrapper a {
+            display: block;
+            margin-bottom: 5px;
+        }
+}
+
+@media (min-width: 321px) and (max-width: 533px) {
+    .login-container {
+        padding: 5px;
+        max-width: 100%;
+        min-height: 500px; /* Increased min-height */
+        max-height: 600px; /* Increased max-height */
+    }
+
+    .logo-container img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .form-control, .form-label, .btn-primary {
+        font-size: 0.85rem;
+    }
+
+    .form-floating {
+        margin-bottom: 0.75rem;
+    }
+
+    .account-link-wrapper {
+        display: block;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p,
+        .account-link-wrapper a {
+            display: block;
+            margin-bottom: 5px;
+        }
+}
+
+
+@media (min-width: 534px) {
+    .account-link-wrapper {
+        display: flex;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p {
+            margin-right: 5px;
+        }
+}
+
+@media (max-width: 320px) {
+    .account-link-wrapper {
+        display: block;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p,
+        .account-link-wrapper a {
+            display: block;
+            margin-bottom: 5px;
+        }
+}
+
+@media (min-width: 321px) and (max-width: 411px) {
+    .account-link-wrapper {
+        display: block;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p,
+        .account-link-wrapper a {
+            display: block;
+            margin-bottom: 5px;
+        }
+}
+
+@media (min-width: 412px) {
+    .account-link-wrapper {
+        display: flex;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+        .account-link-wrapper p {
+            margin-right: 5px;
+        }
+}
+
+/*Layout css menu side bar*/
+
+
+@media (min-width: 534px) {
+    #menu {
+        width: 250px;
+        transform: translateY(0); 
+    }
+}
+
+@media (min-width: 321px) and (max-width: 411px) {
+    #menu {
+        width: 180px; 
+        transform: translateY(0); 
+    }
+}
+
+/*Account registration confirmation*/
+
+.account-created-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+    height: 20vh; 
+}
+
+.confirm-email-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: white;
+    height: 20vh; 
+}
+
+
+/*Fixture card css*/
+.club-name-full {
+    display: none;
+}
+
+.club-name-abbr {
+    display: inline;
+}
+
+@media (min-width: 321px) {
+    .club-name-full {
+        display: inline;
+    }
+
+    .club-name-abbr {
+        display: none;
+    }
+}
+
+.chevron-rotate {
+    transition: transform 0.3s ease-in-out; 
+    display: inline-block; 
+    transform: rotate(0deg);
+}
+
+    .chevron-rotate.rotate-left {
+        transform: rotate(180deg);
+    }
+
+
+.access-denied-container {
+    max-width: 700px;
+    margin: 150px auto 20px;
+    border-radius: 7px;
+    background-color: white;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/*Live match css*/
+
+.live-match-container {
+    max-width: 700px;
+    margin: 150px auto 20px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.club-badge-image-live {
+    height: 70px;
+    width: 80px;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+}
+
+@media (min-width: 768px) {
+    .club-badge-image-live {
+        height: 70px;
+        width: 80px;
+        mix-blend-mode: multiply;
+    }
+}
+
+@media (min-width: 992px) {
+    .club-badge-image-live {
+        height: 70px;
+        width: 80px;
+        mix-blend-mode: multiply;
+    }
+}
+
+/*Start match modal box css*/
+
+.start-live-modal,
+.goal-away-modal,
+.goal-home-modal,
+.yellow-home-modal,
+.yellow-away-modal,
+.sub-home-modal,
+.sub-away-modal,
+.red-home-modal,
+.red-away-modal,
+.pen-home-modal,
+.pen-away-modal,
+.halftime-modal,
+.fulltime-modal,
+.addtime-modal,
+.resume-halftime-modal,
+.interrupt-live-modal,
+.resume-live-modal,
+.own-goal-home-modal,
+.own-goal-away-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.start-live-modal-content,
+.goal-away-modal-content,
+.goal-home-modal-content,
+.yellow-home-modal-content,
+.yellow-away-modal-content,
+.sub-home-modal-content,
+.sub-away-modal-content,
+.red-home-modal-content,
+.red-away-modal-content,
+.pen-home-modal-content,
+.pen-away-modal-content,
+.halftime-modal-content,
+.fulltime-modal-content,
+.addtime-modal-content,
+.resume-halftime-modal-content,
+.interrupt-live-modal-content,
+.resume-live-modal-content,
+.own-goal-home-modal-content,
+.own-goal-away-modal-content{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.open-start-live-modal-button,
+.open-goal-away-modal-button,
+.open-goal-home-modal-button,
+.open-yellow-home-modal-button,
+.open-yellow-away-modal-button,
+.open-sub-home-modal-button,
+.open-sub-away-modal-button,
+.open-red-home-modal-button,
+.open-red-away-modal-button,
+.open-pen-home-modal-button,
+.open-pen-away-modal-button,
+.open-halftime-modal-button,
+.open-fulltime-modal-button,
+.open-addtime-modal-button,
+.open-resume-halftime-modal-button,
+.open-own-goal-home-modal-button,
+.open-own-goal-away-modal-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+    .open-start-live-modal-button:hover,
+    .open-goal-away-modal-button :hover,
+    .open-goal-home-modal-button :hover,
+    .open-yellow-home-modal-button :hover,
+    .open-yellow-away-modal-button :hover,
+    .open-sub-home-modal-button :hover,
+    .open-sub-away-modal-button :hover,
+    .open-red-home-modal-button :hover,
+    .open-red-away-modal-button :hover,
+    .open-pen-home-modal-button :hover,
+    .open-pen-away-modal-button :hover,
+    .open-halftime-modal-button :hover,
+    .open-fulltime-modal-button :hover,
+    .open-addtime-modal-button :hover,
+    .open-resume-halftime-modal-button :hover,
+    .open-own-goal-home-modal-button :hover,
+    .open-own-goal-away-modal-button :hover {
+        background-color: #0056b3;
+    }
+
+    .open-start-live-modal-button:active,
+    .open-goal-away-modal-button :active,
+    .open-goal-home-modal-button :active,
+    .open-yellow-home-modal-button :active,
+    .open-yellow-away-modal-button :active,
+    .open-sub-home-modal-button :active,
+    .open-sub-away-modal-button :active,
+    .open-red-home-modal-button :active,
+    .open-red-away-modal-button :active,
+    .open-pen-home-modal-button :active,
+    .open-pen-away-modal-button :active,
+    .open-halftime-modal-button :active,
+    .open-fulltime-modal-button :active,
+    .open-addtime-modal-button :active,
+    .open-interrupt-live-button :active,
+    .open-resume-live-button :active,
+    .open-resume-halftime-modal-button :active,
+    .open-own-goal-home-modal-button :active,
+    .open-own-goal-away-modal-button :active {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+
+.red-card {
+    color: red;
+    font-size: 16px;
+    transform: rotate(15deg);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+.red-card-alt {
+    color: red;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.yellow-card {
+    color: yellow;
+    font-size: 16px;
+    transform: rotate(15deg);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.yellow-card-alt {
+    color: yellow;
+    font-size: 16px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.penalty {
+    color: green;
+    font-size: 16px;
+}
+
+.goal {
+    color: blue;
+    font-size: 16px;
+}
+
+.own-goal {
+    color: red;
+    font-size: 16px;
+}
+
+
+
+/*Yes and not modal buttons css*/
+
+
+.confirm-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+    .confirm-button:hover {
+        background-color: #218838;
+    }
+
+.cancel-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .cancel-button:hover {
+        background-color: #c82333;
+    }
+
+
+.scrolling-text-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+
+.scrolling-text {
+    position: absolute;
+    white-space: nowrap;
+    top: 0;
+    left: 100%;
+    animation: scroll-left 60s linear infinite; 
+}
+
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.flicker {
+    animation: flicker 1s infinite;
+}
+
+
+.logo-container img {
+    width: 120px;
+    height: 60px;
+    object-fit: cover;
+    background-color: transparent;
+}
+
+
+.division-add-container {
+    max-width: 1500px;
+    margin: 20px auto;
+    border-radius: 7px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.division-add-form-container {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+    .division-add-form-container:hover {
+        transform: scale(1.02);
+    }
+
+@media (min-width: 992px) {
+    .division-add-form-container {
+        float: left;
+        width: 48%;
+        padding: 40px;
+        margin: 1%;
+    }
+}
+/* General card styling */
+.report-card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 1rem; /* Default margin for smaller screens */
+}
+
+/* Header styling */
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    padding: 1rem; /* Add padding for header */
+}
+
+/* Body styling */
+.card-body {
+    padding: 1rem;
+    flex: 1;
+}
+
+/* Chart styling */
+.chart {
+    width: 100%;
+    height: auto;
+}
+
+.logs-chart {
+    width: 100%;
+    height: auto;
+}
+
+/* Small chart adjustments */
+.small-chart {
+    max-height: 300px; /* Default max height for larger screens */
+}
+
+.logs-small-chart {
+    max-height: 300px; /* Default max height for larger screens */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .report-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .report-card {
+        height: auto; /* Adjust height to auto for very small screens */
+    }
+
+    .small-chart {
+        max-height: 200px; /* Reduce max height for very small screens */
+    }
+    .logs-small-chart {
+        max-height: 200px; /* Reduce max height for very small screens */
+    }
+}
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 992px) {
+    .report-card {
+        min-height: 400px; /* Set minimum height for larger screens */
+        margin-bottom: 2rem; /* Increase margin for larger screens */
+    }
+}
+
+/* Additional responsive adjustments */
+@media (min-width: 1200px) {
+    .report-card {
+        min-height: 450px; /* Further increase minimum height for extra large screens */
+    }
+}
+
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+
+.zoom-button {
+    animation: zoom-in-out 1s infinite alternate;
+}
+
+@keyframes zoom-in-out {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+.successfulSubscriptionContainer {
+    max-width: 1500px;
+    margin: 20px auto;
+    border-radius: 7px;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+
+.checkmark-container {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    transform: translateY(10px);
+}
+
+.checkmark {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border: 5px solid limegreen;
+    border-radius: 50%;
+    position: relative;
+    animation: scaleCircle 2s ease-in-out forwards;
+}
+
+    .checkmark::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 20px;
+        border: solid limegreen;
+        border-width: 0 5px 5px 0;
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: drawTick 2s ease-in-out forwards; 
+        left: 15px;
+        top: 8px;
+    }
+
+@keyframes scaleCircle {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes drawTick {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+.sport-news-header{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.player-card-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.player-card-modal-content {
+    width: 90vw;
+    height: auto;
+    max-width: 450px;
+    max-height: 90vh;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    overflow: hidden;
+}
+
+.modal-body {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-card-image {
+    width: 100%;
+    height: auto;
+    max-width: 95%;
+    max-height: 80vh;
+    border-radius: 5%;
+}
+
+.close {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+.actions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top:30px;
+   
+}
+
+    .actions-container p {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        flex: 1 0 30%;
+        padding-bottom:20px;
+    }
+
+    .actions-container i {
+        margin-right: 5px;
+    }
+
+.kickoff-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+
+
+.formationContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 7px;
+    background-color: white;
+}
+
+
+/*User manuals css*/
+
+
+.custom-file-upload-container {
+    position: relative;
+}
+
+.file-input {
+    display: none;
+}
+
+.custom-upload-btn {
+    display: inline-block;
+    background-color: #f0f0f0;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+    .custom-upload-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+#newDocumentPreview {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#newDocumentName {
+    font-style: italic;
+    color: #007bff;
+}
+
+
+
+
+
+
+
+
+
+
+
+

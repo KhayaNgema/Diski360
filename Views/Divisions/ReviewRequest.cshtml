@@ -1,0 +1,130 @@
+﻿@model MyField.ViewModels.ReviewOnboardingRequestViewModel
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Review Onboarding Request";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    var encryptedRequestId = encryptionService.Encrypt(Model.RequestId);
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">Onboarding Request Review (Ref No. #@Model.RefenceNumber)</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    You are currently in the process of reviewing an onboarding request submitted to the Diski360 organization. This request requires your careful consideration, as it involves the formal entry of a new entity or individual into our system. You have the authority to either approve or reject this request based on the details provided. If you choose to approve the request, it will move forward in the onboarding process, and a formal contract will be generated and sent to the applicant. Conversely, if you decide to reject the request, the onboarding process will be halted. In either case, your decision will be promptly communicated via email to all relevant parties to ensure transparency and clarity in the process.
+</p>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    <strong>Status:</strong>@Model.RequestStatus
+</p>
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    <strong>Received on:</strong>@Model.RequestDate
+</p>
+<br />
+<div class="division-add-container d-flex">
+        <div class="row flex-grow-1">
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Details</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <div class="profile-container">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <img src="~/@Model.DivisionBadge" alt="@Model.DivisionAbbr" class="club-picture-image" style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="DivisionType" class="form-control border-bottom-only" placeholder="DivisionType" readonly />
+                <label asp-for="DivisionType" class="form-label">Division type</label>
+                <span asp-validation-for="DivisionType" class="text-danger"></span>
+            </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" readonly />
+                    <label asp-for="DivisionName" class="form-label">Division Name</label>
+                    <span asp-validation-for="DivisionName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;" readonly></textarea>
+                    <label asp-for="DivisionDescription" class="form-label">Division Description</label>
+                    <span asp-validation-for="DivisionDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Address" class="form-control border-bottom-only" placeholder="Address" readonly />
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Manager Details</h5>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" readonly />
+                    <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
+                    <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" readonly />
+                    <label asp-for="ManagerLastName" class="form-label">Last Name</label>
+                    <span asp-validation-for="ManagerLastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DateOfBirth" class="form-control border-bottom-only" placeholder="DateOfBirth" type="date" readonly />
+                    <label asp-for="DateOfBirth">Date of Birth</label>
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" readonly />
+                    <label asp-for="ManagerEmail" class="form-label">Email Address</label>
+                    <span asp-validation-for="ManagerEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerPhoneNumber" class="form-control border-bottom-only" placeholder="Phone Number" readonly />
+                    <label asp-for="ManagerPhoneNumber" class="form-label">Phone Number</label>
+                    <span asp-validation-for="ManagerPhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                @if(Model.RequestStatus == RequestStatus.Approved)
+                {
+                    <div class="col-auto">
+                        <a href="@Url.Action("OnboardDivisionAndManager", new { requestId = encryptedRequestId })" class="btn btn-primary">
+                            <i class="fa fa-plus"></i> Onboard
+                        </a>
+                    </div>
+                    <div class="col-auto ms-2">
+                        <form asp-action="RejectRequest" asp-route-requestId="@encryptedRequestId" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i> Reject</button>
+                        </form>
+                    </div>
+                }
+                else if (Model.RequestStatus == RequestStatus.Pending || Model.RequestStatus == RequestStatus.Rejected)
+                {
+                    <div class="col-auto">
+                        <form asp-action="ApproveRequest" asp-route-requestId="@encryptedRequestId" method="post">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Approve</button>
+                        </form>
+                    </div>
+                    <div class="col-auto ms-2">
+                        <form asp-action="RejectRequest" asp-route-requestId="@encryptedRequestId" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i> Reject</button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    
+                }
+            </div>
+        </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@model MyField.Models.League
+
+@if (Model == null || Model.LeagueCode == null)
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh; flex-direction: column;">
+        <p class="text-center">There is no running season yet.</p>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="codes-card shadow border-radius-7">
+            <div class="codes-card-body d-flex align-items-center">
+                <div class="league-info w-100">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-0">@Model.LeagueYears</h5>
+                        </div>
+                        <div>
+                            <p class="card-text mb-0">********</p>
+                        </div>
+                        <button class="btn btn-outline-primary" onclick="copyLeagueCodeToClipboard('@Model.LeagueCode')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

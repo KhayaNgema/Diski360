@@ -1,0 +1,101 @@
+﻿@model MyField.ViewModels.UpdateProfileViewModel
+
+@{
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+@if (User.IsInRole("Club Administrator") || User.IsInRole("Personnel Administrator"))
+{
+    <h4 class="text-center">Update @Model.FirstName @Model.LastName Information</h4>
+}
+else
+{
+    <h4 class="text-center">Update your profile</h4>
+}
+<br />
+<div class="club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateProfile" asp-route-userId="@Model.Id" method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <div class="profile-container">
+                    <div class="profile-picture-container">
+                        <img id="profile-image-preview" src="~/@Model.ProfilePicture" alt="Current Profile Picture" class="profile-picture-image" />
+                        <label for="Input_ProfilePicture" class="camera-icon">
+                            <i class="fa fa-camera"></i>
+                        </label>
+                    </div>
+                </div>
+                <input asp-for="ProfilePictureFile" id="Input_ProfilePicture" class="form-control" type="file" onchange="previewProfilePicture(event)" accept="image/*" style="display: none;" />
+                <input asp-for="ProfilePictureFile" id="Input_ProfilePictureFileName" type="hidden" />
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="FirstName" class="form-control border-bottom-only" placeholder="FirstName" />
+                <label asp-for="FirstName">First name</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="LastName" class="form-control border-bottom-only" placeholder="LastName" />
+                <label asp-for="LastName">Last name</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="PhoneNumber" class="form-control border-bottom-only" placeholder="PhoneNumber" />
+                <label asp-for="PhoneNumber">Phone number</label>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control border-bottom-only" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="Id" value="@Model?.Id" />
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function previewProfilePicture(event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('profile-image-preview');
+                    output.src = reader.result;
+                    output.style.display = 'block';
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+            document.getElementById('Input_ProfilePicture').addEventListener('change', function (event) {
+                previewProfilePicture(event);
+            });
+        });
+
+        (function () {
+            var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+            logMessages.forEach(function (message) {
+                console.log(message);
+            });
+        })();
+    </script>
+}

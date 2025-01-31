@@ -1,0 +1,109 @@
+﻿@model MyField.ViewModels.ModifyFixtureViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">New fixture</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can update the details of the selected fixture. Any changes made will be reflected to all users, ensuring that the updated information is promptly shared and accessible.
+</p>
+<br />
+<div class="row fixture-create-container">
+    <div class="col-md-12">
+        <form asp-action="ModifyFixture">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group form-inline">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select asp-for="HomeTeamId" class="form-control border-bottom-only" asp-items="ViewBag.Clubs">
+                            <option value="">Home Team</option>
+                        </select>
+                        <span asp-validation-for="HomeTeamId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <select asp-for="AwayTeamId" class="form-control border-bottom-only" asp-items="ViewBag.Clubs">
+                            <option value="">Away Team</option>
+                        </select>
+                        <span asp-validation-for="AwayTeamId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-floating mb-3">
+                <input asp-for="KickOffDate" class="form-control border-bottom-only" placeholder="KickOffDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="KickOffDate" class="form-label">Kickoff date</label>
+                <span asp-validation-for="KickOffDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating mb-3">
+                <input asp-for="KickOffTime" class="form-control border-bottom-only" placeholder="KickOffTime" type="time" min="@DateTime.Today.ToString("HH:MM")" />
+                <label asp-for="KickOffTime" class="form-label">Kickoff time</label>
+                <span asp-validation-for="KickOffTime" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-floating mb-3">
+                <input asp-for="Stadium" class="form-control border-bottom-only" placeholder="Location" />
+                <label asp-for="Stadium" class="form-label">Location</label>
+                <span asp-validation-for="Stadium" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <select asp-for="RefereeId" class="form-control border-bottom-only" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                    <option value="">Select Referee...</option>
+                    @foreach (var official in ViewBag.Officials)
+                    {
+                        <option value="@official.Value">@official.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="RefereeId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group form-inline">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <select asp-for="AssistantOneId" class="form-control border-bottom-only" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                            <option value="">Select First Assistant...</option>
+                            @foreach (var official in ViewBag.Officials)
+                            {
+                                <option value="@official.Value">@official.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="AssistantOneId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <select asp-for="AssistantTwoId" class="form-control border-bottom-only" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                            <option value="">Select Second Assistant...</option>
+                            @foreach (var official in ViewBag.Officials)
+                            {
+                                <option value="@official.Value">@official.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="AssistantTwoId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="FixtureId" value="@Model?.FixtureId" />
+                        <input type="submit" value="Save" class="btn btn-primary" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

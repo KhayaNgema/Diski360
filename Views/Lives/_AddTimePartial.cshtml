@@ -1,0 +1,40 @@
+﻿<style>
+    #addedTimeForm {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        #addedTimeForm div {
+            margin-bottom: 10px;
+        }
+
+        #addedTimeForm label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        #addedTimeForm input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+            #addedTimeForm input[type="number"]:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+</style>
+
+<form id="addedTimeForm">
+    <div>
+        <label for="addedTime">Time added:</label>
+        <input type="number" id="addedTime" name="addedTime" value="@Model.AddedTime" />
+    </div>
+</form>

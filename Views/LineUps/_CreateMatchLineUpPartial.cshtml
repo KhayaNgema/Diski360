@@ -1,0 +1,91 @@
+﻿@model MyField.ViewModels.MatchLineUpFinalViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    var fixtureDate = Model.FixtureDate.ToString("yyyy-MM-dd");
+    var fixtureTime = Model.FixtureTime.ToString("HH:mm");
+}
+
+<div id="match-lineup-container" style="position: relative;">
+    <div id="lineUpXI"></div>
+    <div style="margin-bottom:20px;" id="lineUpSubstitutes"></div>
+    <div class="container-footer" style="display: flex; justify-content: flex-end;">
+        <button id="toggleLineupButton" class="btn btn-md btn-success" style="display: none;">Set line-up</button>
+    </div>
+</div>
+
+<div id="lineup-container" style="position: relative; display: none;">
+    <br />
+    <div id="lineUpTempDataMessage" class="alert" role="alert" style="display: none;">
+        <span id="lineUpTempDataMessageContent"></span>
+        <span class="close" aria-label="Close" onclick="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 class="text-left" style="margin: 0;">SET Line-up & Subs</h4>
+        <button id="toggleMatchLineupButton" class="btn btn-md btn-success">Show line-up</button>
+    </div>
+    <br />
+    <div id="matchLineUpClubPlayers"></div>
+    <div id="matchXIHolder"></div>
+    <div style="margin-bottom:20px;" id="matchSubstitutesHolder"></div>
+    <div class="container-footer" style="display: flex; justify-content: flex-end;">
+        <button id="submitButton" class="btn btn-md btn-success">Submit</button>
+    </div>
+</div>
+
+<script>
+    function displayMessage(message, alertClass) {
+        var messageDiv = $('#lineUpTempDataMessage');
+        var messageContent = $('#lineUpTempDataMessageContent');
+
+        messageContent.text(message);
+        messageDiv.removeClass('alert-success alert-danger').addClass(alertClass);
+        messageDiv.show();
+
+        setTimeout(function () {
+            closeAlert();
+        }, 5000);
+    }
+
+    document.getElementById("toggleLineupButton").addEventListener("click", function () {
+        var matchLineupContainer = document.getElementById("match-lineup-container");
+        var lineupContainer = document.getElementById("lineup-container");
+        matchLineupContainer.style.display = "none";
+        lineupContainer.style.display = "block";
+    });
+
+    document.getElementById("toggleMatchLineupButton").addEventListener("click", function () {
+        var matchLineupContainer = document.getElementById("match-lineup-container");
+        var lineupContainer = document.getElementById("lineup-container");
+        matchLineupContainer.style.display = "block";
+        lineupContainer.style.display = "none";
+    });
+
+    function closeAlert() {
+        $('#lineUpTempDataMessage').hide();
+    }
+
+    setTimeout(function () {
+        document.getElementById("lineUpTempDataMessage").style.display = "none";
+    }, 5000);
+
+    var fixtureDate = '@fixtureDate';
+    var fixtureTime = '@fixtureTime';
+
+    var fixtureDateTime = new Date(fixtureDate + 'T' + fixtureTime);
+    var now = new Date();
+
+    var timeDifference = now - fixtureDateTime;
+
+    var oneHourBefore = -60 * 60 * 1000;
+    var thirtyMinutesAfter = 30 * 60 * 1000;
+
+    if (timeDifference >= oneHourBefore && timeDifference <= thirtyMinutesAfter) {
+        document.getElementById("toggleLineupButton").style.display = "block";
+    } else {
+        document.getElementById("toggleLineupButton").style.display = "none";
+    }
+</script>
+

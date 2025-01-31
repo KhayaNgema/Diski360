@@ -1,0 +1,103 @@
+﻿@model MyField.Models.Transfer
+
+@{
+    ViewData["Title"] = ViewBag.ClubName + " Player Transfers";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can see and manage the incoming transfers to your club. This includes viewing details of each incoming transfer, tracking their statuses, and making any necessary updates or adjustments.
+</p>
+<br />
+<h4 class="text-center">@ViewBag.ClubName Player transfers</h4>
+<br />
+<button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("TransferMarket", "Transfers")'">Go to Transfer Market<i class="fa fa-shopping-cart"></i></button>
+<br />
+<br />
+<ul class="nav nav-tabs" id="transfersTabs" role="tablist" style="overflow-x: auto; white-space: nowrap; display: flex; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0;">
+        <button class="nav-link active" id="pendingTransfers-tab" data-bs-toggle="tab" data-bs-target="#pendingTransfers" type="button" role="tab" aria-controls="pendingTransfers" aria-selected="true" onclick="loadTab('pendingTransfers')">Pending<i class="fa fa-half-glass"></i></button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 10px;">
+        <button class="nav-link" id="acceptedTransfers-tab" data-bs-toggle="tab" data-bs-target="#acceptedTransfers" type="button" role="tab" aria-controls="acceptedTransfers" aria-selected="false" onclick="loadTab('acceptedTransfers')">Accepted</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 10px;">
+        <button class="nav-link" id="completedTransfers-tab" data-bs-toggle="tab" data-bs-target="#completedTransfers" type="button" role="tab" aria-controls="completedTransfers" aria-selected="false" onclick="loadTab('completedTransfers')">Completed</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 10px;">
+        <button class="nav-link" id="rejectedTransfers-tab" data-bs-toggle="tab" data-bs-target="#rejectedTransfers" type="button" role="tab" aria-controls="rejectedTransfers" aria-selected="false" onclick="loadTab('rejectedTransfers')">Rejected</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 10px;">
+        <button class="nav-link" id="cancelledTransfers-tab" data-bs-toggle="tab" data-bs-target="#cancelledTransfers" type="button" role="tab" aria-controls="cancelledTransfers" aria-selected="false" onclick="loadTab('cancelledTransfers')">Cancelled</button>
+    </li>
+</ul>
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="pendingTransfers" role="tabpanel" aria-labelledby="pendingTransfers-tab"></div>
+    <div class="tab-pane fade" id="acceptedTransfers" role="tabpanel" aria-labelledby="acceptedTransfers-tab"></div>
+    <div class="tab-pane fade" id="completedTransfers" role="tabpanel" aria-labelledby="completedTransfers-tab"></div>
+    <div class="tab-pane fade" id="rejectedTransfers" role="tabpanel" aria-labelledby="rejectedTransfers-tab"></div>
+    <div class="tab-pane fade" id="cancelledTransfers" role="tabpanel" aria-labelledby="cancelledTransfers-tab"></div>
+</div>
+
+<div id="errorMessage" style="display: none;"></div>
+
+<script>
+    function loadTab(tabName) {
+
+        $('.nav-link').removeClass('active');
+
+        $('#' + tabName + '-tab').addClass('active');
+
+        $('.tab-pane').removeClass('show active');
+
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'pendingTransfers') {
+                url = '@Url.Action("PendingPlayerTransfers", "Transfers")';
+            } else if (tabName === 'acceptedTransfers') {
+                url = '@Url.Action("AcceptedPlayerTransfers", "Transfers")';
+            } else if (tabName === 'completedTransfers') {
+                url = '@Url.Action("CompletedPlayerTransfers", "Transfers")';
+            } else if (tabName === 'rejectedTransfers') {
+                url = '@Url.Action("RejectedPlayerTransfers", "Transfers")';
+            }
+            else if (tabName === 'cancelledTransfers') {
+                url = '@Url.Action("CancelledPlayerTransfers", "Transfers")';
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        loadTab('pendingTransfers');
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>

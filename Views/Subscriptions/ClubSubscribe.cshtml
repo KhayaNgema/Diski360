@@ -1,0 +1,181 @@
+﻿@model MyField.Models.Subscription
+@{
+    ViewData["Title"] = "SUBSCRIBE NOW";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<head>
+    <style>
+        .card {
+            transition: transform 0.3s ease-in-out, opacity 0.2s, box-shadow 0.3s ease-in-out;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+
+            .card:hover {
+                transform: scale(1.05) perspective(1000px) rotateX(5deg) rotateY(5deg);
+                opacity: 1;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.25);
+            }
+    </style>
+</head>
+
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h2 style="text-align: center; animation: fadeInScale 2s ease-in-out infinite;">SUBSCRIBE NOW</h2>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can choose your subscription type between Basic, Premium, and Club Premium. Select the one that best fits your needs to enjoy the services offered by our platform.
+</p>
+<br />
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-md-4 mt-3 mb-3 px-2">
+            <div class="card text-center h-100" style="background-image: url('/Images/basic_sub.jpg'); background-size: cover; background-position: center;">
+                <div class="card-body" style="background-color: rgba(0, 0, 128, 0.5); color: white;">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span style="font-size: 1.5rem; font-weight: bold;">Basic Plan</span>
+                        <span style="font-size: 1.5rem; font-weight: bold;">ZAR 0/pm</span>
+                    </div>
+
+                    <p class="card-text" style="text-align: start;">Enjoy the essential features with our Basic Plan.</p>
+                    <p class="card-text" style="text-align: start;"><strong>Best suited for individuals looking for basic services.</strong></p>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Features:</strong></p>
+
+                    <div style="text-align: start;">
+                        <ul>
+                            <li>Access to basic features</li>
+                            <li>Full account management</li>
+                            <li>Sport news</li>
+                            <li>Fixtures (No details)</li>
+                            <li>Match results (No details)</li>
+                            <li>Full standings</li>
+                            <li>Player profile (No stats)</li>
+                        </ul>
+                    </div>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Benefits:</strong></p>
+                    <div style="text-align: start;">
+                        <ul>
+                            <li>No benefits</li>
+                        </ul>
+                    </div>
+                    <br />
+                    <p class="card-text" style="text-align: start;">
+                        <strong>
+                            Note:
+                        </strong>
+                        You are automatically subscribed to this feature as you consented to become an account holder.
+                        You can change your subscription plan by upgrading to the Premium Plan or Club Premium Plan (Applicable to clubs).
+                    </p>
+                    @if (ViewBag.SubscriptionPlan != null)
+                    {
+                        if (ViewBag.SubscriptionPlan == SubscriptionPlan.Basic)
+                        {
+                            <div class="currentPlan" style="background-color: transparent; border: 0.5px solid white; padding: 10px; border-radius: 15px; text-align: center;">
+                                <span style="font-weight: bold; color: white;">Current Plan</span>
+                            </div>
+                        }
+                        else if (ViewBag.SubscriptionPlan == SubscriptionPlan.Premium || ViewBag.SubscriptionPlan == SubscriptionPlan.Club_Premium)
+                        {
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-md-4 mt-3 mb-3 px-2">
+            <div class="card text-center h-100" style="background-image: url('/Images/gold_sub.jpg'); background-size: cover; background-position: center;">
+                <div class="card-body" style="background-color: rgba(237, 201, 103, 0.8);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span style="font-size: 1.5rem; font-weight: bold;">Premium Plan</span>
+                        <span style="font-size: 1.5rem; font-weight: bold;">ZAR 19.99/pm</span>
+                    </div>
+                    <p class="card-text" style="text-align: start;">Unlock all features with our Premium Plan.</p>
+                    <p class="card-text" style="text-align: start;"><strong>Best suited for users who want the full experience with no limits.</strong></p>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Features:</strong></p>
+
+                    <div style="text-align: start;">
+                        <ul>
+                            <li>Access to premium features</li>
+                            <li>Fixtures (With details)</li>
+                            <li>Match results (With details)</li>
+                            <li>Player profile (With stats)</li>
+                            <li>Access to profile</li>
+                            <li>Top scores</li>
+                            <li>Top assists</li>
+                            <li>Live scores</li>
+                            <li>Full notifications</li>
+                            <li>Announcements</li>
+                            <li>Match lineups</li>
+                        </ul>
+                    </div>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Benefits:</strong></p>
+                    <div style="text-align: start;">
+                        <ul>
+                            <li>Automatically join the "<strong>BEST MEMBER</strong>" competition to win a share of R2,500 monthly.</li>
+                            <li>Access to personalized system features.</li>
+                        </ul>
+                    </div>
+
+                    <p class="card-text" style="text-align: start;">
+                        <strong>Note:</strong>
+                        This feature is only available for individuals, not clubs. If you want to change your subscription plan, please select "My subscriptions" from the navigation menu.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-3 mb-3 px-2">
+            <div class="card text-center h-100" style="background-image: url('/Images/platinum_sub.jpg'); background-size: cover; background-position: center;">
+                <div class="card-body" style="background-color: rgba(229, 228, 226, 0.8);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span style="font-size: 1.5rem; font-weight: bold;">Club Premium Plan</span>
+                        <span style="font-size: 1.5rem; font-weight: bold;">ZAR 49.99/pm</span>
+                    </div>
+                    <p class="card-text" style="text-align: start;">Get exclusive benefits with our Club Premium Plan.</p>
+                    <p class="card-text" style="text-align: start;"><strong>Best suited for clubs and organizations looking for exclusive benefits.</strong></p>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Features:</strong></p>
+                    <ul style="text-align: start;">
+                        <li>Access to club player performance statistics</li>
+                    </ul>
+                    <br />
+                    <p class="card-text" style="text-align: start;"><strong>Benefits:</strong></p>
+                    <ul style="text-align: start;">
+                        <li>Ability to analyze your club player performance during competition.</li>
+                        <li>Informed decision making when setting up line-ups.</li>
+                    </ul>
+
+                    @if (ViewBag.SubscriptionPlan != null)
+                    {
+                        if (ViewBag.SubscriptionPlan == SubscriptionPlan.Club_Premium)
+                        {
+                            <div class="currentPlan" style="background-color: transparent; border: 0.5px solid black; padding: 10px; border-radius: 15px; text-align: center;">
+                                <span style="font-weight: bold; color: black;">Current Plan</span>
+                            </div>
+                        }
+                        else if (ViewBag.SubscriptionPlan == SubscriptionPlan.Basic || ViewBag.SubscriptionPlan == SubscriptionPlan.Premium)
+                        {
+                            <form method="post" action="@Url.Action("SubscribeClubPremium", "Subscriptions")" id="subscribeForm">
+                                @Html.AntiForgeryToken()
+                                <div class="d-flex justify-content-end mt-3 mb-3">
+                                    <button type="submit" class="btn me-3" style="background-color: #000325; color: white;">Subscribe</button>
+                                </div>
+                            </form>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

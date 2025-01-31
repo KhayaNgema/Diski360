@@ -1,0 +1,31 @@
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color: white; text-align: center; padding: 20px 0;">
+    <p style="font-size: 36px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">#10 Top scores</p>
+</div>
+<div class="container">
+    <div id="topScoresContent" style="margin-bottom: 10px;"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function fetchTopScores() {
+        var divisionId = '@divisionId'
+        $.ajax({
+            url: '/Reports/TopScores',
+            data: {
+                divisionId: divisionId
+            },
+            success: function (data) {
+                $('#topScoresContent').html(data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchTopScores();
+    });
+</script>

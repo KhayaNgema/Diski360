@@ -1,0 +1,127 @@
+﻿@model IEnumerable<MyField.Models.PlayerTransferMarket>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+
+@{
+    ViewData["Title"] = ViewBag.DivisionName + " Transfer Market";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">@ViewBag.DivisionName Player Transfer Market</h4>
+<br />
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-12">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by club name, player name, or position" onkeyup="filterCards()" />
+        </div>
+    </div>
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+
+    <div class="row" id="playerCardsContainer">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                var encryptedMarketId = encryptionService.Encrypt(item.PlayerTransferMarketId);
+                var encryptedPlayerId = encryptionService.Encrypt(item.PlayerId);
+                var encryptedClubId = encryptionService.Encrypt(item.Club.ClubId);
+
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-3 player-card"
+                     data-club="@item.Club.ClubName"
+                     data-player="@item.Player.FirstName @item.Player.LastName"
+                     data-position="@item.Player.Position">
+                    <div class="card" style="height: 100%;">
+                        <div class="card-header text-center" style="background-color: #f7f7f7; box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);">
+                            <div class="d-inline">
+                                <p class="card-title" style="font-size: 18px; font-family: sans-serif; display: inline;">#@Html.DisplayFor(modelItem => item.Player.JerseyNumber) @Html.DisplayFor(modelItem => item.Player.FirstName)</p>
+                                <p style="font-size: 18px; font-family: sans-serif; font-weight: bold; display: inline; margin-left: 5px;">@Html.DisplayFor(modelItem => item.Player.LastName)</p>
+                            </div>
+                        </div>
+                        <div class="card-body" style="padding: 10px;">
+                            <div class="row">
+                                <div class="col-4" style="width:100px; height:142px;">
+                                    <img src="~/@item.Player.ProfilePicture" alt="@item.Player.FirstName" class="img-fluid" style="width: 100%; height: 100%; object-fit:cover;" />
+                                </div>
+                                <div class="col-8">
+                                    <div class="d-flex align-items-center" style="font-size: 14px; margin-bottom: 5px;">
+                                        <div class="badge-container" style="width: 30px; height: 30px; margin-right: 5px;">
+                                            <img src="~/@item.Club.ClubBadge" alt="@item.Club.ClubName" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" />
+                                        </div>
+                                        <span>@Html.DisplayFor(modelItem => item.Club.ClubName)</span>
+                                    </div>
+                                    <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+                                    <p style="font-size: 12px; margin-bottom: 5px;">DoB/Age: <strong>@item.Player.DateOfBirth.ToString("MMM dd, yyyy")</strong></p>
+                                    <p style="font-size: 12px; margin-bottom: 5px;">Position: <strong>@Html.DisplayFor(modelItem => item.Player.Position)</strong></p>
+                                    <p style="font-size: 12px; margin-bottom: 5px;"><span><i class="fas fa-question-circle"></i></span> @Html.DisplayFor(modelItem => item.SaleStatus)</p>
+                                    <div class="d-flex align-items-center">
+                                        <p class="card-text" style="font-size: 12px; background-color: lightgreen; color: black; padding: 5px; border-radius: 2px; margin-bottom: 0; margin-right: 10px; width: 100px; text-align: center;">
+                                            R @Html.DisplayFor(modelItem => item.Player.MarketValue)
+                                        </p>
+                                        <a href="@Url.Action("InitiatePlayerTransfer", "Transfers", 
+                                        new { playerId = encryptedPlayerId, 
+                                            marketId = encryptedMarketId,
+                                            clubId = encryptedClubId })" class="btn btn-primary btn-sm">Sign<i class="fa fa-shopping-cart"></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">Player transfer period is currently closed for this season</p>
+        }
+    </div>
+    <div id="noResultsFound" class="row" style="display: none;">
+        <div class="col-12 text-center">
+            <p>Search results not found.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterCards() {
+        var input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("searchInput");
+        filter = input.value.toLowerCase();
+        cardContainer = document.getElementById("playerCardsContainer");
+        cards = cardContainer.getElementsByClassName("player-card");
+
+        var resultsFound = false;
+
+        for (i = 0; i < cards.length; i++) {
+            var club = cards[i].getAttribute("data-club").toLowerCase();
+            var player = cards[i].getAttribute("data-player").toLowerCase();
+            var position = cards[i].getAttribute("data-position").toLowerCase();
+            if (club.indexOf(filter) > -1 || player.indexOf(filter) > -1 || position.indexOf(filter) > -1) {
+                cards[i].style.display = "";
+                resultsFound = true;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+
+        var noResultsMessage = document.getElementById("noResultsFound");
+        if (!resultsFound) {
+            noResultsMessage.style.display = "block";
+        } else {
+            noResultsMessage.style.display = "none";
+        }
+    }
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>

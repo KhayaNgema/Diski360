@@ -1,0 +1,159 @@
+﻿@model IEnumerable<MyField.Models.SportsMember>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Fans Administrators";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 style="text-align:center;">Fans Administrators</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are managing fan administrators. You can view and update the list of administrators responsible for overseeing fan activities and engagement. This includes adding new administrators, modifying their roles, and managing their responsibilities to ensure effective fan management.
+</p>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+@if(Model.Any())
+{
+    <div>
+        <form asp-area="Identity" asp-page="/Account/RegisterSportsMember">
+            <button type="submit" class="btn" id="addButton">
+                Add a new administrator
+                <span class="fa fa-plus"></span>
+            </button>
+        </form>
+    </div>
+    <br />
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Profile Picture
+                    </th>
+                    <th>
+                        Name (s)
+                    </th>
+                    <th>
+                        Last name
+                    </th>
+                    <th>
+                        Email address
+                    </th>
+                    <th>
+                        Cellphone number
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var encryptedUserId = encryptionService.Encrypt(item.Id);
+
+                    <tr style="max-width: 400px;">
+                        <td>
+                            <img src="~/@item.ProfilePicture" alt="@item.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @if (item.IsActive == true && item.IsSuspended == false)
+                            {
+                                <p>Active</p>
+                            }
+                            else if (item.IsSuspended == true && item.IsActive == true)
+                            {
+                                <p>Suspended</p>
+                            }
+                            else
+                            {
+                                <p>Inactive</p>
+                            }
+                        </td>
+                        <td class="text-right">
+                            <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.Id">
+                                Actions
+                            </button>
+                            <div class="action-tab" id="actionTab-@item.Id" style="display: none;">
+                                <a class="tab-item" href="@Url.Action("UserProfile", "Users", new {userId = encryptedUserId })">
+                                    <i class="fas fa-user" style="color: blue;"></i> Profile
+                                </a>
+                                <a class="tab-item" href="@Url.Action("Deactivate", "Users", new { userId = encryptedUserId  })">
+                                    <i class="fas fa-pause" style="color: red;"></i> Deactivate
+                                </a>
+                                <a class="tab-item" href="@Url.Action("Activate", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-check-circle" style="color: green;"></i> Activate
+                                </a>
+                                <a class="tab-item" href="@Url.Action("Suspend", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-ban" style="color: red;"></i> Suspend
+                                </a>
+                                <a class="tab-item" href="@Url.Action("Unsuspend", "Users", new {userId = encryptedUserId })">
+                                    <i class="fas fa-check-circle" style="color: green;"></i> Unsuspend
+                                </a>
+                                <a class="tab-item" href="@Url.Action("Delete", "Users", new {userId = encryptedUserId })">
+                                    <i class="fas fa-trash" style="color: red;"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center" style="margin-top: 20vh;">There are no fans administrators yet.</p>
+        <div style="margin-bottom: 20vh;">
+            <form asp-area="Identity" asp-page="/Account/RegisterSportsMember">
+                <button type="submit" class="btn" id="addButton">
+                    Add a new administrator
+                    <span class="fa fa-plus"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

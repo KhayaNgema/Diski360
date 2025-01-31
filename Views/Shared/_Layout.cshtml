@@ -1,0 +1,461 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MyField.Data
+@inject SignInManager<UserBaseModel> SignInManager
+@using MyField.Models;
+@inject Ksans_SportsDbContext _context
+
+@{
+    var customers = _context.Divisions
+            .ToList();
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>@ViewData["Title"] - Diski360</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyField.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+
+
+</head>
+
+<style>
+
+    
+#menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: #000325;
+    color: white;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+
+#menu.show {
+    transform: translateY(0);
+}
+
+#menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu ul li {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+#menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#menu ul li a:hover {
+    text-decoration: none;
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+#menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: none;
+}
+</style>
+
+
+<body>
+    <div id="overlay" class="overlay"></div>
+
+    <div id="loading-overlay">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="loginNav">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="#menu-toggle" id="menu-toggle" style="font-size: 26px; color: white; text-decoration: none; margin-right: 10px; padding-right:10px;">&#9776;</a>
+                        <a class="navbar-brand ml-2" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">
+                            <div class="layout-logo-container">
+                                <img src="/Images/new_logo.png" alt="Logo">
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand ml-2" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">
+                            <div class="layout-logo-container">
+                                <img src="/Images/new_logo.png" alt="Logo">
+                            </div>
+                        </a>
+                    }
+                </div>
+
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+
+        <nav class="navbar navbar-light bg-light" id="scrollTextNav-lay">
+            <div class="container-fluid">
+                <div class="scrolling-text-container">
+                    <div class="scrolling-text">
+                        <p>This is a BETA version of our application. We have released this version for testing purposes to gather feedback and improve the final release. Please note that some features available here may be part of a premium version in the full release. We value your input—please share your feedback using the feedback button located at the bottom-right corner of the page. Your comments are crucial in helping us enhance the application.</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        @if (User.Identity.IsAuthenticated)
+        {
+
+        }
+        else
+        {
+
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="homeTabsNav-lay">
+                    <div class="container-fluid">
+                    <div class="tab-container" style="overflow-x: auto; white-space: nowrap;">
+                        <ul class="nav nav-tabs" id="sportsTabs" role="tablist" style="display: flex; flex-wrap: nowrap;">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="sportnews-tab" data-bs-toggle="tab" data-bs-target="#sportnews" type="button" role="tab" aria-controls="sportnews" aria-selected="true" onclick="loadTab('sportnews')"> <i class="fa fa-newspaper"></i> Sport news</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="soccer-tab" data-bs-toggle="tab" data-bs-target="#soccer" type="button" role="tab" aria-controls="soccer" aria-selected="false" onclick="loadTab('soccer')"><i class="fa fa-futbol"></i> Soccer</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="netball-tab" data-bs-toggle="tab" data-bs-target="#netball" type="button" role="tab" aria-controls="netball" aria-selected="false" onclick="loadTab('netball')"> <i class="fa fa-basketball-ball"></i> Netball</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="allFixtures-tab" data-bs-toggle="tab" data-bs-target="#allFixtures" type="button" role="tab" aria-controls="allFixtures" aria-selected="false" onclick="loadTab('allFixtures')"><i class="fa fa-calendar-alt"></i> Fixtures</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            <div id="menu" class="top-menu">
+                <div id="menu-close" onclick="toggleMenu()">&times;</div>
+                <ul class="sidebar-nav" style="list-style: none; padding: 0;">
+                    <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
+                        <i class="fa fa-user-shield" style="color: white; margin-right: 5px;"></i>
+                        <a asp-controller="Home" asp-action="PrivacyPolicy" class="nav-link text-light">Privacy policy</a>
+                    </li>
+                    <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
+                        <i class="fa fa-info-circle" style="color: white; margin-right: 5px;"></i>
+                        <a asp-controller="Home" asp-action="AboutUs" class="nav-link text-light">About us</a>
+                    </li>
+                    <li style="margin-top: 20px; margin-left: 30px; list-style-type: none;">
+                        <div style="display: flex; align-items: center;">
+                            <i class="fa fa-user-cog" style="color: white; margin-right: 5px;"></i>
+                            <a href="#supportSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link text-light d-flex align-items-center">
+                                Support
+                                <i style="margin-left: 50px; margin-top: 1px;" class="fa fa-caret-down ml-2 caret-rotate collapsed"></i>
+                            </a>
+                        </div>
+                        <ul class="collapse list-unstyled collapsible-menu" id="supportSubmenu" style="margin-left: 35px;">
+                            <li style="margin-top: 10px; list-style-type: none;">
+                                <a href="https://www.facebook.com/groups/1059539181218342/" target="_blank" class="nav-link text-light">
+                                    <i class="fab fa-facebook" style="color: white; margin-right: 5px;"></i>
+                                    Facebook
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
+                        <i class="fa fa-file-contract" style="color: white; margin-right: 5px;"></i>
+                        <a asp-controller="Home" asp-action="TermsAndConditions" class="nav-link text-light">Terms & conditions</a>
+                    </li>
+
+                    <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
+                        <i class="fa fa-envelope" style="color: white; margin-right: 5px;"></i>
+                        <a asp-controller="Home" asp-action="ContactUs" class="nav-link text-light">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+
+        }
+
+    </header>
+    <div id="page-content-wrapper" class="main-content">
+        <div class="container-fluid" style="padding-right:0; padding-left:0; margin-right:0!important;">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <a asp-controller="Reports" asp-action="TestFeedback" class="floating-button">
+        <span class="rotate"><i class="fa fa-comment"></i> Share Feedback</span>
+    </a>
+    <footer class="py-4 pages-footer" style="background-color: #000325; color: white; padding-bottom: 0;margin-top:40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About Us</h5>
+                    <p>
+                        Learn more about our mission, values, and team. Visit our
+                        <a href="@Url.Action("AboutUs", "Home")" class="text-white">About Us</a> page for more details.
+                    </p>
+                    <h5 style="padding-top:25px;">Join Us</h5>
+                    <p>
+                        Do you want to become one of our valued customers? <br />
+                        <a asp-controller="Divisions" asp-action="MakeOnboardingRequest" class="text-white font-weight-bold">Click here to join Diski60!</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="PrivacyPolicy" class="text-white">Privacy Policy</a></li>
+                        <li><a asp-controller="Home" asp-action="TermsAndConditions" class="text-white">Terms & Conditions</a></li>
+                        <li><a asp-controller="Home" asp-action="ContactUs" class="text-white">Contact Us</a></li>
+                        <li><a href="https://www.facebook.com/groups/1059539181218342/" target="_blank" class="text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Us</h5>
+                    <p>Have questions? Get in touch with us via email or phone.</p>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:info@diski360.com" class="text-white">info@diski360.com</a></p>
+                    <p><i class="fa fa-phone"></i> +27732871256</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Our Customers</h5>
+                    @if (customers != null && customers.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var customer in customers)
+                            {
+                                <li style="padding:5px;">
+                                    <img src="@Url.Content("~/" + customer.DivisionBadge)" alt="@customer.DivisionName" style="width:40px; height:40px; object-fit:cover; background-color:white; border-radius:8px;" />
+                                    @customer.DivisionName (@customer.DivisionAbbr)
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>We currently do not have customers but are in the process of acquiring some.</p>
+                    }
+                </div>
+            </div>
+            <hr style="border-color: white; margin: 20px 0;">
+            <div class="text-center mt-3">
+                <p>&copy; @DateTime.Now.Year Diski360. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  
+
+    $(document).ready(function () {
+
+        $(document).on('click', '.action-button', function () {
+            var id = $(this).data('id');
+            var $actionTab = $('#actionTab-' + id);
+            $('.action-tab').not($actionTab).hide();
+            $actionTab.toggle();
+        });
+
+        $(document).on('click', function (event) {
+            var $target = $(event.target);
+            if (!$target.closest('.action-tab').length && !$target.closest('.action-button').length) {
+                $('.action-tab').hide();
+            }
+        });
+
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (e) {
+            if (
+                e.keyCode == 123 ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 67) ||
+                (e.ctrlKey && e.keyCode == 85) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 74)
+            ) {
+                e.preventDefault();
+            }
+        });
+
+
+    });
+
+
+    function toggleMenu() {
+        $('#menu').toggleClass('show');
+        $('#overlay').toggle(); 
+    }
+
+    $('#menu-toggle').on('click', function (e) {
+        e.preventDefault();
+        toggleMenu();
+    });
+
+    $('#overlay').on('click', function () {
+        $('#menu').removeClass('show');
+        $(this).hide();
+    });
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        function adjustBodyPadding() {
+            var loginNav = document.getElementById('loginNav');
+            var homeTabsNav = document.getElementById('homeTabsNav-lay');
+            var scrollTextNav = document.getElementById('scrollTextNav-lay');
+            var divisionNav = document.getElementById('divisionNav');
+
+
+            var loginNavHeight = loginNav ? loginNav.offsetHeight : 0;
+            var homeTabsNavHeight = homeTabsNav ? homeTabsNav.offsetHeight : 0;
+            var scrollTextNavHeight = scrollTextNav ? scrollTextNav.offsetHeight : 0;
+            var divisionNavNavHeight = divisionNav ? divisionNav.offsetHeight : 0;
+
+            var totalPadding = loginNavHeight + homeTabsNavHeight + scrollTextNavHeight + divisionNavNavHeight;
+            document.body.style.paddingTop = totalPadding + 'px';
+        }
+
+        adjustBodyPadding();
+
+        window.addEventListener('resize', adjustBodyPadding);
+    });
+
+
+    function loadTab(tabName) {
+
+        $('.nav-link').removeClass('active');
+        $('.tab-pane').removeClass('show active');
+
+        $('#' + tabName + '-tab').addClass('active');
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            switch (tabName) {
+                case 'sportnews':
+                    url = '@Url.Action("SportNewsIndex", "SportNews")';
+                    break;
+                case 'soccer':
+                    url = '@Url.Action("SoccerDivisions", "Divisions")';
+                    break;
+                case 'netball':
+                    url = '@Url.Action("NetballDivisions", "Divisions")';
+                    break;
+                case 'allFixtures':
+                    url = '@Url.Action("AllLeaguesFixtures", "Fixtures")';
+                    break;
+                default:
+                    console.error('Unknown tab:', tabName);
+                    return;
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+
+        const path = window.location.pathname;
+        const pathSegments = path.split('/').filter(Boolean);
+        const pathTab = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1] : '';
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let initialTab = 'sportnews'; 
+
+        if (pathTab && ['soccer', 'netball', 'allFixtures'].includes(pathTab)) {
+            initialTab = pathTab;
+        } else if (urlParams.has('tab')) {
+            const tabValue = urlParams.get('tab');
+            if (['soccer', 'netball', 'allFixtures'].includes(tabValue)) {
+                initialTab = tabValue;
+            }
+        }
+
+        loadTab(initialTab);
+    });
+
+
+
+    $(window).on('load', function () {
+        var loadingOverlay = $('#loading-overlay');
+
+        loadingOverlay.hide();
+
+        $('.loading-spinner').css('animation', 'none');
+    });
+
+    $(document).on('click', 'a:not([href^="#"])', function () {
+        var loadingOverlay = $('#loading-overlay');
+
+        loadingOverlay.show();
+    });
+</script>
+
+@RenderSection("Scripts", required: false)
+
+</html>

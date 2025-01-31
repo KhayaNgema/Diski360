@@ -1,0 +1,224 @@
+﻿@model IEnumerable<MyField.Models.Player>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = ViewBag.ClubName + " Players";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+
+</style>
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.ClubName Players</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are managing the players in your club. You can view and update player information, including adding new players, modifying existing player details, and overseeing their assignments and performance within your club.
+</p>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+@if(Model.Any())
+{
+    <div>
+    <form asp-area="Identity" asp-page="/Account/RegisterClubPlayer">
+        <button type="submit" class="btn" id="addButton">
+            Add a new player
+            <span class="fa fa-plus"></span>
+        </button>
+    </form>
+</div>
+<br />
+    <div>
+        <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>Image</th>
+                    <th s>Name (s)</th>
+                    <th> Last name</th>
+                    <th>Phone</th>
+                    <th>Email address</th>
+                    <th>Position</th>
+                    <th>Jersey Number</th>
+                    <th>Market value (ZAR)</th>
+                    <th>Status</th>
+                    <th>Player card</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                        var encryptedUserId = encryptionService.Encrypt(item.Id);
+
+
+                    <tr styel="white-space: nowrap;">
+                        <td>
+                            <img src="~/@item.ProfilePicture" alt="@item.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            @Html.DisplayFor(modelItem => item.JerseyNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MarketValue)
+                        </td>
+                    <td>
+                        @if (item.IsActive == true && item.IsSuspended == false)
+                        {
+                            <p>Active</p>
+                        }
+                        else if (item.IsSuspended == true && item.IsActive == true)
+                        {
+                            <p>Suspended</p>
+                        }
+                        else
+                        {
+                            <p>Inactive</p>
+                        }
+                    </td>
+                            <td>
+                                <div style="position: relative; width: 70px; height: 50px;">
+                                    <img src="@Url.Content("~/" + item.PlayerCard)" alt="@item.FirstName" class="player-card-image" style="border-radius: 5%; width: 100%; height: 100%;" />
+
+                                    <a class="player-card-modal-button" href="javascript:void(0);"
+                                       data-card-src="@Url.Content("~/" + item.PlayerCard)"
+                                       style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+           font-size: 14px; color: white; background-color: rgba(0, 0, 0, 0.5);
+           padding: 7px; border-radius: 70%; cursor: pointer; text-align: center;">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+
+
+                    <td class="text-right">
+                        <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.Id">
+                            Actions
+                        </button>
+                        <div class="action-tab" id="actionTab-@item.Id" style="display: none;">
+                            @if (User.IsInRole("Personnel Administrator"))
+                            {
+                                        <a class="tab-item" href="@Url.Action("Deactivate", "Users", new {userId = encryptedUserId  })">
+                                    <i class="fas fa-pause" style="color: red;"></i> Deactivate
+                                </a>
+                                        <a class="tab-item" href="@Url.Action("Activate", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-check-circle" style="color: green;"></i> Activate
+                                </a>
+                                        <a class="tab-item" href="@Url.Action("Suspend", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-ban" style="color: red;"></i> Suspend
+                                </a>
+                                        <a class="tab-item" href="@Url.Action("Unsuspend", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-check-circle" style="color: green;"></i> Unsuspend
+                                </a>
+                                        <a class="tab-item" href="@Url.Action("Delete", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-trash" style="color: red;"></i> Delete
+                                </a>
+                            }
+                            else if (User.IsInRole("Club Administrator"))
+                            {
+                                        <a class="tab-item" href="@Url.Action("PlayerProfile", "Users", new { userId = encryptedUserId })">
+                                    <i class="fas fa-user" style="color: blue;"></i> Profile
+                                </a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center" style="margin-top: 20vh;">There are no players for your club yet.</p>
+        <div style="margin-bottom: 20vh;">
+            <form asp-area="Identity" asp-page="/Account/RegisterClubPlayer">
+                <button type="submit" class="btn" id="addButton">
+                    Add a new player
+                    <span class="fa fa-plus"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+}
+
+<div id="playerCardModal" class="player-card-modal" style="display:none;">
+    <div class="player-card-modal-content">
+        <div class="row align-items-center" style="padding: 10px;">
+            <div class="col-10">
+                <p id="modalPlayerName" class="text-left mb-0" style="font-size: 16px; font-weight: bold; color: #333;"></p> <!-- Player name will be displayed here -->
+            </div>
+            <div class="col-2 text-right">
+                <span class="close" style="cursor: pointer; font-size: 20px;">&times;</span>
+            </div>
+        </div>
+        <div class="modal-body">
+            <img id="modalPlayerCardImage" alt="Player Card" class="player-card-image" />
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var playerCardModal = $('#playerCardModal');
+        var modalPlayerCardImage = $('#modalPlayerCardImage');
+
+        $('.player-card-modal-button').on('click', function () {
+            var cardSrc = $(this).data('card-src');
+            var playerFirstName = $(this).closest('tr').find('td:nth-child(2)').text().trim();
+            var playerLastName = $(this).closest('tr').find('td:nth-child(3)').text().trim();
+
+            modalPlayerCardImage.attr('src', cardSrc);
+            $('#modalPlayerName').text(playerFirstName + ' ' + playerLastName);
+            playerCardModal.fadeIn();
+        });
+
+        $('.close').on('click', function () {
+            playerCardModal.fadeOut(300, function () {
+                modalPlayerCardImage.attr('src', '');
+                location.reload();
+            });
+        });
+
+        $(window).on('click', function (event) {
+            if ($(event.target).is(playerCardModal)) {
+                playerCardModal.fadeOut(300, function () {
+                    modalPlayerCardImage.attr('src', '');
+                    location.reload();
+                });
+            }
+        });
+
+    });
+</script>
+

@@ -1,0 +1,56 @@
+﻿@model MyField.ViewModels.AskForReEditNewsViewModel
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@if (User.IsInRole("News Updator") || User.IsInRole("News Administrator"))
+{
+    @await Html.PartialAsync("_BackButton")
+}
+else
+{
+    @await Html.PartialAsync("_SportNewsButton")
+}
+<br />
+<h4 style="text-align:center;">Ask for re-edit</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are updating news. Once you have made your changes, the updated news will be sent to administrators for approval. This ensures that all news items are reviewed and approved before being published.
+</p>
+<br />
+<div class="col-md-12 col-sm-12 col-lg-12 sport-news-content">
+    <form asp-action="AskReEditNews" method="post" asp-route-newsId="@Model.NewsId" enctype="multipart/form-data">
+        <h4 class="sport-news-heading">@Model.NewsTitle</h4>
+        <hr />
+        <div class="row">
+            <div>
+                <div>
+                    <img src="~/@Model.NewsImage" alt="News Image" class="sport-news-image-modal">
+                </div>
+                <hr />
+                <div>
+                    <p style="white-space: pre-wrap;">@Model.NewsBody</p>
+                </div>
+                <br />
+                <div class="form-floating mb-3">
+                    <textarea asp-for="ReasonForReEdit" class="form-control border-bottom-only" placeholder="ReasonForReEdit" style="min-height: 150px; white-space: pre-wrap;"></textarea>
+                    <label asp-for="ReasonForReEdit" class="form-label">What to edit?</label>
+                    <span asp-validation-for="ReasonForReEdit" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" style="display: flex; justify-content: flex-end;">
+                    <input type="hidden" asp-for="NewsId" value="@Model?.NewsId" />
+                    <input type="submit" value="Submit" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

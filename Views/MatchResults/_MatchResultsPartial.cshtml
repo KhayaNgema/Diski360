@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MyField.Models.MatchResults>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Back Office Match Results";
+    DateTime currentDate = DateTime.MinValue;
+}
+
+<div class="matchResultContainer" style="width:100%;">
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(match => match.MatchDate))
+                    {
+                        var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+
+                        if (currentDate != item.MatchDate.Date)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    <h6 class="text-center date-background">@item.MatchDate.ToShortDateString()</h6>
+                                </td>
+                            </tr>
+                            currentDate = item.MatchDate.Date;
+                        }
+                        <tr style="white-space: nowrap!important;">
+                            <td class="text-center">
+                                <div style="display: flex; align-items: center; justify-content: center;">
+                                    <p class="card-title mb-0" style="font-size:16px; font-weight:500;">
+                                        <span class="club-name-full">@item.HomeTeam.ClubName</span>
+                                        <span class="club-name-abbr">@item.HomeTeam.ClubAbbr</span>
+                                    </p>
+                                    <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubName" class="club-badge-image mb-2" style="margin-right: 10px;" />
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <h5 class="text-center font-weight-bold mb-0">@item.HomeTeamScore - @item.AwayTeamScore</h5>
+                            </td>
+                            <td class="text-center">
+                                <div style="display: flex; align-items: center; justify-content: center;">
+                                    <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubName" class="club-badge-image mb-2" style="margin-right: 10px;" />
+                                    <p class="card-title mb-0" style="font-size:16px;  font-weight:500;">
+                                        <span class="club-name-full">@item.AwayTeam.ClubName</span>
+                                        <span class="club-name-abbr">@item.AwayTeam.ClubAbbr</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" onclick="window.location.href='@Url.Action("StartLive", "Lives", new { fixtureId = encryptedFixtureId })';" style="
+                                    background: none;
+                                    border: none;
+                                    cursor: pointer;
+                                    padding: 0;
+                                    margin: 0;">
+                                    <i class="fa fa-info-circle" style="font-size: 18px; color: #011033;"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div style="border-bottom: 1px solid #ccc; margin: 2px 0;"></div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no match results at the moment yet.</p>
+    }
+</div>

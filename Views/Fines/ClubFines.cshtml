@@ -1,0 +1,88 @@
+﻿@model MyField.Models.Fine
+
+@{
+    ViewData["Title"] = "Club Fines";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Club Fines</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    Here, you will find details about allclub's fines, including information on due dates, amounts, and violations. This section provides a clear overview of any outstanding fines and associated details for better management and tracking.
+</p>
+<br />
+
+<ul class="nav nav-tabs" id="clubFinesTabs" role="tablist" style="overflow-x: auto; white-space: nowrap; display: flex; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0;">
+        <button class="nav-link active" id="pendingFines-tab" data-bs-toggle="tab" data-bs-target="#pendingFines" type="button" role="tab" aria-controls="pendingFines" aria-selected="true" onclick="loadTab('pendingFines')">Pending<i class="fa fa-half-glass"></i></button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="paidFines-tab" data-bs-toggle="tab" data-bs-target="#paidFines" type="button" role="tab" aria-controls="paidFines" aria-selected="false" onclick="loadTab('paidFines')">Paid</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="overdueFines-tab" data-bs-toggle="tab" data-bs-target="#overdueFines" type="button" role="tab" aria-controls="overdueFines" aria-selected="false" onclick="loadTab('overdueFines')">Overdue</button>
+    </li>
+</ul>
+
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close" onclick="closeMessage()">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="pendingFines" role="tabpanel" aria-labelledby="pendingFines-tab"></div>
+    <div class="tab-pane fade" id="paidFines" role="tabpanel" aria-labelledby="paidFines-tab"></div>
+    <div class="tab-pane fade" id="overdueFines" role="tabpanel" aria-labelledby="overdueFines-tab"></div>
+</div>
+
+<div id="errorMessage" style="display: none;"></div>
+
+<script>
+    function loadTab(tabName) {
+        $('.nav-link').removeClass('active');
+        $('#' + tabName + '-tab').addClass('active');
+        $('.tab-pane').removeClass('show active');
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'pendingFines') {
+                url = '@Url.Action("_PendingClubFines", "Fines")';
+            } else if (tabName === 'paidFines') {
+                url = '@Url.Action("PaidClubFines", "Fines")';
+            } else if (tabName === 'overdueFines') {
+                url = '@Url.Action("OverdueClubFines", "Fines")';
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                }
+            });
+        }
+    }
+
+    function closeMessage() {
+        $('#tempDataMessage').hide();
+    }
+
+    $(document).ready(function () {
+        loadTab('pendingFines');
+        setTimeout(function () {
+            closeMessage();
+        }, 3000);
+    });
+</script>

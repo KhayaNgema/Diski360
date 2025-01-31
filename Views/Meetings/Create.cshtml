@@ -1,0 +1,61 @@
+﻿@model MyField.ViewModels.MeetingViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">New Meeting</h4>
+<br />
+<div class="row meetings-container">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MeetingAttendes" class="control-label"></label>
+                <select asp-for="MeetingAttendes" class="form-control border-bottom-only" asp-items="@((IEnumerable<SelectListItem>)ViewData["MeetingsAttendes"])"></select>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingTitle" class="form-control border-bottom-only" placeholder="MeetingTitle" />
+                <label asp-for="MeetingTitle" class="form-label">Meeting title</label>
+                <span asp-validation-for="MeetingTitle" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="MeetingDescription" class="form-control border-bottom-only" placeholder="MeetingDescription" style="min-height: 150px;"></textarea>
+                <label asp-for="MeetingDescription" class="form-label">Meeting description</label>
+                <span asp-validation-for="MeetingDescription" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Venue" class="form-control border-bottom-only" placeholder="Venue" />
+                <label asp-for="Venue" class="form-label">Venue</label>
+                <span asp-validation-for="Venue" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingDate" class="form-control border-bottom-only" placeholder="MeetingDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="MeetingDate" class="form-label">Meeting date</label>
+                <span asp-validation-for="MeetingDate" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingTime" class="form-control border-bottom-only" placeholder="MeetingTime" type="time" />
+                <label asp-for="MeetingTime" class="form-label">Meeting time</label>
+                <span asp-validation-for="MeetingTime" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="AdditionalComments" class="form-control border-bottom-only" placeholder="AdditionalComments" style="min-height: 150px;"></textarea>
+                <label asp-for="AdditionalComments" typeof="time" class="form-label">Additional comments</label>
+                <span asp-validation-for="AdditionalComments" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Submit" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

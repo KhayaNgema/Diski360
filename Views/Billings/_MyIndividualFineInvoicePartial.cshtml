@@ -1,0 +1,93 @@
+﻿@model MyField.Models.Invoice
+
+@{
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    ViewData["Title"] = " Fine clearance";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+
+            .invoice-details p {
+                margin: 0;
+            }
+    </style>
+</head>
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<div class="col-sm-12 col-md-12 col-lg-12 clearance-container">
+    <br />
+    <div class="container" style="text-align: center">
+        <img src="/Images/NFA_logo.jpg" alt="Logo" style="width:120px; height:120px; object-fit: cover;">
+        <h3><strong>Nkungwini Football Association</strong></h3>
+        <p class="slogan" style="font-family: 'Italic Outline Art' !important;">"Slogan here"</p>
+    </div>
+    <br />
+    <br />
+    <div class="container" style="text-align: center; width: margin: 0; auto; white-space:normal;">
+        <h5 style="text-align: center; white-space:normal; font-family:Arial;">
+            This is to confirm that @Model?.Fine?.Offender?.FirstName @Model?.Fine?.Offender?.LastName  have cleared their fine with the details outlined below.
+        </h5>
+    </div>
+    <br />
+    <div class="container" style="text-align: center;">
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+        <h5><strong>Fine Details:</strong></h5>
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+    </div>
+    <br />
+    <div class="row" style="margin-left:20px;">
+        <div class="col-12">
+            <p><strong>Fine:</strong> @Model?.Fine?.FineDetails</p>
+            <p><strong>Amount:</strong> @Model?.Fine?.FineAmount</p>
+            <p><strong>Due date:</strong> @Model?.Fine?.FineDuDate</p>
+        </div>
+    </div>
+    <br />
+    <div class="container" style="text-align: center;">
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+        <h5><strong>Payment Details:</strong></h5>
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+    </div>
+    <div class="row" style="margin-left:20px;">
+        <div class="col-6">
+            <p><strong>Date:</strong> @Model?.Payment?.PaymentDate.ToString("dd MMM, yyyy")</p>
+            <p><strong>Status:</strong> @Model?.Payment?.Status</p>
+            <p><strong>Payment method:</strong> @Model?.Payment?.PaymentMethod</p>
+        </div>
+        <div class="col-6">
+            <p><strong>Fine Amount Paid:</strong> @Model?.Payment?.AmountPaid</p>
+            <p><strong>Payment Ref no.:</strong> @Model?.Payment?.ReferenceNumber</p>
+            <p><strong>Invoice no.:</strong> @Model.InvoiceNumber</p>
+        </div>
+    </div>
+    <br />
+    <div class="container" style="text-align: center;">
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+        <h5><strong>Concerned Parties:</strong></h5>
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+    </div>
+    <br />
+    <div class="row" style="margin-left:20px; margin-bottom:20px;">
+        <div class="col-8">
+            <div class="row" style="white-space:nowrap;">
+                <div class="col-8" style="padding-top:5px; margin-top:5px;">
+                    <h6><strong>@Model?.Fine.Offender.FirstName @Model?.Fine.Offender.LastName </strong></h6>
+                </div>
+            </div>
+            <br />
+            <p><strong>Signature:</strong> @Model?.Payment?.PaymentMadeBy?.FirstName @Model?.Payment?.PaymentMadeBy?.LastName</p>
+            <p><strong>Date:</strong> @Model?.Payment?.PaymentDate.ToString("dd MMM, yyyy")</p>
+        </div>
+    </div>
+</div>

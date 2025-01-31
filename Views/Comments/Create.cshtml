@@ -1,0 +1,31 @@
+﻿@model MyField.Models.Comment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">New comment</h4>
+<br />
+<div class="row comment-container">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="CommentText" class="form-control border-bottom-only" placeholder="CommentText" style="min-height: 300px;"></textarea>
+                <label asp-for="CommentText" class="form-label">Comment text</label>
+                <span asp-validation-for="CommentText" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

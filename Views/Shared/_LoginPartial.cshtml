@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserBaseModel> SignInManager
+@inject UserManager<UserBaseModel> UserManager
+
+
+    <head>
+        <style>
+        .navLoginLinks {
+            display: flex;
+            align-items: center;
+        }
+
+            .navLoginLinks .nav-login-item {
+                margin-right: 10px;
+            }
+        </style>
+    </head>
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+
+    }
+    else
+    {
+        <div class="loginNavLinks navLoginLinks">
+        <li class="nav-login-item">
+            <form asp-area="Identity" asp-page="/Account/Register">
+                <button type="submit" class="btn btn-primary" style="color: white;">Register</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <form asp-area="Identity" asp-page="/Account/Login">
+                <button type="submit" class="btn btn-primary" style="color: white;">Login</button>
+            </form>
+        </li>
+        </div>
+
+    }
+</ul>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MyField.Models.MatchResults>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-borderless">
+        <thead>
+            <tr style="color:white;background-color: #324260; white-space: nowrap;">
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTeamScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayTeamScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatchDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="ellipsis">
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeamScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeamScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatchDate)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

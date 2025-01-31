@@ -1,0 +1,49 @@
+﻿@model MyField.Models.Club
+<br />
+<br />
+<div class="text-center">
+    <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="club-summary-image mb-4" style="max-width: 200px;" />
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="pane">
+                <h4>Manager</h4>
+                <dl class="dl-horizontal">
+                    <dd>
+                        @if(Model.ClubManager != null && Model.ClubManager.FirstName != null && Model.ClubManager.LastName != null && !Model.ClubManager.IsDeleted)
+                        {
+                            <span>@Html.DisplayFor(model => model.ClubManager.FirstName)</span> <span>@Html.DisplayFor(model => model.ClubManager.LastName)</span>
+                        }
+                        else
+                        {
+                            <p>This club does not have a club manager.</p>
+                        }
+
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pane">
+                <h4>History</h4>
+                <dl class="dl-horizontal">
+                    <dd>
+                        @Html.DisplayFor(model => model.ClubHistory)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pane">
+                <h4>Summary</h4>
+                <dl class="dl-horizontal">
+                    <dd>
+                        @Html.DisplayFor(model => model.ClubSummary)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

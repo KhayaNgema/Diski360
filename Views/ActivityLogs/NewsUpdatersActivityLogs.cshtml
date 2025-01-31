@@ -1,0 +1,123 @@
+﻿@model IEnumerable<MyField.Models.ActivityLog>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+<br />
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Activity logs</h4>
+<br />
+
+@if (Model.Any())
+{
+    <div class="d-flex flex-column mb-2">
+        <div class="d-flex flex-nowrap mb-2" style="overflow-x: auto;">
+            <div class="col-auto p-0 me-2">
+                <label for="searchByDetails" class="d-block">Search:</label>
+                <input type="text" id="searchByDetails" class="form-control" placeholder="Search by Details" style="width: 180px;">
+            </div>
+            <div class="col-auto p-0 me-2">
+                <label for="searchByStartDate" class="d-block">Start Date:</label>
+                <input type="date" id="searchByStartDate" class="form-control" style="width: 180px;">
+            </div>
+            <div class="col-auto p-0 me-2">
+                <label for="searchByEndDate" class="d-block">End Date:</label>
+                <input type="date" id="searchByEndDate" class="form-control" style="width: 180px;">
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="noResultsMessage" class="d-none text-center" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+        <p>There are no activity logs for your search</p>
+    </div>
+    <div class="table-responsive" id="activityLogsTableContainer">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space:nowrap;">
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Time Stamp</th>
+                    <th>More</th>
+                </tr>
+            </thead>
+            <tbody id="activityLogsTable">
+                @foreach (var item in Model)
+                {
+                    var encryptedLogId = encryptionService.Encrypt(item.ActivityLogId);
+
+                    <tr class="ellipsis">
+                        <td>@Html.DisplayFor(modelItem => item.UserBaseModel.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UserBaseModel.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Timestamp)</td>
+                        <td>
+                            <a class="btn btn-outline-primary" asp-controller="ActivityLogs" asp-action="LogDetails" asp-route-logId="@encryptedLogId"><i class="fa fa-info-circle"></i> Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">
+        There are no activity logs yet.
+    </p>
+}
+
+<script>
+
+    function filterTable() {
+        var inputDetails = document.getElementById('searchByDetails');
+        var filterDetails = inputDetails.value.toUpperCase();
+        var inputStartDate = document.getElementById('searchByStartDate');
+        var inputEndDate = document.getElementById('searchByEndDate');
+        var filterStartDate = inputStartDate.value;
+        var filterEndDate = inputEndDate.value;
+
+        var table = document.querySelector("#activityLogsTable");
+        var tr = table.getElementsByTagName("tr");
+        var visibleRowCount = 0;
+
+        for (var i = 0; i < tr.length; i++) {
+            var tdFirstName = tr[i].getElementsByTagName("td")[0];
+            var tdLastName = tr[i].getElementsByTagName("td")[1];
+            var tdDate = tr[i].getElementsByTagName("td")[4];
+
+            if (tdFirstName && tdLastName && tdDate) {
+                var firstNameText = tdFirstName.textContent || tdFirstName.innerText || "";
+                var lastNameText = tdLastName.textContent || tdLastName.innerText || "";
+                var combinedName = (firstNameText + " " + lastNameText).toUpperCase();
+                var paymentDateStr = tdDate.textContent || tdDate.innerText || "";
+                var paymentDateTime = new Date(paymentDateStr).getTime();
+
+                var startDateTime = filterStartDate ? new Date(filterStartDate + "T00:00:00").getTime() : 0;
+                var endDateTime = filterEndDate ? new Date(filterEndDate + "T23:59:59").getTime() : Infinity;
+
+                var matchesName = combinedName.includes(filterDetails);
+
+                if ((paymentDateTime >= startDateTime) &&
+                    (paymentDateTime <= endDateTime) &&
+                    (filterDetails === "" || matchesName)) {
+                    tr[i].style.display = "";
+                    visibleRowCount++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+        var noResultsMessage = document.getElementById('noResultsMessage');
+        var tableContainer = document.getElementById('activityLogsTableContainer');
+
+        if (visibleRowCount === 0) {
+            noResultsMessage.classList.remove('d-none');
+            tableContainer.style.display = 'none';
+        } else {
+            noResultsMessage.classList.add('d-none');
+            tableContainer.style.display = 'block';
+        }
+    }
+
+</script>
+

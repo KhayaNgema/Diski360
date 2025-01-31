@@ -1,0 +1,92 @@
+﻿@* 
+@model IEnumerable<MyField.Models.Standing>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Club)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MatchPlayed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wins)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lose)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Draw)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoalsScored)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoalsConceded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoalDifference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Points)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+            <td>
+               <img src="@Url.Content(item.Club.ClubBadge)" alt="@item.Club.ClubBadge" class="img-thumbnail" style="max-width:35px; max-height: 35px;" /> @Html.DisplayFor(modelItem => item.Club.ClubName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatchPlayed)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wins)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Draw)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoalsScored)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoalsConceded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoalDifference)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StandingId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StandingId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StandingId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+ *@

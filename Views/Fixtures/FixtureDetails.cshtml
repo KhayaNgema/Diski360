@@ -1,0 +1,415 @@
+﻿@model MyField.Models.Fixture
+
+@{
+    ViewData["Title"] = "Fixture Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<style>
+    .highlighted {
+        background-color: #E4E7EB;
+    }
+
+</style>
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<div class="d-flex justify-content-center text-center">
+    <div class="col-4">
+        <img src="~/@Model.HomeTeam.ClubBadge" alt="@Model.HomeTeam.ClubName" class="club-badge-image-live" />
+        <p>@Model.HomeTeam.ClubName</p>
+    </div>
+    <div class="d-flex align-items-center" style="margin: 0 20px;">VS</div>
+    <div class="col-4">
+        <img src="~/@Model.AwayTeam.ClubBadge" alt="@Model.AwayTeam.ClubName" class="club-badge-image-live" />
+        <p>@Model.AwayTeam.ClubName</p>
+    </div>
+</div>
+
+<p class="text-center" style="padding-top:5px;">@Model.KickOffDate.ToString("dd MMM yyyy"), @Model.KickOffTime.ToString("HH:mm") - @Model.Location</p>
+<br />
+<ul class="nav nav-tabs" id="clubTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="lineup-tab" data-bs-toggle="tab" data-bs-target="#lineup" type="button" role="tab" aria-controls="lineup" aria-selected="false" onclick="loadTab('lineup', '@Model.FixtureId')">Line up</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="formation-tab" data-bs-toggle="tab" data-bs-target="formation" type="button" role="tab" aria-controls="formation" aria-selected="false" onclick="loadTab('formation', '@Model.FixtureId')">Formation</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade" id="lineup" role="tabpanel" aria-labelledby="lineup-tab"></div>
+    <div class="tab-pane fade" id="formation" role="tabpanel" aria-labelledby="formation-tab"></div>
+</div>
+
+<input type="hidden" id="fixtureId" value="@Model.FixtureId" />
+
+<div id="errorMessage" style="display: none;"></div>
+
+
+<script>
+    function addXIFormation(formationId) {
+        var fixtureId = $("#fixtureId").val();
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '@Url.Action("CreateMatchFormationFinal", "Formations")',
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                fixtureId: fixtureId,
+                formationId: formationId
+            },
+            success: function (response) {
+                if (response.success) {
+                    displayMessage("Formation set successfully", "alert-success");
+                } else if (response.error === "You can set formation once per match!") {
+                    displayMessage("You can set formation once per match!", "alert-danger");
+                }
+                fetchClubFormations(fixtureId);
+            },
+        });
+    }
+
+    function fetchClubFormations(fixtureId) {
+        $.ajax({
+            url: '@Url.Action("MatchFormationFind", "Formations")',
+            type: 'GET',
+            data: { fixtureId: fixtureId },
+            success: function (data) {
+                $('#matchFormation').html(data); 
+                $('#selectedMatchFormation').html(data); 
+
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseText;
+                alert(errorMessage);
+            }
+        });
+    }
+
+    function fetchClubPlayers() {
+        $.ajax({
+            url: '@Url.Action("PlayerMatchLineUp", "LineUps")',
+            type: 'GET',
+            success: function (data) {
+                $('#matchLineUpClubPlayers').html(data);
+            }
+        });
+    }
+
+    function updateLineUpXI(fixtureId) {
+        $.ajax({
+            url: '@Url.Action("LineUpXIFinal", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId },
+            success: function (data) {
+                $('#lineUpXI').html(data);
+            }
+        });
+    }
+
+    function updateLineUPSubstitutes(fixtureId) {
+        $.ajax({
+            url: '@Url.Action("LineUpSubstitutesFinal", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId },
+            success: function (data) {
+                $('#lineUpSubstitutes').html(data);
+            }
+        });
+    }
+
+    function updateMatchXIHolder(fixtureId) {
+        $.ajax({
+            url: '@Url.Action("MatchXIHolder", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId },
+            success: function (data) {
+                $('#matchXIHolder').html(data);
+            }
+        });
+    }
+
+    function updateMatchSubstitutes(fixtureId) {
+        $.ajax({
+            url: '@Url.Action("MatchSubstitutes", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId },
+            success: function (data) {
+                $('#matchSubstitutesHolder').html(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            }
+        });
+    }
+
+    function loadTab(tabName, fixtureId) {
+
+        $('.nav-link').removeClass('active');
+
+        $('#' + tabName + '-tab').addClass('active');
+
+        $('.tab-pane').removeClass('show active');
+
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'lineup') {
+                url = '@Url.Action("CreateMatchLineUp", "LineUps")';
+            } else if (tabName === 'formation') {
+                url = '@Url.Action("CreateMatchFormation", "Formations", new { fixtureId = "-1" })'.replace("-1", fixtureId);
+
+                fetchClubFormations(fixtureId)
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: { fixtureId: fixtureId },
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                }
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var fixtureId = '@Model.FixtureId'; 
+
+        loadTab('formation', fixtureId);
+
+
+        loadTab('lineup', fixtureId);
+
+        $.get('@Url.Action("CreateMatchLineUp", "LineUps")', { fixtureId: fixtureId }, function (data) {
+            $('#lineup').html(data);
+
+            fetchClubFormations(fixtureId)
+            fetchClubPlayers();
+            updateMatchXIHolder(fixtureId);
+            updateMatchSubstitutes(fixtureId);
+            updateLineUpXI(fixtureId);
+            updateLineUPSubstitutes(fixtureId);
+        });
+
+        $.get('@Url.Action("CreateMatchFormation", "Formations")', { fixtureId: fixtureId }, function (data) {
+            $('').html(data);
+
+            fetchClubFormations(fixtureId);
+            fetchClubPlayers();
+        });
+    });
+
+   
+
+    function addXIPlayer(button) {
+        var fixtureId = $("#fixtureId").val();
+        var playerId = $(button).data("player-id");
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '@Url.Action("CreateMatchLineUpXIHolder", "LineUps")',
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                fixtureId: fixtureId,
+                userId: playerId
+            },
+            success: function (response) {
+                console.log("Success:", response);
+                updateMatchXIHolder(fixtureId);
+                updateMatchSubstitutes(fixtureId);
+                updateLineUpXI(fixtureId);
+                updateLineUPSubstitutes(fixtureId);
+            },
+        });
+    }
+
+    function addSubstitutePlayer(button) {
+        var fixtureId = $("#fixtureId").val();
+        var playerId = $(button).data("player-id");
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '@Url.Action("CreateMatchLineUpSubstitutesHolder", "LineUps")',
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                fixtureId: fixtureId,
+                userId: playerId
+            },
+            success: function (response) {
+                updateMatchXIHolder(fixtureId);
+                updateMatchSubstitutes(fixtureId);
+                updateLineUpXI(fixtureId);
+                updateLineUPSubstitutes(fixtureId);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $(document).on('click', '#submitButton', function (e) {
+            e.preventDefault();
+
+            var fixtureId = $("#fixtureId").val();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '@Url.Action("CreateMatchLineUpFinal", "LineUps")',
+                type: 'POST',
+                headers: {
+                    "RequestVerificationToken": token
+                },
+                data: {
+                    FixtureId: fixtureId,
+                    __RequestVerificationToken: token
+                },
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    if (response.success) {
+                        displayMessage("Line up set successfully", "alert-success");
+
+                        updateLineUpXI(fixtureId);
+                        updateLineUPSubstitutes(fixtureId);
+                        updateMatchXIHolder(fixtureId);
+                        updateMatchSubstitutes(fixtureId);
+                    } else if (response.error === "Lineup already exists for this match.") {
+                        displayMessage("Lineup already exists for this match", "alert-danger");
+                    } else if (response.error === "You cannot submit an empty lineup XI or substitutes.") {
+                        displayMessage("You cannot submit an empty lineup XI or substitutes", "alert-danger");
+                    } else {
+                        displayMessage(response.error, "alert-danger");
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    var errorMessage = xhr.responseText;
+                    displayMessage(errorMessage, "alert-danger");
+                }
+            });
+        });
+    });
+
+
+
+    function deletePlayerFromLineUpXIHolder(button) {
+        var playerId = button.dataset.playerId;
+        var fixtureId = button.dataset.fixtureId;
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeletePlayerFromLineUpXIHolder", "LineUps")",
+            data: {
+                fixtureId: fixtureId,
+                playerId: playerId,
+                __RequestVerificationToken: token
+            },
+            success: function (response) {
+                updateMatchXIHolder(fixtureId);
+
+                updateMatchSubstitutes(fixtureId);
+
+                updateLineUpXI(fixtureId);
+
+                updateLineUPSubstitutes(fixtureId);
+            }
+        });
+    }
+
+
+    function movePlayerFromXItoSubstitutes() {
+        var playerId = document.getElementById('btnMoveToSubs').dataset.playerId;
+        var fixtureId = document.getElementById('btnMoveToSubs').dataset.fixtureId;
+        var clubId = document.getElementById('btnMoveToSubs').dataset.clubId;
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("MovePlayerFromXItoSubstitutes", "LineUps")",
+            data: { playerId: playerId, 
+                fixtureId: fixtureId,
+                clubId: clubId,
+                __RequestVerificationToken: token
+            },
+            success: function (response) {
+
+                updateMatchXIHolder(fixtureId);
+
+                updateMatchSubstitutes(fixtureId);
+
+                updateLineUpXI(fixtureId);
+
+                updateLineUPSubstitutes(fixtureId);
+            }
+        });
+    }
+
+    function deletePlayerFromLineUpSubstitutesHolder() {
+        var playerId = document.getElementById('btnDeleteSubs').dataset.playerId;
+        var fixtureId = document.getElementById('btnDeleteSubs').dataset.fixtureId;
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeletePlayerFromLineUpSubstitutesHolder", "LineUps")",
+            data: { playerId: playerId, 
+                fixtureId: fixtureId,
+                __RequestVerificationToken: token
+            },
+            success: function (response) {
+
+                updateMatchXIHolder(fixtureId);
+
+                updateMatchSubstitutes(fixtureId);
+
+                updateLineUpXI(fixtureId);
+
+                updateLineUPSubstitutes(fixtureId);
+            }
+        });
+    }
+
+    function movePlayerFromSubstitutesToXI() {
+        var playerId = document.getElementById('btnMoveToXI').dataset.playerId;
+        var fixtureId = document.getElementById('btnMoveToXI').dataset.fixtureId;
+        var clubId = document.getElementById('btnMoveToXI').dataset.clubId;
+
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("MovePlayerFromSubstitutesToXI", "LineUps")",
+            data: { playerId: playerId, 
+                fixtureId: fixtureId,
+                clubId: clubId,
+                __RequestVerificationToken: token
+            },
+            success: function (response) {
+
+                updateMatchXIHolder(fixtureId);
+
+                updateMatchSubstitutes(fixtureId);
+
+                updateLineUpXI(fixtureId);
+
+                updateLineUPSubstitutes(fixtureId);
+            }
+        });
+    }
+
+</script>
+
+
+

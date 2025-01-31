@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MyField.Models.Fine>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+<br />
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space:nowrap;">
+                    <th>Offence</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var encryptedFineId = encryptionService.Encrypt(item.FineId.ToString());
+
+                    <tr class="ellipsis">
+                        <td>@Html.DisplayFor(modelItem => item.FineDetails)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FineAmount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FineDuDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentStatus)</td>
+                        <td>
+                            <a href="@Url.Action("PayFine", "Billings",
+                                        new { fineId = item.FineId})" class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-money-bill-wave "></i>
+                                Pay @ViewBag.FineAmount
+                            </a>
+                            <a class="btn btn-outline-primary" asp-controller="Fines" asp-action="Details" asp-route-fineId="@encryptedFineId"><i class="fa fa-info-circle"></i> Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">
+        There are no overdue fines for yur club yet.
+    </p>
+}

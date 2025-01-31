@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<MyField.Models.Standing>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Standings";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.CurrentSeason Standings</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can update club standings according to league requirements. Please provide reasons for any updates made to ensure transparency and compliance with league regulations. This helps maintain accurate and up-to-date standings for all clubs.
+</p>
+<br />
+<div id="standingsContainer">
+
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+    <div class="table-responsive">
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Club)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.MatchPlayed)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Wins)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Lose)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Draw)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalsScored)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalsConceded)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalDifference)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Points)
+                        </th>
+                        <th style="background-color: #324260; color: white; padding: 10px; text-align: left; border-bottom: none;">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int position = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        var encryptedStandingsId = encryptionService.Encrypt(item.StandingId);
+
+
+                        @if (!string.IsNullOrEmpty(item.Reason))
+                        {
+                            <tr>
+                                <td colspan="10" class="error-row" style="background-color: #FDD8DB; font-size:14px; color:palevioletred; padding-left:7px;">@item.Reason</td>
+                            </tr>
+                        }
+                        <tr data-club-id="@item.ClubId">
+                            <td style="white-space: nowrap;">
+                                <span style="margin-right: 10px;">@position</span>
+                                <img src="~/@item.Club.ClubBadge" alt="@item.Club.ClubName" class="club-badge-image" />
+                                @Html.DisplayFor(modelItem => item.Club.ClubName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MatchPlayed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Wins)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Lose)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Draw)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalsScored)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalsConceded)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalDifference)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Points)
+                            </td>
+                            <td style="white-space: nowrap;">
+                                <a asp-controller="Standings" asp-action="EditPoints" class="btn btn-outline-primary" asp-route-standingId="@encryptedStandingsId ">
+                                    <i class="fa fa-pen"></i> Update
+                                </a>
+                            </td>
+                        </tr>
+                        position++;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are currently no standings for this club for the current season</p>
+        }
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

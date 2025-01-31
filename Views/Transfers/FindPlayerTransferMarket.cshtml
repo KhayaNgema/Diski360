@@ -1,0 +1,121 @@
+﻿@model MyField.ViewModels.ManagePlayerTransferViewModel
+
+@{
+    ViewData["Title"] = ViewBag.DivisionName + " Transfer Market";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.DivisionName Player Transfer Market</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view the transfer list and manage the transfer period for the current season. You have the ability to open or close the transfer window, allowing you to control when transfers can be made. This helps ensure that player movements are conducted according to the schedule and regulations of the current season.
+</p>
+<br />
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <p>
+            <div class="form-floating mb-3">
+                <input asp-for="SeasonCode" class="form-control border-bottom-only" placeholder="OldLeagueCode" />
+                <label asp-for="SeasonCode" class="form-label">Current season code</label>
+                <span asp-validation-for="SeasonCode" class="text-danger"></span>
+            </div>
+        </p>
+    </div>
+    <div class="col-md-6" style="padding-top:15px; margin-top:15px;">
+        <p>
+            <button id="openButton" class="btn btn-md btn-outline-primary" onclick="openPlayerTransferPeriod()">Open Player Transfer Period</button>
+            <button id="closeButton" class="btn btn-md btn-outline-danger" onclick="closePlayerTransferPeriod()" style="display:none;">Close Player Transfer Period</button>
+        </p>
+    </div>
+</div>
+<br />
+
+<div style="margin-bottom:20px;" id="transferMarket"> </div>
+<script>
+    async function openPlayerTransferPeriod() {
+        var openButton = document.getElementById("openButton");
+        var closeButton = document.getElementById("closeButton");
+        var seasonCode = document.getElementById("SeasonCode").value;
+
+        try {
+            var response = await fetch(`/Transfers/ValidateSeasonCode?seasonCode=${seasonCode}`);
+            var data = await response.json();
+
+            if (data.isValid) {
+                openButton.style.display = "none";
+                closeButton.style.display = "inline-block";
+                localStorage.setItem('transferPeriod', 'open');
+
+                await fetch(`/Transfers/OpenPlayerTransferPeriod?seasonCode=${seasonCode}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                updateTransferMarket();
+            }
+        } catch (error) {
+            console.error('Error opening player transfer period:', error);
+        }
+    }
+
+
+    async function closePlayerTransferPeriod() {
+        var openButton = document.getElementById("openButton");
+        var closeButton = document.getElementById("closeButton");
+        var seasonCode = document.getElementById("SeasonCode").value;
+
+        try {
+            var response = await fetch(`/Transfers/ValidateSeasonCode?seasonCode=${seasonCode}`);
+            var data = await response.json();
+
+            if (data.isValid) {
+                openButton.style.display = "inline-block";
+                closeButton.style.display = "none";
+                localStorage.setItem('transferPeriod', 'closed');
+
+                await fetch(`/Transfers/ClosePlayerTransferPeriod?seasonCode=${seasonCode}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                updateTransferMarket();
+            }
+        } catch (error) {
+            console.error('Error closing player transfer period:', error);
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var transferPeriod = localStorage.getItem('transferPeriod');
+        if (transferPeriod === 'open') {
+            document.getElementById("openButton").style.display = "none";
+            document.getElementById("closeButton").style.display = "inline-block";
+        } else {
+            document.getElementById("openButton").style.display = "inline-block";
+            document.getElementById("closeButton").style.display = "none";
+        }
+    });
+
+    function updateTransferMarket() {
+        $.ajax({
+            url: '@Url.Action("PlayerTransferMarket", "Transfers")',
+            type: 'GET',
+            success: function (data) {
+                $('#transferMarket').html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching player transfer market:', error);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', updateTransferMarket);
+</script>
+
+

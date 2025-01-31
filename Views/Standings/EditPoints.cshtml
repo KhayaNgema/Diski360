@@ -1,0 +1,105 @@
+﻿@model MyField.ViewModels.StandingPointsViewModel
+
+@{
+    ViewData["Title"] = "Edit Standings";
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Update standings</h4>
+<br />
+
+<div class="standings-container">
+    <form asp-action="EditPoints" method="post">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
+                    <div class="d-flex align-items-center flex-column">
+                        <div class="badge-container mb-6">
+                            <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="club-badge-image" style="width: 100px; height: 100px;" />
+                        </div>
+                        <h6>@ViewBag.ClubName</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+                @TempData["Message"]
+                <span class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </span>
+            </div>
+        }
+        <br />
+        <br />
+        <div>
+            <h6 style="text-align:center;">Current club points: @Model.Points</h6>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="PointsToBeAdded" class="form-control border-bottom-only" placeholder="PointsToBeAdded" />
+            <label asp-for="PointsToBeAdded" class="form-label">Points to be added</label>
+            <span asp-validation-for="PointsToBeAdded" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="PointsToBeSubtracted" class="form-control border-bottom-only" placeholder="PointsToBeSubtracted" />
+            <label asp-for="PointsToBeSubtracted" class="form-label">Points to be subtracted</label>
+            <span asp-validation-for="PointsToBeSubtracted" class="text-danger"></span>
+        </div>
+
+        <div>
+            <h6 style="text-align:center;">Current club goals: @Model.Goals</h6>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="GoalsToBeAdded" class="form-control border-bottom-only" placeholder="GoalsToBeAdded" />
+            <label asp-for="GoalsToBeAdded" class="form-label">Goals to be added</label>
+            <span asp-validation-for="GoalsToBeAdded" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="GoalsToBeSubtracted" class="form-control border-bottom-only" placeholder="GoalsToBeSubtracted" />
+            <label asp-for="GoalsToBeSubtracted" class="form-label">Goals to be subtracted</label>
+            <span asp-validation-for="GoalsToBeSubtracted" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <textarea asp-for="Reason" class="form-control border-bottom-only" placeholder="clubname" style="min-height: 100px;"> </textarea>
+            <label asp-for="Reason" class="form-label">Modifying reason</label>
+            <span asp-validation-for="Reason" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input asp-for="ClubCode" class="form-control border-bottom-only" placeholder="ClubCode" />
+            <label asp-for="ClubCode" class="form-label">@ViewBag.ClubName code</label>
+            <span asp-validation-for="ClubCode" class="text-danger"></span>
+        </div>
+
+        <div class="form-group d-flex justify-content-end">
+            <input type="hidden" asp-for="StandingId" value="@Model?.StandingId" />
+            <input type="submit" value="Update" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+
+
+<script>
+    (function () {
+        var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+        logMessages.forEach(function (message) {
+            console.log(message);
+        });
+    })();
+
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>

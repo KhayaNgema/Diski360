@@ -1,0 +1,106 @@
+﻿@model IEnumerable<MyField.Models.Fixture>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Matches To Officiate";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">Matches To Officiate</h4>
+<br />
+@if(Model.Any())
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, officials can view all the matches they have been scheduled to officiate. This includes details about the fixtures, such as dates, times, and locations, ensuring they have all the necessary information for their assignments.
+    </p>
+<br />
+    <div class="fixtures-match-container">
+        <div class="row">
+            @foreach (var group in Model.OrderBy(item => item.KickOffDate).GroupBy(item => item.KickOffDate))
+            {
+                <div class="col-12 mb-2 mt-2">
+                    <h5 class="text-center date-background">@group.Key.ToString("dddd, MMMM d, yyyy")</h5>
+                </div>
+
+                @foreach (var item in group)
+                {
+                    var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+
+                    <div class="col-12 mb-3">
+                        <div class="fixtures-card h-100 d-flex flex-column justify-content-center position-relative" style="margin: 0; padding: 0;">
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    @if (item.HomeTeam != null && item.AwayTeam != null)
+                                    {
+                                        <div class="row" style="margin: 0; padding: 0;">
+                                            <div class="col-3 d-flex align-items-center" style="padding: 0 5px;">
+                                                <div style="text-align: center;">
+                                                    @if (item.FixtureStatus == FixtureStatus.Postponed)
+                                                    {
+                                                        <p class="card-text text-primary" style="margin-bottom: 0;">
+                                                            @item.FixtureStatus
+                                                        </p>
+                                                    }
+                                                    else if (item.FixtureStatus == FixtureStatus.Interrupted)
+                                                    {
+                                                        <p class="card-text text-danger" style="margin-bottom: 0;">
+                                                            @item.FixtureStatus
+                                                        </p>
+                                                    }
+                                                    else if (item.FixtureStatus == FixtureStatus.Live)
+                                                    {
+                                                        <p style="color:blue; margin-bottom: 0;">
+                                                            @item.FixtureStatus <i class="fa fa-rss"></i>
+                                                        </p>
+                                                    }
+                                                    else if (item.FixtureStatus == FixtureStatus.Upcoming)
+                                                    {
+                                                        <div style="margin-bottom: 0;"><i class="fa fa-clock"></i> @item.KickOffTime.ToString("HH:mm")</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-6" style="padding: 0 5px; border-left: 1px solid #ccc; border-right: 1px solid #ccc;">
+                                                <div style="text-align: left; margin-bottom: 5px;">
+                                                    <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubName" class="club-badge-image" style="height: 25px; width: 30px;" /> @item.HomeTeam.ClubName
+                                                </div>
+                                                <div style="text-align: left;">
+                                                    <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubName" class="club-badge-image" style="height: 25px; width: 30px;" /> @item.AwayTeam.ClubName
+                                                </div>
+                                            </div>
+                                            <div class="col-3 d-flex align-items-center justify-content-center" style="padding: 0 5px;">
+                                                @if (item.FixtureStatus == FixtureStatus.Live || item.FixtureStatus == FixtureStatus.Interrupted)
+                                                {
+                                                    <div class="card-footer" style="padding: 0;">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a asp-controller="Lives" asp-action="StartLive" asp-route-fixtureId="@encryptedFixtureId" class="btn btn-sm btn-outline-primary">
+                                                                <i class="fas fa-play"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="d-flex justify-content-center">
+                                                        <a asp-action="FixtureDetailsFans" asp-route-fixtureId="@encryptedFixtureId" class="btn btn-sm">
+                                                            <i class="fas fa-arrow-right"></i>
+                                                        </a>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;"> You don't have matches to officiate yet.</p>
+}

@@ -1,0 +1,66 @@
+﻿@model MyField.Models.ActivityLog
+
+@{
+    ViewData["Title"] = "Audit Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Audit Details</h4>
+<br />
+
+<div class="d-flex justify-content-center">
+    <div class="player-transfer-card">
+        <div class="header" style="text-align:left;">
+            <div class="card-body">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="mb-3">
+                        <label><strong>System user:</strong> @Model.UserBaseModel.FirstName @Model.UserBaseModel.LastName</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Email Address:</strong> @Model.UserBaseModel.Email</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Activity:</strong> @Model.Activity</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Time stamp:</strong> @Model.Timestamp.ToString("dd/MM/yyyy, HH:mm:ss")</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Device:</strong> 
+                            @Model.DeviceInfo.DeviceName, 
+                            @Model.DeviceInfo.OSName, 
+                            @Model.DeviceInfo.OSVersion,
+                            @Model.DeviceInfo.DeviceModel,
+                            @Model.DeviceInfo.IpAddress
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Browser:</strong> 
+                            @Model.DeviceInfo.Browser,
+                            @Model.DeviceInfo.BrowserVersion,
+                            @Model.DeviceInfo.DeviceModel
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Location:</strong> 
+                            @Model.DeviceInfo.City,
+                            @Model.DeviceInfo.PostalCode,
+                            @Model.DeviceInfo.Region,
+                            @Model.DeviceInfo.Country,
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

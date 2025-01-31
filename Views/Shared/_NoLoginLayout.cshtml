@@ -1,0 +1,252 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UserBaseModel> SignInManager
+@inject UserManager<UserBaseModel> UserManager
+@using MyField.Data
+@using MyField.Models;
+@inject Ksans_SportsDbContext _context
+
+@{
+    var customers = _context.Divisions
+            .ToList();
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>@ViewData["Title"] - Diski360</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyField.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+
+
+<body>
+
+    <div id="loading-overlay">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="loginNav">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand ml-2" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">
+                        <div class="layout-logo-container">
+                            <img src="/Images/new_logo.png" alt="Logo">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-light bg-light" id="scrollTextNav-pl">
+            <div class="container-fluid">
+                <div class="scrolling-text-container">
+                    <div class="scrolling-text">
+                        <p>This is a BETA version of our application. We have released this version for testing purposes to gather feedback and improve the final release. Please note that some features available here may be part of a premium version in the full release. We value your input—please share your feedback using the feedback button located at the bottom-right corner of the page. Your comments are crucial in helping us enhance the application.</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="page-content-wrapper" class="main-content">
+        <div class="container-fluid" style="padding-right:10px; padding-left:10px;">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <a asp-controller="Reports" asp-action="TestFeedback" class="floating-button">
+        <span class="rotate"><i class="fa fa-comment"></i> Share Feedback</span>
+    </a>
+    <footer class="py-4 pages-footer" style="background-color: #000325; color: white; padding-bottom: 0;margin-top:40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About Us</h5>
+                    <p>
+                        Learn more about our mission, values, and team. Visit our
+                        <a href="@Url.Action("AboutUs", "Home")" class="text-white">About Us</a> page for more details.
+                    </p>
+                    <h5 style="padding-top:25px;">Join Us</h5>
+                    <p>
+                        Do you want to become one of our valued customers? <br />
+                        <a asp-controller="Divisions" asp-action="MakeOnboardingRequest" class="text-white font-weight-bold">Click here to join Diski60!</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="PrivacyPolicy" class="text-white">Privacy Policy</a></li>
+                        <li><a asp-controller="Home" asp-action="TermsAndConditions" class="text-white">Terms & Conditions</a></li>
+                        <li><a asp-controller="Home" asp-action="ContactUs" class="text-white">Contact Us</a></li>
+                        <li><a href="https://www.facebook.com/groups/1059539181218342/" target="_blank" class="text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Us</h5>
+                    <p>Have questions? Get in touch with us via email or phone.</p>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:info@diski360.com" class="text-white">info@diski360.com</a></p>
+                    <p><i class="fa fa-phone"></i> +27732871256</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Our Customers</h5>
+                    @if (customers != null && customers.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var customer in customers)
+                            {
+                                <li style="padding:5px;">
+                                    <img src="@Url.Content("~/" + customer.DivisionBadge)" alt="@customer.DivisionName" style="width:40px; height:40px; object-fit:cover; background-color:white; border-radius:8px;" />
+                                    @customer.DivisionName (@customer.DivisionAbbr)
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>We currently do not have customers but are in the process of acquiring some.</p>
+                    }
+                </div>
+            </div>
+            <hr style="border-color: white; margin: 20px 0;">
+            <div class="text-center mt-3">
+                <p>&copy; @DateTime.Now.Year Diski360. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var baseUrl = window.location.href.split('#')[0];
+    var previousPage = null;
+    var loadingOverlay = $('#loading-overlay');
+
+    // Show loading overlay when navigation starts
+    $(document).on('click', 'a:not([href^="#"])', function () {
+        loadingOverlay.show();
+    });
+
+    // Hide loading overlay when navigation completes
+    $(document).on('readystatechange', function () {
+        if (document.readyState === 'complete') {
+            loadingOverlay.hide();
+        }
+    });
+
+    // Function to close the previous page
+    function closePreviousPage() {
+        if (previousPage !== null) {
+            window.close(previousPage);
+        }
+    }
+
+    // Function to load tab content
+    function loadTabContent(target) {
+        $('.tab-content').hide();
+        $(target).show();
+
+        // Extract the controller name from the target URL
+        var controllerName = target.substring(1).split('/')[0];
+
+        // Adjust the URL construction based on the controller name
+        var partialViewUrl = '/' + controllerName;
+
+        $.get(partialViewUrl, function (data) {
+            $(target).html(data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.error("Error loading partial view:", errorThrown);
+        });
+    }
+
+    // Initial loading of default tab content
+    loadTabContent('#sportnews');
+
+    // Handle clicks on navigation links
+    $('.nav-link').click(function (e) {
+        e.preventDefault();
+        var target = $(this).attr('href');
+
+        // Close previous page
+        closePreviousPage();
+
+        // Load tab content
+        loadTabContent(target);
+
+        // Update active state of navigation links
+        $('.nav-link').removeClass('active');
+        $(this).addClass('active');
+
+        // Update URL
+        var newUrl = baseUrl + target;
+        window.history.pushState(null, '', newUrl);
+
+        // Store current page as previous page
+        previousPage = newUrl;
+    });
+
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $("#page-content-wrapper").toggleClass("shifted");
+        $("#homeTabsNav").toggleClass("shifted");
+        $("#loginNav").toggleClass("shifted");
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        function adjustBodyPadding() {
+            var loginNav = document.getElementById('loginNav');
+            var homeTabsNav = document.getElementById('homeTabsNav');
+            var scrollTextNavpl = document.getElementById('scrollTextNav-pl');
+
+
+            var loginNavHeight = loginNav ? loginNav.offsetHeight : 0;
+            var homeTabsNavHeight = homeTabsNav ? homeTabsNav.offsetHeight : 0;
+            var scrollTextNavHeight = scrollTextNavpl ? scrollTextNavpl.offsetHeight : 0;
+
+            var totalPadding = loginNavHeight + homeTabsNavHeight + scrollTextNavHeight;
+            document.body.style.paddingTop = totalPadding + 'px';
+        }
+
+        adjustBodyPadding();
+
+        window.addEventListener('resize', adjustBodyPadding);
+    });
+
+
+    $(document).ready(function () {
+
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (e) {
+            if (
+                e.keyCode == 123 ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 67) ||
+                (e.ctrlKey && e.keyCode == 85)||
+                (e.ctrlKey && e.shiftKey && e.keyCode == 74) 
+            ) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+@RenderSection("Scripts", required: false)
+</html>

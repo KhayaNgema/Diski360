@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MyField.Models.SportNews>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Approved Sport News";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Approved Sport News</h4>
+<br />
+@if(Model.Any())
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, you can view published and approved sports news within the community. This includes all news items that have been officially released and approved, offering a complete overview of the latest updates and events relevant to the local sports community.
+    </p>
+<br />
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        @Html.DisplayNameFor(model => model.NewsImage)
+                    </th>
+                    <th class="sport-news-heading-column">
+                        @Html.DisplayNameFor(model => model.NewsHeading)
+                    </th>
+                    <th>
+                        Published Date
+                    </th>
+                    <th>
+                        Published Time
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PublishedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NewsStatus)
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var encryptedNewsId = encryptionService.Encrypt(item.NewsId);
+
+                    <tr class="ellipsis">
+                        <td>
+                            <img src="~/@item.NewsImage" alt="News Image" class="sport-news-image">
+                        </td>
+                        <td class="sport-news-heading-column">
+                            @Html.DisplayFor(modelItem => item.NewsHeading)
+                        </td>
+                        <td>
+                            @item.PublishedDate.ToString("dd MMM yyyy")
+                        </td>
+                        <td>
+                            @item.PublishedDate.ToString("HH : MM")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublishedBy.FirstName) @Html.DisplayFor(modelItem => item.PublishedBy.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NewsStatus)
+                        </td>
+                        <td style="white-space: nowrap;">
+                            <a href="@Url.Action("Details", "SportNews", new { newsId = encryptedNewsId })">
+                                <i class="fas fa-info-circle" style="color: #2E5A88;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no approved news at a moment.</p>
+}
+

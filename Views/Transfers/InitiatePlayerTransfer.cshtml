@@ -1,0 +1,109 @@
+﻿@model MyField.ViewModels.InitiatePlayerTransferViewModel
+
+@{
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    var errorMessages = TempData["Errors"] as List<string> ?? new List<string>();
+    ViewData["Title"] = Model?.FirstName + " " + Model?.LastName + " Transfer";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are in the process of purchasing a specific player. Please review the details of the player and confirm the purchase. Ensure all relevant information, including the transfer fee and contract terms, is accurate before finalizing the transaction.
+</p>
+<br />
+<div class="d-flex justify-content-center">
+    <div class="player-transfer-card">
+        <div class="card-header text-center">
+            <h4>Purchase @Model?.FirstName @Model?.LastName </h4>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Transfers" asp-action="InitiatePlayerTransfer" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3 text-center">
+                            <div class="transfer-profile-picture-container" style="border: 1px solid #ccc; padding: 0; border-radius: 3%; width: 300px; height: 250px; overflow: hidden; position: relative;">
+                                <img id="profile-image-preview" src="~/@Model.ProfilePicture" alt="Current Profile Picture" class="club-badge-image" style="border-radius: 3%; width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="d-flex justify-content-center align-items-center" style="font-size: 14px; margin-bottom: 5px;">
+                            <div class="badge-container" style="width: 55px; height: 55px; margin-right: 5px;">
+                                <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                            <h3 style="margin-top:13px; padding-top:13px;">@Html.DisplayFor(modelItem => Model.ClubName)</h3>
+                        </div>
+                        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+                        <br />
+                        <div class="mb-3">
+                            <label>Name(s):<strong>@Model.FirstName</strong></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Last name: <strong>@Model.LastName</strong></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Position: <strong>@Model.Position</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Date of birth: <strong>@Model.DateOfBirth.ToString("MMM dd, yyyy")</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Jersey number: <strong>#@Model.JerseyNumber</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Market value:<strong>ZAR @Model.MarketValue</strong></label>
+                        </div>
+                </div>
+
+
+                <input type="hidden" asp-for="FirstName" />
+                <input type="hidden" asp-for="LastName" />
+                <input type="hidden" asp-for="Position" />
+                <input type="hidden" asp-for="JerseyNumber" />
+                <input type="hidden" asp-for="MarketValue" />
+                <input type="hidden" asp-for="ClubName" />
+                <input type="hidden" asp-for="LeagueId" />
+
+                <div class="text-end">
+                        <input type="hidden" asp-for="PlayerId" value="@Model?.PlayerId" />
+                        <input type="hidden" asp-for="SellerClubId" value="@Model?.SellerClubId" />
+                        <input type="hidden" asp-for="MarketId" value="@Model?.MarketId" />
+                        <button type="submit" class="btn btn-success">Start Transfer<i class="fa fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Display error messages from TempData
+            var errorMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(errorMessages));
+            errorMessages.forEach(function (message) {
+                console.error(message);
+                // Optionally, display the errors on the page
+                $('<div class="alert alert-danger">' + message + '</div>').appendTo('.card-body');
+            });
+
+            var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+            logMessages.forEach(function (message) {
+                console.log(message);
+            });
+
+        });
+    </script>
+}

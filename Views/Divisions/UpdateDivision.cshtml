@@ -1,0 +1,81 @@
+﻿@model MyField.ViewModels.UpdateDivisionViewModel
+
+@{
+    ViewData["Title"] = "Update " + ViewBag.DivisionName;
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Update @ViewBag.DivisionName</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are viewing your division's current information and have the ability to update the details. Please note that any changes made on this page may reflect on all parties concerned with your division's information.
+</p>
+<br />
+
+<div class="container d-flex justify-content-center">
+    <div class="col-12 col-md-8">
+        <form asp-action="UpdateDivision" method="post" enctype="multipart/form-data" class="w-100">
+            <div class="row">
+                <div class="col-12">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <div class="profile-container d-flex justify-content-center">
+                            <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                                <i class="fa fa-club" id="club-badge-placeholder" style="font-size: 90px; color: #f0f0f0;"></i>
+                                <img id="current-club-badge" src="~/@Model.DivisionBadges" alt="Club Badge" class="profile-picture-image" style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+                                <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                                    <i class="fa fa-camera" style="font-size: 30px;"></i>
+                                    <input asp-for="DivisionBadgeFile" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
+                                    <input asp-for="DivisionBadgeFile" id="Input_ClubBadgeFileName" type="hidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <small id="clubBadgeHelp" class="form-text text-muted text-center mt-2">Change your division logo (optional).</small>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" />
+                        <label asp-for="DivisionName" class="form-label">Division Name</label>
+                        <span asp-validation-for="DivisionName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="DivisionAbbr" class="form-control border-bottom-only" placeholder="DivisionAbbr" />
+                        <label asp-for="DivisionAbbr" class="form-label">Division abbreviation</label>
+                        <span asp-validation-for="DivisionAbbr" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;"></textarea>
+                        <label asp-for="DivisionDescription" class="form-label">Division Description</label>
+                        <span asp-validation-for="DivisionDescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-end">
+                        <input type="hidden" asp-for="DivisionId" value="@Model?.DivisionId" />
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function previewClubBadge(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('current-club-badge'); // Updated this line
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('club-badge-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

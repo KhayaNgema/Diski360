@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Thanks for registering";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<style>
+    .center-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+    }
+
+    .onboarding-container {
+        max-width: 700px;
+        padding: 20px;
+        border-radius: 7px;
+        background-color: white;
+        text-align: center;
+    }
+
+</style>
+<div class="center-container">
+    <div class="onboarding-container">
+        <h3 class="text-center">
+            Onboarding Request Submitted Successfully
+        </h3>
+        <br />
+        <p class="text-center">
+            Your onboarding request has been successfully submitted. Your reference number is: <strong>@ViewBag.ReferenceNumber</strong>.
+            We will review your request and notify you of the next steps. Please check your email regularly for updates.
+            If you have any questions or need further assistance, don’t hesitate to contact our support team.
+        </p>
+    </div>
+</div>
+
+

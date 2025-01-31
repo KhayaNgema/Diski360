@@ -1,0 +1,110 @@
+﻿@model IEnumerable<MyField.Models.TransferPeriod>
+
+@{
+    ViewData["Title"] = "Transfer Period";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">Transfer Period</h4>
+<br />
+<div class="table-responsive">
+    @if (Model.Any())
+    {
+
+        <table class="table">
+            <thead>
+                <tr style="white-space: nowrap; background-color: #324260; color: white;">
+                    <th>
+                        Season
+                    </th>
+                    <th>
+                        Open count
+                    </th>
+                    <th>
+                        Is current?
+                    </th>
+                    <th>
+                        Is opened?
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Created Date Time
+                    </th>
+                    <th>
+                        Modified By
+                    </th>
+
+                    <th>
+                        Modified Date Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="ellipsis">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.League.LeagueYears)
+                        </td>
+                        <td>
+
+                            @if(item.PeriodOpenCount == 2)
+                            {
+                                <p>Second round</p>
+                            }
+                            else if (item.PeriodOpenCount == 1)
+                            {
+                                <p>First round</p>
+                            }
+                            else
+                            {
+                                <p>Currently closed</p>
+                            }
+
+                        </td>
+                        <td>
+                            @if (item.IsCurrent == true)
+                            {
+                                <p>YES</p>
+                            }
+                            else
+                            {
+                                <p>NO</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsOpened == true)
+                            {
+                                <p>YES</p>
+                            }
+                            else
+                            {
+                                <p>NO</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy.FirstName)  @Html.DisplayFor(modelItem => item.CreatedBy.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName)  @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifiedDateTime)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p style="text-align:center;">No transfer period yet.</p>
+    }
+</div>

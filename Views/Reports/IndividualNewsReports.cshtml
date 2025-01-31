@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MyField.Models.IndividualNewsReport>
+
+@{
+    ViewData["Title"] = "Individual News Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Individual News Reports</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can track individual news reports, including detailed updates and reports on specific news items. Additionally, you can view the reader count for each report, helping you understand the reach and engagement of your news content.
+</p>
+<br />
+@if(Model.Any())
+{
+
+<div class="table-responsive">
+    <table class="table table-striped table-borderless">
+        <thead>
+            <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                <th>
+                    News Title
+                </th>
+                <th>
+                    No. of readers
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="ellipsis">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SportNews.NewsHeading)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReadersCount)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}
+else
+{
+<div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+    <p class="text-center">There are no reports yet.</p>
+</div>
+}

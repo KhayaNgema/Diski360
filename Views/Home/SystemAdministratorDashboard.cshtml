@@ -1,0 +1,249 @@
+﻿@model MyField.ViewModels.CombinedSystemAdministratorReportsViewModel
+
+@{
+    ViewData["Title"] = "System Administrator Dashboard";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .chart-container {
+        width: 100%;
+        margin-bottom: 20px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .chart-title {
+        color: #030319;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .chart-description {
+        color: #030319;
+        margin-bottom: 15px;
+    }
+
+    .chart-container canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .btn-primary {
+        background-color: #B0E0FC;
+        color: #030319;
+        border: none;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #030319;
+            color: #ffffff;
+        }
+
+    .btn-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <div class="chart-container">
+                <h5 class="chart-title"><i class="fas fa-user-check"></i> Onboarding Requests</h5>
+                <p class="chart-description">Onboarding requests data visualization</p>
+                <canvas id="onboardingRequestsChart"></canvas>
+                <div class="btn-container">
+                    <a asp-controller="Divisions" asp-action="OnboardingRequests" class="btn btn-primary">More details <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="chart-container">
+                <div class="chart-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h5 class="chart-title" style="margin: 0;"><i class="fas fa-users"></i> System Users</h5>
+                    <h2 class="chart-total" style="
+                margin: 0;
+                font-size: 1.5em;
+                color: #333;
+                background-color: #f8f9fa; /* Light background color */
+                padding: 10px 15px; /* Padding for spacing */
+                border-radius: 8px; /* Rounded corners */
+            ">
+                        Total: @ViewBag.TotalUserAccounts
+                    </h2>
+                </div>
+                <p class="chart-description">User accounts data visualization</p>
+                <canvas class="chart small-chart"></canvas>
+                <div class="btn-container">
+                    <a asp-controller="Users" asp-action="NetUsers" class="btn btn-primary">More details <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <div class="chart-container" style="display: flex; flex-direction: column;">
+                <div class="chart-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <h5 class="chart-title" style="margin: 0;"><i class="fas fa-clipboard-list"></i> System Logs</h5>
+                    <h2 class="chart-total" style="
+                margin: 0;
+                font-size: 1.5em;
+                color: #333;
+                background-color: #f8f9fa; /* Light background color */
+                padding: 10px 15px; /* Padding for spacing */
+                border-radius: 8px; /* Rounded corners */
+            ">
+                        Total: @ViewBag.TotalSystemLogs
+                    </h2>
+                </div>
+                <p class="chart-description">System logs data visualization</p>
+                <canvas class="logs-chart logs-small-chart"></canvas>
+                <div class="btn-container">
+                    <a asp-controller="Reports" asp-action="SystemLogs" class="btn btn-primary">More details <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="chart-container">
+                <h5 class="chart-title"><i class="fas fa-chart-bar"></i> Transactions Report Overview</h5>
+                <p class="chart-description">Overview of transactions</p>
+                <canvas id="transactionsReportChart"></canvas>
+                <div class="btn-container">
+                    <a asp-controller="Billings" asp-action="Transactions" class="btn btn-primary">More details <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    var ctxOnboarding = document.getElementById('onboardingRequestsChart').getContext('2d');
+    var onboardingRequestsChart = new Chart(ctxOnboarding, {
+        type: 'bar',
+        data: {
+            labels: ['Total', 'Approved', 'Pending', 'Rejected', 'Completed'],
+            datasets: [{
+                label: 'Onboarding Requests',
+                data: [
+    @Model.OnboardingRequestReportViewModel.OnboardingRequestsTotalCount,
+    @Model.OnboardingRequestReportViewModel.ApprovedRequestsCount,
+    @Model.OnboardingRequestReportViewModel.PendingRequestsCount,
+    @Model.OnboardingRequestReportViewModel.RejectedRequestsCount,
+    @Model.OnboardingRequestReportViewModel.CompletedRequestsCount
+
+                ],
+                backgroundColor: ['#1E90FF', 'rgba(50, 205, 50, 0.2)', '#FFD700', '#FF0000', '#32CD32'], 
+                borderColor: ['#1E90FF', '#32CD32', '#FFD700', '#FF0000', '#32CD32'], 
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+    // User Accounts Pie Chart
+    var ctxUserAccounts = document.querySelector('.chart.small-chart').getContext('2d'); // Selecting the first element with both classes
+    var userAccountsChart = new Chart(ctxUserAccounts, {
+        type: 'pie',
+        data: {
+            labels: ['Active', 'Inactive', 'Suspended', 'Deleted'],
+            datasets: [{
+                label: 'User Accounts',
+                data: [
+    @Model.UserAccountsReportViewModel.ActiveUserAccountsCount,
+    @Model.UserAccountsReportViewModel.InactiveUserAccountsCount,
+    @Model.UserAccountsReportViewModel.SuspendedUserAccountsCount,
+    @Model.UserAccountsReportViewModel.DeletedUserAccountsCount
+                ],
+                backgroundColor: ['#32CD32', '#FFF200', '#9B59B6', '#FF0000'] // Colors for each segment
+            }]
+        }
+    });
+
+
+    // System Logs Doughnut Chart
+    var ctxSystemLogs = document.querySelector('.logs-chart.logs-small-chart').getContext('2d');
+    var systemLogsChart = new Chart(ctxSystemLogs, {
+        type: 'doughnut',
+        data: {
+            labels: ['Succeeded', 'Failed'],
+            datasets: [{
+                label: 'System Logs',
+                data: [
+    @Model.SystemPerformanceReportViewModel.SucceededRequests,
+    @Model.SystemPerformanceReportViewModel.FailedRequests
+                ],
+                backgroundColor: ['#32CD32', '#DC143C'], // Adjusted colors for the segments
+                borderColor: ['#FFFFFF'], // Optional: White borders for better separation
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
+    var ctxTransactionsReport = document.getElementById('transactionsReportChart').getContext('2d');
+    var transactionsReportChart = new Chart(ctxTransactionsReport, {
+        type: 'bar',
+        data: {
+            labels: ['Total Transactions', 'Successful Payments', 'Unsuccessful Payments'],
+            datasets: [{
+                label: 'Transactions Overview',
+                data: [
+    @Model.TransactionsReportsViewModel.TotalTransactionsCount,
+    @Model.TransactionsReportsViewModel.SuccessfulPaymentsCount,
+    @Model.TransactionsReportsViewModel.UnsuccessfulPaymentsCount
+                    ],
+                backgroundColor: ['#FFA500', '#32CD32', '#FF4500'], // Different color for each bar
+                borderColor: ['#FFA500', '#32CD32', '#FF4500'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

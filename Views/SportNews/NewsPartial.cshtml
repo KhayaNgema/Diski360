@@ -1,0 +1,28 @@
+﻿<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Sport news</p>
+    <br />
+</div>
+<div class="sportNewsContainer">
+    <div>
+        <div>
+            <div style="margin-bottom:10px;" id="newsContent">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fetchFixtures() {
+        $.ajax({
+            url: '/SportNews/NewsMain',
+            success: function (data) {
+                $('#newsContent').html(data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchFixtures();
+    });
+</script>

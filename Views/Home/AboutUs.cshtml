@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Read_LoginLayout.cshtml";
+    }
+}
+<br />
+@await Html.PartialAsync("_HomeButton")
+<div class="about-us-container">
+    <br />
+    <h1 class="text-center">About Us</h1>
+    <br />
+    <h2>Company Overview</h2>
+    <p>Diski360 was founded in 2024 with a mission to revolutionize football league management. Our innovative system is designed to streamline operations for leagues, making it easier to manage fixtures, track performance, and enhance collaboration among all participants.</p>
+
+    <h2>Mission and Vision</h2>
+    <p><strong>Mission:</strong> Our mission is to provide a comprehensive and user-friendly football league management solution that supports leagues in achieving their goals and improving their operations.</p>
+    <p><strong>Vision:</strong> We envision becoming the leading provider of football league management systems globally, driving the evolution of league operations and supporting the growth of the sport.</p>
+
+    <h2>Our Team</h2>
+    <h3>Leadership</h3>
+    <p><strong>Khayalethu X Ngema</strong>, CEO: Khayalethu X Ngema is the visionary founder and CEO of Diski360. Though this is his first venture into football management, Khayalethu is committed to revolutionizing the way leagues are managed. His passion for technology and innovation has driven the development of Diski360, aiming to create a user-friendly system that meets the evolving needs of football leagues. With this groundbreaking platform, Khayalethu is excited to contribute to the growth and success of football league management.</p>
+    <h3>Team Members</h3>
+    <p>Our talented team includes experts in software development, sports management, and customer support, all dedicated to creating the best experience for our users.</p>
+
+    <h2>What We Do</h2>
+    <p>Our football league management system offers a range of features designed to simplify league operations, including:</p>
+    <ul>
+        <li>Club management</li>
+        <li>Player management</li>
+        <li>Real-time match scores</li>
+        <li>Player transfers</li>
+        <li>Meeting scheduling</li>
+        <li>League finances handling</li>
+        <li>Fixture scheduling</li>
+        <li>League standings and statistics tracking</li>
+        <li>Communication tools for teams and officials</li>
+        <li>And much more</li>
+    </ul>
+    <p>We pride ourselves on our user-friendly interface and innovative solutions that set us apart from competitors.</p>
+
+    <h2>Our Values</h2>
+    <p>At Diski360, we are committed to:</p>
+    <ul>
+        <li>Delivering high-quality products and services</li>
+        <li>Understanding and meeting the needs of our users</li>
+        <li>Driving innovation and excellence in football league management</li>
+    </ul>
+
+    <h2>Testimonials</h2>
+    <p>"Diski360 has transformed how we manage our league. The system is intuitive and has made scheduling and performance tracking so much easier." - [Customer Name]</p>
+
+    <h2>Community Involvement</h2>
+    <p>We are proud to partner with local football leagues and support community initiatives. Our commitment to the sport extends beyond our products, and we are actively involved in promoting and supporting football at all levels.</p>
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions or would like to learn more about our football league management system, please get in touch with us:</p>
+    <p><strong>Email:</strong> <a href="mailto:support@diski360.com">support@diski360.com</a></p>
+    <p><strong>Phone:</strong> +27 73 287 1256</p>
+
+    <h2>Join Us</h2>
+    <p>Discover how Diski360 can help you manage your football league more effectively. <a href="/contact">Contact us</a> today to schedule a demo or get more information.</p>
+
+</div>

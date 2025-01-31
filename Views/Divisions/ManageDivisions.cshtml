@@ -1,0 +1,200 @@
+﻿@model IEnumerable<MyField.Models.Division>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Divisions";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 style="text-align:center;">Divisions</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are managing divisions. You can view and update the list of divisions responsible for overseeing the planning and execution of sports programs and events. This includes adding new divisions, modifying their structures, and adjusting their responsibilities to ensure effective leadership and coordination of sports activities.
+</p>
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+@if (Model.Any())
+{
+    <br />
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Division
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Has Paid?
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th style="white-space: nowrap;">Signed contract</th>
+                    <th>
+                        CreatedBy
+                    </th>
+                    <th>
+                        Created Date Time
+                    </th>
+                    <th>
+                        ModifiedBy
+                    </th>
+                    <th>
+                        Modified Date Time
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var encryptedDivisionId = encryptionService.Encrypt(item.DivisionId);
+
+                    <tr class="column-max-width" style="max-width: 400px;">
+                        <td class="column-max-width">
+                            <img src="~/@item.DivisionBadge" alt="@item.DivisionName" class="club-badge-image" style="border-radius: 5%; width: 50px; height: 50px;" />
+                            @Html.DisplayFor(modelItem => item.DivisionName) (@Html.DisplayFor(modelItem => item.DivisionAbbr))
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td class ="column-max-width">
+                            @if(item.HasPaid == true)
+                            {
+                                <text>Paid <i class="fa fa-check-circle" style="color:green"></i></text>
+                            }
+                            else
+                            {
+                                <text>Not Paid <i class="fa fa-times-circle" style="color:red"></i></text>
+                            }
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td class="column-max-width">
+                            <a href="~/@item.SignedContract" target="_blank" class="btn btn-sm" title="View Document" style="display: flex; align-items: center;">
+                                <i class="fas fa-file-pdf fa-2x" style="margin-right: 8px; color:red;"></i>
+                                <span>Contract</span>
+                            </a>
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.CreatedBy.FirstName) @Html.DisplayFor(modelItem => item.CreatedBy.LastName)
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.CreatedDateTime)
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName) @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.ModifiedDateTime)
+                        </td>
+
+                        <td class="text-right">
+                            <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.DivisionId">
+                                Actions
+                            </button>
+                            <div class="action-tab" id="actionTab-@item.DivisionId" style="display: none;">
+
+                                <a class="tab-item" href="@Url.Action("DivisionDetails", "Divisions", new { divisionId = encryptedDivisionId })">
+                                    <i class="fas fa-user" style="color: blue;"></i> Details
+                                </a>
+                                @if (item.HasPaid)
+                                {
+                                    <form action="@Url.Action("MarkAsUnpaidDivision", "Divisions")" method="post" style="display:inline;">
+                                        <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                        <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                            <i class="fas fa-money-bill-wave" style="color:red;"></i>  Pending Payment
+                                        </a>
+                                    </form>
+                                }
+                                else if (!item.HasPaid)
+                                {
+                                    <form action="@Url.Action("MarkAsPaidDivision", "Divisions")" method="post" style="display:inline;">
+                                        <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                        <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                            <i class="fas fa-money-bill-wave text-success"></i> Approve Payment
+                                        </a>
+                                    </form>
+                                }
+
+                                <form action="@Url.Action("DeActivateDivision", "Divisions")" method="post" style="display:inline;">
+                                    <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                    <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                        <i class="fas fa-pause" style="color: red;"></i> Deactivate
+                                    </a>
+                                </form>
+
+                                <form action="@Url.Action("ActivateDivision", "Divisions")" method="post" style="display:inline;">
+                                    <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                    <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                        <i class="fas fa-check-circle" style="color: green;"></i> Activate
+                                    </a>
+                                </form>
+
+                                <form action="@Url.Action("SuspendDivision", "Divisions")" method="post" style="display:inline;">
+                                    <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                    <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                        <i class="fas fa-ban" style="color: red;"></i> Suspend
+                                    </a>
+                                </form>
+
+                                <form action="@Url.Action("UnsuspendDivision", "Divisions")" method="post" style="display:inline;">
+                                    <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                    <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                        <i class="fas fa-check-circle" style="color: green;"></i> Unsuspend
+                                    </a>
+                                </form>
+
+                                <form action="@Url.Action("TerminateContract", "Divisions")" method="post" style="display:inline;">
+                                    <input type="hidden" name="divisionId" value="@encryptedDivisionId" />
+                                    <a href="#" onclick="this.closest('form').submit();" class="tab-item">
+                                        <i class="fas fa-trash" style="color: red;"></i> Delete
+                                    </a>
+                                </form>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center" style="margin-top: 20vh;">There are no divisions yet.</p>
+    </div>
+
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

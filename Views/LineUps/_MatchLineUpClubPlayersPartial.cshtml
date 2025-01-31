@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MyField.Models.Player>
+
+<style>
+    #playerTable {
+        border-collapse: collapse;
+    }
+
+        #playerTable th,
+        #playerTable td {
+            border: none;
+            padding: 8px;
+        }
+
+    #noResultsMessage {
+        text-align: center;
+    }
+</style>
+
+<div style="text-align: center;">
+    <input type="text" id="searchInput" placeholder="Search for your players..." onkeyup="searchTable()" style="width: 300px;">
+</div>
+
+<table id="playerTable" class="table" style="display: none;">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)   @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    <button type="button" class="btn addXIButton" onclick="addXIPlayer(this)" data-player-id="@item.Id">ADD XI</button>
+                </td>
+                <td>
+                    <button type="button" class="btn addSUBButton" onclick="addSubstitutePlayer(this)" data-player-id="@item.Id">ADD SUB</button>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="noResultsMessage" style="display: none;">Player not found</div>
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("playerTable");
+        tr = table.getElementsByTagName("tr");
+        var found = false;
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            var rowFound = false; 
+            for (var j = 0; j < 2; j++) { 
+                if (j < td.length) { 
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        rowFound = true;
+                        found = true; 
+                        break;
+                    }
+                }
+            }
+            if (rowFound) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+
+        if (filter == "") {
+            table.style.display = "none"; 
+            document.getElementById("noResultsMessage").style.display = "none";
+        } else {
+            table.style.display = found ? "" : "none"; 
+            document.getElementById("noResultsMessage").style.display = found ? "none" : ""; 
+        }
+
+    }
+</script>

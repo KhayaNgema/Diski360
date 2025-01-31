@@ -1,0 +1,54 @@
+﻿@model MyField.ViewModels.FixtureDetailsBackOfficeViewModel
+
+@{
+    ViewData["Title"] = "Fixture details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<div class="d-flex justify-content-center">
+    <div class="fixture-details-card">
+        <div class="card-body">
+            <div class="row fixture-details-container">
+                <div class="d-flex justify-content-center text-center">
+                    <div class="col-4">
+                        <img src="~/@Model.HomeTeamBadge" alt="@Model.HomeTeamName" class="club-badge-image-live" />
+                        <p>@Model.HomeTeamName</p>
+                    </div>
+                    <div class="d-flex align-items-center" style="margin: 0 20px;">VS</div>
+                    <div class="col-4">
+                        <img src="~/@Model.AwayTeamBadge" alt="@Model.AwayTeamName" class="club-badge-image-live" />
+                        <p>@Model.AwayTeamName</p>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center" style="margin-bottom:30px; background-color:#f6f6f6"><h5 style="padding:5px;">KickOff</h5></div>
+                <div class="col-md-6 text-center">
+                    <strong>Date: </strong>@Model.KickOffDate.ToString("dddd, dd MMM, yyyy")
+                </div>
+                <div class="col-md-6 text-center" style="margin-bottom:30px;">
+                    <strong>Time: </strong>@Model.KickOffTime.ToString("HH:mm")
+                </div>
+                <div class="col-12 text-center" style="margin-bottom:30px; background-color:#f6f6f6"><h5 style="padding:5px;">Stadium</h5></div>
+                <div class="col-md-12 text-center" style="margin-bottom:30px;">
+                    <strong>Stadium: </strong>@Model.StadiumName
+                </div>
+                <div class="col-12 text-center" style="margin-bottom:30px; background-color:#f6f6f6"><h5 style="padding:5px;">Match Officials</h5></div>
+                <div class="col-12"></div>
+                <div class="col text-center">
+                    <div style="margin-bottom:5px;">
+                        <strong>Referee: </strong>@Model.RefereeName
+                    </div>
+                    <div style="margin-bottom:5px;">
+                        <strong>Assistant one: </strong>@Model.AssistantOneName
+                    </div>
+                    <div style="margin-bottom:5px;">
+                        <strong>Assistant two: </strong>@Model.AssistantTwoName
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model MyField.Models.SportNews
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@if (User.IsInRole("News Updator") || User.IsInRole("News Administrator"))
+{
+    @await Html.PartialAsync("_BackButton")
+}
+else
+{
+    @await Html.PartialAsync("_SportNewsButton")
+}
+
+<br />
+<div class="col-md-12 col-sm-12 col-lg-12 sport-news-content">
+    <h4 class="sport-news-heading">@Model.NewsHeading</h4>
+    <hr />
+    <div class="row">
+        <div>
+            <div>
+                <img src="~/@Model.NewsImage" alt="News Image" class="sport-news-image-modal">
+            </div>
+            <div>
+                <em>@Model.PublishedDate.ToString("dd MMMM, yyyy - HH:mm")</em>
+            </div>
+            <br />
+            <div class="mr-3">
+                @Model.AuthoredBy.FirstName @Model.AuthoredBy.LastName
+            </div>
+
+            <hr />
+            <div>
+                <p style="white-space: pre-wrap;">@Model.NewsBody</p>
+            </div>
+        </div>
+    </div>
+</div>
+

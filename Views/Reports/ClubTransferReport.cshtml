@@ -1,0 +1,130 @@
+﻿@model IEnumerable<MyField.Models.ClubTransferReport>
+
+@{
+    ViewData["Title"] = ViewBag.ClubName + " Transfers Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">@ViewBag.ClubName Transfers Report</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view your club's player transfer reports. This includes details on incoming and outgoing transfers, providing a comprehensive overview of player movements within and outside the club. This section helps you track and manage player transfers effectively.
+</p>
+<br />
+
+<div class="container">
+    <div class="row">
+        <!-- Table for Transfer Counts -->
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Transfer Counts Overview
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Overall Transfers</td>
+                                <td>@Model.Sum(m => m.OverallTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Outgoing Transfers</td>
+                                <td>@Model.Sum(m => m.OutgoingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Incoming Transfers</td>
+                                <td>@Model.Sum(m => m.IncomingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Successful Outgoing Transfers</td>
+                                <td>@Model.Sum(m => m.SuccessfulOutgoingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Successful Incoming Transfers</td>
+                                <td>@Model.Sum(m => m.SuccessfulIncomingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Rejected Outgoing Transfers</td>
+                                <td>@Model.Sum(m => m.RejectedOutgoingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Rejected Incoming Transfers</td>
+                                <td>@Model.Sum(m => m.RejectedIncomingTransfersCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Not Actioned Incoming Transfers</td>
+                                <td>@Model.Sum(m => m.NotActionedIncomingTransferCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Not Actioned Outgoing Transfers</td>
+                                <td>@Model.Sum(m => m.NotActionedOutgoigTransferCount)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table for Transfer Rates -->
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Transfer Rates Overview
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Outgoing Transfer Rate</td>
+                                <td>@Model.Sum(m => m.OutgoingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Incoming Transfer Rate</td>
+                                <td>@Model.Sum(m => m.IncomingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Successful Outgoing Transfer Rate</td>
+                                <td>@Model.Sum(m => m.SuccessfullOutgoingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Successful Incoming Transfer Rate</td>
+                                <td>@Model.Sum(m => m.SuccessfullIncomingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Rejected Outgoing Transfer Rate</td>
+                                <td>@Model.Sum(m => m.RejectedOutgoingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Rejected Incoming Transfer Rate</td>
+                                <td>@Model.Sum(m => m.RejectedIncomingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Not Actioned Incoming Transfer Rate</td>
+                                <td>@Model.Sum(m => m.NotActionedIncomingTransferRate)%</td>
+                            </tr>
+                            <tr>
+                                <td>Not Actioned Outgoing Transfer Rate</td>
+                                <td>@Model.Sum(m => m.NotActionedOutgoingTransferRate)%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

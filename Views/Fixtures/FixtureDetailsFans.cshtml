@@ -1,0 +1,233 @@
+﻿@model MyField.Models.Fixture
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<style>
+    .highlighted {
+        background-color: #E4E7EB; /* Light grey background */
+    }
+
+</style>
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+
+<div class="d-flex justify-content-center text-center">
+    <div class="col-4">
+        <img src="~/@Model.HomeTeam.ClubBadge" alt="@Model.HomeTeam.ClubName" class="club-badge-image-live" />
+        <p>@Model.HomeTeam.ClubName</p>
+    </div>
+    <div class="d-flex align-items-center" style="margin: 0 20px;">VS</div>
+    <div class="col-4">
+        <img src="~/@Model.AwayTeam.ClubBadge" alt="@Model.AwayTeam.ClubName" class="club-badge-image-live" />
+        <p>@Model.AwayTeam.ClubName</p>
+    </div>
+</div>
+
+<p class="text-center" style="padding-top:5px;">@Model.KickOffDate.ToString("dd MMM yyyy"), @Model.KickOffTime.ToString("HH:mm") - @Model.Location</p>
+<br />
+
+<ul class="nav nav-tabs" id="clubTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="lineup-tab" data-bs-toggle="tab" data-bs-target="#lineup" type="button" role="tab" aria-controls="lineup" aria-selected="false" onclick="loadTab('lineup', '@Model.FixtureId')">Line up</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="headtohead-tab" data-bs-toggle="tab" data-bs-target="#headtohead" type="button" role="tab" aria-controls="headtohead" aria-selected="true" onclick="loadTab('headtohead', '@Model.FixtureId')">H2H</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <br />
+    <div class="tab-pane fade" id="lineup" role="tabpanel" aria-labelledby="lineup-tab"></div>
+    <div class="tab-pane fade" id="headtohead" role="tabpanel" aria-labelledby="headtohead-tab"></div>
+</div>
+
+<input type="hidden" id="fixtureId" value="@Model.FixtureId" />
+
+<input type="hidden" id="homeTeamId" value="@Model.HomeTeam.ClubId" />
+
+<input type="hidden" id="awayTeamId" value="@Model.AwayTeam.ClubId" />
+
+<div id="errorMessage" style="display: none;"></div>
+
+
+<script>
+
+
+    function loadTab(tabName, fixtureId) {
+        var homeTeamId = document.getElementById("homeTeamId").value;
+        var awayTeamId = document.getElementById("awayTeamId").value;
+
+        $('.nav-link').removeClass('active');
+
+        $('#' + tabName + '-tab').addClass('active');
+
+        $('.tab-pane').removeClass('show active');
+
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'lineup') {
+                url = '@Url.Action("MatchLineUpsFans", "LineUps")';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        fixtureId: fixtureId,
+                        homeTeamId: homeTeamId,
+                        awayTeamId: awayTeamId
+                    },
+                    success: function (data) {
+                        $('#' + tabName).html(data);
+
+                        showHomeTeamData();
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.error("Error:", errorThrown);
+                    }
+                });
+
+
+            } else if (tabName === 'headtohead') {
+                url = '@Url.Action("HeadToHead", "LineUps")';
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        homeClubId: homeTeamId,
+                        awayClubId: awayTeamId,
+                        fixtureId: fixtureId
+                    },
+                    success: function (data) {
+                        $('#headtohead').html(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.error("Error:", errorThrown);
+                    }
+                });
+            }
+        }
+    }
+
+    function showHomeTeamData() {
+        $('#homeTeamLineUp').show();
+        $('#homeTeamSubstitutes').show();
+        $('#awayTeamLineUp').hide();
+        $('#awayTeamSubstitutes').hide();
+
+        fetchHomeTeamLineUp();
+        fetchHomeTeamSubstitutes();
+
+        $('.homeButton').addClass('active');
+        $('.awayButton').removeClass('active');
+    }
+
+    function showAwayTeamData() {
+        $('#homeTeamLineUp').hide();
+        $('#homeTeamSubstitutes').hide();
+        $('#awayTeamLineUp').show();
+        $('#awayTeamSubstitutes').show();
+
+        fetchAwayTeamLineUp();
+        fetchAwayTeamSubstitutes();
+
+        $('.awayButton').addClass('active');
+        $('.homeButton').removeClass('active');
+    }
+
+
+    function fetchHomeTeamLineUp() {
+        var fixtureId = document.getElementById("fixtureId").value;
+        var clubId = document.getElementById("homeTeamId").value;
+
+        $.ajax({
+            url: '@Url.Action("HomeTeamLineUp", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId, clubId: clubId },
+            success: function (data) {
+                $('#homeTeamLineUp').html(data);
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseText;
+                console.log(errorMessage);
+                alert(errorMessage);
+            }
+        });
+    }
+
+    function fetchAwayTeamLineUp() {
+        var fixtureId = document.getElementById("fixtureId").value;
+        var clubId = document.getElementById("awayTeamId").value;
+
+        $.ajax({
+            url: '@Url.Action("AwayTeamLineUp", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId, clubId: clubId },
+            success: function (data) {
+                $('#awayTeamLineUp').html(data);
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseText;
+                console.log(errorMessage);
+                alert(errorMessage);
+            }
+        });
+    }
+
+    function fetchHomeTeamSubstitutes() {
+        var fixtureId = document.getElementById("fixtureId").value;
+        var clubId = document.getElementById("homeTeamId").value;
+
+        $.ajax({
+            url: '@Url.Action("HomeTeamSubstitutes", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId, clubId: clubId },
+            success: function (data) {
+                $('#homeTeamSubstitutes').html(data);
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseText;
+                console.log(errorMessage);
+                alert(errorMessage);
+            }
+        });
+    }
+
+    function fetchAwayTeamSubstitutes() {
+        var fixtureId = document.getElementById("fixtureId").value;
+        var clubId = document.getElementById("awayTeamId").value;
+
+        $.ajax({
+            url: '@Url.Action("AwayTeamSubstitutes", "LineUps")',
+            type: 'GET',
+            data: { fixtureId: fixtureId, clubId: clubId },
+            success: function (data) {
+                $('#awayTeamSubstitutes').html(data);
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseText;
+                console.log(errorMessage);
+                alert(errorMessage);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var fixtureId = '@Model.FixtureId'; 
+
+        loadTab('headtohead');
+
+        loadTab('lineup', fixtureId);
+
+
+        fetchHomeTeamLineUp();
+        fetchHomeTeamSubstitutes();
+    });
+</script>
+
+
+

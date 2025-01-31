@@ -1,0 +1,86 @@
+﻿@model MyField.ViewModels.DivisionDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.DivisionName + "Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">@Model.DivisionName Details</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    You are currently viewing the division details page. Here, you will find comprehensive information about the division, including key metrics and relevant data. If you need further assistance or have any questions regarding this information, please let us know.
+</p>
+<br />
+<div class="division-add-container d-flex">
+    <form asp-action="OnboardDivisionAndManager" method="post" enctype="multipart/form-data" class="d-flex w-100">
+        <div class="row flex-grow-1">
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Details</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <div class="profile-container">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <img src="~/@Model.DivisionBadge" alt="@Model.DivisionAbbr" class="club-picture-image" style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionType" class="form-control border-bottom-only" placeholder="DivisionType" readonly />
+                    <label asp-for="DivisionType" class="form-label">Division type</label>
+                    <span asp-validation-for="DivisionType" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" readonly />
+                    <label asp-for="DivisionName" class="form-label">Division Name</label>
+                    <span asp-validation-for="DivisionName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;" readonly></textarea>
+                    <label asp-for="DivisionDescription" class="form-label">Division Description</label>
+                    <span asp-validation-for="DivisionDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Address" class="form-control border-bottom-only" placeholder="Address" readonly />
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Manager Details</h5>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" readonly />
+                    <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
+                    <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" readonly />
+                    <label asp-for="ManagerLastName" class="form-label">Last Name</label>
+                    <span asp-validation-for="ManagerLastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" readonly />
+                    <label asp-for="ManagerEmail" class="form-label">Email Address</label>
+                    <span asp-validation-for="ManagerEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerPhone" class="form-control border-bottom-only" placeholder="Phone Number" readonly />
+                    <label asp-for="ManagerPhone" class="form-label">Phone Number</label>
+                    <span asp-validation-for="ManagerPhone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

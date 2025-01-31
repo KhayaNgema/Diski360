@@ -1,0 +1,67 @@
+﻿@model MyField.ViewModels.UpdateMeetingViewModel
+
+@{
+    ViewData["Title"] = "Update Meeting";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Update Meeting</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can update meeting details. Any changes you make will be communicated to all relevant parties via email, ensuring that everyone is promptly informed of the updates.
+</p>
+<br />
+<div class="row meetings-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateMeeting" asp-route-meetingId="@Model.MeetingId"  method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingAttendees" class="form-control border-bottom-only" placeholder="MeetingAttendees" />
+                <label asp-for="MeetingAttendees" class="form-label">Meeting attendes</label>
+                <span asp-validation-for="MeetingAttendees" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingTitle" class="form-control border-bottom-only" placeholder="MeetingTitle" />
+                <label asp-for="MeetingTitle" class="form-label">Meeting title</label>
+                <span asp-validation-for="MeetingTitle" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="MeetingDescription" class="form-control border-bottom-only" placeholder="MeetingDescription" style="min-height: 150px;"></textarea>
+                <label asp-for="MeetingDescription" class="form-label">Meeting description</label>
+                <span asp-validation-for="MeetingDescription" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Venue" class="form-control border-bottom-only" placeholder="Venue" />
+                <label asp-for="Venue" class="form-label">Venue</label>
+                <span asp-validation-for="Venue" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingDate" class="form-control border-bottom-only" placeholder="MeetingDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="MeetingDate" class="form-label">Meeting date</label>
+                <span asp-validation-for="MeetingDate" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="MeetingTime" class="form-control border-bottom-only" placeholder="MeetingTime" type="time" />
+                <label asp-for="MeetingTime" class="form-label">Meeting time</label>
+                <span asp-validation-for="MeetingTime" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="AdditionalComments" class="form-control border-bottom-only" placeholder="AdditionalComments" style="min-height: 150px;"></textarea>
+                <label asp-for="AdditionalComments" typeof="time" class="form-label">Additional comments</label>
+                <span asp-validation-for="AdditionalComments" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="MeetingId" />
+                        <input type="submit" value="Save" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

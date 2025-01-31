@@ -1,0 +1,268 @@
+﻿@model IEnumerable<MyField.Models.ClubPerformanceReport>
+
+@{
+    ViewData["Title"] = ViewBag.ClubName + " Performance Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">@ViewBag.ClubName Performance Reports</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view your club's performance reports. This includes a comprehensive overview of all performance statistics, such as match results, player statistics, and overall team performance metrics. This section provides detailed insights into how your club is performing across various aspects.
+</p>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card report-card">
+                <div class="card-header">
+                    Games Overview
+                </div>
+                <div class="card-body">
+                    <canvas id="gamesOverviewChart" class="chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Game Counts Overview
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Games To Play</td>
+                                <td>@Model.Sum(m => m.GamesToPlayCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Games Played</td>
+                                <td>@Model.Sum(m => m.GamesPlayedCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Games Won</td>
+                                <td>@Model.Sum(m => m.GamesWinCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Games Lost</td>
+                                <td>@Model.Sum(m => m.GamesLoseCount)</td>
+                            </tr>
+                            <tr>
+                                <td>Games Drawn</td>
+                                <td>@Model.Sum(m => m.GamesDrawCount)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+       
+    </div>
+</div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card report-card">
+                <div class="card-header">
+                    Performance Rates
+                </div>
+                <div class="card-body">
+                    <canvas id="ratesChart" class="chart small-chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Performance Rates Overview
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Games Played Rate</td>
+                                <td>@Model.Average(m => m.GamesPlayedRate).ToString("F2") %</td>
+                            </tr>
+                            <tr>
+                                <td>Games Not Played Rate</td>
+                                <td>@Model.Average(m => m.GamesNotPlayedRate).ToString("F2") %</td>
+                            </tr>
+                            <tr>
+                                <td>Games Won Rate</td>
+                                <td>@Model.Average(m => m.GamesWinRate).ToString("F2") %</td>
+                            </tr>
+                            <tr>
+                                <td>Games Lost Rate</td>
+                                <td>@Model.Average(m => m.GamesLoseRate).ToString("F2") %</td>
+                            </tr>
+                            <tr>
+                                <td>Games Draw Rate</td>
+                                <td>@Model.Average(m => m.GamesDrawRate).ToString("F2") %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var gamesToPlayData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesToPlayCount)));
+            var gamesPlayedData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesPlayedCount)));
+            var gamesWonData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesWinCount)));
+            var gamesLostData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesLoseCount)));
+            var gamesDrawnData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesDrawCount)));
+            var labels = @Html.Raw(Json.Serialize(Model.Select(m => m.League.LeagueYears)));
+
+            var gamesPlayedRateData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesPlayedRate)));
+            var gamesNotPlayedRateData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesNotPlayedRate)));
+            var gamesWinRateData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesWinRate)));
+            var gamesLoseRateData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesLoseRate)));
+            var gamesDrawRateData = @Html.Raw(Json.Serialize(Model.Select(m => m.GamesDrawRate)));
+
+            var ctxGamesOverview = document.getElementById('gamesOverviewChart').getContext('2d');
+            var gamesOverviewChart = new Chart(ctxGamesOverview, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Games To Play',
+                        data: gamesToPlayData,
+                        backgroundColor: 'rgba(255, 159, 64, 1)', 
+                        borderColor: 'rgba(255, 159, 64, 1)', 
+                        borderWidth: 1
+                    }, {
+                        label: 'Games Played',
+                        data: gamesPlayedData,
+                        backgroundColor: 'rgba(75, 192, 192, 1)', 
+                        borderColor: 'rgba(75, 192, 192, 1)', 
+                        borderWidth: 1
+                    }, {
+                        label: 'Games Won',
+                        data: gamesWonData,
+                        backgroundColor: 'rgba(54, 162, 235, 1)', 
+                        borderColor: 'rgba(54, 162, 235, 1)', 
+                        borderWidth: 1
+                    }, {
+                        label: 'Games Lost',
+                        data: gamesLostData,
+                        backgroundColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(255, 99, 132, 1)', 
+                        borderWidth: 1
+                    }, {
+                        label: 'Games Drawn',
+                        data: gamesDrawnData,
+                        backgroundColor: 'rgba(153, 102, 255, 1)', 
+                        borderColor: 'rgba(153, 102, 255, 1)', 
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Season'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Games'
+                            }
+                        }
+                    }
+                }
+            });
+
+
+            var ctxRates = document.getElementById('ratesChart').getContext('2d');
+            var ratesChart = new Chart(ctxRates, {
+                type: 'pie',
+                data: {
+                    labels: [
+                        'Not Played Matches Rate',
+                        'Won Matches Rate',
+                        'Lost Matches Rate',
+                        'Drawn Matches Rate'
+                    ],
+                    datasets: [{
+                        data: [
+                            gamesNotPlayedRateData.reduce((a, b) => a + b, 0),
+                            gamesWinRateData.reduce((a, b) => a + b, 0),
+                            gamesLoseRateData.reduce((a, b) => a + b, 0),
+                            gamesDrawRateData.reduce((a, b) => a + b, 0)
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)', 
+                            'rgba(54, 162, 235, 1)', 
+                            'rgba(153, 102, 255, 1)', 
+                            'rgba(255, 159, 64, 1)'  
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)', 
+                            'rgba(54, 162, 235, 1)', 
+                            'rgba(153, 102, 255, 1)', 
+                            'rgba(255, 159, 64, 1)' 
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
+

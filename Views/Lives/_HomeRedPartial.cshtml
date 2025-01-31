@@ -1,0 +1,53 @@
+﻿@model MyField.ViewModels.HomeRedViewModel
+
+
+<div>
+    <form id="homeRedForm" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group row">
+            <label for="awayRedCommitedBy" class="col-sm-3 col-form-label">Commited by:</label>
+            <div class="col-sm-9">
+                <select id="homeRedCommitedBy" name="homeRedCommitedBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label for="homeRedCardReason" class="col-sm-3 col-form-label">Reason:</label>
+            <div class="col-sm-9">
+                <select id="homeRedCardReason" name="homeRedCardReason" class="form-control">
+                    <option value="">Select reason</option>
+                    @if (Model.RedCardTypes != null)
+                    {
+                        foreach (var penaltyType in Model.RedCardTypes)
+                        {
+                            <option value="@penaltyType.Value">
+                                @penaltyType.Text
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No penalty types available</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </form>
+
+</div>

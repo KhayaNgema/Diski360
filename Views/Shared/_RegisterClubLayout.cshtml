@@ -1,0 +1,382 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MyField.Data
+@inject SignInManager<UserBaseModel> SignInManager
+@using MyField.Models;
+@inject Ksans_SportsDbContext _context
+
+@{
+    var customers = _context.Divisions
+            .ToList();
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>@ViewData["Title"] - MyField</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MyField.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="/js/deviceInfo.js"></script>
+
+    <style>
+        .navLinks {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+            .navLinks .nav-item {
+                margin-right: 10px;
+                padding: 0;
+            }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-tabs .nav-link:focus,
+        .nav-tabs .nav-link.active,
+        .nav-tabs .nav-link:active {
+            background-color: #007bff !important;
+            color: white;
+        }
+
+        .nav-link.active {
+            color: white !important;
+        }
+
+        .overflow-auto {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+            .overflow-auto::-webkit-scrollbar {
+                display: none;
+            }
+
+        .overflow-auto {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .nav-item {
+            bottom: 0 !important;
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div id="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="loginNav">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <div class="d-flex align-items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="#menu-toggle" id="menu-toggle" style="font-size: 26px; color: white; text-decoration: none; margin-right: 10px;">&#9776;</a>
+                        <a class="navbar-brand ml-2" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">Ksans-sports</a>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand ml-2" asp-area="" asp-controller="Home" asp-action="Index" style="color:white;">Ksans-sports</a>
+                    }
+                </div>
+
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+
+            </div>
+        </nav>
+
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="homeTabsNav">
+                <div class="container-fluid">
+                    <div class="overflow-auto">
+                        <ul class="nav nav-tabs flex-nowrap">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="spotNewsTab" href="#sportnews" style="color: black; border-radius:0;">Sports News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="fixturesTab" href="#fixtures" style="color: black; border-radius:0;">Fixtures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="standingsTab" href="#standings" style="color: black; border-radius:0;">Standings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tournamentsTab" href="#tournaments" style="color: black; border-radius:0;">Tournaments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="matchresultsTab" href="#matchresults" style="color: black; border-radius:0;">Results</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="clubsTab" href="#clubs" style="color: black; border-radius:0;">Clubs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="wrapper">
+                <div id="sidebar-wrapper" style="overflow-y: auto; scrollbar-width: thin; scrollbar-color: transparent transparent;">
+                    <div id="loading-spinner" style="display: none; text-align: center; margin-top: 20px;">
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </div>
+                    <ul class="sidebar-nav" style="list-style: none; padding: 0;">
+                        <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <i class="fa fa-home" style="color: white; margin-right: 5px;"></i>
+                            <a asp-controller="Home" asp-action="Index" class="nav-link text-light">Home</a>
+                        </li>
+                        <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <i class="fa fa-sign-in-alt" style="color: white; margin-right: 5px;"></i>
+                            <a asp-controller="Account" asp-action="Login" class="nav-link text-light">Login</a>
+                        </li>
+                        <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <i class="fa fa-user-plus" style="color: white; margin-right: 5px;"></i>
+                            <a asp-controller="Account" asp-action="Register" class="nav-link text-light">Register</a>
+                        </li>
+                        <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <i class="fa fa-envelope" style="color: white; margin-right: 5px;"></i>
+                            <a asp-controller="Home" asp-action="Contact" class="nav-link text-light">Contact Us</a>
+                        </li>
+                        <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <i class="fa fa-info-circle" style="color: white; margin-right: 5px;"></i>
+                            <a asp-controller="Home" asp-action="About" class="nav-link text-light">About Us</a>
+                        </li>
+
+                        <li class="nav-login-item" style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <i class="fa fa-sign-out-alt" style="color: white; margin-right: 10px;"></i>
+                                <button type="submit" class="nav-login-link" style="color: white; background-color: transparent; border: none; cursor: pointer;">Logout</button>
+                            </form>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm" id="homeTabsNav">
+                <div class="container-fluid">
+                    <div class="overflow-auto">
+                        <ul class="nav nav-tabs flex-nowrap">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="spotNewsTab" href="#sportnews" style="color: black; border-radius:0;">Sports News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="fixturesTab" href="#fixtures" style="color: black; border-radius:0;">Fixtures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="standingsTab" href="#standings" style="color: black; border-radius:0;">Standings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="tournamentsTab" href="#tournaments" style="color: black; border-radius:0;">Tournaments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="matchresultsTab" href="#matchresults" style="color: black; border-radius:0;">Results</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="clubsTab" href="#clubs" style="color: black; border-radius:0;">Clubs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
+
+    </header>
+    <div id="page-content-wrapper" class="main-content">
+        <div class="container-fluid">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <footer class="py-4 pages-footer" style="background-color: #000325; color: white; padding-bottom: 0;margin-top:40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About Us</h5>
+                    <p>
+                        Learn more about our mission, values, and team. Visit our
+                        <a href="@Url.Action("AboutUs", "Home")" class="text-white">About Us</a> page for more details.
+                    </p>
+                    <h5 style="padding-top:25px;">Join Us</h5>
+                    <p>
+                        Do you want to become one of our valued customers? <br />
+                        <a asp-controller="Divisions" asp-action="MakeOnboardingRequest" class="text-white font-weight-bold">Click here to join Diski60!</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="PrivacyPolicy" class="text-white">Privacy Policy</a></li>
+                        <li><a asp-controller="Home" asp-action="TermsAndConditions" class="text-white">Terms & Conditions</a></li>
+                        <li><a asp-controller="Home" asp-action="ContactUs" class="text-white">Contact Us</a></li>
+                        <li><a href="https://www.facebook.com/groups/1059539181218342/" target="_blank" class="text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Us</h5>
+                    <p>Have questions? Get in touch with us via email or phone.</p>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:info@diski360.com" class="text-white">info@diski360.com</a></p>
+                    <p><i class="fa fa-phone"></i> +27732871256</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Our Customers</h5>
+                    @if (customers != null && customers.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var customer in customers)
+                            {
+                                <li style="padding:5px;">
+                                    <img src="@Url.Content("~/" + customer.DivisionBadge)" alt="@customer.DivisionName" style="width:40px; height:40px; object-fit:cover; background-color:white; border-radius:8px;" />
+                                    @customer.DivisionName (@customer.DivisionAbbr)
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>We currently do not have customers but are in the process of acquiring some.</p>
+                    }
+                </div>
+            </div>
+            <hr style="border-color: white; margin: 20px 0;">
+            <div class="text-center mt-3">
+                <p>&copy; @DateTime.Now.Year Diski360. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a asp-controller="Reports" asp-action="TestFeedback" class="floating-button">
+        <span class="rotate"><i class="fa fa-comment"></i> Share Feedback</span>
+    </a>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var baseUrl = window.location.href.split('#')[0];
+            var previousPage = null;
+            var loadingOverlay = $('#loading-overlay');
+
+            // Show loading overlay when navigation starts
+            $(document).on('click', 'a:not([href^="#"])', function () {
+                loadingOverlay.show();
+            });
+
+            // Hide loading overlay when navigation completes
+            $(document).on('readystatechange', function () {
+                if (document.readyState === 'complete') {
+                    loadingOverlay.hide();
+                }
+            });
+
+            // Function to close the previous page
+            function closePreviousPage() {
+                if (previousPage !== null) {
+                    window.close(previousPage);
+                }
+            }
+
+            // Function to load tab content
+            function loadTabContent(target) {
+                $('.tab-content').hide();
+                $(target).show();
+
+                // Extract the controller name from the target URL
+                var controllerName = target.substring(1).split('/')[0];
+
+                // Adjust the URL construction based on the controller name
+                var partialViewUrl = '/' + controllerName;
+
+                $.get(partialViewUrl, function (data) {
+                    $(target).html(data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.error("Error loading partial view:", errorThrown);
+                });
+            }
+
+            // Initial loading of default tab content
+            loadTabContent('#sportnews');
+
+            // Handle clicks on navigation links
+            $('.nav-link').click(function (e) {
+                e.preventDefault();
+                var target = $(this).attr('href');
+
+                // Close previous page
+                closePreviousPage();
+
+                // Load tab content
+                loadTabContent(target);
+
+                // Update active state of navigation links
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+
+                // Update URL
+                var newUrl = baseUrl + target;
+                window.history.pushState(null, '', newUrl);
+
+                // Store current page as previous page
+                previousPage = newUrl;
+            });
+
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+                $("#page-content-wrapper").toggleClass("shifted");
+                $("#homeTabsNav").toggleClass("shifted");
+                $("#loginNav").toggleClass("shifted");
+            });
+        });
+
+
+        $(document).ready(function () {
+
+            $(document).on("contextmenu", function (e) {
+                e.preventDefault();
+            });
+
+            $(document).keydown(function (e) {
+                if (
+                    e.keyCode == 123 ||
+                    (e.ctrlKey && e.shiftKey && e.keyCode == 73) ||
+                    (e.ctrlKey && e.shiftKey && e.keyCode == 67) ||
+                    (e.ctrlKey && e.keyCode == 85) ||
+                    (e.ctrlKey && e.shiftKey && e.keyCode == 74)
+                ) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

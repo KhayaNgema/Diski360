@@ -1,0 +1,79 @@
+﻿@model MyField.ViewModels.UpdateUserManualsViewModel
+
+@{
+    ViewData["Title"] = "Update user manual";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Update user manual</h4>
+<br />
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateManual" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label class="form-label">Document</label>
+                @if (!string.IsNullOrEmpty(Model.ManualDocument))
+                {
+                    var fileName = System.IO.Path.GetFileName(Model.ManualDocument);
+
+                    var fileNameWithoutGuid = fileName.Substring(fileName.IndexOf('_') + 1); 
+
+                    fileNameWithoutGuid = fileNameWithoutGuid.Replace("%20", " "); 
+
+                    <div class="current-document-container mb-2">
+                        <a href="~/@Model.ManualDocument" target="_blank" class="btn btn-link">
+                            <div class="document-box d-flex align-items-center" style="border: 1px solid #ddd; padding: 10px; border-radius: 5px; background-color: #f9f9f9; max-width: 100%; word-wrap: break-word; height: auto;">
+                                <i class="fas fa-file-pdf fa-3x" style="color: red; margin-right: 8px;"></i>
+                                <span style="font-size: 1.25rem; color: #333; display: block; word-wrap: break-word; white-space: normal; overflow-wrap: break-word; word-break: break-word; max-width: calc(100% - 40px);">
+                                    @fileNameWithoutGuid
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+
+                <div class="new-upload-container">
+                    <label for="Input_UserManual" class="file-upload-btn" style="display: inline-block; padding: 10px 20px; background-color: #f0f0f0; border-radius: 30px; color: #333; cursor: pointer; font-size: 16px; text-align: center; border: 1px solid #ccc; transition: background-color 0.3s ease;">
+                        <i class="fas fa-upload"></i> Replace File
+                    </label>
+                    <input asp-for="ManualDocuments" id="Input_UserManual" class="form-control" type="file" accept="application/pdf" style="display: none;" onchange="updateFileName()" />
+                    <small class="form-text text-muted">Upload a new document (PDF only).</small>
+
+                    <div id="newDocumentPreview" class="mt-3" style="display: none;">
+                        <strong>New File Selected:</strong>
+                        <span id="newDocumentName"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="UserRole" class="form-control border-bottom-only" placeholder="userrole" />
+                <label asp-for="UserRole" class="form-label">User group/role</label>
+                <span asp-validation-for="UserRole" class="text-danger"></span>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="ManualId" value="@Model?.ManualId" />
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateFileName() {
+        var input = document.getElementById('Input_UserManual');
+        var fileName = input.files[0] ? input.files[0].name : 'No file selected';
+        document.getElementById('newDocumentPreview').style.display = 'block';
+        document.getElementById('newDocumentName').textContent = fileName;
+    }
+</script>

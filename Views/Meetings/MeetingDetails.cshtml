@@ -1,0 +1,31 @@
+﻿@model MyField.ViewModels.MeetingDetailsViewModel
+
+@{
+    ViewData["Title"] = "Meeting Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Meeting details</h4>
+<br />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-8 col-lg-6 mb-3">
+            <div class="card shadow-sm meetings-card style="padding: 1rem;">
+                <div class="card-header d-flex" style="background-color: #324260; color: white; padding: 1rem;">
+                    <h6 class="card-title mb-0">@Html.DisplayFor(model => model.MeetingTitle)</h6>
+                </div>
+
+                <div class="card-body" style="padding: 1rem;">
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Attendees:</strong> @Html.DisplayFor(model => model.MeetingAttendees)</p>
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Date:</strong> @Html.DisplayFor(model => model.MeetingDate)</p>
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Venue:</strong> @Html.DisplayFor(model => model.Venue)</p>
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Time:</strong> @Html.DisplayFor(model => model.MeetingTime)</p>
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Agenda:</strong> @Html.DisplayFor(model => model.MeetingDescription)</p>
+                    <p style="margin: 0.3rem 0; font-size: 14px;"><strong>Additional Comments:</strong> @Html.DisplayFor(model => model.AdditionalComments)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

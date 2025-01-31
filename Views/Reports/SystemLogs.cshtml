@@ -1,0 +1,120 @@
+﻿@model IEnumerable<MyField.Models.RequestLog>
+@{
+    ViewData["Title"] = "System Logs";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+@using System.Globalization
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">System Logs</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you will see system activity logs that provide details on all user interactions with this website. The logs are automatically recorded and display various response codes and statuses based on different user activities.
+</p>
+<br>
+<div class="d-flex flex-column mb-2">
+    <div class="d-flex flex-nowrap mb-2" style="overflow-x: auto;">
+        <div class="col-auto p-0 me-2">
+            <label for="searchByStartDate" class="d-block">Start Date:</label>
+            <input type="date" id="searchByStartDate" class="form-control" style="width: 180px;" onchange="filterTable()">
+        </div>
+        <div class="col-auto p-0 me-2">
+            <label for="searchByEndDate" class="d-block">End Date:</label>
+            <input type="date" id="searchByEndDate" class="form-control" style="width: 180px;" onchange="filterTable()">
+        </div>
+    </div>
+</div>
+<br />
+<div class="table-responsive">
+    @if (Model.Any())
+    {
+        <table class="table table-striped table-borderless" id="logsTable">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap!important;">
+                    <th>Request</th>
+                    <th>Type</th>
+                    <th>Response code</th>
+                    <th>Time Stamp</th>
+                </tr>
+            </thead>
+            <tbody id="logsTableBody">
+                @foreach (var item in Model)
+                {
+                    <tr style="white-space: nowrap!important;">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResponseCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeStamp)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<div id="noResultsMessage" class="d-none text-center" style="display: flex; justify-content: center; align-items: center; height: 60vh;">
+    <p>There are no transactions for your search</p>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var inputStartDate = document.getElementById('searchByStartDate');
+        var inputEndDate = document.getElementById('searchByEndDate');
+
+        var current_date = new Date();
+        var year = current_date.getFullYear();
+        var month = (current_date.getMonth() + 1).toString().padStart(2, '0');
+        var day = current_date.getDate().toString().padStart(2, '0');
+        inputStartDate.value = `${year}-${month}-${day}`;
+        inputEndDate.value = `${year}-${month}-${day}`;
+        filterTable();
+    });
+
+    function filterTable() {
+        var inputStartDate = document.getElementById('searchByStartDate');
+        var inputEndDate = document.getElementById('searchByEndDate');
+        var filterStartDate = inputStartDate.value;
+        var filterEndDate = inputEndDate.value;
+
+        var tableBody = document.querySelector("#logsTableBody");
+        var rows = tableBody.getElementsByTagName("tr");
+        var visibleRowCount = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var tdDate = rows[i].getElementsByTagName("td")[3];
+
+            if (tdDate) {
+                var logDateStr = tdDate.textContent || tdDate.innerText;
+                var logDateTime = new Date(logDateStr).getTime();
+                var startDateTime = filterStartDate ? new Date(filterStartDate + "T00:00:00").getTime() : 0;
+                var endDateTime = filterEndDate ? new Date(filterEndDate + "T23:59:59").getTime() : Infinity;
+
+                if ((logDateTime >= startDateTime) && (logDateTime <= endDateTime)) {
+                    rows[i].style.display = "";
+                    visibleRowCount++;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+
+        if (visibleRowCount === 0) {
+            document.querySelector(".table-responsive").style.display = "none";
+            document.getElementById('noResultsMessage').classList.remove('d-none');
+        } else {
+            document.querySelector(".table-responsive").style.display = "block";
+            document.getElementById('noResultsMessage').classList.add('d-none');
+        }
+    }
+</script>

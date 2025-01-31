@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MyField.Models.SubscriptionHistory>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Subscription History";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+
+<h4 style="text-align: center;">Subscription History</h4>
+
+<br />
+<p class="text-center" style="padding-right: 10px; padding-left: 10px;">
+    On this page, you are viewing your subscription history. You can view details of your past and current subscriptions, including subscription types, renewal dates, and statuses.
+</p>
+@if (Model.Any() && Model.First().Status == SubscriptionStatus.Expired)
+{
+    <div id="tempDataMessage" class="alert alert-danger d-flex align-items-center" role="alert">
+        <span>Your subscription has expired, and you won't have access to premium content. Please click the subscribe button to subscribe.</span>
+        <a href="@Url.Action("UserSubscribe", "Subscriptions")" class="btn ms-3 zoom-button" style="background-color:red; color:white;">
+            Subscribe
+        </a>
+    </div>
+}
+else
+{
+    <p class="text-center" style="padding-right: 10px; padding-left: 10px; font-weight: bold;">
+        Do you want to change your subscription plan?
+        <a href="@Url.Action("UserSubscribe", "Subscriptions")" style="color: dodgerblue; text-decoration: underline; font-weight: bold;">
+            Click here to change now.
+        </a>
+    </p>
+}
+
+<br />
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead style="background-color: #f8f9fa;">
+                <tr>
+                    <th>Subscribed Date</th>
+                    <th>Plan</th>
+                    <th>Fee</th>
+                    <th>Status</th>
+                    <th>Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.SubscribedDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Plan)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AmountPaid)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ExpiryDate)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">You don't have any subscriptions yet.</p>
+}

@@ -1,0 +1,200 @@
+﻿@model IEnumerable<MyField.Models.Fixture>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Fixtures";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.Divisionname Fixtures</h4>
+<br />
+<div class="fixtures-match-container" style="width:100%; padding-right:10px; padding-left:10px;">
+    @if (Model.Any())
+    {
+        var postponedFixtures = Model.Where(item => item.FixtureStatus == FixtureStatus.Postponed);
+        var nonPostponedFixtures = Model.Where(item => item.FixtureStatus != FixtureStatus.Postponed);
+
+        <div id="postponed-fixtures-container" class="row" style="display: none;">
+            <div class="col-12 mb-1 mt-1">
+                <h5 class="text-center text-danger">Postponed Matches</h5>
+            </div>
+            @foreach (var item in postponedFixtures)
+            {
+                var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+
+                <div class="col-12 mb-2">
+                    <div class="fixtures-card h-100 d-flex flex-column justify-content-center position-relative" style="margin: 0; padding: 2px;">
+                        <div class="card-body text-center" style="padding: 2px;">
+                            <p class="card-text" style="margin: 0;">
+                                @if (item.HomeTeam != null && item.AwayTeam != null)
+                                {
+                                    <div class="custom-line"></div>
+                                    <div class="row" style="margin: 0; padding: 0;">
+                                        <div class="col-3 d-flex justify-content-center align-items-center" style="padding: 0 5px;">
+                                            <p class="card-text text-danger" style="margin-bottom: 0;">Postponed</p>
+                                        </div>
+                                        <div class="col-6" style="padding: 0 2px; border-left: 1px solid #ccc; border-right: 1px solid #ccc;">
+                                            <div style="text-align: left; margin-bottom: 2px;">
+                                                <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubName" class="club-badge-image" style="height: 20px; width: 25px;" /> @item.HomeTeam.ClubName
+                                            </div>
+                                            <div style="text-align: left;">
+                                                <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubName" class="club-badge-image" style="height: 20px; width: 25px;" /> @item.AwayTeam.ClubName
+                                            </div>
+                                        </div>
+                                        <div class="col-3 d-flex align-items-center justify-content-center" style="padding: 0 2px;">
+                                            <div class="d-flex justify-content-center">
+                                                <a asp-action="FixtureDetailsFans" asp-route-fixtureId="@encryptedFixtureId" class="btn btn-sm">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (Model.Any(item => item.FixtureStatus == FixtureStatus.Postponed))
+        {
+            <div class="row">
+                <div class="col-12 mb-2 text-center">
+                    <span id="toggle-postponed-fixtures-btn" style="color: #007bff; cursor: pointer;" onclick="togglePostponedFixtures()">
+                        Show postponed matches <i id="postponed-chevron" class="fas fa-chevron-down"></i>
+                    </span>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+
+            @foreach (var group in nonPostponedFixtures.OrderBy(item => item.KickOffDate).GroupBy(item => item.KickOffDate))
+            {
+                var displayDate = group.Key;
+                var today = DateTime.Now.Date;
+                var tomorrow = today.AddDays(1);
+                var yesterday = today.AddDays(-1);
+
+                string dateToDisplay;
+                if (displayDate.Date == today)
+                {
+                    dateToDisplay = "Today";
+                }
+                else if (displayDate.Date == tomorrow)
+                {
+                    dateToDisplay = "Tomorrow";
+                }
+                else if (displayDate.Date == yesterday)
+                {
+                    dateToDisplay = "Yesterday";
+                }
+                else
+                {
+                    dateToDisplay = displayDate.ToString("dddd, MMMM d, yyyy");
+                }
+
+                <div class="col-12 mb-1 mt-1">
+                    <h5 class="text-center date-background">@dateToDisplay</h5>
+                </div>
+
+                @foreach (var item in group)
+                {
+                    var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+
+                    <div class="col-12 mb-2">
+                        <div class="fixtures-card h-100 d-flex flex-column justify-content-center position-relative" style="margin: 0; padding: 2px;">
+                            <div class="card-body text-center" style="padding: 2px;">
+                                <p class="card-text" style="margin: 0;">
+                                    @if (item.HomeTeam != null && item.AwayTeam != null)
+                                    {
+
+                                        <div class="custom-line"></div>
+                                        <div class="row" style="margin: 0; padding: 0;">
+                                            <div class="col-3 d-flex justify-content-center align-items-center" style="padding: 0 5px;">
+                                                <div style="text-align: center;">
+                                                    @if (item.FixtureStatus == FixtureStatus.Interrupted)
+                                                    {
+                                                        <p class="card-text text-danger" style="margin-bottom: 0;">
+                                                            @item.FixtureStatus
+                                                        </p>
+                                                    }
+                                                    else if (item.FixtureStatus == FixtureStatus.Live)
+                                                    {
+                                                        <p style="color:blue; margin-bottom: 0;">
+                                                            @item.FixtureStatus
+                                                        </p>
+                                                    }
+                                                    else if (item.FixtureStatus == FixtureStatus.Upcoming)
+                                                    {
+                                                        <div style="margin-bottom: 0;"><i class="fa fa-clock"></i> @item.KickOffTime.ToString("HH:mm")</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-6" style="padding: 0 2px; border-left: 1px solid #ccc; border-right: 1px solid #ccc;">
+                                                <div style="text-align: left; margin-bottom: 2px;">
+                                                    <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubName" class="club-badge-image" style="height: 20px; width: 25px;" /> @item.HomeTeam.ClubName
+                                                </div>
+                                                <div style="text-align: left;">
+                                                    <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubName" class="club-badge-image" style="height: 20px; width: 25px;" /> @item.AwayTeam.ClubName
+                                                </div>
+                                            </div>
+                                            <div class="col-3 d-flex align-items-center justify-content-center" style="padding: 0 2px;">
+                                                @if (item.FixtureStatus == FixtureStatus.Live || item.FixtureStatus == FixtureStatus.Interrupted)
+                                                {
+                                                    <div class="card-footer" style="padding: 2px;">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a asp-controller="Lives" asp-action="StartLive" asp-route-fixtureId="@encryptedFixtureId" class="btn btn-sm btn-outline-primary">
+                                                                <i class="fas fa-play"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="d-flex justify-content-center">
+                                                        <a asp-action="FixtureDetailsFans" asp-route-fixtureId="@encryptedFixtureId" class="btn btn-sm">
+                                                            <i class="fas fa-arrow-right"></i>
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no scheduled matches yet.</p>
+    }
+</div>
+
+<script>
+    function togglePostponedFixtures() {
+        const container = document.getElementById('postponed-fixtures-container');
+        const chevron = document.getElementById('postponed-chevron');
+        const btn = document.getElementById('toggle-postponed-fixtures-btn');
+
+        if (container.style.display === 'none') {
+            container.style.display = 'block';
+            chevron.classList.remove('fa-chevron-down');
+            chevron.classList.add('fa-chevron-up');
+            btn.innerHTML = 'Hide postponed matches <i id="postponed-chevron" class="fas fa-chevron-up"></i>';
+        } else {
+            container.style.display = 'none';
+            chevron.classList.remove('fa-chevron-up');
+            chevron.classList.add('fa-chevron-down');
+            btn.innerHTML = 'Show postponed matches <i id="postponed-chevron" class="fas fa-chevron-down"></i>';
+        }
+    }
+</script>

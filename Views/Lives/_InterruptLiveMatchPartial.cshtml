@@ -1,0 +1,15 @@
+﻿@model MyField.ViewModels.LiveMatchViewModel
+
+
+<div>
+    <form id="interruptLiveForm">
+        @Html.AntiForgeryToken()
+
+        <div class="form-floating mb-3">
+            <textarea asp-for="ReasonForInterruption" id="interruptionReason" class="form-control" placeholder="ReasonForInterruption" style="min-height: 100px; white-space: pre-wrap;"></textarea>
+            <label asp-for="ReasonForInterruption" class="form-label">Interrupt reason</label>
+            <span asp-validation-for="ReasonForInterruption" class="text-danger"></span>
+        </div>
+    </form>
+</div>
+

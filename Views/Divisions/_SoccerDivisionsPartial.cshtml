@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MyField.Models.Division>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+<br />
+<div class="club-list-Container">
+    <ul class="clubsList" style="border:none !important; list-style-type: none; padding: 0;">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                var encryptedDivisionId = encryptionService.Encrypt(item.DivisionId);
+
+                <li class="club-item" data-division-id="@encryptedDivisionId" style="margin-bottom:10px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                    <div class="d-flex align-items-center justify-content-between" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; background-color: #fff;">
+                        <div class="d-flex align-items-center">
+                            <img src="~/@item.DivisionBadge" alt="@item.DivisionAbbr" class="club-badge-image" style="margin-right:20px;" />
+                            @Html.DisplayFor(modelItem => item.DivisionName) (@Html.DisplayFor(modelItem => item.DivisionAbbr))
+                        </div>
+                        <a asp-action="DivisionHomePage" asp-controller="Home" asp-route-divisionId="@encryptedDivisionId" class="btn btn-sm">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </li>
+            }
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no soccer divisions</p>
+        }
+    </ul>
+</div>
+
+<script>
+    document.querySelectorAll('.club-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const encryptedDivisionId = this.getAttribute('data-division-id');
+            window.location.href = `@Url.Action("DivisionHomePage", "Home")?divisionId=${encodeURIComponent(encryptedDivisionId)}`;
+        });
+    });
+</script>

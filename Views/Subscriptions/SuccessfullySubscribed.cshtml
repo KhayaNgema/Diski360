@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MyField.Models.SubscriptionHistory>
+
+@{
+    ViewData["Title"] = "Successfully Subscribed";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .centered-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 60vh;
+    }
+
+    #countdown {
+        font-size: 24px;
+        margin-top: 10px;
+        color: #333;
+    }
+</style>
+
+<div class="successfulSubscriptionContainer">
+    <div class="centered-content">
+        <div>
+            <h2>
+                @ViewBag.SubscriptionPlan content unlocked!
+                <div class="checkmark-container">
+                    <div class="checkmark"></div>
+                </div>
+            </h2>
+            <br />
+            <p>
+                Dear @ViewBag.FullNames, you have unlocked the @ViewBag.SubscriptionPlan features.
+            </p>
+            <p>
+                Welcome to our premium experience! We're excited to have you on board. Enjoy exclusive content, advanced features, and personalized support as part of your subscription.
+            </p>
+            <br />
+            <h4>You will be redirected to the subscriptions page in: <span id="countdown">10</span> seconds</h4>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var subscriptionPlan = "@ViewBag.SubscriptionPlan";
+        var redirectUrl;
+
+        if (subscriptionPlan === "Club_Premium") {
+            redirectUrl = '@Url.Action("ClubSubscribe", "Subscriptions")';
+        } else if (subscriptionPlan === "Premium") {
+            redirectUrl = '@Url.Action("UserSubscribe", "Subscriptions")';
+        } else {
+            redirectUrl = '@Url.Action("UserSubscribe", "Subscriptions")'; 
+        }
+
+        var countdown = 10;
+        var countdownInterval = setInterval(function () {
+            countdown--;
+            document.getElementById("countdown").textContent = countdown;
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = redirectUrl; 
+            }
+        }, 1000);
+
+        var checkmark = document.querySelector('.checkmark');
+        checkmark.style.display = 'block';
+    });
+</script>

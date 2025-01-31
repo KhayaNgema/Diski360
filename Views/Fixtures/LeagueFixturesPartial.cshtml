@@ -1,0 +1,38 @@
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Fixtures</p>
+    <br />
+</div>
+<div style="background-color:">
+    <div>
+        <div style="margin-bottom:10px;" id="divisionFixturesContent"> </div>
+    </div>
+</div>
+
+<script>
+    function fetchDivisionFixtures() {
+
+        var divisionId = '@divisionId'
+
+        $.ajax({
+            url: '/Fixtures/FixturesMain',
+            data: {
+                divisionId: divisionId
+            },
+            success: function (data) {
+                $('#divisionFixturesContent').html(data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchDivisionFixtures();
+    });
+</script>
+
+

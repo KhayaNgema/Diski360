@@ -1,0 +1,65 @@
+﻿@model MyField.Models.Division
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = ViewBag.DivisionName;
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+
+    var encryptedDivisionId = encryptionService.Encrypt(Model.DivisionId);
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+
+<h4 class="text-center">@ViewBag.DivisionName</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you'll find a comprehensive summary of your division, including an outline of its description.
+</p>
+<br />
+<div class="club-list-container">
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+    <ul class="clubs-list" style="border: none !important; list-style-type: none; padding: 0;">
+        <li style="margin-bottom: 10px;">
+            <div class="my-club-card mx-auto">
+
+                <div class="my-club-card-header text-center">
+                    <h5 class="my-club-card-title mb-0">@Html.DisplayFor(model => model.DivisionName) (@Html.DisplayFor(model => model.DivisionAbbr))</h5>
+                </div>
+
+                <div class="my-club-card-body text-center">
+                    <img src="~/@Model.DivisionBadge" alt="@Model.DivisionName" class="my-club-badge-image" />
+                    <p>@Html.DisplayFor(model => model.DivisionType)</p>
+                    <p>@Html.DisplayFor(model => model.DivisionDescription)</p>
+                </div>
+
+                <div class="my-club-card-footer text-right">
+                    @if (User.IsInRole("Division Manager"))
+                    {
+                        <a asp-action="UpdateDivision" asp-route-divisionId="@encryptedDivisionId" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-pen"></i> Update
+                        </a>
+                    }
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+@section Scripts {
+    <script>
+        setTimeout(function () {
+            var tempDataMessage = document.getElementById("tempDataMessage");
+            if (tempDataMessage) {
+                tempDataMessage.style.display = "none";
+            }
+        }, 3000);
+    </script>
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MyField.Models.LineUpSubstitutesHolder>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5 class="text-center" style="background-color:lightgrey; padding:10px;">Substitutes</h5>
+
+
+@if (TempData["SubstitutesMessage"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["SubstitutesMessage"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["SubstitutesMessage"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div id="table-container">
+    @if (Model.Any())
+    {
+        <table class="table">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClubPlayer.FirstName)
+                        </td>
+                        <td>   @Html.DisplayFor(modelItem => item.ClubPlayer.LastName)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClubPlayer.Position)
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                <button type="button" style="margin-right:15px;" class="btn btn-danger btn-sm" id="btnDeleteSubs" onclick="deletePlayerFromLineUpSubstitutesHolder()" data-player-id="@item.PlayerId" data-fixture-id="@item.FixtureId">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-primary btn-sm" id="btnMoveToXI" onclick="movePlayerFromSubstitutesToXI()" data-player-id="@item.PlayerId" data-fixture-id="@item.FixtureId" data-club-id="@item.ClubId">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">No Starting XI</p>
+    }
+</div>
+
+<script>
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>

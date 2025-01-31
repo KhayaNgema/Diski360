@@ -1,0 +1,152 @@
+﻿@model MyField.ViewModels.OnboardingRequestViewModel
+
+@{
+    ViewData["Title"] = "Join Us";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Join Us</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    Once your request has been reviewed and approved by the Diski360 organization, you will receive an email notification containing a formal contract. This contract must be signed and returned to us via email at your earliest convenience. The contract will outline the terms and conditions related to your request, and prompt completion will ensure a smooth and timely process.
+</p>
+<br />
+<div class="division-add-container d-flex">
+    <form asp-action="MakeOnboardingRequest" method="post" enctype="multipart/form-data" class="d-flex w-100">
+        <div class="row flex-grow-1">
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Details</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <div class="profile-container">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <i class="fa fa-club" id="club-badge-placeholder" style="font-size: 90px; color: #f0f0f0;"></i>
+                            <img id="club-badge-preview" alt="Club Badge Preview" class="club-picture-image" style="display: none; width: 100%; height: 100%; object-fit: cover;" />
+                            <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                                <i class="fa fa-camera" style="font-size: 30px;"></i>
+                                <input asp-for="DivisionBadges" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
+                                <input asp-for="DivisionBadges" id="Input_ClubBadgeFileName" type="hidden" />
+                            </label>
+                        </div>
+                    </div>
+                    <small id="clubBadgeHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a division logo (optional).</small>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DivisionType" class="control-label"></label>
+                    <select asp-for="DivisionType" class="form-control border-bottom-only" asp-items="@((IEnumerable<SelectListItem>)ViewData["DivisionTypes"])"></select>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" />
+                    <label asp-for="DivisionName" class="form-label">Division Name</label>
+                    <span asp-validation-for="DivisionName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionAbbr" class="form-control border-bottom-only" placeholder="DivisionAbbr" />
+                    <label asp-for="DivisionAbbr" class="form-label">Division abbreviation</label>
+                    <span asp-validation-for="DivisionAbbr" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;"></textarea>
+                    <label asp-for="DivisionDescription" class="form-label">Division Description</label>
+                    <span asp-validation-for="DivisionDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="AddressLine_1" class="form-control border-bottom-only" placeholder="Address Line 1" />
+                    <label asp-for="AddressLine_1" class="form-label">Address Line 1</label>
+                    <span asp-validation-for="AddressLine_1" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="AddressLine_2" class="form-control border-bottom-only" placeholder="Address Line 2" />
+                    <label asp-for="AddressLine_2" class="form-label">Address Line 2</label>
+                    <span asp-validation-for="AddressLine_2" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Suburb" class="form-control border-bottom-only" placeholder="Suburb" />
+                    <label asp-for="Suburb" class="form-label">Suburb</label>
+                    <span asp-validation-for="Suburb" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Town_City" class="form-control border-bottom-only" placeholder="Town/City" />
+                    <label asp-for="Town_City" class="form-label">Town/City</label>
+                    <span asp-validation-for="Town_City" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Province" class="form-control border-bottom-only" placeholder="Province" />
+                    <label asp-for="Province" class="form-label">Province</label>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ZipCode" class="form-control border-bottom-only" placeholder="Zip Code" />
+                    <label asp-for="ZipCode" class="form-label">Zip Code</label>
+                    <span asp-validation-for="ZipCode" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Manager Details</h5>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" />
+                    <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
+                    <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" />
+                    <label asp-for="ManagerLastName" class="form-label">Last Name</label>
+                    <span asp-validation-for="ManagerLastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DateOfBirth" class="form-control border-bottom-only" placeholder="DateOfBirth" type="date"
+                           min="1900-01-01" max="@DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd")" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <label asp-for="DateOfBirth">Date of Birth</label>
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" />
+                    <label asp-for="ManagerEmail" class="form-label">Email Address</label>
+                    <span asp-validation-for="ManagerEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerPhoneNumber" class="form-control border-bottom-only" placeholder="Phone Number" />
+                    <label asp-for="ManagerPhoneNumber" class="form-label">Phone Number</label>
+                    <span asp-validation-for="ManagerPhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="text-end">
+                    <input type="submit" value="Submit" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewClubBadge(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('club-badge-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('club-badge-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

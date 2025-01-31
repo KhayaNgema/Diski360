@@ -1,0 +1,59 @@
+﻿@model MyField.ViewModels.HomeGoalCombinedViewModel
+
+<div>
+    <form id="homeGoalForm" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="@Model.FixtureId"  id="fixtureId" name="fixtureId" value="@Model.FixtureId" />
+
+        <div class="form-group row">
+            <label for="homeGoalScoredBy" class="col-sm-3 col-form-label">Goal scored by:</label>
+            <div class="col-sm-9">
+                <select id="homeGoalScoredBy" name="goalScoredBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label for="homeAssistedBy" class="col-sm-3 col-form-label">Assisted by:</label>
+            <div class="col-sm-9">
+                <select id="homeAssistedBy" name="assistedBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </form>
+
+</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        
+    </script>
+}

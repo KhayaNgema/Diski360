@@ -1,0 +1,134 @@
+﻿@model MyField.ViewModels.PayPlayerTransferViewModel
+
+@{
+    var logMessages = TempData["LogMessages"] as List<string> ?? new List<string>();
+    var errorMessages = TempData["Errors"] as List<string> ?? new List<string>();
+    ViewData["Title"] = Model?.FirstName + " " + Model?.LastName + " Transfer";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<div class="d-flex justify-content-center">
+    <div class="player-transfer-card">
+        <div class="header" style="text-align:left;">
+            <div>
+                <h4 style="text-align:center;">Transfer summary of @Model?.FirstName @Model?.LastName</h4>
+            </div>
+            <br />
+           <div class="row">
+                <div class="col-6" style="white-space:nowrap;">
+                    <p style="white-space:nowrap;">
+                        <div style="display: flex; align-items: center; margin: 5px 0;">
+                            <span style="margin-right: 5px;">From:</span>
+                            <div class="transfer-form-club-badge" style="padding: 5px; width: 40px; height: 40px; overflow: hidden; position: relative; display: inline-block;">
+                                <img id="profile-image-preview" src="~/@Model?.SellerClubBadge" alt="@Model?.SellerClubName" class="club-badge-image" style="border-radius: 3%; width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                            <div style="display: inline-block; vertical-align: top;">@Model?.SellerClubName</div>
+                        </div>
+                    </p>
+                </div>
+                <div class="col-6" style="white-space:nowrap;">
+                    <p style="white-space:nowrap;">
+                        <div style="display: flex; align-items: center; margin: 5px 0;">
+                            <span style="margin-right: 5px;">To:</span>
+                            <div class="transfer-form-club-badge" style="padding: 5px; width: 40px; height: 40px; overflow: hidden; position: relative; display: inline-block;">
+                                <img id="profile-image-preview" src="~/@Model?.BuyerClubBadge" alt="@Model?.BuyerClubName" class="club-badge-image" style="border-radius: 3%; width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                            <div style="display: inline-block; vertical-align: top;">@Model?.BuyerClubName</div>
+                        </div>
+                    </p>
+                </div>
+           </div>
+            <div>
+                <p>Amount: @Model?.PlayerAmount</p>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #ccc; margin: 5px 0;"></div>
+        <div class="card-body">
+            <form asp-controller="Billings" asp-action="PayPlayerTransfer" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3 text-center">
+                            <div class="transfer-profile-picture-container" style="border: 1px solid #ccc; padding: 0; border-radius: 3%; width: 300px; height: 250px; overflow: hidden; position: relative;">
+                                <img id="profile-image-preview" src="~/@Model?.ProfilePicture" alt="Current Profile Picture" class="club-badge-image" style="border-radius: 3%; width: 100%; height: 100%; object-fit: cover;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <br />
+                        <div class="mb-3">
+                            <label>Name(s):<strong>@Model?.FirstName</strong></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Last name: <strong>@Model?.LastName</strong></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Position: <strong>@Model?.Position</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Date of birth: <strong>@Model?.DateOfBirth.ToString("MMM dd, yyyy")</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Jersey number: <strong>#@Model?.JerseyNumber</strong> </label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Market value:<strong>ZAR @Model?.PlayerAmount</strong></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Status: <strong> <i class="fas fa-question-circle"></i>@Model?.PaymentStatus</strong></label>
+                        </div>
+                    </div>
+
+                    <input type="hidden" asp-for="TransferId" value="@Model?.TransferId" />
+                    <input type="hidden" asp-for="CustomerClubId" value="@Model?.CustomerClubId" />
+                    <input type="hidden" asp-for="FirstName" value="@Model?.FirstName" />
+                    <input type="hidden" asp-for="LastName" value="@Model?.LastName" />
+                    <input type="hidden" asp-for="Position" value="@Model?.Position" />
+                    <input type="hidden" asp-for="JerseyNumber" value="@Model?.JerseyNumber" />
+                    <input type="hidden" asp-for="PlayerAmount" value="@Model?.PlayerAmount" />
+                    <input type="hidden" asp-for="PlayerTransferMarketId" value="@Model?.PlayerTransferMarketId" />
+                    <input type="hidden" asp-for="PlayerId" value="@Model?.PlayerId" />
+                    <input type="hidden" asp-for="SellerClubId" value="@Model?.SellerClubId" />
+                    <input type="hidden" asp-for="SellerClubBadge" value="@Model?.SellerClubBadge" />
+                    <input type="hidden" asp-for="BuyerClubBadge" value="@Model?.BuyerClubBadge" />
+                    <input type="hidden" asp-for="ProfilePicture" value="@Model?.ProfilePicture" />
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Proceed <i class="fa fa-money-bill-wave"></i></button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var errorMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(errorMessages));
+            errorMessages.forEach(function (message) {
+                console.error(message);
+                $('<div class="alert alert-danger">' + message + '</div>').appendTo('.card-body');
+            });
+
+            var logMessages = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(logMessages));
+            logMessages.forEach(function (message) {
+                console.log(message);
+            });
+
+        });
+    </script>
+}

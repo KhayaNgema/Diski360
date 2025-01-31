@@ -1,0 +1,51 @@
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Standings</p>
+    <br />
+    <div class="col-12">
+        <div class="search-bar" style="margin-bottom:50px; display: flex; align-items: center; justify-content: center; padding-bottom:50px;">
+            <span style="margin-right:10px;">Season</span>
+            <select id="leagueSelect" onchange="onLeagueChange()" class="form-select">
+                @if (ViewBag.Leagues != null)
+                {
+                    foreach (var league in ViewBag.Leagues)
+                    {
+                        <option value="@league.LeagueId">@league.LeagueYears</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="standingsContainer">
+    <div>
+        <div style="margin-bottom:10px;" id="standingsTable"> </div>
+    </div>
+</div>
+
+<script>
+    function onLeagueChange() {
+        var selectedLeagueId = document.getElementById("leagueSelect").value;
+        var divisionId = '@divisionId'
+
+        if (selectedLeagueId !== "") {
+            $.ajax({
+                url: '/Standings/StandingsTable',
+                data: {
+                    leagueId: selectedLeagueId,
+                    divisionId: divisionId
+                    },
+                success: function (data) {
+                    $('#standingsTable').html(data);
+                }
+            });
+        }
+    }
+
+    onLeagueChange();
+</script>

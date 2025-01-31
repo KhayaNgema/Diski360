@@ -1,0 +1,36 @@
+﻿@model MyField.ViewModels.UpdateAnnouncementViewModel
+
+@{
+    ViewData["Title"] = "New Announcement";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Create a new announcement</h4>
+<br />
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateAnnouncement" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="AnnouncementText" class="form-control border-bottom-only" placeholder="AnnouncementText" style="min-height: 150px;"></textarea>
+                <label asp-for="AnnouncementText" class="form-label">Announcement</label>
+                <span asp-validation-for="AnnouncementText" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="AnnouncementId" />
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

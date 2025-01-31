@@ -1,0 +1,60 @@
+﻿@model MyField.ViewModels.UpdateIndividualFineViewModel
+
+@{
+    ViewData["Title"] = "Update " + @Model.FullNames + " Fine";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Update @Model.FullNames Fine</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can view and update details about fines, including due dates, amounts, and specific violations. Any changes made will be reflected to all relevant parties, and notification emails will be sent to ensure that everyone is informed. This section is designed to help you manage and resolve fines efficiently, with all updates promptly communicated.
+</p>
+<br />
+<div class="row fine-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateIndividualFine">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="FullNames" class="form-control border-bottom-only" placeholder="FullNames"></input>
+
+                <label asp-for="FullNames" class="form-label">Full names</label>
+                <span asp-validation-for="FullNames" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="RuleViolated" class="form-control border-bottom-only" placeholder="RuleViolated"></input>
+
+                <label asp-for="RuleViolated" class="form-label">Rule violated</label>
+                <span asp-validation-for="RuleViolated" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea asp-for="FineDetails" class="form-control border-bottom-only" placeholder="FineDetails" style="min-height: 150px;" maxlength="300"></textarea>
+
+                <label asp-for="FineDetails" class="form-label">Fine details</label>
+                <span asp-validation-for="FineDetails" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="FineAmount" class="form-control border-bottom-only" placeholder="FineAmount" type="number" , step="0.01" />
+                <label asp-for="FineAmount" class="form-label">Fine amount</label>
+                <span asp-validation-for="FineAmount" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="FineDueDate" class="form-control border-bottom-only" placeholder="FineDuDate" />
+                <label asp-for="FineDueDate" class="form-label">Fine due date</label>
+                <span asp-validation-for="FineDueDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="FineId" value="@Model?.FineId" />
+                        <input type="submit" value="Save" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

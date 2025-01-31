@@ -1,0 +1,30 @@
+﻿@model MyField.ViewModels.HomePenaltyViewModel
+
+<div>
+    <form id="homePenaltyForm" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group row">
+            <label for="homePenaltyTakenBy" class="col-sm-3 col-form-label">Taken by:</label>
+            <div class="col-sm-9">
+                <select id="homePenaltyTakenBy" name="homePenaltyTakenBy" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Players != null && Model.Players.Any())
+                    {
+                        foreach (var player in Model.Players)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+    </form>
+</div>

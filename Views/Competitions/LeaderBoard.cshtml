@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MyField.Models.CompetitionParticipants>
+
+@{
+    ViewData["Title"] = "Competition Leaderboard";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 style="text-align:center;">@ViewBag.CompetitionRound Competition Leaderboard</h4>
+<br />
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Participant
+                    </th>
+                    <th>
+                        Points
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+ 
+                    <tr class="column-max-width" style="max-width: 400px;">
+                        <td class="column-max-width">
+                            <img src="~/@item.Participant.ProfilePicture" alt="@item.Participant.FirstName" class="club-badge-image" style="border-radius: 5%; width: 50px; height: 50px;" />
+                            @Html.DisplayFor(modelItem => item.Participant.FirstName) @Html.DisplayFor(modelItem => item.Participant.LastName)
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.Points)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center" style="margin-top: 20vh;">There are no competition participants</p>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

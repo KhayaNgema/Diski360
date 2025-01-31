@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MyField.Models.PlayerPerformanceReport>
+
+@{
+    ViewData["Title"] = ViewBag.ClubName + " Players Performance Reports";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">@ViewBag.ClubName Players Stats</h4>
+<br />
+@if (Model.Any())
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, you can view detailed performance reports for your players. This includes a range of statistics such as goals scored, assists, match ratings, minutes played, and disciplinary records. This section provides a comprehensive overview of each player's performance, helping you analyze their contributions and track their progress over time.
+    </p>
+<br />
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Player
+                    </th>
+                    <th>
+                        Appearances
+                    </th>
+                    <th>
+                        Goals
+                    </th>
+                    <th>
+                        Own goals
+                    </th>
+                    <th>
+                        Assists
+                    </th>
+                    <th>
+                        Yellow card
+                    </th>
+                    <th>
+                        Red card
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="ellipsis">
+                        <td>
+                            <img src="~/@item.Player.ProfilePicture" alt="@item.Player.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                            @Html.DisplayFor(modelItem => item.Player.FirstName)
+                            @Html.DisplayFor(modelItem => item.Player.LastName)
+                            (@Html.DisplayFor(modelItem => item.Player.Position))
+                            (#@Html.DisplayFor(modelItem => item.Player.JerseyNumber))
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppearancesCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GoalsScoredCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OwnGoalsScoredCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssistsCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YellowCardCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RedCardCount)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no stats for your player yet.</p>
+}

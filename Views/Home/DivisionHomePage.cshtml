@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Division Page";
+
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_FansPagesLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_DivisionsLayout.cshtml";
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="tab-content">
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "sportnews" ? "show active" : "")" id="sportnews" role="tabpanel" aria-labelledby="sportnews-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "fixtures" ? "show active" : "")" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "standings" ? "show active" : "")" id="standings" role="tabpanel" aria-labelledby="standings-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "matchresults" ? "show active" : "")" id="matchresults" role="tabpanel" aria-labelledby="matchresults-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "clubs" ? "show active" : "")" id="clubs" role="tabpanel" aria-labelledby="clubs-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "players" ? "show active" : "")" id="players" role="tabpanel" aria-labelledby="players-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "managers" ? "show active" : "")" id="managers" role="tabpanel" aria-labelledby="managers-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "topScores" ? "show active" : "")" id="topScores" role="tabpanel" aria-labelledby="topScores-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "topAssists" ? "show active" : "")" id="topAssists" role="tabpanel" aria-labelledby="topAssists-tab"></div>
+    </div>
+}
+else
+{
+    <div class="tab-content">
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "sportnews" ? "show active" : "")" id="sportnews" role="tabpanel" aria-labelledby="sportnews-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "fixtures" ? "show active" : "")" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "standings" ? "show active" : "")" id="standings" role="tabpanel" aria-labelledby="standings-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "matchresults" ? "show active" : "")" id="matchresults" role="tabpanel" aria-labelledby="matchresults-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "clubs" ? "show active" : "")" id="clubs" role="tabpanel" aria-labelledby="clubs-tab"></div>
+    </div>
+}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var activeTab = '@ViewBag.ActiveTab';
+        if (activeTab) {
+            document.querySelectorAll('.nav-link').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab-pane').forEach(content => {
+                content.classList.remove('show', 'active');
+            });
+
+            var tabElement = document.getElementById(activeTab + '-tab');
+            if (tabElement) {
+                tabElement.classList.add('active');
+            }
+
+            var tabContent = document.getElementById(activeTab);
+            if (tabContent) {
+                tabContent.classList.add('show', 'active');
+            }
+        }
+    });
+</script>
+

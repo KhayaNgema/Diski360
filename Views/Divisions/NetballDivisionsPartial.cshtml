@@ -1,0 +1,28 @@
+﻿
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Netball</p>
+    <br />
+</div>
+<div>
+    <div>
+        <div style="margin-bottom:10px;" id="netballDivisionsContent"> </div>
+    </div>
+</div>
+
+<script>
+    function fetchNetballDivisions() {
+        $.ajax({
+            url: '/Divisions/FindNetballDivisions',
+            success: function (data) {
+                $('#netballDivisionsContent').html(data);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        fetchNetballDivisions();
+    });
+</script>
+
+

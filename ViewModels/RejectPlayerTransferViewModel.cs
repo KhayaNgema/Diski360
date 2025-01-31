@@ -1,0 +1,22 @@
+﻿namespace MyField.ViewModels
+{
+    public class RejectPlayerTransferViewModel
+    {
+        public int TransferId { get; set; }
+        public string PlayerId { get; set; }
+
+        public int CustomerClubId { get; set; }
+
+        public int SellerClubId { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
+
+        public DateTime ModifiedDateTime { get; set; }
+
+        public string CreatedById { get; set; }
+
+        public string ModifiedById { get; set; }
+
+        public string RejectReason { get; set; }    
+    }
+}

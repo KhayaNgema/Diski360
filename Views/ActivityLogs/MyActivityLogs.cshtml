@@ -1,0 +1,128 @@
+﻿@model IEnumerable<MyField.Models.ActivityLog>
+
+@{
+    ViewData["Title"] = "My Activity Logs";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<head>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .show-more-logs, .show-newest-logs {
+            cursor: pointer;
+            color: #007bff;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .show-more-logs:hover, .show-newest-logs:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<br />
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Activity Logs</h4>
+<br />
+
+<div class="activityLogs-container">
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                @{
+                    var today = DateTime.Today;
+                    var fiveDaysAgo = today.AddDays(-5);
+                }
+
+                @foreach (var group in Model.GroupBy(item => item.Timestamp.Date).OrderByDescending(g => g.Key))
+                {
+                    string dateLabel = group.Key == today ? "Today" :
+                    group.Key == today.AddDays(-1) ? "Yesterday" :
+                    group.Key == today.AddDays(-2) ? "Day before yesterday" :
+                    group.Key.ToString("dd/MM/yyyy");
+
+                    bool isOlderThanFiveDays = group.Key < fiveDaysAgo;
+
+                    <div class="log-group @(isOlderThanFiveDays ? "older-log-group hidden" : "")">
+                        <hr style="border-top: 1px solid #e0e0e0; margin-top: 20px; margin-bottom: 10px;" />
+                        <h5 class="log-date-label" style="font-size: 14px; color: #6c757d; margin-top: 10px; margin-bottom: 10px;">
+                            @dateLabel
+                        </h5>
+                        <hr style="border-top: 1px solid #e0e0e0; margin-bottom: 20px;" />
+
+                        @foreach (var item in group)
+                        {
+                            <div class="log-entry" style="margin-bottom: 15px;">
+                                <p>
+                                    You @Html.DisplayFor(modelItem => item.Activity) in
+                                    @Html.DisplayFor(modelItem => item.DeviceInfo.OSName)
+                                    @Html.DisplayFor(modelItem => item.DeviceInfo.OSVersion)
+                                    on @item.Timestamp.ToString("dd MMM yyyy") at @item.Timestamp.ToString("HH:mm")
+                                </p>
+                            </div>
+                        }
+                    </div>
+                }
+            </table>
+        </div>
+
+        <div class="text-center">
+            <span class="show-more-logs" id="showMoreLogs">
+                Show previous logs
+                <i class="fas fa-history"></i>
+            </span>
+        </div>
+
+        <div class="text-center">
+            <span class="show-newest-logs hidden" id="showNewestLogs">
+                Show newest logs
+                <i class="fas fa-history"></i>
+            </span>
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">
+            There are no activity logs yet.
+        </p>
+    }
+</div>
+
+<!-- Add JavaScript to show and hide the logs older than 5 days -->
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var hiddenLogGroups = document.querySelectorAll(".hidden");
+            var showMoreButton = document.getElementById("showMoreLogs");
+            var showNewestButton = document.getElementById("showNewestLogs");
+
+            if (hiddenLogGroups.length > 0) {
+                showMoreButton.style.display = "block";
+                showNewestButton.style.display = "none"; 
+            }
+
+            showMoreButton.addEventListener("click", function () {
+                hiddenLogGroups.forEach(function (group) {
+                    group.classList.remove("hidden");
+                });
+                showMoreButton.style.display = "none";
+                showNewestButton.style.display = "inline-block";
+            });
+
+            showNewestButton.addEventListener("click", function () {
+                hiddenLogGroups.forEach(function (group) {
+                    group.classList.add("hidden");
+                });
+                showNewestButton.style.display = "none";
+                showMoreButton.style.display = "inline-block";
+            });
+        });
+    </script>
+}

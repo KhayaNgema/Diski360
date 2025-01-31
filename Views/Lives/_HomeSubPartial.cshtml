@@ -1,0 +1,53 @@
+﻿@model MyField.ViewModels.HomeSubViewModel
+
+
+<div>
+    <form id="homeSubForm" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group row">
+            <label for="outHomePlayer" class="col-sm-3 col-form-label"><i class="fa fa-arrow-down" style="font-size:14px; color:red"></i> Out:</label>
+            <div class="col-sm-9">
+                <select id="outHomePlayer" name="outHomePlayer" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.StartingXi != null && Model.StartingXi.Any())
+                    {
+                        foreach (var player in Model.StartingXi)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mt-3">
+            <label for="inHomePlayer" class="col-sm-3 col-form-label"><i class="fa fa-arrow-up" style="font-size:14px; color: green"></i>  In:</label>
+            <div class="col-sm-9">
+                <select id="inHomePlayer" name="inHomePlayer" class="form-control">
+                    <option value="">Select Player</option>
+                    @if (Model?.Substitutes != null && Model.Substitutes.Any())
+                    {
+                        foreach (var player in Model.Substitutes)
+                        {
+                            <option value="@player.PlayerId">
+                                @player.FullName (@player.JerseyNumber)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="">No players available</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </form>
+
+</div>

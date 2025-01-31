@@ -1,0 +1,69 @@
+﻿@model MyField.ViewModels.FineDetailsViewModel
+@inject MyField.Interfaces.IEncryptionService EncryptionService
+
+@{
+    ViewData["Title"] = "Fine Details";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+<div>
+    @await Html.PartialAsync("_BackButton")
+</div>
+<h4 style="text-align:center;">Fine Details</h4>
+<br />
+
+<div class="d-flex justify-content-center">
+    <div class="player-transfer-card">
+        <div class="header" style="text-align:left;">
+            <div class="card-body">
+
+                @Html.AntiForgeryToken()
+
+                <div class="col-sm-12 col-md-12 col-lg-12">
+
+                    @{
+                        var encryptedFineId = EncryptionService.Encrypt(Model.FineId.ToString());
+                    }
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label><strong>Offence:</strong> @Model.FineDetails</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Amount: </strong> ZAR @Model.FineAmount</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label><strong>Due Date:</strong> @Model.FineDueDate.ToShortDateString()</label>
+                    </div>
+
+                    @if (Model.PaymentStatus == PaymentStatus.Overdue || Model.PaymentStatus == PaymentStatus.Pending)
+                    {
+                        @if (User.IsInRole("Club Administrator"))
+                        {
+                            <div class="d-flex justify-content-end">
+                                <a href="@Url.Action("PayFines", "Billings", new { fineId = encryptedFineId })" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    Pay @Model.FineAmount
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        <div class="mb-3">
+                            <label><strong>Payment status:</strong> @Model.PaymentStatus</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

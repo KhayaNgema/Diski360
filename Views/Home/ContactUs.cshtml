@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Read_LoginLayout.cshtml";
+    }
+}
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<div class="contact-us-container">
+    <h1 class="text-center">Contact Us</h1>
+    <br />
+    <p class="text-center">We’d love to hear from you! Whether you have questions, feedback, or need support, feel free to reach out to us using the contact information below or by filling out the form. Our team at Diski360 is here to help you with any inquiries you may have about our football management system.</p>
+    <br />
+    <h2>Contact Information</h2>
+    <p><strong>Email:</strong> <a href="mailto:info@diski360.com">info@diski360.com</a></p>
+    <p><strong>Phone:</strong> +27 73 287 1256</p>
+    <p><strong>Address:</strong> Nkungwini Area, Ingwavuma, Ingwavuma, 3968</p>
+
+    <h2>Support</h2>
+    <p>If you need immediate assistance or have support-related questions, please visit our <a href="/support">Support Center</a> or reach out to us directly via email at <a href="mailto:support@diski360.com">support@diski360.com</a>.</p>
+
+    <h2>Follow Us</h2>
+    <p>Stay updated with the latest news and updates by following us on our social media channels:</p>
+    <ul>
+        <li><a href="https://facebook.com/diski360" target="_blank">Facebook</a></li>
+        <li><a href="https://twitter.com/diski360" target="_blank">Twitter</a></li>
+        <li><a href="https://linkedin.com/company/diski360" target="_blank">LinkedIn</a></li>
+        <li><a href="https://instagram.com/diski360" target="_blank">Instagram</a></li>
+    </ul>
+
+</div>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MyField.Models.MatchOfficials>
+
+@{
+    ViewData["Title"] = "Fixture Match Officials";
+}
+
+<br>
+
+<div class="match-officials-container">
+    <table class="table table-borderless">
+        <tbody>
+            <tr>
+                <th style="background-color: lightgrey; width: 100%; white-space: nowrap">Referee</th>
+            </tr>
+            @if (Model.Any(item => item.Refeere != null))
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style=" padding-top:30px; padding-bottom:30px;">@Html.DisplayFor(modelItem => item.Refeere.FirstName) @Html.DisplayFor(modelItem => item.Refeere.LastName)</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td style="margin-bottom:20px;  padding-top:20px;  text-align: center;">There is no referee data</td>
+                </tr>
+            }
+            <tr>
+                <th style="background-color: lightgrey; width: 100%; white-space: nowrap">Assistant Referees</th>
+            </tr>
+            @if (Model.Any(item => item.AssistantOne != null || item.AssistantTwo != null))
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div style="margin-bottom:30px; padding-top:30px;">
+                                @Html.DisplayFor(modelItem => item.AssistantOne.FirstName) @Html.DisplayFor(modelItem => item.AssistantOne.LastName)
+                            </div>
+                            <div>
+                                @Html.DisplayFor(modelItem => item.AssistantTwo.FirstName) @Html.DisplayFor(modelItem => item.AssistantTwo.LastName)
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td style="margin-bottom:20px;  padding-top:20px;  text-align: center;">There is no referee assistants data</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MyField.Models.Fine>
+
+<br />
+
+@if (Model.Any())
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-12 col-md-12 col-lg-4 mb-3">
+                    <div class="card shadow-sm fines-card fines-card-@item.FineId">
+                        <div class="card-header" style="background-color: limegreen; color: white; padding: 0.5rem;">
+                            <h5 class="card-title mb-0">@Html.DisplayFor(modelItem => item.RuleViolated)</h5>
+                        </div>
+                        <div class="card-body" style="padding: 0.5rem;">
+                            <p style="margin: 0.25rem 0; font-size: 14px;"><strong>Details:</strong> @Html.DisplayFor(modelItem => item.FineDetails)</p>
+                            <p style="margin: 0.25rem 0; font-size: 14px;"><strong>Amount:</strong> @Html.DisplayFor(modelItem => item.FineAmount)</p>
+                            <p style="margin: 0.25rem 0; font-size: 14px;"><strong>Due Date:</strong> @Html.DisplayFor(modelItem => item.FineDuDate)</p>
+                            <p style="margin: 0.25rem 0; font-size: 14px;"><strong>Payment Status:</strong> @Html.DisplayFor(modelItem => item.PaymentStatus)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">
+        You don't have paid fines yet.
+    </p>
+}
+</html>

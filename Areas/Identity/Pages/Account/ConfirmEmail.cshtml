@@ -1,0 +1,46 @@
+﻿@page
+@model MyField.Areas.Identity.Pages.Account.ConfirmEmailModel
+@{
+    ViewData["Title"] = "Email Verification";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<style>
+    .center-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+    }
+
+    .register-confirm-email-container {
+        max-width: 700px;
+        padding: 20px;
+        border-radius: 7px;
+        background-color: white;
+        text-align: center;
+    }
+</style>
+
+<div class="center-container">
+    <div class="register-confirm-email-container">
+        <h3 class="text-center">
+            @Model.StatusMessage
+        </h3>
+        <br />
+        <p class="text-center">
+            @if (Model.StatusMessage != null && Model.StatusMessage.Contains("Thank you"))
+            {
+                <text>Thank you for verifying your email address. You can now log in to your account and start using our services.</text>
+            }
+            else
+            {
+                <text>There was a problem verifying your email address. Please try again later.</text>
+            }
+        </p>
+        <br />
+        <div class="text-center">
+            <a asp-page="./Login" class="btn btn-primary mt-3">Login</a>
+        </div>
+    </div>
+</div>

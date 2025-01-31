@@ -1,0 +1,34 @@
+﻿@model MyField.Models.Maintainance
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">New maintainance</h4>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div class="form-floating mb-3">
+                <textarea asp-for="MaintainanceDetails" class="form-control border-bottom-only" placeholder="MaintainanceDetails" style="min-height: 150px;"></textarea>
+                <label asp-for="MaintainanceDetails" class="form-label">Maintainance details</label>
+                <span asp-validation-for="MaintainanceDetails" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Create" class="btn btn-success" style="padding: 10px; margin-bottom: 10px;" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

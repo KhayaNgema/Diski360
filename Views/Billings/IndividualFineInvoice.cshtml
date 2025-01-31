@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MyField.Models.Invoice>
+
+@{
+    ViewData["Title"] = "My Invoices";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">My Invoices</h4>
+<br />
+
+<div class="table-responsive">
+    @if (Model.Any())
+    {
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>
+                        Invoice no.
+                    </th>
+                    <th>
+                        Invoice Date
+                    </th>
+                    <th>
+                        Payment Ref no.
+                    </th>
+                    <th>
+                        Amount Paid
+                    </th>
+                    <th>
+                        Payment Method
+                    </th>
+                    <th>
+                        Payment Status
+                    </th>
+                    <th>
+                        Is emailed?
+                    </th>
+                    <th>
+                        More
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceTimeStamp)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment.ReferenceNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment.AmountPaid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment.PaymentMethod)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsEmailed)
+                        </td>
+                        <td>
+                         
+                                <a href="@Url.Action("MyIndividualFineInvoicePreview", "Billings", new { invoiceId = item.InvoiceId })" class="invoice-link" target="_blank">
+                                    <i class="fas fa-eye" style="font-size:20px; margin-left:5px;"></i>
+                                </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">You don't have any invoices yet.</p>
+
+    }
+
+</div>

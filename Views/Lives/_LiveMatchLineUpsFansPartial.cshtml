@@ -1,0 +1,19 @@
+﻿@{
+    var fixtureId = ViewBag.FixtureId;
+    var homeTeamId = ViewBag.HomeTeamId;
+    var awayTeamId = ViewBag.AwayTeamId;
+}
+
+<div style="justify-content:space-between;">
+    <button id="addButton" class="homeButton btn btn-md btn-outline-primary active" style="margin-right:10px;" onclick="fetchHomeTeamLineUp(fixtureId, homeTeamId); fetchHomeTeamSubstitutes(fixtureId, homeTeamId)">Home</button>
+    <button id="addButton" class="awayButton btn btn-md btn-outline-primary" onclick="fetchAwayTeamLineUp(fixtureId, awayTeamId); fetchAwayTeamSubstitutes(fixtureId, awayTeamId); $('.homeButton').removeClass('active'); ">Away</button>
+</div>
+<br />
+<div class="fans-match-lineups-container">
+    <div>
+        <div style="margin-bottom:20px;" id="teamLineUp" class="lineUp"> </div>
+        <div style="margin-bottom:20px;" id="teamSubstitutes" class="substitutes"> </div>
+    </div>
+</div>
+
+

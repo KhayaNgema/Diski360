@@ -1,0 +1,133 @@
+﻿@model IEnumerable<MyField.Models.Standing>
+
+@{
+    HashSet<string> displayedClubs = new HashSet<string>();
+}
+<div id="standingsContainer" style="width:100%; padding-right:10px; padding-left:10px;">
+    <div class="table-responsive">
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr style="white-space: nowrap; background-color: #324260; color: white;">
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Club)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.MatchPlayed)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Wins)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Lose)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Draw)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalsScored)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalsConceded)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.GoalDifference)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">
+                            @Html.DisplayNameFor(model => model.Points)
+                        </th>
+                        <th style="padding: 10px; text-align: left; border-bottom: none;">Last 5 Games</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int position = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        if (displayedClubs.Contains(item.Club.ClubName))
+                        {
+                            continue;
+                        }
+
+                        displayedClubs.Add(item.Club.ClubName);
+
+                        @if (!string.IsNullOrEmpty(item.Reason))
+                        {
+                            <tr>
+                                <td colspan="10" class="error-row" style="background-color: #FDD8DB; font-size:14px; color:palevioletred; padding-left:7px;">@item.Reason</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td style="white-space: nowrap;">
+                                <span style="margin-right: 10px;">@position</span>
+                                <img src="~/@item.Club.ClubBadge" alt="@item.Club.ClubName" class="club-badge-image" style="max-width:35px; max-height:35px;" />
+                                <span class="full-club-name">@Html.DisplayFor(modelItem => item.Club.ClubName)</span>
+                                <span class="club-abbreviation">@Html.DisplayFor(modelItem => item.Club.ClubAbbr)</span>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MatchPlayed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Wins)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Lose)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Draw)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalsScored)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalsConceded)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GoalDifference)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Points)
+                            </td>
+                            <td style="white-space: nowrap;">
+                                @foreach (var gameOutcome in item.Last5Games)
+                                {
+                                    <span style="font-size: 12px; margin-right: 5px; display: inline-block; text-align: center; vertical-align: middle; font-weight:bold;">
+                                        @if (gameOutcome == 'W')
+                                        {
+                                            <span class="outcome-circle" style="background-color: green;">
+                                                <span>&#10003;</span>
+                                            </span>
+                                        }
+                                        else if (gameOutcome == 'L')
+                                        {
+                                            <span class="outcome-circle" style="background-color: red;">x</span>
+                                        }
+                                        else if (gameOutcome == 'D')
+                                        {
+                                            <span class="outcome-circle" style="background-color: lightslategrey;">-</span>
+                                        }
+                                    </span>
+                                }
+
+                                @if (item.MatchPlayed.Equals(0))
+                                {
+                                    <span style="font-style:italic; color:lightgray;">No Matches Played</span>
+                                }
+                            </td>
+
+                        </tr>
+                        position++;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are currently no standings for this season</p>
+        }
+
+    </div>
+</div>

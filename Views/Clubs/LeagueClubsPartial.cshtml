@@ -1,0 +1,34 @@
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+<div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
+    <br />
+    <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Club pages</p>
+    <br />
+</div>
+<div>
+    <div>
+        <div style="margin-bottom:10px;" id="clubsContent"> </div>
+    </div>
+</div>
+
+<script>
+    function fetchClubs() {
+
+        var divisionId = '@divisionId'
+
+        $.ajax({
+            url: '/Clubs/ClubsMain',
+            data: {
+                divisionId: divisionId
+            },
+            success: function (data) {
+                $('#clubsContent').html(data);
+            }
+        });
+    }
+    $(document).ready(function () {
+        fetchClubs();
+    });
+</script>

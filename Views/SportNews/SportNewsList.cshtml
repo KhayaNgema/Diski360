@@ -1,0 +1,96 @@
+﻿@model MyField.Models.SportNews
+
+@{
+    ViewData["Title"] = "Sport News";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<style>
+    .highlighted {
+        background-color: #E4E7EB;
+    }
+</style>
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">My Sports News</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you can see all the sports news items you have authored, including those that are approved, declined, awaiting approval, and pending re-edit. You have the ability to manage these news items, including making edits, resubmitting for approval, or addressing any issues as needed.
+</p>
+<br />
+
+<ul class="nav nav-tabs" id="sportNewsTabs" role="tablist" style="overflow-x: auto; white-space: nowrap; display: flex; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true" onclick="loadTab('pending')">Pending</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="published-tab" data-bs-toggle="tab" data-bs-target="#published" type="button" role="tab" aria-controls="published" aria-selected="false" onclick="loadTab('published')">Published</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="approved-tab" data-bs-toggle="tab" data-bs-target="#approved" type="button" role="tab" aria-controls="approved" aria-selected="false" onclick="loadTab('approved')">Approved</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejected" type="button" role="tab" aria-controls="rejected" aria-selected="false" onclick="loadTab('rejected')">Rejected</button>
+    </li>
+</ul>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab"></div>
+    <div class="tab-pane fade" id="published" role="tabpanel" aria-labelledby="published-tab"></div>
+    <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab"></div>
+    <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab"></div>
+</div>
+
+<script>
+    function loadTab(tabName) {
+        $('.nav-link').removeClass('active');
+
+        $('#' + tabName + '-tab').addClass('active');
+
+        $('.tab-pane').removeClass('show active');
+
+        $('#' + tabName).addClass('show active');
+
+        if ($('#' + tabName).html().trim() === '') {
+            var url;
+            if (tabName === 'published') {
+                url = '@Url.Action("PublishedSportNews", "SportNews")';
+            } else if (tabName === 'pending') {
+                url = '@Url.Action("AwaitingApprovalSportNewsAdmin", "SportNews")';
+            } else if (tabName === 'approved') {
+                url = '@Url.Action("ApprovedSportNewsAdmin", "SportNews")';
+            } else if (tabName === 'rejected') {
+                url = '@Url.Action("RejectedSportNewsAdmin", "SportNews")';
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error:", errorThrown);
+                }
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadTab('pending');
+    });
+
+        setTimeout(function () {
+            document.getElementById("tempDataMessage").style.display = "none";
+        }, 5000);
+</script>
+

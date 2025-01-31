@@ -1,0 +1,229 @@
+﻿@model MyField.Models.ActivityLog
+
+@{
+    ViewData["Title"] = " Personnel Activity Logs";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<h4 class="text-center">Personnel Activity Logs</h4>
+<br />
+
+<ul class="nav nav-tabs" id="transfersTabs" role="tablist" style="overflow-x: auto; white-space: nowrap; display: flex; flex-wrap: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link active" id="clubAdministratorLogs-tab" data-bs-toggle="tab" data-bs-target="#clubAdministratorLogs" type="button" role="tab" aria-controls="clubAdministratorLogs" aria-selected="true" onclick="loadTab('clubAdministratorLogs')">Club administrators</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="clubManagersLogs-tab" data-bs-toggle="tab" data-bs-target="#clubManagersLogs" type="button" role="tab" aria-controls="clubManagersLogs" aria-selected="false" onclick="loadTab('clubManagersLogs')">Club managers</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="newsAdministratorsLogs-tab" data-bs-toggle="tab" data-bs-target="#newsAdministratorsLogs" type="button" role="tab" aria-controls="newsAdministratorsLogs" aria-selected="false" onclick="loadTab('newsAdministratorsLogs')">News administrators</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="newsUpdatersLogs-tab" data-bs-toggle="tab" data-bs-target="#newsUpdatersLogs" type="button" role="tab" aria-controls="newsUpdatersLogs" aria-selected="true" onclick="loadTab('newsUpdatersLogs')">News updaters</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0;margin-left: 3px;">
+        <button class="nav-link" id="officialsLogs-tab" data-bs-toggle="tab" data-bs-target="#officialsLogs" type="button" role="tab" aria-controls="officialsLogs" aria-selected="false" onclick="loadTab('officialsLogs')">Officials</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="playersLogs-tab" data-bs-toggle="tab" data-bs-target="#playersLogs" type="button" role="tab" aria-controls="playersLogs" aria-selected="false" onclick="loadTab('playersLogs')">Players</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="sportAdministratorsLogs-tab" data-bs-toggle="tab" data-bs-target="#sportAdministratorsLogs" type="button" role="tab" aria-controls="sportAdministratorsLogs" aria-selected="true" onclick="loadTab('sportAdministratorsLogs')">Sport administrators</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="sportCoordinatorsLogs-tab" data-bs-toggle="tab" data-bs-target="#sportCoordinatorsLogs" type="button" role="tab" aria-controls="sportCoordinatorsLogs" aria-selected="false" onclick="loadTab('sportCoordinatorsLogs')">Sport coordinators</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="sportManagersLogs-tab" data-bs-toggle="tab" data-bs-target="#sportManagersLogs" type="button" role="tab" aria-controls="sportManagersLogs" aria-selected="false" onclick="loadTab('sportManagersLogs')">Division managers</button>
+    </li>
+    <li class="nav-item" role="presentation" style="display: inline-block; margin-bottom: 0; margin-left: 3px;">
+        <button class="nav-link" id="fansAdministratorLogs-tab" data-bs-toggle="tab" data-bs-target="#fansAdministratorLogs" type="button" role="tab" aria-controls="fansAdministratorLogs" aria-selected="false" onclick="loadTab('fansAdministratorLogs')">Fans administrators</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="clubAdministratorLogs" role="tabpanel" aria-labelledby="clubAdministratorLogs-tab"></div>
+    <div class="tab-pane fade" id="clubManagersLogs" role="tabpanel" aria-labelledby="clubManagersLogs-tab"></div>
+    <div class="tab-pane fade" id="newsAdministratorsLogs" role="tabpanel" aria-labelledby="newsAdminstratorsLogs-tab"></div>
+    <div class="tab-pane fade" id="newsUpdatersLogs" role="tabpanel" aria-labelledby="newsUpdatersLogs-tab"></div>
+    <div class="tab-pane fade" id="officialsLogs" role="tabpanel" aria-labelledby="officialsLogs-tab"></div>
+    <div class="tab-pane fade" id="playersLogs" role="tabpanel" aria-labelledby="playersLogs-tab"></div>
+    <div class="tab-pane fade" id="sportAdministratorsLogs" role="tabpanel" aria-labelledby="sportAdministratorsLogs-tab"></div>
+    <div class="tab-pane fade" id="sportCoordinatorsLogs" role="tabpanel" aria-labelledby="sportCoordinatorsLogstab"></div>
+    <div class="tab-pane fade" id="sportManagersLogs" role="tabpanel" aria-labelledby="sportManagersLogs-tab"></div>
+    <div class="tab-pane fade" id="fansAdministratorLogs" role="tabpanel" aria-labelledby="fansAdministratorLogs-tab"></div>
+</div>
+
+<div id="errorMessage" style="display: none;"></div>
+
+<script>
+    var tabColumnIndexes = {
+        clubAdministratorLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 4 },
+        clubManagersLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 4 },
+        newsAdministratorsLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 },
+        newsUpdatersLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 },
+        officialsLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 },
+        playersLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 4 },
+        sportAdministratorsLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 },
+        sportCoordinatorsLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 },
+        sportManagersLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 4 },
+        fansAdministratorLogs: { firstNameIndex: 0, lastNameIndex: 1, dateIndex: 3 }
+    };
+
+    var tabFilters = {};
+
+    function loadTab(tabName) {
+        $('.nav-link').removeClass('active');
+        $('#' + tabName + '-tab').addClass('active');
+        $('.tab-pane').removeClass('show active');
+        $('#' + tabName).addClass('show active');
+
+        var urlMap = {
+            clubAdministratorLogs: '@Url.Action("ClubAdministratorsActivityLogs", "ActivityLogs")',
+            clubManagersLogs: '@Url.Action("ClubManagersActivityLogs", "ActivityLogs")',
+            newsAdministratorsLogs: '@Url.Action("NewsAdministratorsActivityLogs", "ActivityLogs")',
+            newsUpdatersLogs: '@Url.Action("NewsUpdatersActivityLogs", "ActivityLogs")',
+            officialsLogs: '@Url.Action("OfficialsActivityLogs", "ActivityLogs")',
+            playersLogs: '@Url.Action("PlayersActivityLogs", "ActivityLogs")',
+            sportAdministratorsLogs: '@Url.Action("SportAdministratorsActivityLogs", "ActivityLogs")',
+            sportCoordinatorsLogs: '@Url.Action("SportCoordinatorsActivityLogs", "ActivityLogs")',
+            sportManagersLogs: '@Url.Action("SportManagersActivityLogs", "ActivityLogs")',
+            fansAdministratorLogs: '@Url.Action("FansAdministratorsActivityLogs", "ActivityLogs")'
+        };
+
+        if (urlMap[tabName]) {
+            $.ajax({
+                url: urlMap[tabName],
+                type: 'GET',
+                success: function (data) {
+                    $('#' + tabName).html(data);
+                    bindFilterEvents(tabName);
+
+                    if (tabFilters[tabName]) {
+                        applyFilters(tabName, tabFilters[tabName]);
+                    } else {
+
+                        setCurrentDate(tabName);
+                        filterTable(tabName);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error("Error loading " + tabName + " content:", errorThrown);
+                    $('#' + tabName).html('<p>Error loading content.</p>');
+                }
+            });
+        }
+    }
+
+    function bindFilterEvents(tabName) {
+        var inputDetails = $('#' + tabName).find('#searchByDetails');
+        var inputStartDate = $('#' + tabName).find('#searchByStartDate');
+        var inputEndDate = $('#' + tabName).find('#searchByEndDate');
+
+        inputDetails.off('keyup').on('keyup', function () {
+            filterTable(tabName);
+        });
+        inputStartDate.off('change').on('change', function () {
+            filterTable(tabName);
+        });
+        inputEndDate.off('change').on('change', function () {
+            filterTable(tabName);
+        });
+    }
+
+    function storeFilters(tabName) {
+        var inputDetails = $('#' + tabName).find('#searchByDetails').val();
+        var inputStartDate = $('#' + tabName).find('#searchByStartDate').val();
+        var inputEndDate = $('#' + tabName).find('#searchByEndDate').val();
+
+        tabFilters[tabName] = {
+            details: inputDetails,
+            startDate: inputStartDate,
+            endDate: inputEndDate
+        };
+    }
+
+    function applyFilters(tabName, filters) {
+        var inputDetails = $('#' + tabName).find('#searchByDetails');
+        var inputStartDate = $('#' + tabName).find('#searchByStartDate');
+        var inputEndDate = $('#' + tabName).find('#searchByEndDate');
+
+        inputDetails.val(filters.details);
+        inputStartDate.val(filters.startDate);
+        inputEndDate.val(filters.endDate);
+
+        filterTable(tabName);
+    }
+
+    function setCurrentDate(tabName) {
+        var today = new Date();
+        var startDate = today.toISOString().split('T')[0];
+        var endDate = today.toISOString().split('T')[0];
+
+        $('#' + tabName).find('#searchByStartDate').val(startDate);
+        $('#' + tabName).find('#searchByEndDate').val(endDate);
+    }
+
+    function filterTable(tabName) {
+        storeFilters(tabName);
+
+        var inputDetails = $('#' + tabName).find('#searchByDetails');
+        var filterDetails = inputDetails.val().toUpperCase();
+        var inputStartDate = $('#' + tabName).find('#searchByStartDate');
+        var inputEndDate = $('#' + tabName).find('#searchByEndDate');
+        var filterStartDate = inputStartDate.val();
+        var filterEndDate = inputEndDate.val();
+
+        var table = $('#' + tabName).find("#activityLogsTable");
+        var tr = table.find("tr");
+        var visibleRowCount = 0;
+
+        var columnIndexes = tabColumnIndexes[tabName];
+
+        tr.each(function (index, row) {
+            var tdFirstName = $(row).find("td").eq(columnIndexes.firstNameIndex);
+            var tdLastName = $(row).find("td").eq(columnIndexes.lastNameIndex);
+            var tdDate = $(row).find("td").eq(columnIndexes.dateIndex);
+
+            if (tdFirstName.length && tdLastName.length && tdDate.length) {
+                var firstNameText = tdFirstName.text() || "";
+                var lastNameText = tdLastName.text() || "";
+                var combinedName = (firstNameText + " " + lastNameText).toUpperCase();
+                var paymentDateStr = tdDate.text() || "";
+                var paymentDateTime = new Date(paymentDateStr).getTime();
+
+                var startDateTime = filterStartDate ? new Date(filterStartDate + "T00:00:00").getTime() : 0;
+                var endDateTime = filterEndDate ? new Date(filterEndDate + "T23:59:59").getTime() : Infinity;
+
+                var matchesName = combinedName.includes(filterDetails);
+
+                if ((paymentDateTime >= startDateTime) &&
+                    (paymentDateTime <= endDateTime) &&
+                    (filterDetails === "" || matchesName)) {
+                    $(row).show();
+                    visibleRowCount++;
+                } else {
+                    $(row).hide();
+                }
+            }
+        });
+
+        var noResultsMessage = $('#' + tabName).find('#noResultsMessage');
+        var tableContainer = $('#' + tabName).find('#activityLogsTableContainer');
+
+        if (visibleRowCount === 0) {
+            noResultsMessage.removeClass('d-none');
+            tableContainer.hide();
+        } else {
+            noResultsMessage.addClass('d-none');
+            tableContainer.show();
+        }
+    }
+
+    $(document).ready(function () {
+        loadTab('clubAdministratorLogs');
+    });
+</script>

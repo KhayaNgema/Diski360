@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MyField.Models.SportNews>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <style>
+        .italic {
+            font-style: italic;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<br />
+@if(Model.Any())
+{
+    <div class="col-12">
+        <div class="row justify-content-center">
+            @foreach (var item in Model.Take(6))
+            {
+                var encryptedNewsId = encryptionService.Encrypt(item.NewsId);
+
+                <div class="col-sm-12 col-md-6  col-lg-4 mb-4">
+                    <div class="card">
+
+                        <div class="newsImageContainer">
+                            <img src="~/@item.NewsImage" alt="@item.NewsHeading" class="card-img-top" style="height:100%; width:100%; object-fit:cover;" />
+                        </div>
+
+                        <div class="card-body">
+                            <p class="card-title sport-news-header">@item.NewsHeading</p>
+                            <p class="card-text">
+                                @if (item.NewsBody.Length > 100)
+                                {
+                                    @item.NewsBody.Substring(0, 100) <text>...</text>
+                                    <a asp-controller="SportNews" asp-action="Details" asp-route-newsId="@encryptedNewsId" class="read-more-link">Read More</a>
+                                }
+                                else
+                                {
+                                    @item.NewsBody
+                                }
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted italic">@item.AuthoredBy.FirstName @item.AuthoredBy.LastName</small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted italic">@item.PublishedDate.ToString("dd MMMM, yyyy - HH:mm")</small>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (Model.Count() > 9)
+            {
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <a href="@Url.Action("SportNews", "SportNews")" class="large-caret">
+                            <div class="circle">
+                                <span class="caret">&#8744;</span>
+                            </div>
+                            <div class="see-more-text">
+                                See more...
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @if (Model.Count() > 6)
+            {
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <a href="@Url.Action("SportNews", "SportNews")" class="large-caret">
+                            <div class="circle">
+                                <span class="caret">&#8744;</span>
+                            </div>
+                            <div class="see-more-text">
+                                See more...
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+
+
+
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no sport news yet.</p>
+}
+
+

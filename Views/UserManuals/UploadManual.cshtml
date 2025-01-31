@@ -1,0 +1,56 @@
+﻿@model MyField.ViewModels.UserManualsViewModel
+
+@{
+    ViewData["Title"] = "Upload a new manual";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Upload a new user manual</h4>
+<br />
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="UploadManual" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <div class="custom-file-upload-container">
+                    <input asp-for="ManualDocuments" id="Input_UserManual" class="file-input" type="file" accept="application/pdf" onchange="updateFileName()" />
+
+                    <label for="Input_UserManual" class="custom-upload-btn">
+                        <i class="fas fa-file-pdf" style="color: red;"></i> Choose PDF File
+                    </label>
+                </div>
+
+                <div id="newDocumentPreview" class="mt-3" style="display: none;">
+                    <strong>Selected File:</strong> <span id="newDocumentName"></span>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="UserRole" class="form-control border-bottom-only" placeholder="userrole" />
+                <label asp-for="UserRole" class="form-label">User group/role</label>
+                <span asp-validation-for="UserRole" class="text-danger"></span>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateFileName() {
+        var input = document.getElementById('Input_UserManual');
+        var fileName = input.files[0] ? input.files[0].name : 'No file selected';
+        document.getElementById('newDocumentPreview').style.display = 'block';
+        document.getElementById('newDocumentName').textContent = fileName;
+    }
+</script>

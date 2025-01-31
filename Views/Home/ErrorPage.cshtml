@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_NoLoginLayout.cshtml";
+}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+    <div style="background-color: #f8d7da; padding: 70px; text-align: center; border: 1px solid #ddd;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 100px; color: red;"></i>
+        <h3 style="margin-top: 20px;">@ViewData["ErrorMessage"]</h3>
+        <br />
+        <p>Click <a asp-area="Identity" asp-page="/Account/Login">here</a> to log into the system.</p>
+    </div>
+</div>
+
+
+
+
+

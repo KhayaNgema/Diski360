@@ -1,0 +1,146 @@
+﻿@model IEnumerable<MyField.Models.Subscription>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Subscriptions";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<br />
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <input id="searchInput" type="text" class="form-control" placeholder="Search Subscriptions" style="max-width: 300px; padding: 10px;" />
+
+    <select id="planFilter" class="form-control ml-3" style="max-width: 200px; margin-top: 10px;">
+        <option value="">All Plans</option>
+        <option value="Basic">Basic</option>
+        <option value="Premium">Premium</option>
+    </select>
+</div>
+
+<h4 style="text-align:center;">Account Holders Subscriptions</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are managing all user subscriptions. You can view and update subscription details, including adding new subscriptions, modifying existing subscription plans, and managing their statuses. Ensure you manage subscription types and renewals effectively to maintain system integrity.
+</p>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless clubs-table">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>Profile Picture</th>
+                    <th>Name (s)</th>
+                    <th>Last name</th>
+                    <th>Email address</th>
+                    <th>Cellphone number</th>
+                    <th>Plan</th>
+                    <th>Status</th>
+                    <th>Expiry date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/@item.SystemUser?.ProfilePicture" alt="@item.SystemUser.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.SystemUser.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SystemUser.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SystemUser.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SystemUser.PhoneNumber)</td>
+                        <td>
+                            @if (item.SubscriptionPlan == SubscriptionPlan.Premium)
+                            {
+                                <p class="plan">Premium</p>
+                            }
+                            else if (item.SubscriptionPlan == SubscriptionPlan.Basic)
+                            {
+                                <p class="plan">Basic</p>
+                            }
+                            else if (item.SubscriptionPlan == SubscriptionPlan.Club_Premium)
+                            {
+                                <p class="plan">Club Premium</p>
+                            }
+                            else
+                            {
+                                <p class="plan">Club Basic</p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.SubscriptionStatus == SubscriptionStatus.Active)
+                            {
+                                <p>Active</p>
+                            }
+                            else if (item.SubscriptionStatus == SubscriptionStatus.Cancelled)
+                            {
+                                <p>Cancelled</p>
+                            }
+                            else if (item.SubscriptionStatus == SubscriptionStatus.Expired)
+                            {
+                                <p>Expired</p>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.ExpirationDate)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p id="noResultsMessage" class="text-center" style="display:none; margin-top: 20vh; margin-bottom: 20vh;">No matching subscriptions found.</p>
+    </div>
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no user subscriptions yet.</p>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function filterTable() {
+            var searchValue = $("#searchInput").val().toLowerCase();
+            var planValue = $("#planFilter").val().toLowerCase();
+            var rows = $(".clubs-table tbody tr");
+            var hasVisibleRow = false;
+
+            rows.filter(function () {
+                var text = $(this).text().toLowerCase();
+                var planText = $(this).find(".plan").text().toLowerCase();
+                var isVisible = text.indexOf(searchValue) > -1 && (planValue === "" || planText === planValue);
+
+                $(this).toggle(isVisible);
+
+                if (isVisible) {
+                    hasVisibleRow = true;
+                }
+            });
+
+            // Show or hide the "no results" message based on visibility
+            if (hasVisibleRow) {
+                $("#noResultsMessage").hide();
+            } else {
+                $("#noResultsMessage").show();
+            }
+        }
+
+        $("#searchInput").on("keyup", filterTable);
+        $("#planFilter").on("change", filterTable);
+
+        setTimeout(function () {
+            document.getElementById("tempDataMessage").style.display = "none";
+        }, 5000);
+    });
+</script>

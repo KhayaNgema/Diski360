@@ -1,0 +1,99 @@
+﻿@model IEnumerable<MyField.Models.SportNews>
+
+@{
+    ViewData["Title"] = "Rejected Sport News";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Rejected Sport News</h4>
+<br />
+<div class="table-responsive">
+    <table class="table table-striped table-borderless">
+        <thead>
+            <tr style="color:white;background-color: #324260; white-space: nowrap;">
+            <th>
+                @Html.DisplayNameFor(model => model.NewsHeading)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RejectedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RejectedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthoredBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsBody)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NewsStatus)
+            </th>
+            <th>Details</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+       <tr class="ellipsis">
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsHeading)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDateTime)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName)        @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RejectedDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RejectedBy.FirstName)          @Html.DisplayFor(modelItem => item.RejectedBy.LastName)
+                </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.AuthoredBy.FirstName)          @Html.DisplayFor(modelItem => item.AuthoredBy.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsBody)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewsStatus)
+            </td>
+                <td style="white-space: nowrap;">
+                    <a href="@Url.Action("Details", "SportNews", new { id = item.NewsId })">
+                        <i class="fas fa-info-circle" style="color: #2E5A88;"></i>
+                    </a>
+                </td>
+                    <td class="text-right">
+                        <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.NewsId">
+                            Actions
+                        </button>
+                        <div class="action-tab" id="actionTab-@item.NewsId" style="display: none;">
+                            <a class="tab-item" href="@Url.Action("AskForEdit", "SportNews", new {newsId = item.NewsId })">
+                                <i class="fas fa-pen" style="color: blue"></i> Re-edit
+                            </a>
+                            <a class="tab-item" href="@Url.Action("ApproveSportNews", "SportNews", new { newsId = item.NewsId})">
+                                <i class="fa fa-check-circle" style="color: green;"></i> Approve
+                            </a>
+                        </div>
+                    </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

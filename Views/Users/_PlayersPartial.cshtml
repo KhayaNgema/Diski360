@@ -1,0 +1,98 @@
+﻿@model IEnumerable<MyField.Models.Player>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    var encryptedDivisionId = encryptionService.Encrypt(ViewBag.DivisionId);
+}
+
+<div class="players-container">
+    <br />
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive table-borderless">
+            <table class="table table-striped table-borderless" id="playersTable">
+                <thead>
+                    <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                        <th>Player</th>
+                        <th>Club</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Take(20)) 
+                    {
+                        var encryptedPlayerId = encryptionService.Encrypt(item.Id);
+
+                        <tr class="player-row" style="white-space: nowrap;" data-user-id="@encryptedPlayerId">
+                            <td>
+                                <img src="~/@item.ProfilePicture" alt="@item.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td style="position: relative;">
+                                @item.Club.ClubName
+                                <span class="profile-arrow" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%);"><i class="fas fa-chevron-right"></i></span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <p id="noResultsMessage" class="text-center" style="display: none; margin-top: 20vh; margin-bottom: 20vh;">
+            No results found for your search
+        </p>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">
+            There are no players yet.
+        </p>
+    }
+</div>
+@if (Model.Count() > 20)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <a href="@Url.Action("AllPlayers", "Users", new { divisionId = encryptedDivisionId })" class="large-caret">
+                <div class="circle">
+                    <span class="caret">&#8744;</span>
+                </div>
+                <div class="see-more-text">
+                    See more...
+                </div>
+            </a>
+        </div>
+    </div>
+}
+
+
+
+<script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#playersTable .player-row');
+        let resultsFound = false;
+
+        rows.forEach(row => {
+            const playerName = row.querySelector('td').innerText.toLowerCase();
+            if (playerName.includes(searchTerm)) {
+                row.style.display = '';
+                resultsFound = true;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        document.getElementById('noResultsMessage').style.display = resultsFound ? 'none' : 'block';
+    });
+
+    document.querySelectorAll('#playersTable .player-row').forEach(row => {
+        row.addEventListener('click', function () {
+            const encryptedPlayerId = this.getAttribute('data-user-id');
+            const url = '@Url.Action("PlayerProfile", "Users")';
+            window.location.href = `@Url.Action("PlayerProfile", "Users")?userId=${encodeURIComponent(encryptedPlayerId)}`;
+        });
+    });
+</script>
+
+

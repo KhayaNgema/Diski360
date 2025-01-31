@@ -1,0 +1,138 @@
+﻿@model MyField.ViewModels.OnboardDivisionViewModel
+
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = "Onboard" + Model.DivisionName;
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    var encryptedRequestId = encryptionService.Encrypt(Model.RequestId);
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">Onboard @Model.DivisionName (Ref No. #@Model.RefenceNumber)</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    You are currently engaged in the important task of onboarding a new division along with its manager into the Diski360 organization. This process is crucial as it involves the formal integration of a new organizational unit and its leadership into our system. Your role is instrumental in ensuring that the new division and its manager are properly established within our organization, marking the beginning of their journey under Diski360's banner.
+
+    The onboarding process includes setting up the division's structure, defining its responsibilities, and ensuring that the newly appointed manager is equipped to lead effectively. This integration is vital for the smooth operation and growth of the division, as well as for aligning with the overall objectives of Diski360.
+
+    As you proceed with this onboarding, please ensure that all necessary details are accurately documented and that the division and its manager are fully prepared to become part of our organization.
+</p>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    <strong>Status:</strong> @Model.RequestStatus
+</p>
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    <strong>Received on:</strong> @Model.RequestDate
+</p>
+<br />
+<div class="division-add-container d-flex">
+    <form asp-action="OnboardDivisionAndManager" method="post" enctype="multipart/form-data" class="d-flex w-100">
+        <div class="row flex-grow-1">
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Details</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <div class="profile-container">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <img src="~/@Model.DivisionBadge" alt="@Model.DivisionAbbr" class="club-picture-image" style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionType" class="form-control border-bottom-only" placeholder="DivisionType" readonly />
+                    <label asp-for="DivisionType" class="form-label">Division type</label>
+                    <span asp-validation-for="DivisionType" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" readonly />
+                    <label asp-for="DivisionName" class="form-label">Division Name</label>
+                    <span asp-validation-for="DivisionName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;" readonly></textarea>
+                    <label asp-for="DivisionDescription" class="form-label">Division Description</label>
+                    <span asp-validation-for="DivisionDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Address" class="form-control border-bottom-only" placeholder="Address" readonly />
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Division Manager Details</h5>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" readonly />
+                    <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
+                    <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" readonly />
+                    <label asp-for="ManagerLastName" class="form-label">Last Name</label>
+                    <span asp-validation-for="ManagerLastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" readonly />
+                    <label asp-for="ManagerEmail" class="form-label">Email Address</label>
+                    <span asp-validation-for="ManagerEmail" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ManagerPhoneNumber" class="form-control border-bottom-only" placeholder="Phone Number" readonly />
+                    <label asp-for="ManagerPhoneNumber" class="form-label">Phone Number</label>
+                    <span asp-validation-for="ManagerPhoneNumber" class="text-danger"></span>
+                </div>
+
+                <br />
+                <h5 class="text-center">Contract Details</h5>
+                <br />
+
+                <div class="form-floating mb-3">
+                    <input asp-for="AgreementStartDate" class="form-control border-bottom-only" placeholder="Agreement Start Date" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <label asp-for="AgreementStartDate" class="form-label">Agreement Start Date</label>
+                    <span asp-validation-for="AgreementStartDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="AgreementEndDate" class="form-control border-bottom-only" placeholder="Agreement End Date" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <label asp-for="AgreementEndDate" class="form-label">Agreement End Date</label>
+                    <span asp-validation-for="AgreementEndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input id="fileInput" asp-for="SignedContracts" class="form-control border-bottom-only" type="file" onchange="updateFileName()" />
+                    <label asp-for="SignedContracts" class="form-label">Upload Signed Contract</label>
+                    <span id="fileName" class="form-text text-muted"></span>
+                    <span asp-validation-for="SignedContracts" class="text-danger"></span>
+                </div>
+                <div class="text-end">
+                    <input type="hidden" asp-for="RequestId" value="@Model?.RequestId" />
+                    <input type="submit" value="Submit" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function updateFileName() {
+        var fileInput = document.getElementById('fileInput');
+        var fileNameSpan = document.getElementById('fileName');
+        if (fileInput.files.length > 0) {
+            fileNameSpan.textContent = fileInput.files[0].name;
+        } else {
+            fileNameSpan.textContent = 'No file selected';
+        }
+    }
+</script>

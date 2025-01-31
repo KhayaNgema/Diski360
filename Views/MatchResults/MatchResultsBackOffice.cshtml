@@ -1,0 +1,147 @@
+﻿@model IEnumerable<MyField.Models.MatchResults>
+
+@{
+    ViewData["Title"] = ViewBag.CurrentSeason +" Match Results";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .dropdown-menu {
+        position: absolute;
+        z-index: 1000;
+        display: none;
+        max-width: 200px; 
+        overflow-y: auto;
+        max-height: calc(100vh - 200px); 
+    }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+</style>
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.CurrentSeason Season Match Results</h4>
+<br />
+@if (Model.Any()) 
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+        On this page, you can view the match results for the current season. This includes detailed outcomes and statistics for all matches played, providing a comprehensive overview of the season's progress.
+    </p>
+<br />
+<div class="fixtures-search-create-container" style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
+                @if (User.IsInRole("Sport Administrator") || User.IsInRole("Sport Coordinator"))
+                {
+                    <div class="create-button">
+                        <a href="@Url.Action("Fixtures", "Fixtures")" class="btn btn-outline-primary btn-create" id="addButton" style="white-space: nowrap;">
+                            <i class="fas fa-plus"></i> Create new
+                        </a>
+                    </div>
+                }
+                else
+                {
+
+                }
+
+        </div>
+    </div>
+</div>
+
+
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap!important;">
+                    <th>Home</th>
+                    <th>Goals</th>
+                    <th>-</th>
+                    <th>Goals</th>
+                    <th>Away</th>
+                    @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
+                    {
+                        <th>CreatedBy</th>
+                        <th>Created DateTime</th>
+                        <th>ModifiedBy</th>
+                        <th>Modified DateTime</th>
+                    }
+@*                     <th>Actions</th> *@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderByDescending(match => match.CreatedDateTime))
+                {
+                    <tr style="white-space: nowrap!important;">
+                        <td>
+                            @if (item.HomeTeam != null)
+                            {
+                                <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubBadge" class="club-badge-image" style="max-width:50px; max-height: 50px;" /> @Html.DisplayFor(modelItem => item.HomeTeam.ClubName)
+                            }
+                        </td>
+                        <td style="text-align:end;">@Html.DisplayFor(modelItem => item.HomeTeamScore)</td>
+                        <td>-</td>
+                        <td>@Html.DisplayFor(modelItem => item.AwayTeamScore)</td>
+                        <td>
+                            @if (item.AwayTeam != null)
+                            {
+                                <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubBadge" class="club-badge-image" style="max-width:50px; max-height: 50px;" /> @Html.DisplayFor(modelItem => item.AwayTeam.ClubName)
+                            }
+                        </td>
+                        @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
+                        {
+                            <td>@Html.DisplayFor(modelItem => item.CreatedBy.FirstName) @Html.DisplayFor(modelItem => item.CreatedBy.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CreatedDateTime)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ModifiedBy.FirstName) @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ModifiedDateTime)</td>
+                        }
+@*                         <td class="text-right">
+                            <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.ResultsId">
+                                Actions
+                            </button>
+                            <div class="action-tab" id="actionTab-@item.ResultsId" style="display: none;">
+                                <a class="tab-item" href="@Url.Action("UpdateResults", "MatchResults", new { id = item.ResultsId })">
+                                    <i class="fas fa-pen" style="color: blue;"></i> Update
+                                </a>
+                                <a class="tab-item" href="@Url.Action("DeleteResults", "MatchResults", new { id = item.ResultsId})">
+                                    <i class="fas fa-trash" style="color: red;"></i> Delete
+                                </a>
+                            </div>
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no results yet.</p>
+        <div class="create-button mt-3">
+            <a href="@Url.Action("Fixtures", "Fixtures")" class="btn btn-outline-primary btn-create" id="addButton" style="white-space: nowrap;">
+                <i class="fas fa-plus"></i> Create new
+            </a>
+        </div>
+    </div>
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

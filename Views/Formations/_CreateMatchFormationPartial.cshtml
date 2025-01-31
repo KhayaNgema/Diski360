@@ -1,0 +1,101 @@
+﻿@model MyField.Models.Formation
+
+@{
+    ViewData["Title"] = "Index";
+    var firstFormation = Enumerable.FirstOrDefault((IEnumerable<MyField.Models.Formation>)ViewBag.Formations);
+}
+<br />
+<div id="match-formation-container" style="position: relative;">
+    <div style="margin-bottom:20px;" id="matchFormation"> </div>
+    <div class="container-footer" style="display: flex; justify-content: flex-end;">
+        <button id="toggleMatchFormationButton" class="btn btn-md btn-success">Select Formation</button>
+    </div>
+</div>
+
+<div id="formation-container" style="position: relative; display: none;">
+    <br />
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 class="text-left" style="margin: 0;">Select formation</h4>
+        <button id="toggleFormationButton" class="btn btn-md btn-success">Show formation</button>
+    </div>
+    <br />
+    <div id="formationTempDataMessage" class="alert" role="alert" style="display: none;">
+        <span id="formationTempDataMessageContent"></span>
+        <span class="close" aria-label="Close" onclick="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+
+    <br />
+    <div class="form-group" id="matchFormationList">
+        <select id="formationDropdown" class="form-control" onchange="updateImage()">
+            @foreach (var formation in ViewBag.Formations)
+            {
+                <option value="@formation.FormationId" data-formation-image="@formation.FormationImage">@formation.FormationName</option>
+            }
+        </select>
+    </div>
+    <div class="formation-image-container">
+        <img id="formationImage" src="/@firstFormation.FormationImage.Replace("Fixtures/", "")" alt="Formation Image" class="club-badge-image" style="display: block;" />
+    </div>
+    <div class="container-footer" style="display: flex; margin-top:20px; justify-content: flex-end;">
+        <button class="saveButton btn btn-md btn-success" onclick="addXIFormation()" data-formation-id="@firstFormation.FormationId" data-fixture-id="">Save</button>
+    </div>
+</div>
+
+<script>
+
+    function displayMessage(message, alertClass) {
+        var messageDiv = $('#formationTempDataMessage');
+        var messageContent = $('#formationTempDataMessageContent');
+
+        messageContent.text(message);
+        messageDiv.removeClass('alert-success alert-danger').addClass(alertClass);
+        messageDiv.show();
+
+        setTimeout(function () {
+            closeAlert();
+        }, 5000);
+    }
+
+    function closeAlert() {
+        $('#formationTempDataMessage').hide();
+    }
+
+    setTimeout(function () {
+        document.getElementById("formationTempDataMessage").style.display = "none";
+    }, 5000);
+
+    function updateImage() {
+        var selectedValue = document.getElementById("formationDropdown").value;
+        var imageSrc = document.querySelector(`#formationDropdown option[value="${selectedValue}"]`).dataset.formationImage;
+        var imageUrl = "/" + imageSrc;
+        imageUrl = imageUrl.replace(/Fixtures\//, "");
+        document.getElementById("formationImage").src = imageUrl;
+    }
+    setTimeout(function () {
+        updateImage();
+    }, 100);
+
+    document.getElementById("toggleMatchFormationButton").addEventListener("click", function () {
+        var matchFormationContainer = document.getElementById("match-formation-container");
+        var formationContainer = document.getElementById("formation-container");
+        matchFormationContainer.style.display = "none";
+        formationContainer.style.display = "block";
+    });
+
+    document.getElementById("toggleFormationButton").addEventListener("click", function () {
+        var matchFormationContainer = document.getElementById("match-formation-container");
+        var formationContainer = document.getElementById("formation-container");
+        matchFormationContainer.style.display = "block";
+        formationContainer.style.display = "none";
+    });
+
+    document.getElementById("formationDropdown").addEventListener("change", function () {
+        var selectedFormationId = document.getElementById("formationDropdown").value;
+        document.querySelector(".saveButton").dataset.formationId = selectedFormationId;
+    });
+    document.querySelector(".saveButton").onclick = function () {
+        addXIFormation(document.querySelector('.saveButton').dataset.formationId);
+    }
+</script>

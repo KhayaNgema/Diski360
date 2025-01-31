@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MyField.Models.LineUpSubstitutes>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<h5 class="text-center" style="background-color:white; padding:10px;">Substitutes</h5>
+<br />
+@if (Model.Any())
+{
+    <table class="table table-borderless">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubPlayer.FirstName)
+                    </td>
+                    <td>   @Html.DisplayFor(modelItem => item.ClubPlayer.LastName)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubPlayer.Position)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">No Starting XI</p>
+}

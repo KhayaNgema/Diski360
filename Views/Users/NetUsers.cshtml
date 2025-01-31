@@ -1,0 +1,166 @@
+﻿@model MyField.ViewModels.NetUsersViewModel
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "System Users";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 style="text-align:center;">System Users</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you are managing all system users. You can view and update user information, including adding new users, modifying existing user details, and managing their statuses. Ensure you manage user roles and permissions effectively to maintain system integrity.
+</p>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <input id="searchInput" type="text" class="form-control" placeholder="Search user..." style="max-width: 300px; padding: 10px;" />
+    <select id="planFilter" class="form-control ml-3" style="max-width: 200px; margin-top: 10px;">
+        <option value="">All users</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+        <option value="Suspended">Suspended</option>
+    </select>
+</div>
+@if (Model.Users.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th>Profile Picture</th>
+                    <th>Name (s)</th>
+                    <th>Last name</th>
+                    <th>Email address</th>
+                    <th>Cellphone number</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    var encryptedUserId = encryptionService.Encrypt(item.Id);
+                    <tr style="max-width: 400px;">
+                        <td>
+                            <img src="~/@item.ProfilePicture" alt="@item.FirstName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                        <td>
+                            @if (item.IsActive && !item.IsSuspended)
+                            {
+                                <p>Active</p>
+                            }
+                            else if (item.IsSuspended && item.IsActive)
+                            {
+                                <p>Suspended</p>
+                            }
+                            else
+                            {
+                                <p>Inactive</p>
+                            }
+                        </td>
+                        <td class="text-right">
+                            <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.Id">Actions</button>
+                            <div class="action-tab" id="actionTab-@item.Id" style="display: none;">
+                                <a class="tab-item" href="@Url.Action("UserProfile", "Users", new { userId = encryptedUserId })"><i class="fas fa-user" style="color: blue;"></i> Profile</a>
+                                <a class="tab-item" href="@Url.Action("Deactivate", "Users", new { userId = encryptedUserId  })"><i class="fas fa-pause" style="color: red;"></i> Deactivate</a>
+                                <a class="tab-item" href="@Url.Action("Activate", "Users", new { userId = encryptedUserId })"><i class="fas fa-check-circle" style="color: green;"></i> Activate</a>
+                                <a class="tab-item" href="@Url.Action("Suspend", "Users", new { userId = encryptedUserId })"><i class="fas fa-ban" style="color: red;"></i> Suspend</a>
+                                <a class="tab-item" href="@Url.Action("Unsuspend", "Users", new { userId = encryptedUserId })"><i class="fas fa-check-circle" style="color: green;"></i> Unsuspend</a>
+                                <a class="tab-item" href="@Url.Action("Delete", "Users", new { userId = encryptedUserId })"><i class="fas fa-trash" style="color: red;"></i> Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.CurrentPage == i ? "active" : "")" style="margin: 0 5px;">
+                    <a asp-action="NetUsers"
+                       asp-controller="Users"
+                       asp-route-page="@i"
+                       style="color: @(Model.CurrentPage == i ? "white" : "#000325");
+                           background-color: @(Model.CurrentPage == i ? "#000325" : "white");
+                           border: 2px solid #000325;
+                           padding: 10px 15px;
+                           border-radius: 5px;
+                           text-decoration: none;
+                           font-weight: @(Model.CurrentPage == i ? "bold" : "normal");"
+                       onmouseover="this.style.backgroundColor='@(Model.CurrentPage == i ? "#000325" : "#e0e0e0");'"
+                       onmouseout="this.style.backgroundColor='@(Model.CurrentPage == i ? "#000325" : "white");'">
+                        @i
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+
+}
+else
+{
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no system users yet.</p>
+}
+
+<p id="noResultsMessage" class="text-center" style="display:none; margin-top: 20vh; margin-bottom: 20vh;">No matching users found.</p>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function filterTable() {
+            var searchValue = $("#searchInput").val().toLowerCase();
+            var selectedStatus = $("#planFilter").val();
+            var hasVisibleRows = false;
+
+            $("table tbody tr").filter(function () {
+                var userText = $(this).text().toLowerCase();
+                var matchSearch = userText.indexOf(searchValue) > -1;
+ 
+                var clubText = $(this).find("td").eq(3).text().trim().toLowerCase();
+                var matchStatus = selectedStatus === "" || clubText === selectedStatus.toLowerCase();
+
+                var match = matchSearch && matchStatus;
+                $(this).toggle(match);
+
+                if (match) {
+                    hasVisibleRows = true;
+                }
+            });
+
+            if (hasVisibleRows) {
+                $("#noResultsMessage").hide();
+            } else {
+                $("#noResultsMessage").show();
+            }
+        }
+
+        $("#searchInput").on("keyup", filterTable);
+
+
+        $("#planFilter").on("change", filterTable);
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

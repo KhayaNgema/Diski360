@@ -1,0 +1,96 @@
+﻿@model IEnumerable<MyField.Models.SportNews>
+
+@{
+    ViewData["Title"] = "Approved Sport News";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Approved Sport News</h4>
+<br />
+<div class="table-responsive">
+    <table class="table table-striped table-borderless">
+        <thead>
+            <tr style="color:white;background-color: #324260; white-space: nowrap;">
+            <th>
+                Heading
+            </th>
+            <th>
+                Published DateTime
+            </th>
+            <th>
+                Modified DateTime
+            </th>
+            <th>
+                ModifiedBy
+            </th>
+            <th>
+                AuthoredBy
+            </th>
+            <th>
+                PublishedBy
+            </th>
+            <th>
+                Body
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+           <tr class="ellipsis">
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsHeading)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName)                 @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthoredBy.FirstName)                 @Html.DisplayFor(modelItem => item.AuthoredBy.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedBy.FirstName)                 @Html.DisplayFor(modelItem => item.PublishedBy.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsStatus)
+                </td>
+                <td style="white-space: nowrap;">
+                    <a href="#" onclick="openSportNewsDetailsModal(@item.NewsId)">
+                        <i class="fas fa-info-circle" style="color: #2E5A88;"></i>
+                    </a>
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.NewsId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NewsId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.NewsId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
