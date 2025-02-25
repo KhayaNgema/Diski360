@@ -18,7 +18,19 @@ public static class SeedData
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserBaseModel>>();
             var _context = scope.ServiceProvider.GetRequiredService<Ksans_SportsDbContext>();
 
-            string[] roleNames = { "Division Manager","Club Administrator", "Club Manager", "Player", "Sport Administrator", "News Updator", "Sport Coordinator", "System Administrator", "Official", "News Administrator", "Fans Administrator", "Personnel Administrator", "Sport Manager" };
+            string[] roleNames = { "Division Manager",
+                "Club Administrator", 
+                "Club Manager", 
+                "Player", 
+                "Sport Administrator", 
+                "News Updator", 
+                "Sport Coordinator", 
+                "System Administrator", 
+                "Official", 
+                "News Administrator", 
+                "Fans Administrator", 
+                "Personnel Administrator", 
+                "Sport Manager"};
 
             foreach (var roleName in roleNames)
             {

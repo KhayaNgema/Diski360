@@ -308,7 +308,6 @@ namespace MyField.Areas.Identity.Pages.Account
                         LeagueId = currentSeason.LeagueId,
                         NumberOfGoals = 0,
                         PlayerId = user.Id,
-                        
                     };
 
                     _context.Add(newTopScore);

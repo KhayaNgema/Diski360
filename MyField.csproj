@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="API%27s\" />
+    <Folder Include="Configurations\" />
     <Folder Include="Integrations\" />
     <Folder Include="BusinessImages\" />
     <Folder Include="UploadedFiles\" />

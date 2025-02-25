@@ -13,7 +13,7 @@
 <script>
     function fetchTournaments() {
         $.ajax({
-            url: '/Tournaments/FindTournaments',
+            url: '/AllTournaments/Tournaments',
             success: function (data) {
                 $('#tournamentsContent').html(data);
             }

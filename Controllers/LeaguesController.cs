@@ -878,7 +878,8 @@ namespace MyField.Controllers
                     await _context.SaveChangesAsync();
 
                     var allPlayers = await _context.Player
-                        .Where(a => !a.IsDeleted)
+                        .Where(a => !a.IsDeleted && 
+                        a.Club.DivisionId == divisionId)
                         .ToListAsync();
 
                     var newPlayerPerformanceReports = new List<PlayerPerformanceReport>();

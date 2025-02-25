@@ -319,5 +319,14 @@ namespace MyField.Data
         public DbSet<MyField.Models.CompetitionParticipants> CompetitionParticipants { get; set; }
 
         public DbSet<MyField.Models.UserManuals> UserManuals { get; set; }
+
+        public DbSet<MyField.Models.TournamentRules> TournamentRules { get; set; }
+
+        public DbSet<MyField.Models.TournamentClub> TournamentClubs { get; set; }
+
+        public DbSet<MyField.Models.TournamentFixture> TournamentFixtures { get; set; }
+
+        public DbSet<MyField.Models.TournamentMatchResults> TournamentMatchResults { get; set; }
+
     }
 }

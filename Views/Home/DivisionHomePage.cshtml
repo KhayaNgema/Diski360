@@ -23,6 +23,7 @@
         <div class="tab-pane fade @(ViewBag.ActiveTab == "managers" ? "show active" : "")" id="managers" role="tabpanel" aria-labelledby="managers-tab"></div>
         <div class="tab-pane fade @(ViewBag.ActiveTab == "topScores" ? "show active" : "")" id="topScores" role="tabpanel" aria-labelledby="topScores-tab"></div>
         <div class="tab-pane fade @(ViewBag.ActiveTab == "topAssists" ? "show active" : "")" id="topAssists" role="tabpanel" aria-labelledby="topAssists-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "tournaments" ? "show active" : "")" id="tournaments" role="tabpanel" aria-labelledby="tournaments-tab"></div>
     </div>
 }
 else
@@ -33,6 +34,7 @@ else
         <div class="tab-pane fade @(ViewBag.ActiveTab == "standings" ? "show active" : "")" id="standings" role="tabpanel" aria-labelledby="standings-tab"></div>
         <div class="tab-pane fade @(ViewBag.ActiveTab == "matchresults" ? "show active" : "")" id="matchresults" role="tabpanel" aria-labelledby="matchresults-tab"></div>
         <div class="tab-pane fade @(ViewBag.ActiveTab == "clubs" ? "show active" : "")" id="clubs" role="tabpanel" aria-labelledby="clubs-tab"></div>
+        <div class="tab-pane fade @(ViewBag.ActiveTab == "allTournaments" ? "show active" : "")" id="allTournaments" role="tabpanel" aria-labelledby="allTournaments-tab"></div>
     </div>
 }
 <script>

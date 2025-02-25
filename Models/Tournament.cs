@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyField.Models
 {
     public class Tournament
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TournamentId { get; set; }
 
         public string TournamentName { get; set; }
 
         public string TournamentDescription { get; set; }
 
-        public string TournamentType { get; set; }
-
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public double? JoiningFee { get; set; }
 
-        public string TournamentOrgarnizer { get; set; }
-
-        public string JoiningFee { get; set; }
-
-        public string TournamentRules { get; set; }
-
-        public string TournamentStatus { get; set; }
+        public TournamentStatus TournamentStatus { get; set; }
 
         public string TournamentLocation { get; set; }
+
+        public string TournamentImage { get; set; }
+
+        public int? NumberOfTeams { get; set; }
+
+        public DateTime JoiningDueDate { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
 
@@ -34,12 +34,29 @@ namespace MyField.Models
         public string CreatedById { get; set; }
 
         [ForeignKey("CreatedById")]
-        public virtual IdentityUser CreatedBy { get; set; }
+        public virtual UserBaseModel CreatedBy { get; set; }
 
         public string ModifiedById { get; set; }
 
         [ForeignKey("ModifiedById")]
-        public virtual IdentityUser ModifiedBy { get; set; }
+        public virtual UserBaseModel ModifiedBy { get; set; }
+
+        public string? SponsorName { get; set; }
+
+        public string? Sponsorship {  get; set; }
+        public string? SponsorContactDetails { get; set; }
+
+        public int? DivisionId { get; set; }
+
+        public virtual Division Division { get; set; }
 
     }
+
+    public enum TournamentStatus
+    { 
+        Upcoming,
+        Ongoing,
+        Ended
+    }
+
 }

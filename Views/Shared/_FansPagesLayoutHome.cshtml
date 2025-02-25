@@ -228,6 +228,9 @@
                         <li class="nav-item">
                             <button class="nav-link" id="allFixtures-tab" data-bs-toggle="tab" data-bs-target="#allFixtures" type="button" role="tab" aria-controls="allFixtures" aria-selected="false" onclick="loadTab('allFixtures')"><i class="fa fa-calendar-alt"></i> Fixtures</button>
                         </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="allTournaments-tab" data-bs-toggle="tab" data-bs-target="#allTournaments" type="button" role="tab" aria-controls="allTournaments" aria-selected="false" onclick="loadTab('allTournaments')"><i class="fa fa-trophy"></i> Tournaments</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -462,6 +465,9 @@
                     break;
                 case 'allFixtures':
                     url = '@Url.Action("AllLeaguesFixtures", "Fixtures")';
+                    break;
+                case 'allTournaments':
+                    url = '@Url.Action("AllTournaments", "Tournaments")';
                     break;
                 default:
                     console.error('Unknown tab:', tabName);

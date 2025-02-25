@@ -978,11 +978,30 @@ html {
         }
     }
 
+    /*Tournament backoffice image css*/
+
+@media (min-width: 768px) {
+    .tournament-image {
+        width: 130px;
+        height: 70px;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 768px) {
+    .tournament-image {
+        width: 70px;
+        height: 60px;
+        object-fit: cover;
+    }
+}
+
+
     #sportNewsModal .modal-dialog {
         max-width: 1000px;
         margin: auto;
-        top: 20px; /* Adjust this value as needed */
-        position: absolute; /* Position the modal */
+        top: 20px;
+        position: absolute; 
     }
 
     @media (max-width: 992px) {
@@ -993,20 +1012,20 @@ html {
             display: flex;
             align-items: center;
             justify-content: center;
-            top: 20px !important; /* Adjust this value as needed */
-            position: absolute; /* Position the modal */
+            top: 20px !important;
+            position: absolute;
         }
     }
 
     @media (max-width: 768px) {
         #sportNewsModal .modal-dialog {
-            width: 100% !important; /* Increase the width to 90% */
-            max-width: none; /* Remove max-width constraint */
+            width: 100% !important; 
+            max-width: none;
             display: flex;
             align-items: center;
             justify-content: center;
             top: 20px !important;
-            position: absolute; /* Position the modal */
+            position: absolute; 
         }
     }
 
@@ -1431,6 +1450,7 @@ html {
     height: 100%;
     object-fit: cover;
 }
+
 
 .news-picture-image {
     width: 100%;

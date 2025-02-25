@@ -319,6 +319,26 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li style="margin-top: 20px; margin-left: 30px; list-style-type: none;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fa fa-trophy" style="color: white; margin-right: 5px;"></i>
+                                    <a href="#tournamentsSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link text-light d-flex align-items-center">
+                                        Tournaments
+                                        <i style="margin-left: 3px; margin-top:1px;" class="fa fa-chevron-down ml-2 caret-rotate collapsed"></i>
+                                    </a>
+                                </div>
+                                <ul class="collapse list-unstyled collapsible-menu" id="tournamentsSubmenu" style="margin-left: 35px;">
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="TournamentsBackOffice" class="nav-link text-light">Tournaments </a>
+                                    </li>
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="DivisionTournamentsFixtures" class="nav-link text-light">Fixtures </a>
+                                    </li>
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="DivisionTournamentsMatchResults" class="nav-link text-light">Match results </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
                                 <i class="fa fa-newspaper" style="color: white; margin-right: 5px;"></i>
                                 <a asp-controller="SportNews" asp-action="SportNews" class="nav-link text-light">Sport News </a>
@@ -439,6 +459,26 @@
                             <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
                                 <i class="fa fa-home" style="color: white; margin-right: 5px;"></i>
                                 <a asp-controller="Home" asp-action="Index" class="nav-link text-light">Home</a>
+                            </li>
+                            <li style="margin-top: 20px; margin-left: 30px; list-style-type: none;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fa fa-trophy" style="color: white; margin-right: 5px;"></i>
+                                    <a href="#tournamentsSubmenu" data-toggle="collapse" aria-expanded="false" class="nav-link text-light d-flex align-items-center">
+                                        Tournaments
+                                        <i style="margin-left: 3px; margin-top:1px;" class="fa fa-chevron-down ml-2 caret-rotate collapsed"></i>
+                                    </a>
+                                </div>
+                                <ul class="collapse list-unstyled collapsible-menu" id="tournamentsSubmenu" style="margin-left: 35px;">
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="TournamentsBackOffice" class="nav-link text-light">Tournaments </a>
+                                    </li>
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="DivisionTournamentsFixtures" class="nav-link text-light">Fixtures </a>
+                                    </li>
+                                    <li style="margin-top: 10px; list-style-type: none;">
+                                        <a asp-controller="Tournaments" asp-action="DivisionTournamentsMatchResults" class="nav-link text-light">Match results </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center; list-style-type: none;">
                                 <i class="fa fa-newspaper" style="color: white; margin-right: 5px;"></i>

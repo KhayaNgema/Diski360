@@ -129,6 +129,7 @@ public class Startup
         services.AddScoped<CompetitionService>();
 
 
+
         services.AddLogging(logging =>
         {
             logging.AddConsole();

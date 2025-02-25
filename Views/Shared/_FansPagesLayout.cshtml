@@ -201,6 +201,9 @@
                         <li class="nav-item">
                             <button class="nav-link" id="topAssists-tab" data-bs-toggle="tab" data-bs-target="#topAssists" type="button" role="tab" aria-controls="topAssists" aria-selected="false" onclick="loadTab('topAssists')">Top Assists</button>
                         </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="tournaments-tab" data-bs-toggle="tab" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false" onclick="loadTab('tournaments')"><i class="fa fa-trophy"></i> Tournaments</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -527,6 +530,9 @@
                     break;
                 case 'topAssists':
                     url = '@Url.Action("FindTopAssists", "Reports")';
+                    break;
+                case 'tournaments':
+                    url = '@Url.Action("Tournaments", "Tournaments")';
                     break;
                 default:
                     console.error('Unknown tab:', tabName);
