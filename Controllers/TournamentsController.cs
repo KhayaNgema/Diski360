@@ -43,6 +43,19 @@ namespace MyField.Controllers
             _requestLogService = requestLogService;
         }
 
+        [HttpGet]
+        public IActionResult GetTournamentRules(int tournamentId)
+        {
+            var rules = _context.TournamentRules
+                                .Where(r => r.TournamentId == tournamentId)
+                                .Select(r => new { r.RuleDescription })
+                                .ToList();
+
+            return Json(rules);
+        }
+
+
+
         public async Task<IActionResult> AllTournaments()
         {
             var tournaments = await _context.Tournament
@@ -67,6 +80,7 @@ namespace MyField.Controllers
 
             var tournaments = await _context.Tournament
                 .Where(t => t.DivisionId == divisionId)
+                .OrderByDescending(t => t.CreatedDateTime)
                 .ToListAsync();
 
             var division = await _context.Divisions.Where(d => d.DivisionId == divisionId).FirstOrDefaultAsync();
@@ -145,6 +159,7 @@ namespace MyField.Controllers
                     CreatedDateTime = DateTime.Now,
                     ModifiedById = user.Id,
                     ModifiedDateTime = DateTime.Now,
+                    IsPublished = false
                 };
 
 
@@ -163,7 +178,9 @@ namespace MyField.Controllers
 
                 await _requestLogService.LogSuceededRequest("Successfully created a new tournament", StatusCodes.Status200OK);
 
-                return RedirectToAction(nameof(TournamentsBackOffice), new { tournamentId = newTournament.TournamentId });
+                var tournamentId = _encryptionService.Encrypt(newTournament.TournamentId);
+
+                return RedirectToAction(nameof(AddTournamentRules), new { tournamentId });
 
             }
 
@@ -172,6 +189,66 @@ namespace MyField.Controllers
             return View(viewModel);
 
         }
+
+        [Authorize(Roles = "Sport Administrator")]
+        [HttpGet]
+        public async Task<IActionResult> AddTournamentRules(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            ViewBag.TournamentName = tournament.TournamentName;
+
+            var viewModel = new TournamentRulesViewModel
+            {
+                TournamentId = decryptedTournamentId,
+                TournamentName = tournament.TournamentName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTournamentRules(TournamentRulesViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                var newTournamentRule = new TournamentRules
+                {
+                    TournamentId = viewModel.TournamentId,
+                    RuleDescription = viewModel.RuleDescription,
+                    CreatedById = user.Id,
+                    CreatedDateTime = DateTime.Now,
+                    ModifiedById = user.Id,
+                    ModifiedDateTime = DateTime.Now
+                };
+
+                _context.Add(newTournamentRule);
+                await _context.SaveChangesAsync();
+
+                await _activityLogger.Log($"Created a new rule for tournament {viewModel.TournamentName}.", user.Id);
+
+                TempData["Message"] = $"A new rule has been created successfully.";
+
+                await _requestLogService.LogSuceededRequest("Successfully created a new tournament rule", StatusCodes.Status200OK);
+
+                // Respond with success message
+                return Json(new { success = true, message = "Rule added successfully!" });
+            }
+
+            await _requestLogService.LogFailedRequest("Failed to create a new tournament rule", StatusCodes.Status500InternalServerError);
+
+            // Respond with failure message
+            return Json(new { success = false, message = "Failed to create a new tournament rule!" });
+        }
+
 
     }
 }

@@ -1,0 +1,140 @@
+﻿@model MyField.ViewModels.TournamentRulesViewModel
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+
+@{
+    ViewData["Title"] = ViewBag.TournamentName + " Rules";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<head>
+    <style>
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Add @ViewBag.TournamentName Rules</h4>
+<br />
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form id="tournamentRulesForm" asp-action="AddTournamentRules" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken() 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating mb-3">
+                <textarea asp-for="RuleDescription" class="form-control border-bottom-only" placeholder="Rule description" style="min-height: 150px;"></textarea>
+                <label asp-for="RuleDescription" class="form-label">Rule Description</label>
+                <span asp-validation-for="RuleDescription" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <button id="submitTournamentRules" type="submit">Add Rule</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row club-edit-container">
+    <ul id="rulesList"></ul>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tournamentRulesForm").submit(function (event) {
+            event.preventDefault();
+
+            var tournamentId = $("input[name='TournamentId']").val();
+            var ruleDescription = $("textarea[name='RuleDescription']").val();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: "@Url.Action("AddTournamentRules", "Tournaments")",
+                type: "POST",
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                data: JSON.stringify({
+                    TournamentId: parseInt(tournamentId),
+                    RuleDescription: ruleDescription
+                }),
+                contentType: "application/json",
+                beforeSend: function () {
+                    $("#submitTournamentRules").prop("disabled", true).text("Submitting...");
+                },
+                success: function (response) {
+                    if (response.success) {
+                        displayMessage(response.message, 'alert-success');
+                        fetchTournamentRules(tournamentId);
+                        $("textarea[name='RuleDescription']").val('');
+                    } else {
+                        displayMessage(response.message, 'alert-danger');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred: " + xhr.responseText);
+                },
+                complete: function () {
+                    $("#submitTournamentRules").prop("disabled", false).text("Add Rule");
+                }
+            });
+        });
+    });
+
+    function fetchTournamentRules(tournamentId) {
+        $.ajax({
+            url: '@Url.Action("GetTournamentRules", "Tournaments")',
+            type: 'GET',
+            data: { tournamentId: tournamentId },
+            success: function (data) {
+                var rulesList = $('#rulesList');
+                rulesList.empty();
+                $.each(data, function (index, rule) {
+                    var listItem = $('<li></li>').text(rule.RuleDescription);
+                    rulesList.append(listItem);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching tournament rules:', error);
+            }
+        });
+    }
+
+    function displayMessage(message, alertClass) {
+        var messageDiv = $('#tempDataMessage');
+        messageDiv.text(message);
+        messageDiv.removeClass('alert-success alert-danger').addClass(alertClass);
+        messageDiv.show();
+    }
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>
+

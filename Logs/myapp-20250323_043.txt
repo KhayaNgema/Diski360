@@ -1,0 +1,841 @@
+2025-03-23 14:42:44.944 +02:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-03-23 14:45:07.163 +02:00 [WRN] No store type was specified for the decimal property 'GamesDrawRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.186 +02:00 [WRN] No store type was specified for the decimal property 'GamesLoseRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'GamesNotPlayedRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'GamesPlayedRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'GamesWinRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'IncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'NotActionedIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'NotActionedOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'OutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'RejectedIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'RejectedOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfullIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfullOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'ActiveFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'InactiveFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'SuspendedFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'FineAmount' on entity type 'Fine'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'FixturedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'InterruptedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'PlayedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'PostponedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'UnfixturedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'DrawingRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'LosingRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'ReleasedResultsRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'UnreleasedMatchesRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'WinningRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'ApprovedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.187 +02:00 [WRN] No store type was specified for the decimal property 'PublishedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'RejectedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'PayFastWebhookPayload'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'Payment'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'ActiveAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'InactiveAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'SuspendedAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'ExpectedRepayableAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'OverdueFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'PaidFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'PendingFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'TotalPaidAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'TotalUnpaidAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'MarketValue' on entity type 'Player'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'SellingPrice' on entity type 'PlayerTransferMarket'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'SubscriptionHistory'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'AssociationCut' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'ClubsCut' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'NotStartedTransferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfulTranferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'TranferAmount' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.188 +02:00 [WRN] No store type was specified for the decimal property 'UnsuccessfulTranferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-03-23 14:45:07.651 +02:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.697 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.698 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.699 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.699 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.700 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.701 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.701 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.702 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.702 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.703 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.703 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.704 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-03-23 14:45:07.751 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-03-23 14:45:07.899 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'UserAccountsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:07.904 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'OnboardingRequestsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:07.908 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'SystemPerformanceReport') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:07.912 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'TransactionsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:07.939 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator')
+2025-03-23 14:45:08.029 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.030 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.030 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.031 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.032 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.032 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.033 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.034 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.034 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.035 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.036 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.036 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.037 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.037 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.038 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.038 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.039 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.039 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.046 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[ClubId], [c].[ClubAbbr], [c].[ClubBadge], [c].[ClubCode], [c].[ClubHistory], [c].[ClubLocation], [c].[ClubManagerId], [c].[ClubName], [c].[ClubSummary], [c].[CreatedById], [c].[CreatedDateTime], [c].[Discriminator], [c].[DivisionId], [c].[Email], [c].[IsActive], [c].[IsSuspended], [c].[LeagueId], [c].[ModifiedById], [c].[ModifiedDateTime], [c].[Status]
+FROM [Club] AS [c]
+2025-03-23 14:45:08.110 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.111 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.112 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.112 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.113 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-03-23 14:45:08.309 +02:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: (localdb)\mssqllocaldb@Ksans_Sports'
+2025-03-23 14:45:08.310 +02:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2025-03-23 14:45:08.310 +02:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2025-03-23 14:45:08.326 +02:00 [INF] Server khaya:7556:0bda2c6e successfully announced in 9.1204 ms
+2025-03-23 14:45:08.328 +02:00 [INF] Server khaya:7556:0bda2c6e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2025-03-23 14:45:08.332 +02:00 [INF] 1 servers were removed due to timeout
+2025-03-23 14:45:08.334 +02:00 [INF] Server khaya:7556:0bda2c6e all the dispatchers started
+2025-03-23 14:45:08.567 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-03-23 14:45:08.578 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:45:08.578 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:45:08.578 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:45:08.579 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:45:08.752 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:08.767 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(System.String) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:08.804 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__decryptedTournamentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus]
+FROM [Tournament] AS [t]
+WHERE [t].[TournamentId] = @__decryptedTournamentId_0
+2025-03-23 14:45:08.852 +02:00 [INF] Executing ViewResult, running view AddTournamentRules.
+2025-03-23 14:45:08.925 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-03-23 14:45:08.993 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:45:09.021 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-03-23 14:45:09.050 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:45:09.207 +02:00 [INF] Executed ViewResult - view AddTournamentRules executed in 357.3696ms.
+2025-03-23 14:45:09.209 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 441.1552ms
+2025-03-23 14:45:09.210 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:09.211 +02:00 [INF] HTTP GET /Tournaments/AddTournamentRules responded 200 in 461.8551 ms
+2025-03-23 14:45:09.237 +02:00 [INF] Sending file. Request path: '/MyField.styles.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\obj\Release\net8.0\scopedcss\bundle\MyField.styles.css'
+2025-03-23 14:45:09.237 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2025-03-23 14:45:09.237 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\css\site.css'
+2025-03-23 14:45:09.362 +02:00 [INF] Sending file. Request path: '/Images/default_profile_image.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\default_profile_image.jpg'
+2025-03-23 14:45:09.366 +02:00 [INF] Sending file. Request path: '/Images/new_logo.png'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\new_logo.png'
+2025-03-23 14:45:09.402 +02:00 [INF] Sending file. Request path: '/js/deviceInfo.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\js\deviceInfo.js'
+2025-03-23 14:45:09.417 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0935 ms
+2025-03-23 14:45:09.555 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\favicon.ico'
+2025-03-23 14:45:27.393 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:27.393 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(System.String) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:27.399 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__decryptedTournamentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus]
+FROM [Tournament] AS [t]
+WHERE [t].[TournamentId] = @__decryptedTournamentId_0
+2025-03-23 14:45:27.400 +02:00 [INF] Executing ViewResult, running view AddTournamentRules.
+2025-03-23 14:45:27.405 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-03-23 14:45:27.409 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:45:27.413 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-03-23 14:45:27.417 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:45:27.420 +02:00 [INF] Executed ViewResult - view AddTournamentRules executed in 20.7798ms.
+2025-03-23 14:45:27.421 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 27.2339ms
+2025-03-23 14:45:27.421 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:27.421 +02:00 [INF] HTTP GET /Tournaments/AddTournamentRules responded 200 in 27.8821 ms
+2025-03-23 14:45:27.437 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0140 ms
+2025-03-23 14:45:27.489 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\favicon.ico'
+2025-03-23 14:45:40.138 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:40.147 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:40.235 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:40.257 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:40.269 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 121.3208ms
+2025-03-23 14:45:40.269 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:40.269 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 130.8236 ms
+2025-03-23 14:45:45.161 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css.map'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map'
+2025-03-23 14:45:46.466 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:46.466 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:46.475 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:46.476 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:46.477 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 10.4752ms
+2025-03-23 14:45:46.477 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:46.477 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 11.2831 ms
+2025-03-23 14:45:47.193 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.194 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:47.199 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:47.199 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:47.199 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 5.4248ms
+2025-03-23 14:45:47.200 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.200 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 6.3388 ms
+2025-03-23 14:45:47.416 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.416 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:47.421 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:47.422 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:47.422 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 5.6489ms
+2025-03-23 14:45:47.422 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.422 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 6.3040 ms
+2025-03-23 14:45:47.570 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.570 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:47.574 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:47.574 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:47.574 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 4.0868ms
+2025-03-23 14:45:47.574 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.574 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 4.6096 ms
+2025-03-23 14:45:47.742 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.743 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:47.752 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:47.753 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:47.753 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 9.9468ms
+2025-03-23 14:45:47.754 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.754 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 11.6320 ms
+2025-03-23 14:45:47.899 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.899 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:47.905 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:47.906 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:47.906 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 6.2316ms
+2025-03-23 14:45:47.906 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:47.906 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 6.9083 ms
+2025-03-23 14:45:48.055 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:48.056 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:48.065 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:48.066 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:48.067 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 11.3568ms
+2025-03-23 14:45:48.067 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:48.067 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 12.2989 ms
+2025-03-23 14:45:48.192 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:48.193 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:48.199 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:48.199 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:48.200 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 6.4095ms
+2025-03-23 14:45:48.200 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:48.200 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 7.3464 ms
+2025-03-23 14:45:51.166 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:51.166 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(MyField.ViewModels.TournamentRulesViewModel) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:51.172 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RequestLogs] ([RequestDescription], [RequestType], [ResponseCode], [TimeStamp])
+OUTPUT INSERTED.[RequestId]
+VALUES (@p0, @p1, @p2, @p3);
+2025-03-23 14:45:51.173 +02:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType10`2[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-03-23 14:45:51.173 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 6.6125ms
+2025-03-23 14:45:51.173 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:51.173 +02:00 [INF] HTTP POST /Tournaments/AddTournamentRules responded 200 in 7.2043 ms
+2025-03-23 14:45:53.964 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:53.964 +02:00 [INF] Route matched with {action = "AddTournamentRules", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddTournamentRules(System.String) on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:45:53.965 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.AddTournamentRules (MyField) in 1.0506ms
+2025-03-23 14:45:53.965 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.AddTournamentRules (MyField)'
+2025-03-23 14:45:53.966 +02:00 [ERR] HTTP GET /Tournaments/AddTournamentRules responded 500 in 1.5323 ms
+System.ArgumentException: Cipher text cannot be null or empty. (Parameter 'cipherText')
+   at EncryptionService.Decrypt(String cipherText) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Services\EncryptionService.cs:line 45
+   at EncryptionService.DecryptToInt(String encryptedValue) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Services\EncryptionService.cs:line 79
+   at MyField.Controllers.TournamentsController.AddTournamentRules(String tournamentId) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Controllers\TournamentsController.cs:line 196
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-03-23 14:45:53.988 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentException: Cipher text cannot be null or empty. (Parameter 'cipherText')
+   at EncryptionService.Decrypt(String cipherText) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Services\EncryptionService.cs:line 45
+   at EncryptionService.DecryptToInt(String encryptedValue) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Services\EncryptionService.cs:line 79
+   at MyField.Controllers.TournamentsController.AddTournamentRules(String tournamentId) in C:\Users\khaya\Khaya_Transferred_Stuff\MyField\Controllers\TournamentsController.cs:line 196
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-03-23 14:46:08.571 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-03-23 14:46:08.577 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:46:08.582 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:46:08.589 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:46:08.595 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:46:58.212 +02:00 [INF] Executing endpoint 'MyField.Controllers.ActivityLogsController.MyActivityLogs (MyField)'
+2025-03-23 14:46:58.217 +02:00 [INF] Route matched with {action = "MyActivityLogs", controller = "ActivityLogs", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] MyActivityLogs() on controller MyField.Controllers.ActivityLogsController (MyField).
+2025-03-23 14:46:58.222 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:46:58.299 +02:00 [INF] Executed DbCommand (19ms) [Parameters=[@__user_Id_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ActivityLogId], [a].[Activity], [a].[DeviceInfoId], [a].[Timestamp], [a].[UserBaseModelId], [a].[UserId], [d].[DeviceInfoId], [d].[Browser], [d].[BrowserVersion], [d].[City], [d].[Country], [d].[DeviceModel], [d].[DeviceName], [d].[IpAddress], [d].[Latitude], [d].[Longitude], [d].[OSName], [d].[OSVersion], [d].[PostalCode], [d].[Region], [a1].[Id], [a1].[AccessFailedCount], [a1].[ConcurrencyStamp], [a1].[Email], [a1].[EmailConfirmed], [a1].[LockoutEnabled], [a1].[LockoutEnd], [a1].[NormalizedEmail], [a1].[NormalizedUserName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[PhoneNumberConfirmed], [a1].[SecurityStamp], [a1].[TwoFactorEnabled], [a1].[UserName], [a1].[UserType], [a1].[CreatedBy], [a1].[CreatedDateTime], [a1].[DateOfBirth], [a1].[FirstName], [a1].[IsActive], [a1].[IsDeleted], [a1].[IsFirstTimeLogin], [a1].[IsSuspended], [a1].[LastName], [a1].[ModifiedBy], [a1].[ModifiedDateTime], [a1].[ProfilePicture], [a1].[ClubId], [a1].[DivisionId], [a1].[ClubManager_ClubId], [a1].[ClubManager_DivisionId], [a1].[IsContractEnded], [a1].[DivisionManager_DivisionId], [a1].[Officials_DivisionId], [a1].[Player_ClubId], [a1].[Player_DivisionId], [a1].[EndDate], [a1].[HasPlayed], [a1].[IsContractSigned], [a1].[IsOnPitch], [a1].[JerseyNumber], [a1].[MarketValue], [a1].[PlayerCard], [a1].[Position], [a1].[StartDate], [a1].[SportsMember_DivisionId]
+FROM [ActivityLogs] AS [a]
+INNER JOIN [DeviceInfo] AS [d] ON [a].[DeviceInfoId] = [d].[DeviceInfoId]
+LEFT JOIN (
+    SELECT [a0].[Id], [a0].[AccessFailedCount], [a0].[ConcurrencyStamp], [a0].[Email], [a0].[EmailConfirmed], [a0].[LockoutEnabled], [a0].[LockoutEnd], [a0].[NormalizedEmail], [a0].[NormalizedUserName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[PhoneNumberConfirmed], [a0].[SecurityStamp], [a0].[TwoFactorEnabled], [a0].[UserName], [a0].[UserType], [a0].[CreatedBy], [a0].[CreatedDateTime], [a0].[DateOfBirth], [a0].[FirstName], [a0].[IsActive], [a0].[IsDeleted], [a0].[IsFirstTimeLogin], [a0].[IsSuspended], [a0].[LastName], [a0].[ModifiedBy], [a0].[ModifiedDateTime], [a0].[ProfilePicture], [a0].[ClubId], [a0].[DivisionId], [a0].[ClubManager_ClubId], [a0].[ClubManager_DivisionId], [a0].[IsContractEnded], [a0].[DivisionManager_DivisionId], [a0].[Officials_DivisionId], [a0].[Player_ClubId], [a0].[Player_DivisionId], [a0].[EndDate], [a0].[HasPlayed], [a0].[IsContractSigned], [a0].[IsOnPitch], [a0].[JerseyNumber], [a0].[MarketValue], [a0].[PlayerCard], [a0].[Position], [a0].[StartDate], [a0].[SportsMember_DivisionId]
+    FROM [AspNetUsers] AS [a0]
+    WHERE [a0].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator')
+) AS [a1] ON [a].[UserBaseModelId] = [a1].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+ORDER BY [a].[Timestamp] DESC
+2025-03-23 14:46:58.347 +02:00 [INF] Executing ViewResult, running view MyActivityLogs.
+2025-03-23 14:46:58.465 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-03-23 14:46:58.468 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-03-23 14:46:58.472 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:46:58.476 +02:00 [INF] Executed ViewResult - view MyActivityLogs executed in 129.3128ms.
+2025-03-23 14:46:58.476 +02:00 [INF] Executed action MyField.Controllers.ActivityLogsController.MyActivityLogs (MyField) in 259.0414ms
+2025-03-23 14:46:58.476 +02:00 [INF] Executed endpoint 'MyField.Controllers.ActivityLogsController.MyActivityLogs (MyField)'
+2025-03-23 14:46:58.476 +02:00 [INF] HTTP GET /ActivityLogs/MyActivityLogs responded 200 in 264.0300 ms
+2025-03-23 14:46:58.497 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\css\site.css'
+2025-03-23 14:46:58.497 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2025-03-23 14:46:58.502 +02:00 [INF] Sending file. Request path: '/MyField.styles.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\obj\Release\net8.0\scopedcss\bundle\MyField.styles.css'
+2025-03-23 14:46:58.504 +02:00 [INF] Sending file. Request path: '/js/deviceInfo.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\js\deviceInfo.js'
+2025-03-23 14:46:58.511 +02:00 [INF] Sending file. Request path: '/Images/default_profile_image.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\default_profile_image.jpg'
+2025-03-23 14:46:58.512 +02:00 [INF] Sending file. Request path: '/Images/new_logo.png'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\new_logo.png'
+2025-03-23 14:46:58.518 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0095 ms
+2025-03-23 14:47:08.700 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-03-23 14:47:08.704 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:47:08.706 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:47:08.710 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:47:08.713 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:47:32.294 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css.map'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map'
+2025-03-23 14:48:01.512 +02:00 [INF] Executing endpoint 'MyField.Controllers.HomeController.Index (MyField)'
+2025-03-23 14:48:01.516 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller MyField.Controllers.HomeController (MyField).
+2025-03-23 14:48:01.522 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:48:01.535 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-03-23 14:48:01.538 +02:00 [INF] Executing RedirectResult, redirecting to /Home/Dashboard.
+2025-03-23 14:48:01.538 +02:00 [INF] Executed action MyField.Controllers.HomeController.Index (MyField) in 21.4859ms
+2025-03-23 14:48:01.538 +02:00 [INF] Executed endpoint 'MyField.Controllers.HomeController.Index (MyField)'
+2025-03-23 14:48:01.538 +02:00 [INF] HTTP GET / responded 302 in 25.7015 ms
+2025-03-23 14:48:01.543 +02:00 [INF] Executing endpoint 'MyField.Controllers.HomeController.Dashboard (MyField)'
+2025-03-23 14:48:01.546 +02:00 [INF] Route matched with {action = "Dashboard", controller = "Home", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Dashboard() on controller MyField.Controllers.HomeController (MyField).
+2025-03-23 14:48:01.569 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:48:01.582 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Announcements] AS [a]
+WHERE [a].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.587 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-03-23 14:48:01.602 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[SportsMember_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+LEFT JOIN [Divisions] AS [d] ON [a].[SportsMember_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'SportsMember' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:48:01.614 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Club] AS [c]
+INNER JOIN [League] AS [l] ON [c].[LeagueId] = [l].[LeagueId]
+WHERE [c].[IsActive] = CAST(1 AS bit) AND [l].[IsCurrent] = CAST(1 AS bit) AND [c].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.623 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LeagueId], [l].[CreatedById], [l].[CreatedDateTime], [l].[DivisionId], [l].[IsCurrent], [l].[LeagueCode], [l].[LeagueYears], [l].[ModifiedById], [l].[ModifiedDateTime]
+FROM [League] AS [l]
+WHERE [l].[IsCurrent] = CAST(1 AS bit) AND [l].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.663 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__currentLeague_LeagueId_0='?' (DbType = Int32), @__divisionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Fixture] AS [f]
+WHERE [f].[LeagueId] = @__currentLeague_LeagueId_0 AND [f].[DivisionId] = @__divisionId_1
+2025-03-23 14:48:01.666 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LeagueId], [l].[CreatedById], [l].[CreatedDateTime], [l].[DivisionId], [l].[IsCurrent], [l].[LeagueCode], [l].[LeagueYears], [l].[ModifiedById], [l].[ModifiedDateTime]
+FROM [League] AS [l]
+WHERE [l].[IsCurrent] = CAST(1 AS bit) AND [l].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.673 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__currentLeague_LeagueId_0='?' (DbType = Int32), @__divisionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [MatchResult] AS [m]
+WHERE [m].[LeagueId] = @__currentLeague_LeagueId_0 AND [m].[DivisionId] = @__divisionId_1
+2025-03-23 14:48:01.698 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Fines] AS [f]
+LEFT JOIN [Club] AS [c] ON [f].[ClubId] = [c].[ClubId]
+LEFT JOIN (
+    SELECT [a].[Id]
+    FROM [AspNetUsers] AS [a]
+    WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator')
+) AS [a0] ON [f].[OffenderId] = [a0].[Id]
+WHERE [c].[ClubId] IS NOT NULL AND [a0].[Id] IS NULL AND [f].[PaymentStatus] = 0 AND [f].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.704 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Meeting] AS [m]
+WHERE [m].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:01.706 +02:00 [INF] Executing ViewResult, running view SportAdministratorDashboard.
+2025-03-23 14:48:01.725 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-03-23 14:48:01.729 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-03-23 14:48:01.735 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:48:01.737 +02:00 [INF] Executed ViewResult - view SportAdministratorDashboard executed in 31.7331ms.
+2025-03-23 14:48:01.737 +02:00 [INF] Executed action MyField.Controllers.HomeController.Dashboard (MyField) in 190.8776ms
+2025-03-23 14:48:01.737 +02:00 [INF] Executed endpoint 'MyField.Controllers.HomeController.Dashboard (MyField)'
+2025-03-23 14:48:01.737 +02:00 [INF] HTTP GET /Home/Dashboard responded 200 in 194.2536 ms
+2025-03-23 14:48:01.764 +02:00 [INF] Sending file. Request path: '/MyField.styles.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\obj\Release\net8.0\scopedcss\bundle\MyField.styles.css'
+2025-03-23 14:48:01.764 +02:00 [INF] Sending file. Request path: '/js/deviceInfo.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\js\deviceInfo.js'
+2025-03-23 14:48:01.767 +02:00 [INF] Sending file. Request path: '/Images/default_profile_image.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\default_profile_image.jpg'
+2025-03-23 14:48:01.768 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\css\site.css'
+2025-03-23 14:48:01.768 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2025-03-23 14:48:01.768 +02:00 [INF] Sending file. Request path: '/Images/new_logo.png'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\new_logo.png'
+2025-03-23 14:48:01.776 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0110 ms
+2025-03-23 14:48:01.790 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0126 ms
+2025-03-23 14:48:08.835 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-03-23 14:48:08.838 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:48:08.841 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:48:08.845 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:48:08.848 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-03-23 14:48:29.269 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-03-23 14:48:29.286 +02:00 [INF] Route matched with {action = "TournamentsBackOffice", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TournamentsBackOffice() on controller MyField.Controllers.TournamentsController (MyField).
+2025-03-23 14:48:29.299 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-03-23 14:48:29.315 +02:00 [INF] Executed DbCommand (5ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus]
+FROM [Tournament] AS [t]
+WHERE [t].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:29.327 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[DivisionId] = @__divisionId_0
+2025-03-23 14:48:29.332 +02:00 [INF] Executing ViewResult, running view TournamentsBackOffice.
+2025-03-23 14:48:29.371 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-03-23 14:48:29.374 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-03-23 14:48:29.377 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-03-23 14:48:29.381 +02:00 [INF] Executed ViewResult - view TournamentsBackOffice executed in 50.435ms.
+2025-03-23 14:48:29.381 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField) in 95.0787ms
+2025-03-23 14:48:29.381 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-03-23 14:48:29.381 +02:00 [INF] HTTP GET /Tournaments/TournamentsBackOffice responded 200 in 112.0973 ms
+2025-03-23 14:48:29.402 +02:00 [INF] HTTP GET /UploadedFiles/35989e58-1adc-414e-9e7f-b838d68a72b3_Tournament example.jpg responded 404 in 0.0125 ms
+2025-03-23 14:48:29.402 +02:00 [INF] HTTP GET /UploadedFiles/ba8c62ed-dc46-4e0a-8bc1-d38bfa0ac65c_Tournament example.jpg responded 404 in 0.0125 ms
+2025-03-23 14:48:29.404 +02:00 [INF] Sending file. Request path: '/UploadedFiles/9aebda7d-adde-488f-b69f-1bc728673c8e_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\9aebda7d-adde-488f-b69f-1bc728673c8e_Tournament example.jpg'
+2025-03-23 14:48:29.405 +02:00 [INF] Sending file. Request path: '/UploadedFiles/5d2233b8-dcdc-4327-830f-676b14653964_SA tournament.jpeg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\5d2233b8-dcdc-4327-830f-676b14653964_SA tournament.jpeg'
+2025-03-23 14:48:29.406 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0103 ms
+2025-03-23 14:48:29.411 +02:00 [INF] Sending file. Request path: '/UploadedFiles/3dded855-1537-404f-bea6-3ad21ed0f67c_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\3dded855-1537-404f-bea6-3ad21ed0f67c_Tournament example.jpg'
+2025-03-23 14:48:29.412 +02:00 [INF] Sending file. Request path: '/UploadedFiles/0e0efa80-678e-4fa2-a943-5a924779015a_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\0e0efa80-678e-4fa2-a943-5a924779015a_Tournament example.jpg'

@@ -8,6 +8,9 @@ namespace MyField.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RuleId { get; set; }
 
+        public int TournamentId { get; set; }
+        public virtual Tournament Tournament { get; set; }
+
         public string RuleDescription { get; set; }
 
         public DateTime CreatedDateTime { get; set; }

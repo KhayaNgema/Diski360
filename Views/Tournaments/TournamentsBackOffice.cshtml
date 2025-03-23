@@ -7,6 +7,14 @@
 }
 
 
+<head>
+    <style>
+        tbody td {
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+
 <br />
 @await Html.PartialAsync("_HomeButton")
 <h4 class="text-center">@ViewBag.DivisionName Tournaments</h4>
@@ -84,8 +92,8 @@
 
                     <tr>
                         <td class="column-max-width">
-                            <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px;" />
-                            @Html.DisplayFor(modelItem => item.TournamentName) 
+                            <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px; width:70px; height:100px;object-fit:fill;" />
+                            <span>@Html.DisplayFor(modelItem => item.TournamentName)</span>
                         </td>
                         <td class="column-max-width">
                            @item.StartDate.ToString("ddd, dd MMM yyyy")

@@ -15,9 +15,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
                 <div class="profile-container">
-                    <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; width: 550px; height: 550px; overflow: hidden; position: relative;">
-                        <i class="fa fa-club" id="club-badge-placeholder" style="font-size: 90px; color: #f0f0f0;"></i>
-                        <img id="club-badge-preview" alt="Club Badge Preview" class="club-picture-image" style="display: none; width: 100%; height: 100%; object-fit:fill;" />
+                    <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; width: 600px; height: 550px; overflow: hidden; position: relative;">
+                        <i class="fa fa-trophy" id="club-badge-placeholder" style="font-size: 200px; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></i>
+                        <img id="club-badge-preview" alt="Club Badge Preview" class="club-picture-image" style="display: none; width: 100%; height: 100%; object-fit: fill;" />
                         <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
                             <i class="fa fa-camera" style="font-size: 30px;"></i>
                             <input asp-for="TournamentImages" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />

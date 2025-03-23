@@ -50,6 +50,8 @@ namespace MyField.Models
 
         public virtual Division Division { get; set; }
 
+        public  bool IsPublished { get; set; }
+
     }
 
     public enum TournamentStatus

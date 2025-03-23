@@ -7,7 +7,10 @@ namespace MyField.Services
 {
     public class FileUploadService
     {
-        private readonly string _uploadsDirectory = @"C:\inetpub\UploadedFiles";
+        //private readonly string _uploadsDirectory = @"C:\inetpub\UploadedFiles";
+
+        private readonly string _uploadsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles");
+
 
         public FileUploadService()
         {
