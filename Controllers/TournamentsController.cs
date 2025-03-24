@@ -101,8 +101,9 @@ namespace MyField.Controllers
             return PartialView("TournamentsPartial");
         }
 
-
-        public async Task<IActionResult> Details(string tournamentId)
+        [Authorize(Roles = "Sport Administrator, Sport Coordinator")]
+        [HttpGet]
+        public async Task<IActionResult> TournamentDetails(string tournamentId)
         {
             if(tournamentId == null)
             {
@@ -113,7 +114,9 @@ namespace MyField.Controllers
 
             var tournament = await _context.Tournament
                 .Where(t => t.TournamentId == decryptedTournamentId)
-                .FirstOrDefaultAsync(); 
+                .FirstOrDefaultAsync();
+
+            ViewBag.TournamentName = tournament.TournamentName;
 
             return View(tournament);
         }

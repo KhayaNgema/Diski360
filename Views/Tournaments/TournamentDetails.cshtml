@@ -1,1 +1,78 @@
-﻿
+﻿ @model MyField.Models.Tournament
+ @inject MyField.Interfaces.IEncryptionService encryptionService
+
+ @{
+     ViewData["Title"] = ViewBag.DivisionName + " Tournaments";
+     Layout = "~/Views/Shared/_PagesLayout.cshtml";
+ }
+
+ <br />
+ @await Html.PartialAsync("_HomeButton")
+ <h4 class="text-center">@ViewBag.DivisionName Tournaments</h4>
+ <br />
+
+ <div class="tournament-update-container d-flex">
+     <form asp-action="MakeOnboardingRequest" method="post" enctype="multipart/form-data" class="d-flex w-100">
+         <div class="row flex-grow-1">
+             <div class="col-12 col-lg-6 division-add-form-container">
+                 <h5 class="text-center">Division Details</h5>
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                 <div class="mb-3">
+                     <div class="profile-container">
+                         <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; max-width: 600px; height: 550px; overflow: hidden; position: relative;">
+                             <i class="fa fa-trophy" id="club-badge-placeholder" style="font-size: 200px; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></i>
+                             <img id="club-badge-preview" alt="Club Badge Preview" class="club-picture-image" style="display: none; width: 100%; height: 100%; object-fit: fill;" />
+                             <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                                 <i class="fa fa-camera" style="font-size: 30px;"></i>
+                                 <input asp-for="TournamentImage" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
+                                 <input asp-for="TournamentImage" id="Input_ClubBadgeFileName" type="hidden" />
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="col-12 col-lg-6 division-add-form-container">
+                 <h5 class="text-center">Tournament Details</h5>
+
+             @*     <div class="form-floating mb-3">
+                     <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" />
+                     <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
+                     <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
+                 </div>
+
+                 <div class="form-floating mb-3">
+                     <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" />
+                     <label asp-for="ManagerLastName" class="form-label">Last Name</label>
+                     <span asp-validation-for="ManagerLastName" class="text-danger"></span>
+                 </div>
+
+                 <div class="form-floating mb-3">
+                     <input asp-for="DateOfBirth" class="form-control border-bottom-only" placeholder="DateOfBirth" type="date"
+                            min="1900-01-01" max="@DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd")" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                     <label asp-for="DateOfBirth">Date of Birth</label>
+                     <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                 </div>
+
+                 <div class="form-floating mb-3">
+                     <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" />
+                     <label asp-for="ManagerEmail" class="form-label">Email Address</label>
+                     <span asp-validation-for="ManagerEmail" class="text-danger"></span>
+                 </div>
+
+                 <div class="form-floating mb-3">
+                     <input asp-for="ManagerPhoneNumber" class="form-control border-bottom-only" placeholder="Phone Number" />
+                     <label asp-for="ManagerPhoneNumber" class="form-label">Phone Number</label>
+                     <span asp-validation-for="ManagerPhoneNumber" class="text-danger"></span>
+                 </div> *@
+
+                 <div class="text-end">
+                     <input type="submit" value="Submit" class="btn btn-success" />
+                 </div>
+             </div>
+         </div>
+     </form>
+ </div>
+
+
+

@@ -2,7 +2,7 @@
 @inject MyField.Interfaces.IEncryptionService encryptionService
 
 @{
-    ViewData["Title"] = "Tournaments";
+    ViewData["Title"] = ViewBag.DivisionName + " Tournaments";
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
 }
 
@@ -88,7 +88,7 @@
                 @foreach (var item in Model.DistinctBy(club => club.TournamentId))
                 {
                     var dropdownId = "dropdownMenuButton" + item.TournamentId;
-                    var encryptedTournamentId = encryptionService.Encrypt(@item.TournamentId);
+                    var encryptedTournamentId = encryptionService.Encrypt(item.TournamentId);
 
                     <tr>
                         <td class="column-max-width">
@@ -132,17 +132,20 @@
                                     Actions
                                 </button>
                                 <div class="action-tab" id="actionTab-@item.TournamentId" style="display: none;">
-                                    <a class="tab-item" href="@Url.Action("RejoinSeason", "Clubs", new { tournamentId = encryptedTournamentId })">
-                                        <i class="fas fa-sign-in-alt" style="color: #28a745;"></i> Rejoin
+                                    <a class="tab-item" href="@Url.Action("TournamentDetails", "Tournaments", new { tournamentId = encryptedTournamentId  })">
+                                        <i class="fas fa-info-circle" class="tab-item" style="color: blue;"></i> Details
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("UpdateTournament", "Clubs", new { tournamentId = encryptedTournamentId  })">
+                                        <i class="fas fa-pen" class="tab-item" style="color: green;"></i> Update
                                     </a>
                                     <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { tournamentId = encryptedTournamentId  })">
-                                        <i class="fas fa-pen" class="tab-item" style="color: blue;"></i> Update
+                                        <i class="fas fa-gavel" class="tab-item" style="color: darkorange;"></i> Rules
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { tournamentId = encryptedTournamentId  })">
+                                        <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Clubs
                                     </a>
                                     <a class="tab-item" href="@Url.Action("SuspendClub", "Clubs", new { tournamentId = encryptedTournamentId   })">
-                                        <i class="fas fa-ban" style="color: #dc3545;"></i> Suspend
-                                    </a>
-                                    <a class="tab-item" href="@Url.Action("UnsuspendClub", "Clubs", new { tournamentId = encryptedTournamentId  })">
-                                        <i class="fas fa-check-circle" style="color: #ffc107;"></i> Unsuspend
+                                        <i class="fas fa-times-circle" style="color: #dc3545;"></i> Cancel
                                     </a>
                                 </div>
                             </td>
