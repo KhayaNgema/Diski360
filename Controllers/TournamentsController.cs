@@ -214,16 +214,20 @@ namespace MyField.Controllers
         [HttpPost]
         [Authorize(Roles = "Sport Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTournamentRules(TournamentRulesViewModel viewModel)
+        public async Task<IActionResult> AddTournamentRules(int tournamentId, string ruleDescription)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
 
+                var tournament = await _context.Tournament
+                    .Where(t => t.TournamentId == tournamentId)
+                    .FirstOrDefaultAsync();
+
                 var newTournamentRule = new TournamentRules
                 {
-                    TournamentId = viewModel.TournamentId,
-                    RuleDescription = viewModel.RuleDescription,
+                    TournamentId = tournamentId,
+                    RuleDescription = ruleDescription,
                     CreatedById = user.Id,
                     CreatedDateTime = DateTime.Now,
                     ModifiedById = user.Id,
@@ -233,19 +237,17 @@ namespace MyField.Controllers
                 _context.Add(newTournamentRule);
                 await _context.SaveChangesAsync();
 
-                await _activityLogger.Log($"Created a new rule for tournament {viewModel.TournamentName}.", user.Id);
+                await _activityLogger.Log($"Created a new rule for tournament {tournament.TournamentName}.", user.Id);
 
                 TempData["Message"] = $"A new rule has been created successfully.";
 
                 await _requestLogService.LogSuceededRequest("Successfully created a new tournament rule", StatusCodes.Status200OK);
 
-                // Respond with success message
-                return Json(new { success = true, message = "Rule added successfully!" });
+                return Ok(new { success = true });
             }
 
             await _requestLogService.LogFailedRequest("Failed to create a new tournament rule", StatusCodes.Status500InternalServerError);
 
-            // Respond with failure message
             return Json(new { success = false, message = "Failed to create a new tournament rule!" });
         }
 

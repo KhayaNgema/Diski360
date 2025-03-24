@@ -41,17 +41,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-floating mb-3">
-                <textarea asp-for="RuleDescription" class="form-control border-bottom-only" placeholder="Rule description" style="min-height: 150px;"></textarea>
+                <textarea id="ruleDescription" asp-for="RuleDescription" class="form-control border-bottom-only" placeholder="Rule description" style="min-height: 150px;"></textarea>
                 <label asp-for="RuleDescription" class="form-label">Rule Description</label>
                 <span asp-validation-for="RuleDescription" class="text-danger"></span>
             </div>
 
-            <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
+            <input type="hidden" id="tournamentId" asp-for="TournamentId" value="@Model?.TournamentId" />
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group" style="display: flex; justify-content: flex-end;">
                         <button id="submitTournamentRules" type="submit">Add Rule</button>
+                        <button type="button" id="submitTournamentRules" class="btn btn-primary" style="float: right;">Add rule</button>
                     </div>
                 </div>
             </div>
@@ -66,46 +67,37 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#tournamentRulesForm").submit(function (event) {
-            event.preventDefault();
 
-            var tournamentId = $("input[name='TournamentId']").val();
-            var ruleDescription = $("textarea[name='RuleDescription']").val();
-            var token = $('input[name="__RequestVerificationToken"]').val();
+    function submitTournamentRules() {
+        var tournamentId = $('#tournamentId').val();
+        var ruleDescription = $('#ruleDescription').val();
+        var token = $('input[name="__RequestVerificationToken"]').val();
 
-            $.ajax({
-                url: "@Url.Action("AddTournamentRules", "Tournaments")",
-                type: "POST",
-                headers: {
-                    'RequestVerificationToken': token
-                },
-                data: JSON.stringify({
-                    TournamentId: parseInt(tournamentId),
-                    RuleDescription: ruleDescription
-                }),
-                contentType: "application/json",
-                beforeSend: function () {
-                    $("#submitTournamentRules").prop("disabled", true).text("Submitting...");
-                },
-                success: function (response) {
-                    if (response.success) {
-                        displayMessage(response.message, 'alert-success');
-                        fetchTournamentRules(tournamentId);
-                        $("textarea[name='RuleDescription']").val('');
-                    } else {
-                        displayMessage(response.message, 'alert-danger');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert("An error occurred: " + xhr.responseText);
-                },
-                complete: function () {
-                    $("#submitTournamentRules").prop("disabled", false).text("Add Rule");
+        if (!tournamentId || !ruleDescription) {
+            displayMessage("Please fill in all the required data and retry sending your updates.", "alert-danger");
+            return;
+        }
+
+        $.ajax({
+            url: '/Tournaments/AddTournamentRules',
+            type: 'POST',
+            data: {
+                __RequestVerificationToken: token,
+                tournamentId: tournamentId,
+                ruleDescription: ruleDescription
+            },
+            success: function (response) {
+                if (response.success) {
+                    displayMessage("Rule added successfully", "alert-success");
+                    fetchTournamentRules(tournamentId);
+                } else {
+                    alert('Failed to add tournament rule: ' + response.message);
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+            }
         });
-    });
+    }
 
     function fetchTournamentRules(tournamentId) {
         $.ajax({
