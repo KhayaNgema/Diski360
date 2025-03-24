@@ -6,3 +6,4 @@ obj/
 .vscode/
 .idea/
 .DS_Store
+/Logs/myapp-20250324.txt
