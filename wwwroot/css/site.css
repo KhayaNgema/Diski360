@@ -2914,6 +2914,46 @@ html {
     padding: 20px;
 }
 
+/*Tournament Details Page CSS*/
+
+.tournament-image-container {
+    border: 1px solid #ccc;
+    padding: 0;
+    width: 100%;
+    max-width: 550px;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
+.club-picture-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+@media (max-width: 768px) {
+    .tournament-image-container {
+        max-width: 100%;
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tournament-image-container {
+        max-width: 100%;
+        height: 450px;
+    }
+}
+
+.tournament-details-container {
+    max-width: 1500px;
+    border-radius: 7px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
 
 .tournament-update-container {
     max-width: 1500px;

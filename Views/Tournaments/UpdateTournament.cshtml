@@ -1,1 +1,121 @@
-﻿
+﻿@model MyField.ViewModels.UpdateTournamentViewModel
+
+@{
+    ViewData["Title"] = "Update" + Model.TournamentName;
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Update @Model.TournamentName</h4>
+<br />
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="NewTournament" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <div class="profile-container">
+                    <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; width: 600px; height: 550px; overflow: hidden; position: relative;">
+                        <i class="fa fa-trophy" id="club-badge-placeholder" style="font-size: 200px; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></i>
+                        <img id="current-club-badge" src="~/@Model.TournamentImage" alt="Club Badge" class="club-picture-image" style=" width: 100%; height: 100%; object-fit: fill;" />
+                        <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                            <i class="fa fa-camera" style="font-size: 30px;"></i>
+                            <input asp-for="TournamentImages" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
+                            <input asp-for="TournamentImages" id="Input_ClubBadgeFileName" type="hidden" />
+                        </label>
+                    </div>
+                </div>
+                <small id="clubBadgeHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a tournament image.</small>
+            </div>
+
+
+
+            <div class="form-floating mb-3">
+                <input asp-for="TournamentName" class="form-control border-bottom-only" placeholder="tournamentname" />
+                <label asp-for="TournamentName" class="form-label">Tournament name</label>
+                <span asp-validation-for="TournamentName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea asp-for="TournamentDescription" class="form-control border-bottom-only" placeholder="tournamentdescription" style="min-height: 150px;"></textarea>
+                <label asp-for="TournamentDescription" class="form-label">Tournament description</label>
+                <span asp-validation-for="TournamentDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="TournamentLocation" class="form-control border-bottom-only" placeholder="Location" />
+                <label asp-for="TournamentLocation" class="form-label">Location</label>
+                <span asp-validation-for="TournamentLocation" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-floating mb-3">
+                <input asp-for="NumberOfTeams" type="number" class="form-control border-bottom-only" placeholder="No. of teams" min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                <label asp-for="NumberOfTeams" class="form-label">Number of teams expected</label>
+                <span asp-validation-for="NumberOfTeams" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-floating mb-3">
+                <input asp-for="StartDate" class="form-control border-bottom-only" placeholder="Startdate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="StartDate" class="form-label">Start date</label>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="JoiningFee" class="form-control border-bottom-only" placeholder="JoiningFee" />
+                <label asp-for="JoiningFee">Joining fee</label>
+                <span asp-validation-for="JoiningFee" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="JoiningDueDate" class="form-control border-bottom-only" placeholder="JoinBydate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="JoiningDueDate" class="form-label">Join by date</label>
+                <span asp-validation-for="JoiningDueDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="SponsorName" class="form-control border-bottom-only" placeholder="Sponsor" />
+                <label asp-for="SponsorName" class="form-label">Sponsor</label>
+                <span asp-validation-for="SponsorName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Sponsorship" class="form-control border-bottom-only" placeholder="Sponsorship" />
+                <label asp-for="Sponsorship" class="form-label">Sponsorship</label>
+                <span asp-validation-for="Sponsorship" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="SponsorContactDetails" class="form-control border-bottom-only" placeholder="Sponsor" />
+                <label asp-for="SponsorContactDetails" class="form-label">Sponsor contact details</label>
+                <span asp-validation-for="SponsorContactDetails" class="text-danger"></span>
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function previewClubBadge(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('club-badge-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('club-badge-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

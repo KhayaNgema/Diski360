@@ -116,9 +116,25 @@ namespace MyField.Controllers
                 .Where(t => t.TournamentId == decryptedTournamentId)
                 .FirstOrDefaultAsync();
 
+            var viewModel = new TournamentDetailsViewModel
+            {
+                TournamentId = tournament.TournamentId,
+                TournamentName = tournament.TournamentName,
+                TournamentDescription = tournament.TournamentDescription,
+                TournamentLocation = tournament.TournamentLocation,
+                TournamentImage = tournament.TournamentImage,
+                NumberOfTeams = tournament.NumberOfTeams,
+                SponsorName = tournament.SponsorName,
+                SponsorContactDetails = tournament.SponsorContactDetails,
+                JoiningDueDate = tournament.JoiningDueDate,
+                JoiningFee = tournament.JoiningFee,
+                Sponsorship = tournament.Sponsorship,
+                StartDate = tournament.StartDate,
+            };
+
             ViewBag.TournamentName = tournament.TournamentName;
 
-            return View(tournament);
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Sport Administrator")]
@@ -254,6 +270,42 @@ namespace MyField.Controllers
             return Json(new { success = false, message = "Failed to create a new tournament rule!" });
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Sport Administrator")]
+        public async Task<IActionResult> UpdateTournament(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            var viewModel = new UpdateTournamentViewModel
+            {
+                TournamentId = tournament.TournamentId,
+                TournamentName = tournament.TournamentName,
+                TournamentDescription = tournament.TournamentDescription,
+                TournamentLocation = tournament.TournamentLocation,
+                TournamentImage = tournament.TournamentImage,
+                NumberOfTeams = tournament.NumberOfTeams,
+                SponsorName = tournament.SponsorName,
+                SponsorContactDetails = tournament.SponsorContactDetails,
+                JoiningDueDate = tournament.JoiningDueDate,
+                JoiningFee = tournament.JoiningFee,
+                Sponsorship = tournament.Sponsorship,
+                StartDate = tournament.StartDate,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateTournament(UpdateTournamentViewModel viewModel)
+        {
+            return View();
+        }
 
     }
 }
