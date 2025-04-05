@@ -1,43 +1,81 @@
 ﻿@model MyField.ViewModels.TournamentRulesViewModel
 @inject MyField.Interfaces.IEncryptionService encryptionService
 
-
 @{
     ViewData["Title"] = ViewBag.TournamentName + " Rules";
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
 }
 
-<head>
-    <style>
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
+<style>
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
 
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .close {
+        float: right;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    #rulesList li {
+        margin-bottom: 8px;
+        padding: 10px 15px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        list-style: none;
+    }
+
+    #rulesList {
+        padding-left: 0;
+    }
+
+    .btn-submit-rule {
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .btn-submit-rule:hover {
+            background-color: #0056b3;
         }
-    </style>
-</head>
+</style>
 
 <br />
 @await Html.PartialAsync("_BackButton")
 <h4 class="text-center">Add @ViewBag.TournamentName Rules</h4>
 <br />
+
 @if (TempData["Message"] != null)
 {
     <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
         @TempData["Message"]
-        <span class="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <span class="close" aria-label="Close" onclick="this.parentElement.style.display='none';">
+            &times;
         </span>
     </div>
 }
+
 <div class="row club-edit-container">
     <div class="col-md-12">
-        <form id="tournamentRulesForm" asp-action="AddTournamentRules" method="post" enctype="multipart/form-data">
-            @Html.AntiForgeryToken() 
+        <form id="tournamentRulesForm" method="post">
+            @Html.AntiForgeryToken()
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-floating mb-3">
@@ -48,29 +86,69 @@
 
             <input type="hidden" id="tournamentId" asp-for="TournamentId" value="@Model?.TournamentId" />
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group" style="display: flex; justify-content: flex-end;">
-                        <button id="submitTournamentRules" type="submit">Add Rule</button>
-                        <button type="button" id="submitTournamentRules" class="btn btn-primary" style="float: right;">Add rule</button>
-                    </div>
-                </div>
+            <div class="form-group text-end">
+                <button type="button" id="submitTournamentRules" class="btn-submit-rule">Add Rule</button>
             </div>
         </form>
     </div>
 </div>
 
+<hr />
+
 <div class="row club-edit-container">
-    <ul id="rulesList"></ul>
+    <div class="col-md-12">
+        <h5>Existing Rules</h5>
+        <ul id="rulesList" class="mt-3"></ul>
+    </div>
 </div>
+
+<button id="doneButton" class="done-button">Done</button>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function () {
+        var tournamentId = $('#tournamentId').val();
+        fetchTournamentRules(tournamentId);
+
+        $('#submitTournamentRules').click(function () {
+            submitTournamentRules();
+        });
+
+        $('#doneButton').click(function () {
+            window.history.back();  
+        });
+    });
+
+    function fetchTournamentRules(tournamentId) {
+        $.ajax({
+            url: '/Tournaments/GetTournamentRules',
+            type: 'GET',
+            data: { tournamentId: tournamentId },
+            success: function (data) {
+                var rulesList = $('#rulesList');
+                rulesList.empty();
+
+                if (data.length === 0) {
+                    rulesList.append('<li class="list-group-item text-muted">No rules added yet.</li>');
+                    return;
+                }
+
+                $.each(data, function (index, rule) {
+                    var listItem = $('<li></li>').text(rule.ruleDescription);
+                    rulesList.append(listItem);
+                });
+            },
+            error: function () {
+                displayMessage("Error fetching rules.", "alert-danger");
+            }
+        });
+    }
 
     function submitTournamentRules() {
         var tournamentId = $('#tournamentId').val();
-        var ruleDescription = $('#ruleDescription').val();
+        var ruleDescription = $('#ruleDescription').val().trim();
         var token = $('input[name="__RequestVerificationToken"]').val();
 
         if (!tournamentId || !ruleDescription) {
@@ -89,44 +167,40 @@
             success: function (response) {
                 if (response.success) {
                     displayMessage("Rule added successfully", "alert-success");
-                    fetchTournamentRules(tournamentId);
+                    $('#ruleDescription').val("");  
+                    appendNewRule(response.ruleDescription);  
                 } else {
-                    alert('Failed to add tournament rule: ' + response.message);
+                    displayMessage("Failed to add tournament rule: " + response.message, "alert-danger");
                 }
             },
-            error: function (xhr, status, error) {
+            error: function () {
+                displayMessage("Error occurred while adding the rule.", "alert-danger");
             }
         });
     }
 
-    function fetchTournamentRules(tournamentId) {
-        $.ajax({
-            url: '@Url.Action("GetTournamentRules", "Tournaments")',
-            type: 'GET',
-            data: { tournamentId: tournamentId },
-            success: function (data) {
-                var rulesList = $('#rulesList');
-                rulesList.empty();
-                $.each(data, function (index, rule) {
-                    var listItem = $('<li></li>').text(rule.RuleDescription);
-                    rulesList.append(listItem);
-                });
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching tournament rules:', error);
-            }
-        });
+    function appendNewRule(ruleDescription) {
+        var listItem = $('<li></li>').text(ruleDescription);
+        $('#rulesList').prepend(listItem);  
     }
 
     function displayMessage(message, alertClass) {
-        var messageDiv = $('#tempDataMessage');
-        messageDiv.text(message);
+        let messageDiv = $('#tempDataMessage');
+        if (messageDiv.length === 0) {
+            messageDiv = $('<div class="alert" id="tempDataMessage" role="alert"></div>');
+            $('form').before(messageDiv);
+        }
+
         messageDiv.removeClass('alert-success alert-danger').addClass(alertClass);
-        messageDiv.show();
+        messageDiv.html(`
+            ${message}
+            <span class="close" aria-label="Close" onclick="this.parentElement.style.display='none';">
+                &times;
+            </span>
+        `);
+
+        messageDiv.show().delay(3000).fadeOut(500);
     }
 
-    setTimeout(function () {
-        document.getElementById("tempDataMessage").style.display = "none";
-    }, 3000);
 </script>
 

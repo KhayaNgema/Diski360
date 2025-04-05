@@ -44,14 +44,35 @@ namespace MyField.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTournamentRules(int tournamentId)
+        public async Task<IActionResult> GetTournamentRules(int tournamentId)
         {
-            var rules = _context.TournamentRules
+            var rules = await _context.TournamentRules
                                 .Where(r => r.TournamentId == tournamentId)
                                 .Select(r => new { r.RuleDescription })
-                                .ToList();
+                                .ToListAsync();
 
             return Json(rules);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> TournamentRules(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournamentRules = await _context.TournamentRules
+                .Where(tr => tr.TournamentId == decryptedTournamentId)
+                .OrderByDescending(tr => tr.CreatedDateTime)
+                .ToListAsync();
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            ViewBag.TournamentName = tournament?.TournamentName;
+            ViewBag.TournamentId = tournamentId;
+
+            return View(tournamentRules);
         }
 
 
@@ -238,7 +259,6 @@ namespace MyField.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-
                 var tournament = await _context.Tournament
                     .Where(t => t.TournamentId == tournamentId)
                     .FirstOrDefaultAsync();
@@ -257,18 +277,15 @@ namespace MyField.Controllers
                 await _context.SaveChangesAsync();
 
                 await _activityLogger.Log($"Created a new rule for tournament {tournament.TournamentName}.", user.Id);
-
-                TempData["Message"] = $"A new rule has been created successfully.";
-
                 await _requestLogService.LogSuceededRequest("Successfully created a new tournament rule", StatusCodes.Status200OK);
 
-                return Ok(new { success = true });
+                return Ok(new { success = true, ruleDescription = newTournamentRule.RuleDescription });
             }
 
             await _requestLogService.LogFailedRequest("Failed to create a new tournament rule", StatusCodes.Status500InternalServerError);
-
             return Json(new { success = false, message = "Failed to create a new tournament rule!" });
         }
+
 
         [HttpGet]
         [Authorize(Roles = "Sport Administrator")]
@@ -340,5 +357,89 @@ namespace MyField.Controllers
                 return RedirectToAction(nameof(TournamentsBackOffice));
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTournamentRule(string ruleId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var decryptedRuleId = _encryptionService.DecryptToInt(ruleId);
+
+            var rule = await _context.TournamentRules
+                .Where(r => r.RuleId == decryptedRuleId)
+                .Include(r => r.Tournament)
+                .FirstOrDefaultAsync();
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == rule.TournamentId)
+                .FirstOrDefaultAsync();
+
+            await _activityLogger.Log($"Deleted {rule.RuleDescription} rule for {tournament.TournamentName}", user.Id);
+
+            _context.Remove(rule);
+            await _context.SaveChangesAsync();
+
+            var tournamentId = _encryptionService.Encrypt(tournament.TournamentId);
+
+            TempData["Message"] = $"{tournament.TournamentName} rule has been deleted.";
+            return RedirectToAction(nameof(TournamentRules), new { tournamentId });
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Sport Administrator")]
+        public async Task<IActionResult> UpdateTournamentRule(string ruleId)
+        {
+            var decryptedRuleId = _encryptionService.DecryptToInt(ruleId);
+
+            var rule = await _context.TournamentRules
+                .Where(r => r.RuleId == decryptedRuleId)
+                .Include(r => r.Tournament)
+                .FirstOrDefaultAsync();
+
+            var viewModel = new UpdateTournamentRuleViewModel
+            {
+                RuleId = rule.RuleId,
+                RuleDescription = rule.RuleDescription,
+                TournamentId = rule.Tournament.TournamentId
+            };
+
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateTournamentRule(UpdateTournamentRuleViewModel viewModel)
+        {
+           if(ModelState.IsValid)
+           {
+                var user = await _userManager.GetUserAsync(User);
+
+                var rule = await _context.TournamentRules
+                    .Where(r => r.RuleId == viewModel.RuleId)
+                    .FirstOrDefaultAsync();
+
+                var tournament = await _context.Tournament
+                    .Where(t => t.TournamentId == viewModel.TournamentId)
+                    .FirstOrDefaultAsync();
+
+                rule.RuleDescription = viewModel.RuleDescription;
+
+                _context.Update(rule);
+                await _context.SaveChangesAsync();
+
+                var tournamentId = _encryptionService.Encrypt(tournament.TournamentId);
+
+                await _activityLogger.Log($"Updated {tournament.TournamentName} rule.", user.Id);
+
+                TempData["Message"] = $"{tournament.TournamentName} rule has been updated successfully.";
+                return RedirectToAction(nameof(TournamentRules), new { tournamentId });
+           }
+
+            return View(viewModel);
+        }
     }
 }

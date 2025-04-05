@@ -157,19 +157,7 @@
                                 </div>
                             </td>
                         }
-                        else
-                        {
-                            <td class="text-right">
-                                <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.TournamentId">
-                                    Actions
-                                </button>
-                                <div class="action-tab" id="actionTab-@item.TournamentId" style="display: none;">
-                                    <a class="tab-item" href="@Url.Action("RejoinSeason", "Clubs", new { tournamentId = encryptedTournamentId })">
-                                        <i class="fas fa-sign-in-alt" style="color: #28a745;"></i> Rejoin
-                                    </a>
-                                </div>
-                            </td>
-                        }
+                       
                     </tr>
                 }
             </tbody>

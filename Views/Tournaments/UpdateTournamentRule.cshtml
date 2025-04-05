@@ -1,0 +1,36 @@
+﻿@model MyField.ViewModels.UpdateTournamentRuleViewModel
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Update Rule";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Update rule</h4>
+<br />
+
+<div class="row club-edit-container">
+    <div class="col-md-12">
+        <form asp-action="UpdateTournamentRule" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating mb-3">
+                <textarea id="ruleDescription" asp-for="RuleDescription" class="form-control border-bottom-only" placeholder="Rule description" style="min-height: 150px;"></textarea>
+                <label asp-for="RuleDescription" class="form-label">Rule Description</label>
+                <span asp-validation-for="RuleDescription" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" id="tournamentId" asp-for="TournamentId" value="@Model?.TournamentId" />
+
+            <div class="form-group text-end">
+                <input type="hidden" asp-for="RuleId" value="@Model?.RuleId" />
+                <button type="Submit" value="Save" class="btn btn-md btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,178 @@
+﻿@model IEnumerable<MyField.Models.TournamentRules>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = ViewBag.TournamentName + " Rules";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+<head>
+    <style>
+        .list-group-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .rule-description {
+            flex: 1;
+        }
+
+        .dropdown-menu {
+            min-width: 150px;
+        }
+
+        .dropdown-toggle {
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 0.2rem;
+        }
+    </style>
+</head>
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 class="text-center">Add @ViewBag.TournamentName Rules</h4>
+<br />
+
+@if (Model.Any())
+{
+    if (User.IsInRole("Sport Administrator"))
+    {
+        <p class="text-center">
+            Explore the @ViewBag.TournamentName rules. This page provides a curated list of rules under this tournament. Additionally, you can manage these rules directly from this page, reflecting our commitment to supporting and organizing local talent and organizations.
+        </p>
+    }
+    else
+    {
+        <p class="text-center" style="padding-right:10px; padding-left:10px;">
+            Explore the @ViewBag.TournamentName rules. This page provides a curated list of rules under this tournament.
+        </p>
+    }
+    <br />
+    <div class="fixtures-search-create-container" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
+                <div class="search-bar" style="flex: 1; margin-right: 10px;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search rules..." style="width: 100%;">
+                </div>
+                @if (User.IsInRole("Sport Administrator"))
+                {
+                    <div class="create-button">
+                        <a href="@Url.Action("AddTournamentRules", new { tournamentId = ViewBag.TournamentId })" class="btn btn-outline-primary btn-create" id="addButton" style="white-space: nowrap;">
+                            <i class="fas fa-plus"></i> Create new
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <br />
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+
+    <div class="list-group">
+        @foreach (var item in Model.DistinctBy(tournament => tournament.RuleId))
+        {
+            var encryptedRuleId = encryptionService.Encrypt(item.RuleId);
+
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="rule-description">
+                        <h5 class="mb-1">@item.RuleDescription</h5>
+                    </div>
+
+                    @if (User.IsInRole("Sport Administrator"))
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton@item.RuleId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Actions
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton@item.RuleId">
+                                <a class="dropdown-item" href="@Url.Action("UpdateTournamentRule", "Tournaments", new { ruleId = encryptedRuleId })">
+                                    <i class="fas fa-pen" style="color: green;"></i> Update
+                                </a>
+                                <a href="javascript:void(0);" class="dropdown-item"
+                                   onclick="document.getElementById('deleteRuleForm@encryptedRuleId').submit();">
+                                    <i class="fas fa-trash" style="color: red;"></i> Delete
+                                </a>
+
+                                <form id="deleteRuleForm@encryptedRuleId" method="post" action="@Url.Action("DeleteTournamentRule", "Tournaments")" style="display:none;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ruleId" value="@encryptedRuleId" />
+                                </form>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no rules for this tournament yet.</p>
+        @if (User.IsInRole("Sport Administrator"))
+        {
+            var encryptedTournamentId = ViewBag.TournamentId;
+            <div class="create-button">
+                <a href="@Url.Action("AddTournamentRules", new { tournamentId = encryptedTournamentId })" class="btn btn-outline-primary btn-create" id="addButton" style="white-space: nowrap;">
+                    <i class="fas fa-plus"></i> Create new
+                </a>
+            </div>
+        }
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').click(function (e) {
+            var $el = $(this).next('.dropdown-menu');
+            var isVisible = $el.is(':visible');
+            $('.dropdown-menu').hide();
+            if (!isVisible) {
+                $el.show();
+            }
+            e.stopPropagation();
+        });
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('.dropdown-menu').hide();
+            }
+        });
+
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        setTimeout(function () {
+            document.getElementById("tempDataMessage").style.display = "none";
+        }, 3000);
+    });
+</script>
