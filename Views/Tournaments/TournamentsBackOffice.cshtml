@@ -67,17 +67,17 @@
         </div>
     }
     <div class="table-responsive">
-        <table class="table table-striped table-borderless clubs-table">
+        <table class="table table-striped table-borderless">
             <thead>
                 <tr style="color:white;background-color: #324260; white-space: nowrap;">
                     <th style="white-space: nowrap;">Tournament</th>
                     <th style="white-space: nowrap;">Start date</th>
                     <th style="white-space: nowrap;">Location</th>
                     <th style="white-space: nowrap;">No. of Teams</th>
-                    <th style="white-space: nowrap;">Joining fee</th>
+                    <th style="white-space: nowrap;">Joining fee(R)</th>
                     <th style="white-space: nowrap;">Join By Date</th>
                     <th style="white-space: nowrap;">Sponsor</th>
-                    <th style="white-space: nowrap;">Sponsorship</th>
+                    <th style="white-space: nowrap;">Sponsorship(R)</th>
                     <th style="white-space: nowrap;">Sponsor contact</th>
                     <th style="white-space: nowrap;">Status</th>
                     <th style="white-space: nowrap;">More actions</th>
@@ -96,9 +96,8 @@
                             <span>@Html.DisplayFor(modelItem => item.TournamentName)</span>
                         </td>
                         <td class="column-max-width">
-                           @item.StartDate.ToString("ddd, dd MMM yyyy")
+                            <span><i class="fa fa-calendar-alt me-1"></i>@item.StartDate.ToString("ddd, dd MMM yyyy")</span>
                         </td>
-
                         <td class="column-max-width">
                             @Html.DisplayFor(modelItem => item.TournamentLocation)
                         </td>
@@ -106,17 +105,25 @@
                             @Html.DisplayFor(modelItem => item.NumberOfTeams)
                         </td>
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.JoiningFee)
+                            R @Html.DisplayFor(modelItem => item.JoiningFee)
                         </td>
                         <td class="column-max-width">
-                            <span><i class="fa fa-calendar-alt"></i>@item.JoiningDueDate.ToString("ddd, dd MMM yyyy")</span>
-                            <span><i class="fa fa-clock"></i>@item.JoiningDueDate.ToString("HH:mm")</span>
+                            <div class="d-flex flex-column">
+                                <span class="mb-1">
+                                    <i class="fa fa-calendar-alt me-1"></i>
+                                    @item.JoiningDueDate.ToString("ddd, dd MMM yyyy")
+                                </span>
+                                <span>
+                                    <i class="fa fa-clock me-1"></i>
+                                    @item.JoiningDueDate.ToString("HH:mm")
+                                </span>
+                            </div>
                         </td>
                         <td class="column-max-width">
                             @Html.DisplayFor(modelItem => item.SponsorName)
                         </td>
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.Sponsorship)
+                            R @Html.DisplayFor(modelItem => item.Sponsorship)
                         </td>
                         <td class="column-max-width">
                             @Html.DisplayFor(modelItem => item.SponsorContactDetails)
@@ -135,16 +142,16 @@
                                     <a class="tab-item" href="@Url.Action("TournamentDetails", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-info-circle" class="tab-item" style="color: blue;"></i> Details
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("UpdateTournament", "Clubs", new { tournamentId = encryptedTournamentId  })">
+                                    <a class="tab-item" href="@Url.Action("UpdateTournament", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-pen" class="tab-item" style="color: green;"></i> Update
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { tournamentId = encryptedTournamentId  })">
+                                    <a class="tab-item" href="@Url.Action("TournamentRules", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-gavel" class="tab-item" style="color: darkorange;"></i> Rules
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { tournamentId = encryptedTournamentId  })">
+                                    <a class="tab-item" href="@Url.Action("Participants", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Clubs
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("SuspendClub", "Clubs", new { tournamentId = encryptedTournamentId   })">
+                                    <a class="tab-item" href="@Url.Action("CancelTournament", "Tournaments", new { tournamentId = encryptedTournamentId   })">
                                         <i class="fas fa-times-circle" style="color: #dc3545;"></i> Cancel
                                     </a>
                                 </div>

@@ -18,9 +18,9 @@
     <form asp-action="Edit" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <div class="profile-container">
-                <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
-                    <img id="club-badge-preview" alt="" class="club-picture-image" style="display: none;" />
-                    <img id="current-club-badge" src="~/@Model.ClubBadges" alt="Club Badge" class="profile-picture-image" />
+                <div class="tournament-image-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                    <img id="club-badge-preview" alt="" class="tournament-picture-image" style="display: none;" />
+                    <img id="current-club-badge" src="~/@Model.ClubBadges" alt="Club Badge" class="tournament-picture-image" />
                     <label for="Input_ClubBadge" class="camera-icon">
                         <i class="fa fa-camera"></i>
                         <input asp-for="ClubBadgeFile" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />

@@ -1,7 +1,7 @@
 ﻿@model MyField.ViewModels.UpdateTournamentViewModel
 
 @{
-    ViewData["Title"] = "Update" + Model.TournamentName;
+    ViewData["Title"] = "Update " + @Model.TournamentName;
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
 }
 
@@ -11,13 +11,13 @@
 <br />
 <div class="row club-edit-container">
     <div class="col-md-12">
-        <form asp-action="NewTournament" method="post" enctype="multipart/form-data">
+        <form asp-action="UpdateTournament" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
                 <div class="profile-container">
-                    <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; width: 600px; height: 550px; overflow: hidden; position: relative;">
-                        <i class="fa fa-trophy" id="club-badge-placeholder" style="font-size: 200px; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></i>
-                        <img id="current-club-badge" src="~/@Model.TournamentImage" alt="Club Badge" class="club-picture-image" style=" width: 100%; height: 100%; object-fit: fill;" />
+                    <div class="tournament-image-container">
+                        <img id="club-badge-preview" alt="" class="tournament-picture-image" style="display: none;" />
+                        <img id="current-club-badge" src="~/@Model.TournamentImage" alt="Club Badge" class="tournament-picture-image"/>
                         <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
                             <i class="fa fa-camera" style="font-size: 30px;"></i>
                             <input asp-for="TournamentImages" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
@@ -96,6 +96,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
                         <input type="submit" value="Submit" class="btn btn-success" />
                     </div>
                 </div>
@@ -112,9 +113,18 @@
                 var output = document.getElementById('club-badge-preview');
                 output.src = reader.result;
                 output.style.display = 'block';
-                document.getElementById('club-badge-placeholder').style.display = 'none';
+                document.getElementById('current-club-badge').style.display = 'none';
             };
-            reader.readAsDataURL(event.target.files[0]);
+
+            if (event.target.files.length > 0) {
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                var currentBadge = document.getElementById('current-club-badge').getAttribute('src');
+                var output = document.getElementById('club-badge-preview');
+                output.src = currentBadge;
+                output.style.display = 'block';
+                document.getElementById('current-club-badge').style.display = 'none';
+            }
         }
     </script>
     <partial name="_ValidationScriptsPartial" />

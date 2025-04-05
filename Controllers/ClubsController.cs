@@ -719,6 +719,7 @@ namespace MyField.Controllers
         }
 
 
+        [HttpGet]
         [Authorize(Roles = ("Sport Administrator, Club Administrator"))]
         public async Task<IActionResult> Edit(string clubId)
         {

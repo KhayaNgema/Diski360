@@ -302,9 +302,42 @@ namespace MyField.Controllers
         [HttpPost]
         [Authorize(Roles = "Sport Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateTournament(UpdateTournamentViewModel viewModel)
+        public async Task<IActionResult> UpdateTournament(UpdateTournamentViewModel viewModel, IFormFile TournamentImages)
         {
-            return View();
+                var user = await _userManager.GetUserAsync(User);
+
+                var tournament = await _context.Tournament
+                    .Where(t => t.TournamentId == viewModel.TournamentId)
+                    .FirstOrDefaultAsync();
+
+                tournament.TournamentName = viewModel.TournamentName;
+                tournament.TournamentDescription = viewModel.TournamentDescription;
+                tournament.TournamentLocation = viewModel.TournamentLocation;
+                tournament.SponsorName = viewModel.SponsorName;
+                tournament.Sponsorship = viewModel.Sponsorship;
+                tournament.SponsorContactDetails = viewModel.SponsorContactDetails;
+                tournament.ModifiedById = user.Id;
+                tournament.ModifiedDateTime = DateTime.Now;
+                tournament.JoiningFee = viewModel.JoiningFee;
+                tournament.JoiningDueDate = viewModel.JoiningDueDate;
+                tournament.StartDate = viewModel.StartDate;
+                tournament.NumberOfTeams = viewModel.NumberOfTeams;
+
+
+                if (TournamentImages != null && TournamentImages.Length > 0)
+                {
+                    var uploadedImagePath = await _fileUploadService.UploadFileAsync(TournamentImages);
+                    tournament.TournamentImage = uploadedImagePath;
+                }
+
+                _context.Update(tournament);
+                await _context.SaveChangesAsync();
+
+                await _activityLogger.Log($"Updated {tournament.TournamentName} information", user.Id);
+
+
+                TempData["Message"] = $"{tournament.TournamentName} information has been updated successfully.";
+                return RedirectToAction(nameof(TournamentsBackOffice));
         }
 
     }
