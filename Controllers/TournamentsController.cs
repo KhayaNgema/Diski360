@@ -130,7 +130,9 @@ namespace MyField.Controllers
             var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
 
             var participatingClubs = await _context.TournamentClubs
-                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .Where(pc => pc.TournamentId == decryptedTournamentId &&
+                pc.HasJoined == true &&
+                pc.IsEliminated == false)
                 .ToListAsync();
 
             return PartialView("_ParticipatingClubsPartial", participatingClubs);
@@ -143,7 +145,8 @@ namespace MyField.Controllers
             var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
 
             var tournamentFixtures = await _context.TournamentFixtures
-                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .Where(tf => tf.TournamentId == decryptedTournamentId &&
+                tf.FixtureStatus == FixtureStatus.Upcoming)
                 .ToListAsync();
 
             return PartialView("_TournamentFixturesPartial", tournamentFixtures);
@@ -156,7 +159,7 @@ namespace MyField.Controllers
             var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
 
             var knockout = await _context.TournamentMatchResults
-                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .Where(k => k.TournamentId == decryptedTournamentId)
                 .ToListAsync();
 
             return PartialView("_KnockoutPartial", knockout);
