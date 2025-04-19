@@ -8,8 +8,6 @@
         var postponedFixtures = Model.Where(item => item.FixtureStatus == FixtureStatus.Postponed);
         var nonPostponedFixtures = Model.Where(item => item.FixtureStatus != FixtureStatus.Postponed);
 
-
-
         <div id="postponed-fixtures-container" class="row" style="display: none;">
             <div class="col-12 mb-1 mt-1">
                 <h5 class="text-center text-danger">Postponed Matches</h5>

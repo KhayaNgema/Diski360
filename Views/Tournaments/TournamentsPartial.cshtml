@@ -13,9 +13,10 @@
 <script>
     function fetchTournaments() {
         $.ajax({
-            url: '/AllTournaments/Tournaments',
+            url: '/Tournaments/AllTournaments',
             success: function (data) {
                 $('#tournamentsContent').html(data);
+                initializeToggleDetails();
             }
         });
     }
@@ -23,6 +24,13 @@
     $(document).ready(function () {
         fetchTournaments();
     });
+
+    function initializeToggleDetails() {
+        $('.toggle-details-btn').off('click').on('click', function () {
+            var targetModal = $(this).data('target');  
+            $(targetModal).modal('show');  
+        });
+    }
 </script>
 
 

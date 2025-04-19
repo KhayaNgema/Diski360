@@ -82,6 +82,7 @@ namespace MyField.Controllers
             var tournaments = await _context.Tournament
                 .Include(t => t.CreatedBy)
                 .Include(t => t.ModifiedBy)
+                .OrderByDescending (t => t.StartDate)
                 .ToListAsync();
 
             return PartialView("_TournamentsPartial", tournaments);
@@ -120,6 +121,19 @@ namespace MyField.Controllers
         public async Task<IActionResult> LeagueTournaments()
         {
             return PartialView("TournamentsPartial");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Details(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            return View(tournament);
         }
 
         [Authorize(Roles = "Sport Administrator, Sport Coordinator")]

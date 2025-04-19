@@ -39,5 +39,20 @@
             }
         }
     });
+
+    document.addEventListener("click", function (e) {
+        const btn = e.target.closest(".toggle-details-btn");
+        if (!btn) return;
+
+        const targetId = btn.getAttribute("data-target-id");
+        const detailPane = document.getElementById(targetId);
+
+        if (detailPane) {
+            const isHidden = detailPane.style.display === "none" || detailPane.style.display === "";
+            detailPane.style.display = isHidden ? "block" : "none";
+        }
+    });
+
+
 </script>
 

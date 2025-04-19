@@ -1,3 +1,144 @@
 ﻿@model IEnumerable<MyField.Models.Tournament>
+@inject MyField.Interfaces.IEncryptionService encryptionService
 
-    <p>Tournaments</p>
+<head>
+    <style>
+
+        .modal-row {
+            display: flex;
+            justify-content: flex-start;
+            align-items: baseline;
+            padding: 6px 0;
+            width: 100%; 
+        }
+
+        .modal-label {
+            font-weight: bold;
+            color: #222;
+            min-width: 130px;
+            margin-right: 8px;
+            text-align: left; 
+        }
+
+        .modal-value {
+            color: #555;
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 0;
+            padding-left: 0; 
+        }
+
+        .section-header {
+            font-size: 1.45rem;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: black;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+        }
+
+     
+    </style>
+</head>
+
+<div class="tournament-container">
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            var encryptedDivisionId = encryptionService.Encrypt(item.TournamentId);
+            <div class="tournament-card">
+                <div class="card shadow-sm h-100">
+                    <img src="~/@item.TournamentImage"
+                         alt="@item.TournamentName"
+                         class="card-img-top tournament-image" />
+
+                    <div class="modal fade tournament-modal" id="detailsModal-@item.TournamentId" tabindex="-1" aria-labelledby="detailsModalLabel-@item.TournamentId" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="detailsModalLabel-@item.TournamentId">
+                                            <i class="fas fa-trophy" style="margin-right: 8px; color: goldenrod;"></i>
+                                            @item.TournamentName
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-inner">
+                                        <h6 class="section-header">Details</h6>
+
+                                        <div class="modal-row">
+                                            <span class="modal-label">Description:</span>
+                                            <span class="modal-value">@item.TournamentDescription</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Teams:</span>
+                                            <span class="modal-value">@item.NumberOfTeams</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Location:</span>
+                                            <span class="modal-value">@item.TournamentLocation</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Joining Fee:</span>
+                                            <span class="modal-value">@item.JoiningFee</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Due Date:</span>
+                                            <span class="modal-value">@item.JoiningDueDate.ToString("ddd, dd/MM/yyyy - HH:mm")</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Start Date:</span>
+                                            <span class="modal-value">@item.StartDate.ToString("ddd, dd/MM/yyyy")</span>
+                                        </div>
+
+                                        <h6 class="section-header">Sponsor</h6>
+
+                                        <div class="modal-row">
+                                            <span class="modal-label">Name:</span>
+                                            <span class="modal-value">@item.SponsorName</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Sponsorship: </span>
+                                            <span class="modal-value">R @item.Sponsorship</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Contact:</span>
+                                            <span class="modal-value">@item.SponsorContactDetails</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-footer d-flex align-items-center tournament-footer">
+                        <div class="tournament-name-container">
+                            <h6 class="card-title mt-0 mb-0">@Html.DisplayFor(modelItem => item.TournamentName)</h6>
+                        </div>
+
+                        <div class="tournament-icons-container">
+
+                            <button class="btn btn-sm btn-info toggle-details-btn" type="button" data-toggle="modal" data-target="#detailsModal-@item.TournamentId">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
+
+                            <a href="@Url.Action("Details", "Tournaments", new { tournamentId = encryptedDivisionId })">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no tournaments</p>
+    }
+</div>
