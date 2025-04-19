@@ -322,7 +322,7 @@ namespace MyField.Data
 
         public DbSet<MyField.Models.TournamentRules> TournamentRules { get; set; }
 
-        public DbSet<MyField.Models.TournamentClub> TournamentClubs { get; set; }
+        public DbSet<MyField.Models.TournamentClubs> TournamentClubs { get; set; }
 
         public DbSet<MyField.Models.TournamentFixture> TournamentFixtures { get; set; }
 

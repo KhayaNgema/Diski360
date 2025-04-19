@@ -12,13 +12,13 @@ namespace MyField.Models
         [Required(ErrorMessage = "Home Team is required")]
         [ForeignKey("HomeTeamId")]
         public int HomeTeamId { get; set; }
-        public TournamentClub HomeTeam { get; set; }
+        public TournamentClubs HomeTeam { get; set; }
 
         [Display(Name = "Away Team")]
         [Required(ErrorMessage = "Away Team is required")]
         [ForeignKey("AwayTeamId")]
         public int AwayTeamId { get; set; }
-        public TournamentClub AwayTeam { get; set; }
+        public TournamentClubs AwayTeam { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? KickOffDate { get; set; }

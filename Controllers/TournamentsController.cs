@@ -125,6 +125,46 @@ namespace MyField.Controllers
 
         [Authorize]
         [HttpGet]
+        public async Task<IActionResult> ParticipatingClubs(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var participatingClubs = await _context.TournamentClubs
+                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .ToListAsync();
+
+            return PartialView("_ParticipatingClubsPartial", participatingClubs);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Fixtures(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournamentFixtures = await _context.TournamentFixtures
+                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .ToListAsync();
+
+            return PartialView("_TournamentFixturesPartial", tournamentFixtures);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Knockout(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var knockout = await _context.TournamentMatchResults
+                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .ToListAsync();
+
+            return PartialView("_KnockoutPartial", knockout);
+        }
+
+
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Details(string tournamentId)
         {
             var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);

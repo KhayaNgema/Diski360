@@ -14,11 +14,11 @@ namespace MyField.Models
 
         [ForeignKey("AwayTeamId")]
         public int AwayTeamId { get; set; }
-        public virtual TournamentClub AwayTeam { get; set; }
+        public virtual TournamentClubs AwayTeam { get; set; }
 
         [ForeignKey("HomeTeamId")]
         public int HomeTeamId { get; set; }
-        public virtual TournamentClub HomeTeam { get; set; }
+        public virtual TournamentClubs HomeTeam { get; set; }
 
 
         [Display(Name = "Home team score")]
