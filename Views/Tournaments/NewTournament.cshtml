@@ -28,6 +28,25 @@
                 <small id="clubBadgeHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a tournament image.</small>
             </div>
 
+            <div class="tournament-trophy-container">
+                <i class="fa fa-trophy" id="trophy-placeholder" style="font-size: 200px; color: #f0f0f0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></i>
+                <img id="trophy-image-preview" alt="Preview" class="tournament-picture-image" style="display: none;" />
+                <label for="Input_TrophyImage" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                    <i class="fa fa-camera" style="font-size: 30px;"></i>
+                    <input asp-for="TrophyImages" id="Input_TrophyImage" class="form-control" type="file" onchange="previewTrophyImage(event)" accept="image/*" style="display: none;" />
+                    <input asp-for="TrophyImages" id="Input_TrophyImageFileName" type="hidden" />
+                </label>
+            </div>
+            <small id="trophyImageHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a trophy image.</small>
+
+
+            <div class="form-floating mb-3">
+                <select asp-for="TournamentType" asp-items="ViewBag.TournamentTypes" class="form-select border-bottom-only">
+                    <option value="">-- Select Tournament Type --</option>
+                </select>
+                <label asp-for="TournamentType" class="form-label">Tournament Type</label>
+                <span asp-validation-for="TournamentType" class="text-danger"></span>
+            </div>
 
 
             <div class="form-floating mb-3">
@@ -69,10 +88,16 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="JoiningDueDate" class="form-control border-bottom-only" placeholder="JoinBydate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                <label asp-for="JoiningDueDate" class="form-label">Join by date</label>
+                <input asp-for="JoiningDueDate"
+                       class="form-control border-bottom-only"
+                       placeholder="JoinByDate"
+                       type="datetime-local"
+                       min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                       value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                <label asp-for="JoiningDueDate" class="form-label">Join by date and time</label>
                 <span asp-validation-for="JoiningDueDate" class="text-danger"></span>
             </div>
+
 
             <div class="form-floating mb-3">
                 <input asp-for="SponsorName" class="form-control border-bottom-only" placeholder="Sponsor" />
@@ -113,6 +138,17 @@
                 output.src = reader.result;
                 output.style.display = 'block';
                 document.getElementById('club-badge-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function previewTrophyImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('trophy-image-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('trophy-placeholder').style.display = 'none'; 
             };
             reader.readAsDataURL(event.target.files[0]);
         }

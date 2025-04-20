@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyField.Data;
 
@@ -11,9 +12,11 @@ using MyField.Data;
 namespace MyField.Migrations
 {
     [DbContext(typeof(Ksans_SportsDbContext))]
-    partial class Ksans_SportsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250420110950_CheckPendingMigrations")]
+    partial class CheckPendingMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2394,12 +2397,6 @@ namespace MyField.Migrations
                     b.Property<int>("TournamentStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("TournamentType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrophyImage")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("TournamentId");
 
                     b.HasIndex("CreatedById");
@@ -2409,90 +2406,6 @@ namespace MyField.Migrations
                     b.HasIndex("ModifiedById");
 
                     b.ToTable("Tournament");
-                });
-
-            modelBuilder.Entity("MyField.Models.TournamentClubs", b =>
-                {
-                    b.Property<int>("ClubId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClubId"));
-
-                    b.Property<string>("ClubAbbr")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubBadge")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubHistory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubManagerEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubManagerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubManagerPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClubSummary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DivisionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("HasJoined")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsEliminated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedById")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ModifiedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClubId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("DivisionId");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("TournamentId");
-
-                    b.ToTable("TournamentClubs");
                 });
 
             modelBuilder.Entity("MyField.Models.TournamentFixture", b =>
@@ -2544,11 +2457,7 @@ namespace MyField.Migrations
 
                     b.HasKey("FixtureId");
 
-                    b.HasIndex("AwayTeamId");
-
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("HomeTeamId");
 
                     b.HasIndex("ModifiedById");
 
@@ -2565,9 +2474,6 @@ namespace MyField.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultsId"));
 
-                    b.Property<int>("AwayTeamId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AwayTeamScore")
                         .HasColumnType("int");
 
@@ -2579,9 +2485,6 @@ namespace MyField.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FixtureId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
                     b.Property<int>("HomeTeamScore")
@@ -2612,11 +2515,7 @@ namespace MyField.Migrations
 
                     b.HasKey("ResultsId");
 
-                    b.HasIndex("AwayTeamId");
-
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("HomeTeamId");
 
                     b.HasIndex("ModifiedById");
 
@@ -5340,56 +5239,11 @@ namespace MyField.Migrations
                     b.Navigation("ModifiedBy");
                 });
 
-            modelBuilder.Entity("MyField.Models.TournamentClubs", b =>
-                {
-                    b.HasOne("MyField.Models.UserBaseModel", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyField.Models.Division", "Division")
-                        .WithMany()
-                        .HasForeignKey("DivisionId");
-
-                    b.HasOne("MyField.Models.UserBaseModel", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyField.Models.Tournament", "Tournament")
-                        .WithMany()
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("Division");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("Tournament");
-                });
-
             modelBuilder.Entity("MyField.Models.TournamentFixture", b =>
                 {
-                    b.HasOne("MyField.Models.TournamentClubs", "AwayTeam")
-                        .WithMany()
-                        .HasForeignKey("AwayTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyField.Models.UserBaseModel", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyField.Models.TournamentClubs", "HomeTeam")
-                        .WithMany()
-                        .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -5405,11 +5259,7 @@ namespace MyField.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AwayTeam");
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("HomeTeam");
 
                     b.Navigation("ModifiedBy");
 
@@ -5418,21 +5268,9 @@ namespace MyField.Migrations
 
             modelBuilder.Entity("MyField.Models.TournamentMatchResults", b =>
                 {
-                    b.HasOne("MyField.Models.TournamentClubs", "AwayTeam")
-                        .WithMany()
-                        .HasForeignKey("AwayTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MyField.Models.UserBaseModel", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyField.Models.TournamentClubs", "HomeTeam")
-                        .WithMany()
-                        .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -5454,11 +5292,7 @@ namespace MyField.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AwayTeam");
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("HomeTeam");
 
                     b.Navigation("ModifiedBy");
 

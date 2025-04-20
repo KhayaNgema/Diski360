@@ -80,6 +80,7 @@ namespace MyField.Controllers
         public async Task<IActionResult> AllTournaments()
         {
             var tournaments = await _context.Tournament
+                .Where(t => t.IsPublished)
                 .Include(t => t.CreatedBy)
                 .Include(t => t.ModifiedBy)
                 .OrderByDescending (t => t.StartDate)
@@ -136,6 +137,19 @@ namespace MyField.Controllers
                 .ToListAsync();
 
             return PartialView("_ParticipatingClubsPartial", participatingClubs);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> TournamentRulesFans(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var participatingClubs = await _context.TournamentRules
+                .Where(pc => pc.TournamentId == decryptedTournamentId)
+                .ToListAsync();
+
+            return PartialView("_TournamentRulesPartial", participatingClubs);
         }
 
         [Authorize]
@@ -208,6 +222,7 @@ namespace MyField.Controllers
                 JoiningFee = tournament.JoiningFee,
                 Sponsorship = tournament.Sponsorship,
                 StartDate = tournament.StartDate,
+                TrophyImage = tournament.TrophyImage
             };
 
             ViewBag.TournamentName = tournament.TournamentName;
@@ -219,13 +234,24 @@ namespace MyField.Controllers
         [HttpGet]
         public async Task<IActionResult> NewTournament()
         {
+            var tournamentTypes = Enum.GetValues(typeof(TournamentType))
+                                          .Cast<TournamentType>()
+                                          .Select(t => new SelectListItem
+                                          {
+                                              Value = t.ToString(),
+                                              Text = t.ToString().Replace("_", " ") 
+                                          })
+                                          .ToList();
+
+            ViewBag.TournamentTypes = tournamentTypes;
+
             return View();
         }
 
         [Authorize(Roles = "Sport Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewTournament(NewTournamentViewModel viewModel, IFormFile TournamentImages)
+        public async Task<IActionResult> NewTournament(NewTournamentViewModel viewModel, IFormFile TournamentImages, IFormFile TrophyImages)
         {
             if (ModelState.IsValid)
             {
@@ -256,7 +282,8 @@ namespace MyField.Controllers
                     CreatedDateTime = DateTime.Now,
                     ModifiedById = user.Id,
                     ModifiedDateTime = DateTime.Now,
-                    IsPublished = false
+                    IsPublished = false,
+                    TournamentType = viewModel.TournamentType
                 };
 
 
@@ -264,6 +291,12 @@ namespace MyField.Controllers
                 {
                     var uploadedImagePath = await _fileUploadService.UploadFileAsync(TournamentImages);
                     newTournament.TournamentImage = uploadedImagePath;
+                }
+
+                if (TrophyImages != null && TrophyImages.Length > 0)
+                {
+                    var uploadedImagePath = await _fileUploadService.UploadFileAsync(TrophyImages);
+                    newTournament.TrophyImage = uploadedImagePath;
                 }
 
                 _context.Add(newTournament);
@@ -282,6 +315,17 @@ namespace MyField.Controllers
             }
 
             await _requestLogService.LogFailedRequest("Failed to create a new tournament", StatusCodes.Status500InternalServerError);
+
+            var tournamentTypes = Enum.GetValues(typeof(TournamentType))
+                              .Cast<TournamentType>()
+                              .Select(t => new SelectListItem
+                              {
+                                  Value = t.ToString(),
+                                  Text = t.ToString().Replace("_", " ") 
+                              })
+                              .ToList();
+
+            ViewBag.TournamentTypes = tournamentTypes;
 
             return View(viewModel);
 
@@ -368,6 +412,7 @@ namespace MyField.Controllers
                 JoiningFee = tournament.JoiningFee,
                 Sponsorship = tournament.Sponsorship,
                 StartDate = tournament.StartDate,
+                TrophyImage = tournament.TrophyImage
             };
 
             return View(viewModel);
@@ -376,7 +421,7 @@ namespace MyField.Controllers
         [HttpPost]
         [Authorize(Roles = "Sport Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateTournament(UpdateTournamentViewModel viewModel, IFormFile TournamentImages)
+        public async Task<IActionResult> UpdateTournament(UpdateTournamentViewModel viewModel, IFormFile TournamentImages, IFormFile TrophyImages)
         {
                 var user = await _userManager.GetUserAsync(User);
 
@@ -404,7 +449,13 @@ namespace MyField.Controllers
                     tournament.TournamentImage = uploadedImagePath;
                 }
 
-                _context.Update(tournament);
+            if (TrophyImages != null && TrophyImages.Length > 0)
+            {
+                var uploadedImagePath = await _fileUploadService.UploadFileAsync(TrophyImages);
+                tournament.TrophyImage = uploadedImagePath;
+            }
+
+            _context.Update(tournament);
                 await _context.SaveChangesAsync();
 
                 await _activityLogger.Log($"Updated {tournament.TournamentName} information", user.Id);
@@ -497,6 +548,57 @@ namespace MyField.Controllers
            }
 
             return View(viewModel);
+        }
+
+
+
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelTournament(string tournamentId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var  decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            await _activityLogger.Log($"Cancelled/Deleted {tournament.TournamentName}.", user.Id);
+
+            TempData["Message"] = $"{tournament.TournamentName} has been cancelled/deleted.";
+
+            _context.Remove(tournament);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(TournamentsBackOffice));
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Sport Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveTournament(string tournamentId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            tournament.IsPublished = true;
+
+            _context.Update(tournament);
+            await _context.SaveChangesAsync();
+
+            await _activityLogger.Log($"Approved {tournament.TournamentName}.", user.Id);
+
+            TempData["Message"] = $"{tournament.TournamentName} has been approved successfully.";
+
+            return RedirectToAction(nameof(TournamentsBackOffice));
         }
     }
 }

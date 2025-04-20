@@ -63,5 +63,10 @@ namespace MyField.Models
         public int? DivisionId { get; set; }
 
         public virtual Division Division { get; set; }
+
+        public TournamentClubs()
+        {
+            ClubBadge = "Images/placeholder_club_badge.jpg";
+        }
     }
 }

@@ -38,16 +38,18 @@
             padding-bottom: 6px;
         }
 
-     
     </style>
 </head>
 
-<div class="tournament-container">
+
     @if (Model.Any())
     {
         foreach (var item in Model)
         {
-            var encryptedDivisionId = encryptionService.Encrypt(item.TournamentId);
+            var encryptedTournamentId = encryptionService.Encrypt(item.TournamentId);
+
+
+            <div class="tournament-wrapper">
             <div class="tournament-card">
                 <div class="card shadow-sm h-100">
                     <img src="~/@item.TournamentImage"
@@ -57,65 +59,78 @@
                     <div class="modal fade tournament-modal" id="detailsModal-@item.TournamentId" tabindex="-1" aria-labelledby="detailsModalLabel-@item.TournamentId" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="detailsModalLabel-@item.TournamentId">
-                                            <i class="fas fa-trophy" style="margin-right: 8px; color: goldenrod;"></i>
-                                            @item.TournamentName
-                                        </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span>&times;</span>
-                                        </button>
-                                    </div>
 
+                                <div class="modal-header">
+                                    <div class="d-flex align-items-center tournament-header">
+                                        <img src="~/@item.TrophyImage" alt="trophy" class="tournament-badge-image me-3" />
+                                        <h5 class="modal-title mb-0" id="detailsModalLabel-@item.TournamentId">
+                                            @((item.TournamentName) ?? "N/A")
+                                        </h5>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
                                     <div class="modal-inner">
                                         <h6 class="section-header">Details</h6>
 
                                         <div class="modal-row">
                                             <span class="modal-label">Description:</span>
-                                            <span class="modal-value">@item.TournamentDescription</span>
+                                            <span class="modal-value">@((item.TournamentDescription) ?? "N/A")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Teams:</span>
-                                            <span class="modal-value">@item.NumberOfTeams</span>
+                                            <span class="modal-value">@((item.NumberOfTeams?.ToString()) ?? "N/A")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Location:</span>
-                                            <span class="modal-value">@item.TournamentLocation</span>
+                                            <span class="modal-value">@((item.TournamentLocation) ?? "N/A")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Joining Fee:</span>
-                                            <span class="modal-value">@item.JoiningFee</span>
+                                            <span class="modal-value">@($"R {item.JoiningFee?.ToString() ?? "N/A"}")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Due Date:</span>
-                                            <span class="modal-value">@item.JoiningDueDate.ToString("ddd, dd/MM/yyyy - HH:mm")</span>
+                                            <span class="modal-value">@((item.JoiningDueDate.ToString("ddd, dd/MM/yyyy - HH:mm")) ?? "N/A")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Start Date:</span>
-                                            <span class="modal-value">@item.StartDate.ToString("ddd, dd/MM/yyyy")</span>
+                                            <span class="modal-value">@((item.StartDate.ToString("ddd, dd/MM/yyyy")) ?? "N/A")</span>
+                                        </div>
+                                        <div class="modal-row">
+                                            <span class="modal-label">Status:</span>
+                                            <span class="modal-value">@item.TournamentStatus</span>
                                         </div>
 
                                         <h6 class="section-header">Sponsor</h6>
 
                                         <div class="modal-row">
                                             <span class="modal-label">Name:</span>
-                                            <span class="modal-value">@item.SponsorName</span>
+                                            <span class="modal-value">@((item.SponsorName) ?? "N/A")</span>
                                         </div>
                                         <div class="modal-row">
-                                            <span class="modal-label">Sponsorship: </span>
-                                            <span class="modal-value">R @item.Sponsorship</span>
+                                            <span class="modal-label">Sponsorship:</span>
+                                            <span class="modal-value">@($"R {item.Sponsorship?.ToString() ?? "N/A"}")</span>
                                         </div>
                                         <div class="modal-row">
                                             <span class="modal-label">Contact:</span>
-                                            <span class="modal-value">@item.SponsorContactDetails</span>
+                                            <span class="modal-value">@((item.SponsorContactDetails) ?? "N/A")</span>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal-footer d-flex justify-content-end">
+                                    <a href="@Url.Action("ActionNameHere", "ControllerNameHere", new { tournamentId = encryptedTournamentId })" class="btn" id="addButton">
+                                        Join Now
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-
 
                     <div class="card-footer d-flex align-items-center tournament-footer">
                         <div class="tournament-name-container">
@@ -128,17 +143,19 @@
                                 <i class="fa fa-info-circle"></i>
                             </button>
 
-                            <a href="@Url.Action("Details", "Tournaments", new { tournamentId = encryptedDivisionId })">
+                            <a href="@Url.Action("Details", "Tournaments", new { tournamentId = encryptedTournamentId})">
                                 <i class="fa fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
+
     }
     else
     {
-        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no tournaments</p>
+    <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no sport news yet.</p>
     }
-</div>
+

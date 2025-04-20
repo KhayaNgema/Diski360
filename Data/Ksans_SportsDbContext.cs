@@ -15,7 +15,6 @@ namespace MyField.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure primary keys
             modelBuilder.Entity<Standing>().HasKey(c => c.StandingId);
             modelBuilder.Entity<Club>().HasKey(c => c.ClubId);
             modelBuilder.Entity<Fixture>().HasKey(f => f.FixtureId);
@@ -24,7 +23,6 @@ namespace MyField.Data
             modelBuilder.Entity<PlayerTransferMarket>().HasKey(n => n.PlayerTransferMarketId);
             modelBuilder.Entity<Transfer>().HasKey(n => n.TransferId);
 
-            // Inheriting from UserBaseModel for ClubAdministrator, ClubManager, and Player
             modelBuilder.Entity<ClubAdministrator>().HasBaseType<UserBaseModel>();
             modelBuilder.Entity<ClubManager>().HasBaseType<UserBaseModel>();
             modelBuilder.Entity<Player>().HasBaseType<UserBaseModel>();

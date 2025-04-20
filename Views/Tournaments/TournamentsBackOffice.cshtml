@@ -71,6 +71,7 @@
             <thead>
                 <tr style="color:white;background-color: #324260; white-space: nowrap;">
                     <th style="white-space: nowrap;">Tournament</th>
+                    <th style="white-space: nowrap;">Trophy</th>
                     <th style="white-space: nowrap;">Start date</th>
                     <th style="white-space: nowrap;">Location</th>
                     <th style="white-space: nowrap;">No. of Teams</th>
@@ -94,6 +95,9 @@
                         <td class="column-max-width">
                             <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px; width:70px; height:100px;object-fit:fill;" />
                             <span>@Html.DisplayFor(modelItem => item.TournamentName)</span>
+                        </td>
+                        <td class="column-max-width">
+                            <img src="~/@item.TrophyImage" alt="trophy" class="tournament-image" style="margin-right: 20px; width:90px; height:100px;object-fit:fill; mix-blend-mode: multiply;" />
                         </td>
                         <td class="column-max-width">
                             <span><i class="fa fa-calendar-alt me-1"></i>@item.StartDate.ToString("ddd, dd MMM yyyy")</span>
@@ -129,7 +133,7 @@
                             @Html.DisplayFor(modelItem => item.SponsorContactDetails)
                         </td>
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.TournamentStatus)
+                            @item.TournamentStatus (@(item.IsPublished ? "Approved" : "Awaiting Approval"))
                         </td>
                        
                         @if (User.IsInRole("Sport Administrator"))
@@ -142,18 +146,33 @@
                                     <a class="tab-item" href="@Url.Action("TournamentDetails", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-info-circle" class="tab-item" style="color: blue;"></i> Details
                                     </a>
+                                    <a class="tab-item" href="#" onclick="event.preventDefault(); document.getElementById('approve-form-@encryptedTournamentId').submit();">
+                                        <i class="fas fa-check-circle" style="color: green;"></i> Approve
+                                    </a>
+
+                                    <form id="approve-form-@encryptedTournamentId" method="post" action="@Url.Action("ApproveTournament", "Tournaments")" style="display: none;">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="tournamentId" value="@encryptedTournamentId" />
+                                    </form>
                                     <a class="tab-item" href="@Url.Action("UpdateTournament", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-pen" class="tab-item" style="color: green;"></i> Update
                                     </a>
+
+
                                     <a class="tab-item" href="@Url.Action("TournamentRules", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-gavel" class="tab-item" style="color: darkorange;"></i> Rules
                                     </a>
                                     <a class="tab-item" href="@Url.Action("Participants", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Clubs
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("CancelTournament", "Tournaments", new { tournamentId = encryptedTournamentId   })">
+                                    <a class="tab-item" href="#" onclick="event.preventDefault(); document.getElementById('cancel-form-@encryptedTournamentId').submit();">
                                         <i class="fas fa-times-circle" style="color: #dc3545;"></i> Cancel
                                     </a>
+
+                                    <form id="cancel-form-@encryptedTournamentId" method="post" action="@Url.Action("CancelTournament", "Tournaments")" style="display: none;">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="tournamentId" value="@encryptedTournamentId" />
+                                    </form>
                                 </div>
                             </td>
                         }

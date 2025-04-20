@@ -17,6 +17,8 @@ namespace MyField.ViewModels
 
         public IFormFile TournamentImages { get; set; }
 
+        public IFormFile TrophyImages { get; set; }
+
         public int? NumberOfTeams { get; set; }
 
         public DateTime JoiningDueDate { get; set; }
@@ -25,6 +27,8 @@ namespace MyField.ViewModels
 
         public string? Sponsorship { get; set; }
         public string? SponsorContactDetails { get; set; }
+
+        public TournamentType TournamentType { get; set; }
 
     }
 }

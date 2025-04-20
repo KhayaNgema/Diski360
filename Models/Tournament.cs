@@ -23,6 +23,8 @@ namespace MyField.Models
 
         public string TournamentImage { get; set; }
 
+        public string? TrophyImage { get; set; }
+
         public int? NumberOfTeams { get; set; }
 
         public DateTime JoiningDueDate { get; set; }
@@ -52,13 +54,29 @@ namespace MyField.Models
 
         public  bool IsPublished { get; set; }
 
+        public TournamentType TournamentType { get; set; }
+
+
+        public Tournament()
+        {
+            TrophyImage = "Images/trophy_placeholder.jpg";
+        }
+
     }
 
     public enum TournamentStatus
     { 
         Upcoming,
-        Ongoing,
+        Started,
         Ended
     }
 
+    public enum TournamentType
+    {
+        [Display(Name = "Open Entry")]
+        Open_Entry,
+
+        [Display(Name = "Qualification Based")]
+        Qualification_Based
+    }
 }

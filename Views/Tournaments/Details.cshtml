@@ -1,8 +1,10 @@
 ﻿@model MyField.Models.Tournament
+@inject MyField.Interfaces.IEncryptionService encryptionService
 
 @{
     ViewData["Title"] = Model.TournamentName + " Details";
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    var encryptedTournamentId = encryptionService.Encrypt(Model.TournamentId);
 }
 
 <div class="club-header-container">
@@ -10,32 +12,40 @@
     @await Html.PartialAsync("_HomeButton")
     <br />
     <div class="d-flex align-items-center">
-        <i class="fa fa-trophy" style="color:goldenrod; font-size:60px; padding-right:10px;"></i><h3>@Model.TournamentName</h3>
+        <img src="~/@Model.TrophyImage" alt="trophy" class="tournament-badge-image" style="margin-right:20px;" />
+       <h3>@Model.TournamentName</h3>
     </div>
     <br />
     <ul class="nav nav-tabs" id="clubTabs" role="tablist" style="background-color:white; color:black;">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="clubs-tab" data-bs-toggle="tab" data-bs-target="#clubs" type="button" role="tab" aria-controls="clubs" aria-selected="true" onclick="loadTab('clubs', '@Model.TournamentId')">Clubs</button>
+            <button class="nav-link active" id="rules-tab" data-bs-toggle="tab" data-bs-target="#rules" type="button" role="tab" aria-controls="rules" aria-selected="true" onclick="loadTab('rules', '@encryptedTournamentId')">Rules</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="fixtures-tab" data-bs-toggle="tab" data-bs-target="#fixtures" type="button" role="tab" aria-controls="fixtures" aria-selected="false" onclick="loadTab('fixtures', '@Model.TournamentId')">Fixtures</button>
+            <button class="nav-link active" id="clubs-tab" data-bs-toggle="tab" data-bs-target="#clubs" type="button" role="tab" aria-controls="clubs" aria-selected="true" onclick="loadTab('clubs', '@encryptedTournamentId')">Clubs</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="knockout-tab" data-bs-toggle="tab" data-bs-target="#knockout" type="button" role="tab" aria-controls="knockout" aria-selected="false" onclick="loadTab('knockout', '@Model.TournamentId')">Knockout</button>
+            <button class="nav-link" id="fixtures-tab" data-bs-toggle="tab" data-bs-target="#fixtures" type="button" role="tab" aria-controls="fixtures" aria-selected="false" onclick="loadTab('fixtures', '@encryptedTournamentId')">Fixtures</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="knockout-tab" data-bs-toggle="tab" data-bs-target="#knockout" type="button" role="tab" aria-controls="knockout" aria-selected="false" onclick="loadTab('knockout', '@encryptedTournamentId')">Knockout</button>
         </li>
     </ul>
 </div>
 
 
 <div class="tab-content">
+    <div class="tab-pane fade show active" id="rules" role="tabpanel" aria-labelledby="rules-tab"></div>
     <div class="tab-pane fade show active" id="clubs" role="tabpanel" aria-labelledby="clubs-tab"></div>
     <div class="tab-pane fade" id="fixtures" role="tabpanel" aria-labelledby="fixtures-tab"></div>
     <div class="tab-pane fade" id="knockout" role="tabpanel" aria-labelledby="knockout-tab"></div>
 </div>
 
+<div id="rules-tab-container" data-encrypted-id="@encryptedTournamentId"></div>
+
+
 <script>
 
-    function loadTab(tabName, clubId) {
+    function loadTab(tabName, tournamentId) {
 
         document.querySelectorAll('.nav-link').forEach(function (element) {
             element.classList.remove('active');
@@ -50,7 +60,9 @@
         document.getElementById(tabName).classList.add('show', 'active');
 
         var url;
-        if (tabName === 'clubs') {
+        if (tabName === 'rules') {
+            url = '@Url.Action("TournamentRulesFans", "Tournaments")';
+        } else if (tabName === 'clubs') {
             url = '@Url.Action("ClubSummary", "Clubs")';
         } else if (tabName === 'fixtures') {
             url = '@Url.Action("ClubPlayers", "Clubs")';
@@ -61,7 +73,7 @@
         $.ajax({
             url: url,
             type: 'GET',
-            data: { tab: tabName, clubId: clubId },
+            data: { tab: tabName, tournamentId: tournamentId },
             success: function (data) {
                 $('#' + tabName).html(data);
 
@@ -73,7 +85,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        loadTab('clubs', '@Model.TournamentId');
+        var encryptedId = document.getElementById('rules-tab-container').dataset.encryptedId;
+        if (encryptedId) {
+            loadTab('rules', encryptedId);
+        }
     });
 </script>
 

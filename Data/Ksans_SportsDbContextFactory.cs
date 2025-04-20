@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using MyField.Data; 
+using MyField.Data;
 
 public class Ksans_SportsDbContextFactory : IDesignTimeDbContextFactory<Ksans_SportsDbContext>
 {
     public Ksans_SportsDbContext CreateDbContext(string[] args)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory()) 
+            .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
 

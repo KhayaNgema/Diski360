@@ -185,7 +185,42 @@ html {
         }
     }
 
+.tournament-badge-image {
+    height: 110px;
+    width: 110px;
+    object-fit: fill;
+    mix-blend-mode: multiply;
+}
 
+@media (min-width: 768px) {
+    .tournament-badge-image {
+        height: 90px;
+        width: 90px;
+        mix-blend-mode: multiply;
+    }
+}
+
+@media (min-width: 992px) {
+    .tournament-badge-image {
+        height: 110px;
+        width: 110px;
+        mix-blend-mode: multiply;
+    }
+}
+
+.tournament-header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+@media (max-width: 576px) {
+    .tournament-header {
+        flex-direction: column;
+        align-items: center; /* optional: center-align content on small screens */
+        text-align: center; /* optional: for centered text */
+    }
+}
 
     /*Cub list page*/
 
@@ -2027,13 +2062,18 @@ html {
     box-sizing: border-box;
 }
 
-
+.tournament-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .tournament-card {
     flex: 1 1 100%;
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    padding:10px;
 }
 
 .card {
@@ -3239,7 +3279,24 @@ html {
     margin: 0 auto;
 }
 
+
+.tournament-trophy-container {
+    padding: 0;
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
 .tournament-picture-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.tournament-trophy-image {
     width: 100%;
     height: 100%;
     object-fit: fill;
@@ -3250,12 +3307,24 @@ html {
         max-width: 100%;
         height: 350px;
     }
+
+    .tournament-trophy-container {
+        max-width: 100%;
+        height:250px;
+    }
+
+
 }
 
 @media (max-width: 480px) {
     .tournament-image-container {
         max-width: 100%;
         height: 450px;
+    }
+
+    .tournament-trophy-container {
+        max-width: 100%;
+        height: 300px;
     }
 }
 

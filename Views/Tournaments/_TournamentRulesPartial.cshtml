@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MyField.Models.TournamentRules>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+<head>
+    <style>
+        .list-group-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .rule-description {
+            flex: 1;
+            font-size:14px;
+        }
+
+        .dropdown-menu {
+            min-width: 150px;
+        }
+
+        .dropdown-toggle {
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+
+<br />
+
+@if (Model.Any())
+{
+    <br />
+    <ol class="list-group">
+        @foreach (var item in Model.DistinctBy(tournament => tournament.RuleId))
+        {
+            var encryptedRuleId = encryptionService.Encrypt(item.RuleId);
+
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="rule-description">
+                        <p class="mb-1">@item.RuleDescription</p>
+                    </div>
+                </div>
+            </li>
+        }
+    </ol>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no rules for this tournament yet.</p>
+    </div>
+}

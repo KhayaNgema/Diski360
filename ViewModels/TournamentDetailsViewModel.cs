@@ -1,4 +1,6 @@
-﻿namespace MyField.ViewModels
+﻿using MyField.Models;
+
+namespace MyField.ViewModels
 {
     public class TournamentDetailsViewModel
     {
@@ -15,6 +17,8 @@
 
         public string TournamentImage { get; set; }
 
+        public string? TrophyImage { get; set; }
+
         public int? NumberOfTeams { get; set; }
 
         public DateTime JoiningDueDate { get; set; }
@@ -23,5 +27,9 @@
 
         public string Sponsorship { get; set; }
         public string? SponsorContactDetails { get; set; }
+
+        public TournamentStatus TournamentStatus { get; set; }
+
+        public bool IsPublished { get; set; }
     }
 }
