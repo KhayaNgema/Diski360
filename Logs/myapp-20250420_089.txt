@@ -1,0 +1,532 @@
+2025-04-20 19:21:25.444 +02:00 [WRN] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+2025-04-20 19:24:59.427 +02:00 [WRN] No store type was specified for the decimal property 'GamesDrawRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'GamesLoseRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'GamesNotPlayedRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'GamesPlayedRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'GamesWinRate' on entity type 'ClubPerformanceReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'IncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'NotActionedIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'NotActionedOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'OutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'RejectedIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'RejectedOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfullIncomingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.455 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfullOutgoingTransferRate' on entity type 'ClubTransferReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'ActiveFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'InactiveFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'SuspendedFansAccountsRate' on entity type 'FansAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'FineAmount' on entity type 'Fine'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'FixturedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'InterruptedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'PlayedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'PostponedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'UnfixturedMatchesRate' on entity type 'MatchReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'DrawingRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'LosingRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'ReleasedResultsRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'UnreleasedMatchesRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'WinningRate' on entity type 'MatchResultsReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'ApprovedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'PublishedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'RejectedNewsRate' on entity type 'OverallNewsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'PayFastWebhookPayload'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'Payment'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'ActiveAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'InactiveAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'SuspendedAccountsRate' on entity type 'PersonnelAccountsReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'ExpectedRepayableAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'OverdueFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'PaidFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'PendingFinesRate' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'TotalPaidAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'TotalUnpaidAmount' on entity type 'PersonnelFinancialReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.456 +02:00 [WRN] No store type was specified for the decimal property 'MarketValue' on entity type 'Player'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'SellingPrice' on entity type 'PlayerTransferMarket'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'Subscription'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'AmountPaid' on entity type 'SubscriptionHistory'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'AssociationCut' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'ClubsCut' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'NotStartedTransferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'SuccessfulTranferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'TranferAmount' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.457 +02:00 [WRN] No store type was specified for the decimal property 'UnsuccessfulTranferRate' on entity type 'TransfersReports'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-04-20 19:24:59.979 +02:00 [INF] Executed DbCommand (15ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.036 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.038 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.039 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.039 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.040 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.041 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.042 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.043 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.044 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.044 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.045 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.046 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-04-20 19:25:00.106 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-04-20 19:25:00.293 +02:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'UserAccountsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.298 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'OnboardingRequestsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.303 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'SystemPerformanceReport') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.308 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Reports] AS [r]
+        WHERE [r].[Discriminator] = N'TransactionsReports') THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.338 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator')
+2025-04-20 19:25:00.449 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.450 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.451 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.452 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.452 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.453 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.454 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.454 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.455 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.456 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.456 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.457 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.458 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.459 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.459 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.460 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.461 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.461 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[UserId] = @__user_Id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.475 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[ClubId], [c].[ClubAbbr], [c].[ClubBadge], [c].[ClubCode], [c].[ClubHistory], [c].[ClubLocation], [c].[ClubManagerId], [c].[ClubName], [c].[ClubSummary], [c].[CreatedById], [c].[CreatedDateTime], [c].[Discriminator], [c].[DivisionId], [c].[Email], [c].[IsActive], [c].[IsSuspended], [c].[LeagueId], [c].[ModifiedById], [c].[ModifiedDateTime], [c].[Status]
+FROM [Club] AS [c]
+2025-04-20 19:25:00.557 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.558 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.559 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.559 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.560 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__club_ClubId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Subscriptions] AS [s]
+        WHERE [s].[ClubId] = @__club_ClubId_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-04-20 19:25:00.772 +02:00 [INF] Starting Hangfire Server using job storage: 'SQL Server: (localdb)\mssqllocaldb@Ksans_Sports'
+2025-04-20 19:25:00.772 +02:00 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2025-04-20 19:25:00.772 +02:00 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2025-04-20 19:25:00.793 +02:00 [INF] Server khaya:2996:0f5a9e12 successfully announced in 11.6975 ms
+2025-04-20 19:25:00.795 +02:00 [INF] Server khaya:2996:0f5a9e12 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2025-04-20 19:25:00.802 +02:00 [INF] Server khaya:2996:0f5a9e12 all the dispatchers started
+2025-04-20 19:25:01.081 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-04-20 19:25:01.096 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:25:01.096 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:25:01.097 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:25:01.097 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:25:01.102 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-04-20 19:25:01.119 +02:00 [INF] Route matched with {action = "TournamentsBackOffice", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TournamentsBackOffice() on controller MyField.Controllers.TournamentsController (MyField).
+2025-04-20 19:25:01.178 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-04-20 19:25:01.192 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus], [t].[TournamentType], [t].[TrophyImage]
+FROM [Tournament] AS [t]
+WHERE [t].[DivisionId] = @__divisionId_0
+ORDER BY [t].[CreatedDateTime] DESC
+2025-04-20 19:25:01.250 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[DivisionId] = @__divisionId_0
+2025-04-20 19:25:01.320 +02:00 [INF] Executing ViewResult, running view TournamentsBackOffice.
+2025-04-20 19:25:01.417 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-04-20 19:25:01.456 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-04-20 19:25:01.488 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-04-20 19:25:01.689 +02:00 [INF] Executed ViewResult - view TournamentsBackOffice executed in 367.6794ms.
+2025-04-20 19:25:01.692 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField) in 572.1662ms
+2025-04-20 19:25:01.692 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-04-20 19:25:01.694 +02:00 [INF] HTTP GET /Tournaments/TournamentsBackOffice responded 200 in 596.7344 ms
+2025-04-20 19:25:01.714 +02:00 [INF] Sending file. Request path: '/js/deviceInfo.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\js\deviceInfo.js'
+2025-04-20 19:25:01.716 +02:00 [INF] Sending file. Request path: '/MyField.styles.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\obj\Release\net8.0\scopedcss\bundle\MyField.styles.css'
+2025-04-20 19:25:01.718 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\css\site.css'
+2025-04-20 19:25:01.719 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2025-04-20 19:25:01.721 +02:00 [INF] Sending file. Request path: '/Images/default_profile_image.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\default_profile_image.jpg'
+2025-04-20 19:25:01.722 +02:00 [INF] Sending file. Request path: '/Images/new_logo.png'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\Images\new_logo.png'
+2025-04-20 19:25:01.771 +02:00 [INF] Sending file. Request path: '/UploadedFiles/e5d535d7-c52b-454a-bbb2-118532e182e1_tournament_trophy.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\e5d535d7-c52b-454a-bbb2-118532e182e1_tournament_trophy.jpg'
+2025-04-20 19:25:01.778 +02:00 [INF] Sending file. Request path: '/UploadedFiles/aa1eedff-26ae-401d-92f0-c82bafd0e9cb_tournament.jpeg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\aa1eedff-26ae-401d-92f0-c82bafd0e9cb_tournament.jpeg'
+2025-04-20 19:25:01.783 +02:00 [INF] Sending file. Request path: '/UploadedFiles/0e0efa80-678e-4fa2-a943-5a924779015a_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\0e0efa80-678e-4fa2-a943-5a924779015a_Tournament example.jpg'
+2025-04-20 19:25:01.787 +02:00 [INF] Sending file. Request path: '/UploadedFiles/c3eb0dd5-9392-41aa-a064-42092a33cf26_Siya_trophy.jpeg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\c3eb0dd5-9392-41aa-a064-42092a33cf26_Siya_trophy.jpeg'
+2025-04-20 19:25:01.797 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0896 ms
+2025-04-20 19:25:01.799 +02:00 [INF] Sending file. Request path: '/UploadedFiles/03bde014-7f37-4b5b-b7ca-fa14f8906f64_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\03bde014-7f37-4b5b-b7ca-fa14f8906f64_Tournament example.jpg'
+2025-04-20 19:25:01.800 +02:00 [INF] Sending file. Request path: '/UploadedFiles/9aebda7d-adde-488f-b69f-1bc728673c8e_Tournament example.jpg'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\UploadedFiles\9aebda7d-adde-488f-b69f-1bc728673c8e_Tournament example.jpg'
+2025-04-20 19:25:01.964 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\favicon.ico'
+2025-04-20 19:25:20.401 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.UpdateTournament (MyField)'
+2025-04-20 19:25:20.414 +02:00 [INF] Route matched with {action = "UpdateTournament", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateTournament(System.String) on controller MyField.Controllers.TournamentsController (MyField).
+2025-04-20 19:25:20.449 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__decryptedTournamentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus], [t].[TournamentType], [t].[TrophyImage]
+FROM [Tournament] AS [t]
+WHERE [t].[TournamentId] = @__decryptedTournamentId_0
+2025-04-20 19:25:20.457 +02:00 [INF] Executing ViewResult, running view UpdateTournament.
+2025-04-20 19:25:20.557 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-04-20 19:25:20.560 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-04-20 19:25:20.564 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-04-20 19:25:20.565 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-04-20 19:25:20.576 +02:00 [INF] Executed ViewResult - view UpdateTournament executed in 120.3125ms.
+2025-04-20 19:25:20.577 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.UpdateTournament (MyField) in 162.5647ms
+2025-04-20 19:25:20.577 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.UpdateTournament (MyField)'
+2025-04-20 19:25:20.577 +02:00 [INF] HTTP GET /Tournaments/UpdateTournament responded 200 in 175.7602 ms
+2025-04-20 19:25:20.596 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0274 ms
+2025-04-20 19:25:20.602 +02:00 [INF] Sending file. Request path: '/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js'
+2025-04-20 19:25:20.602 +02:00 [INF] Sending file. Request path: '/lib/jquery-validation/dist/jquery.validate.min.js'. Physical path: 'C:\Users\khaya\Khaya_Transferred_Stuff\MyField\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js'
+2025-04-20 19:25:27.015 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.UpdateTournament (MyField)'
+2025-04-20 19:25:27.022 +02:00 [INF] Route matched with {action = "UpdateTournament", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateTournament(MyField.ViewModels.UpdateTournamentViewModel, Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.IFormFile) on controller MyField.Controllers.TournamentsController (MyField).
+2025-04-20 19:25:27.050 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-04-20 19:25:27.058 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[@__viewModel_TournamentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus], [t].[TournamentType], [t].[TrophyImage]
+FROM [Tournament] AS [t]
+WHERE [t].[TournamentId] = @__viewModel_TournamentId_0
+2025-04-20 19:25:27.156 +02:00 [INF] Executed DbCommand (9ms) [Parameters=[@p20='?' (DbType = Int32), @p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = DateTime2), @p5='?' (DbType = Double), @p6='?' (Size = 450), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Int32), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime2), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Int32), @p18='?' (DbType = Int32), @p19='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Tournament] SET [CreatedById] = @p0, [CreatedDateTime] = @p1, [DivisionId] = @p2, [IsPublished] = @p3, [JoiningDueDate] = @p4, [JoiningFee] = @p5, [ModifiedById] = @p6, [ModifiedDateTime] = @p7, [NumberOfTeams] = @p8, [SponsorContactDetails] = @p9, [SponsorName] = @p10, [Sponsorship] = @p11, [StartDate] = @p12, [TournamentDescription] = @p13, [TournamentImage] = @p14, [TournamentLocation] = @p15, [TournamentName] = @p16, [TournamentStatus] = @p17, [TournamentType] = @p18, [TrophyImage] = @p19
+OUTPUT 1
+WHERE [TournamentId] = @p20;
+2025-04-20 19:25:27.249 +02:00 [INF] Start processing HTTP request GET https://api.ip2location.io/?key=B98F30EA4D6F54D5212B279C391A11B0&ip=::1
+2025-04-20 19:25:27.252 +02:00 [INF] Sending HTTP request GET https://api.ip2location.io/?key=B98F30EA4D6F54D5212B279C391A11B0&ip=::1
+2025-04-20 19:25:28.571 +02:00 [INF] Received HTTP response headers after 1316.4856ms - 200
+2025-04-20 19:25:28.572 +02:00 [INF] End processing HTTP request after 1324.9755ms - 200
+2025-04-20 19:25:28.646 +02:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [DeviceInfo] ([Browser], [BrowserVersion], [City], [Country], [DeviceModel], [DeviceName], [IpAddress], [Latitude], [Longitude], [OSName], [OSVersion], [PostalCode], [Region])
+OUTPUT INSERTED.[DeviceInfoId]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12);
+2025-04-20 19:25:28.694 +02:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (Size = 450), @p4='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ActivityLogs] ([Activity], [DeviceInfoId], [Timestamp], [UserBaseModelId], [UserId])
+OUTPUT INSERTED.[ActivityLogId]
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2025-04-20 19:25:28.698 +02:00 [INF] Executing RedirectResult, redirecting to /Tournaments/TournamentsBackOffice.
+2025-04-20 19:25:28.700 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.UpdateTournament (MyField) in 1678.4933ms
+2025-04-20 19:25:28.700 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.UpdateTournament (MyField)'
+2025-04-20 19:25:28.700 +02:00 [INF] HTTP POST /Tournaments/UpdateTournament responded 302 in 1686.0132 ms
+2025-04-20 19:25:28.706 +02:00 [INF] Executing endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-04-20 19:25:28.706 +02:00 [INF] Route matched with {action = "TournamentsBackOffice", controller = "Tournaments", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TournamentsBackOffice() on controller MyField.Controllers.TournamentsController (MyField).
+2025-04-20 19:25:28.708 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[ClubId], [a].[DivisionId], [a].[ClubManager_ClubId], [a].[ClubManager_DivisionId], [a].[IsContractEnded], [a].[DivisionManager_DivisionId], [a].[Officials_DivisionId], [a].[Player_ClubId], [a].[Player_DivisionId], [a].[EndDate], [a].[HasPlayed], [a].[IsContractSigned], [a].[IsOnPitch], [a].[JerseyNumber], [a].[MarketValue], [a].[PlayerCard], [a].[Position], [a].[StartDate], [a].[SportsMember_DivisionId]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[UserType] IN (N'UserBaseModel', N'ClubAdministrator', N'ClubManager', N'DivisionManager', N'Fan', N'Officials', N'Player', N'SportsMember', N'SystemAdministrator') AND [a].[Id] = @__p_0
+2025-04-20 19:25:28.710 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[TournamentId], [t].[CreatedById], [t].[CreatedDateTime], [t].[DivisionId], [t].[IsPublished], [t].[JoiningDueDate], [t].[JoiningFee], [t].[ModifiedById], [t].[ModifiedDateTime], [t].[NumberOfTeams], [t].[SponsorContactDetails], [t].[SponsorName], [t].[Sponsorship], [t].[StartDate], [t].[TournamentDescription], [t].[TournamentImage], [t].[TournamentLocation], [t].[TournamentName], [t].[TournamentStatus], [t].[TournamentType], [t].[TrophyImage]
+FROM [Tournament] AS [t]
+WHERE [t].[DivisionId] = @__divisionId_0
+ORDER BY [t].[CreatedDateTime] DESC
+2025-04-20 19:25:28.712 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__divisionId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[DivisionId] = @__divisionId_0
+2025-04-20 19:25:28.713 +02:00 [INF] Executing ViewResult, running view TournamentsBackOffice.
+2025-04-20 19:25:28.717 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [Divisions] AS [d]
+WHERE [d].[IsDeleted] = CAST(0 AS bit)
+2025-04-20 19:25:28.718 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__user_Id_0
+2025-04-20 19:25:28.719 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UserType], [a].[CreatedBy], [a].[CreatedDateTime], [a].[DateOfBirth], [a].[FirstName], [a].[IsActive], [a].[IsDeleted], [a].[IsFirstTimeLogin], [a].[IsSuspended], [a].[LastName], [a].[ModifiedBy], [a].[ModifiedDateTime], [a].[ProfilePicture], [a].[DivisionManager_DivisionId], [d].[DivisionId], [d].[Address], [d].[CreatedById], [d].[CreatedDateTime], [d].[DivisionAbbr], [d].[DivisionBadge], [d].[DivisionDescription], [d].[DivisionName], [d].[DivisionType], [d].[HasPaid], [d].[IsActive], [d].[IsDeleted], [d].[IsSuspended], [d].[ModifiedById], [d].[ModifiedDateTime], [d].[SignedContract], [d].[Status]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [Divisions] AS [d] ON [a].[DivisionManager_DivisionId] = [d].[DivisionId]
+WHERE [a].[UserType] = N'DivisionManager' AND [a].[Id] = @__user_Id_0
+2025-04-20 19:25:28.722 +02:00 [INF] Executed ViewResult - view TournamentsBackOffice executed in 9.7245ms.
+2025-04-20 19:25:28.722 +02:00 [INF] Executed action MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField) in 16.2753ms
+2025-04-20 19:25:28.723 +02:00 [INF] Executed endpoint 'MyField.Controllers.TournamentsController.TournamentsBackOffice (MyField)'
+2025-04-20 19:25:28.723 +02:00 [INF] HTTP GET /Tournaments/TournamentsBackOffice responded 200 in 16.6308 ms
+2025-04-20 19:25:28.745 +02:00 [INF] HTTP GET /UploadedFiles/93125f93-00c6-4f8a-ab9a-ecd685fa667e_laliga_logo.png responded 404 in 0.0106 ms
+2025-04-20 19:26:01.034 +02:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[SubscriptionId], [s].[Amount], [s].[ClubId], [s].[ExpirationDate], [s].[SubscriptionPlan], [s].[SubscriptionStatus], [s].[UserId]
+FROM [Subscriptions] AS [s]
+WHERE [s].[SubscriptionStatus] = 0 AND [s].[ExpirationDate] <= GETDATE() AND [s].[SubscriptionPlan] IN (1, 2)
+2025-04-20 19:26:01.036 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:26:01.039 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:26:01.044 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0
+2025-04-20 19:26:01.049 +02:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [l].[LiveId], [l].[AddedTime], [l].[AwayTeamScore], [l].[Discriminator], [l].[DivisionId], [l].[FixtureId], [l].[HalfTimeScore], [l].[HomeTeamScore], [l].[ISEnded], [l].[IsHalfTime], [l].[IsInterrupted], [l].[IsLive], [l].[LeagueId], [l].[LiveStatus], [l].[LiveTime], [l].[ReasonForInterruption], [l].[RecordedTime], [l].[WentToHalfTime]
+FROM [Live] AS [l]
+WHERE [l].[LiveId] = @__p_0

@@ -1,4 +1,6 @@
-﻿namespace MyField.ViewModels
+﻿using MyField.Models;
+
+namespace MyField.ViewModels
 {
     public class UpdateTournamentViewModel
     {
@@ -29,5 +31,7 @@
         public IFormFile TournamentImages { get; set; }
 
         public IFormFile TrophyImages { get; set; }
+
+        public TournamentType TournamentType { get; set; }
     }
 }

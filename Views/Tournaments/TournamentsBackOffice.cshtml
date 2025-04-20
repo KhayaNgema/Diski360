@@ -77,10 +77,11 @@
                     <th style="white-space: nowrap;">No. of Teams</th>
                     <th style="white-space: nowrap;">Joining fee(R)</th>
                     <th style="white-space: nowrap;">Join By Date</th>
+                    <th style="white-space: nowrap;">Type</th>
+                    <th style="white-space: nowrap;">Status</th>
                     <th style="white-space: nowrap;">Sponsor</th>
                     <th style="white-space: nowrap;">Sponsorship(R)</th>
                     <th style="white-space: nowrap;">Sponsor contact</th>
-                    <th style="white-space: nowrap;">Status</th>
                     <th style="white-space: nowrap;">More actions</th>
 
                 </tr>
@@ -93,48 +94,76 @@
 
                     <tr>
                         <td class="column-max-width">
-                            <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px; width:70px; height:100px;object-fit:fill;" />
-                            <span>@Html.DisplayFor(modelItem => item.TournamentName)</span>
+                            @if (!string.IsNullOrEmpty(item.TournamentImage))
+                            {
+                                <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px; width:70px; height:100px;object-fit:fill;" />
+                            }
+                            else
+                            {
+                                <span>N/A</span>
+                            }
+                            <span>@(string.IsNullOrEmpty(item.TournamentName) ? "N/A" : item.TournamentName)</span>
                         </td>
+
                         <td class="column-max-width">
-                            <img src="~/@item.TrophyImage" alt="trophy" class="tournament-image" style="margin-right: 20px; width:90px; height:100px;object-fit:fill; mix-blend-mode: multiply;" />
+                            @if (!string.IsNullOrEmpty(item.TrophyImage))
+                            {
+                                <img src="~/@item.TrophyImage" alt="trophy" class="tournament-image" style="margin-right: 20px; width:90px; height:100px;object-fit:fill; mix-blend-mode: multiply;" />
+                            }
+                            else
+                            {
+                                <span>N/A</span>
+                            }
                         </td>
+
                         <td class="column-max-width">
-                            <span><i class="fa fa-calendar-alt me-1"></i>@item.StartDate.ToString("ddd, dd MMM yyyy")</span>
+                            @(item.StartDate == null ? "N/A" : item.StartDate.ToString("ddd, dd MMM yyyy"))
                         </td>
+
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.TournamentLocation)
+                            @(string.IsNullOrEmpty(item.TournamentLocation) ? "N/A" : item.TournamentLocation)
                         </td>
+
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.NumberOfTeams)
+                            @(item.NumberOfTeams == null ? "N/A" : item.NumberOfTeams.ToString())
                         </td>
+
                         <td class="column-max-width">
-                            R @Html.DisplayFor(modelItem => item.JoiningFee)
+                            @(item.JoiningFee == null ? "N/A" : $"R {item.JoiningFee}")
                         </td>
+
                         <td class="column-max-width">
                             <div class="d-flex flex-column">
                                 <span class="mb-1">
                                     <i class="fa fa-calendar-alt me-1"></i>
-                                    @item.JoiningDueDate.ToString("ddd, dd MMM yyyy")
+                                    @(item.JoiningDueDate == null ? "N/A" : item.JoiningDueDate.ToString("ddd, dd MMM yyyy"))
                                 </span>
                                 <span>
                                     <i class="fa fa-clock me-1"></i>
-                                    @item.JoiningDueDate.ToString("HH:mm")
+                                    @(item.JoiningDueDate == null ? "N/A" : item.JoiningDueDate.ToString("HH:mm"))
                                 </span>
                             </div>
                         </td>
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.SponsorName)
+                            @item.TournamentType.ToString().Replace("_", " ")
                         </td>
                         <td class="column-max-width">
-                            R @Html.DisplayFor(modelItem => item.Sponsorship)
+                            @item.TournamentStatus
+                            (@(item.IsPublished ? "Approved" : "Awaiting Approval"))
                         </td>
+
                         <td class="column-max-width">
-                            @Html.DisplayFor(modelItem => item.SponsorContactDetails)
+                            @(string.IsNullOrEmpty(item.SponsorName) ? "N/A" : item.SponsorName)
                         </td>
+
                         <td class="column-max-width">
-                            @item.TournamentStatus (@(item.IsPublished ? "Approved" : "Awaiting Approval"))
+                            @(item.Sponsorship == null ? "N/A" : $"R {item.Sponsorship}")
                         </td>
+
+                        <td class="column-max-width">
+                            @(string.IsNullOrEmpty(item.SponsorContactDetails) ? "N/A" : item.SponsorContactDetails)
+                        </td>
+
                        
                         @if (User.IsInRole("Sport Administrator"))
                         {

@@ -230,7 +230,7 @@ namespace MyField.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "Sport Administrator")]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> NewTournament()
         {
@@ -248,7 +248,7 @@ namespace MyField.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Sport Administrator")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewTournament(NewTournamentViewModel viewModel, IFormFile TournamentImages, IFormFile TrophyImages)
@@ -412,8 +412,20 @@ namespace MyField.Controllers
                 JoiningFee = tournament.JoiningFee,
                 Sponsorship = tournament.Sponsorship,
                 StartDate = tournament.StartDate,
-                TrophyImage = tournament.TrophyImage
+                TrophyImage = tournament.TrophyImage,
+                TournamentType = tournament.TournamentType
             };
+
+            var tournamentTypes = Enum.GetValues(typeof(TournamentType))
+                              .Cast<TournamentType>()
+                              .Select(t => new SelectListItem
+                              {
+                                  Value = t.ToString(),
+                                  Text = t.ToString().Replace("_", " ")
+                              })
+                              .ToList();
+
+            ViewBag.TournamentTypes = tournamentTypes;
 
             return View(viewModel);
         }
@@ -441,6 +453,7 @@ namespace MyField.Controllers
                 tournament.JoiningDueDate = viewModel.JoiningDueDate;
                 tournament.StartDate = viewModel.StartDate;
                 tournament.NumberOfTeams = viewModel.NumberOfTeams;
+                tournament.TournamentType = viewModel.TournamentType;
 
 
                 if (TournamentImages != null && TournamentImages.Length > 0)
@@ -462,7 +475,20 @@ namespace MyField.Controllers
 
 
                 TempData["Message"] = $"{tournament.TournamentName} information has been updated successfully.";
-                return RedirectToAction(nameof(TournamentsBackOffice));
+
+            var tournamentTypes = Enum.GetValues(typeof(TournamentType))
+                              .Cast<TournamentType>()
+                              .Select(t => new SelectListItem
+                              {
+                                  Value = t.ToString(),
+                                  Text = t.ToString().Replace("_", " ")
+                              })
+                              .ToList();
+
+            ViewBag.TournamentTypes = tournamentTypes;
+
+            return RedirectToAction(nameof(TournamentsBackOffice));
+
         }
 
         [HttpPost]

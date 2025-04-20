@@ -39,7 +39,13 @@
                 </div>
                 <small class="form-text text-muted text-center" style="display: block; margin-top: 10px;">Change trophy image.</small>
             </div>
-
+            <div class="form-floating mb-3">
+                <select asp-for="TournamentType" asp-items="ViewBag.TournamentTypes" class="form-select border-bottom-only">
+                    <option value="">-- Select Tournament Type --</option>
+                </select>
+                <label asp-for="TournamentType" class="form-label">Tournament Type</label>
+                <span asp-validation-for="TournamentType" class="text-danger"></span>
+            </div>
 
             <div class="form-floating mb-3">
                 <input asp-for="TournamentName" class="form-control border-bottom-only" placeholder="tournamentname" />
@@ -114,7 +120,7 @@
                 <div class="col-md-12">
                     <div class="form-group" style="display: flex; justify-content: flex-end;">
                         <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
-                        <input type="submit" value="Submit" class="btn btn-success" />
+                        <input type="submit" value="Save" class="btn btn-success" />
                     </div>
                 </div>
             </div>
