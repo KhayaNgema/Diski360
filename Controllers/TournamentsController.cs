@@ -366,6 +366,7 @@ namespace MyField.Controllers
                     ClubManagerName = $"{club.ClubManager.FirstName} {club.ClubManager.LastName}",
                     ClubManagerEmail = club.ClubManager.Email,
                     ClubManagerPhone = club.ClubManager.PhoneNumber,
+                    ManagerProfilePicture = club.ClubManager.ProfilePicture,
                     Email = club.Email
                 }; 
 
