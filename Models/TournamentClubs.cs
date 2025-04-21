@@ -28,6 +28,9 @@ namespace MyField.Models
         [Display(Name = "Badge")]
         public string? ClubBadge { get; set; }
 
+        [Display(Name = "Manager Profile")]
+        public string? ManagerProfilePicture { get; set; }
+
         [Display(Name = "ClubHistory")]
         public string? ClubHistory { get; set; }
 

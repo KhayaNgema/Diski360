@@ -123,7 +123,7 @@
                             @if (item.TournamentType != TournamentType.Qualification_Based)
                             {
                                 <div class="modal-footer d-flex justify-content-end">
-                                    <a href="@Url.Action("ActionNameHere", "ControllerNameHere", new { tournamentId = encryptedTournamentId })" class="btn" id="addButton">
+                                    <a href="@Url.Action("JoinTournament", "Tournaments", new { tournamentId = encryptedTournamentId })" class="btn" id="addButton">
                                         Join Now
                                     </a>
                                 </div>

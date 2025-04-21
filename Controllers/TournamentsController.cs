@@ -331,7 +331,74 @@ namespace MyField.Controllers
 
         }
 
-        [Authorize(Roles = "Sport Administrator")]
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> JoinTournament(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var clubId = (user as ClubAdministrator)?.ClubId;
+
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId ==  decryptedTournamentId)
+                .FirstOrDefaultAsync();
+
+            var club = await _context.Club
+                .Where(c => c.ClubId == clubId)
+                .Include(c => c.Division)
+                .Include(c => c.ClubManager)
+                .FirstOrDefaultAsync();
+
+            if(club != null)
+            {
+                var viewModel = new JoinTournamentViewModel
+                {
+                    ClubName = club.ClubName,
+                    ClubAbbr = club.ClubAbbr,
+                    ClubBadge = club.ClubBadge,
+                    ClubHistory = club.ClubHistory,
+                    ClubSummary = club.ClubSummary,
+                    DivisionId = club.DivisionId,
+                    ClubLocation = club.ClubLocation,
+                    TournamentId = decryptedTournamentId,
+                    ClubManagerName = $"{club.ClubManager.FirstName} {club.ClubManager.LastName}",
+                    ClubManagerEmail = club.ClubManager.Email,
+                    ClubManagerPhone = club.ClubManager.PhoneNumber,
+                    Email = club.Email
+                }; 
+
+                ViewBag.TournamentName = tournament.TournamentName;
+
+                return View(viewModel);
+            }
+            else
+            {
+                var viewModel = new JoinTournamentViewModel
+                {
+                    TournamentId = decryptedTournamentId,
+                };
+
+                ViewBag.TournamentName = tournament.TournamentName;
+
+                return View(viewModel);
+            } 
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> JoinTournament(JoinTournamentViewModel viewModel)
+        {
+
+
+            var tournamentId = _encryptionService.Encrypt(viewModel.TournamentId);
+
+            return RedirectToAction(nameof(Details), new { tournamentId });
+        }
+
+
+            [Authorize(Roles = "Sport Administrator")]
         [HttpGet]
         public async Task<IActionResult> AddTournamentRules(string tournamentId)
         {

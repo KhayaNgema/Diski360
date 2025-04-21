@@ -6,6 +6,34 @@
     var encryptedRequestId = encryptionService.Encrypt(Model.RequestId);
 }
 
+<head>
+    <style>
+        .review-request-row {
+            display: flex;
+            justify-content: flex-start;
+            align-items: baseline;
+            padding: 6px 0;
+            width: 100%;
+        }
+
+        .review-request-label {
+            font-weight: bold;
+            color: #222;
+            min-width: 130px;
+            margin-right: 8px;
+            text-align: left;
+        }
+
+        .review-request-value {
+            color: #555;
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 0;
+            padding-left: 0;
+        }
+    </style>
+</head>
+
 <br />
 @await Html.PartialAsync("_BackButton")
 <br />
@@ -36,63 +64,52 @@
                     </div>
                 </div>
 
-            <div class="form-floating mb-3">
-                <input asp-for="DivisionType" class="form-control border-bottom-only" placeholder="DivisionType" readonly />
-                <label asp-for="DivisionType" class="form-label">Division type</label>
-                <span asp-validation-for="DivisionType" class="text-danger"></span>
+
+            <div class="review-request-row">
+                <span class="review-request-label">Division type:</span>
+                <span class="review-request-value ">@((Model.DivisionType))</span>
             </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="DivisionName" class="form-control border-bottom-only" placeholder="Division Name" readonly />
-                    <label asp-for="DivisionName" class="form-label">Division Name</label>
-                    <span asp-validation-for="DivisionName" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Division name:</span>
+                <span class="review-request-value ">@((Model.DivisionName))</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <textarea asp-for="DivisionDescription" class="form-control border-bottom-only" placeholder="Division Description" style="min-height: 150px;" readonly></textarea>
-                    <label asp-for="DivisionDescription" class="form-label">Division Description</label>
-                    <span asp-validation-for="DivisionDescription" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Division address:</span>
+                <span class="review-request-value ">@((Model.Address))</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="Address" class="form-control border-bottom-only" placeholder="Address" readonly />
-                    <label asp-for="Address" class="form-label">Address</label>
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
             </div>
 
             <div class="col-12 col-lg-6 division-add-form-container">
                 <h5 class="text-center">Division Manager Details</h5>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="ManagerFirstName" class="form-control border-bottom-only" placeholder="First Name(s)" readonly />
-                    <label asp-for="ManagerFirstName" class="form-label">First Name(s)</label>
-                    <span asp-validation-for="ManagerFirstName" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Manager name(s):</span>
+                <span class="review-request-value ">@((Model.ManagerFirstName))</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="ManagerLastName" class="form-control border-bottom-only" placeholder="Last Name" readonly />
-                    <label asp-for="ManagerLastName" class="form-label">Last Name</label>
-                    <span asp-validation-for="ManagerLastName" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Manager surname:</span>
+                <span class="review-request-value ">@((Model.ManagerLastName))</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="DateOfBirth" class="form-control border-bottom-only" placeholder="DateOfBirth" type="date" readonly />
-                    <label asp-for="DateOfBirth">Date of Birth</label>
-                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Date of Birth:</span>
+                <span class="review-request-value ">@(Model.DateOfBirth.ToString("dd/MM/yyy"))</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="ManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" readonly />
-                    <label asp-for="ManagerEmail" class="form-label">Email Address</label>
-                    <span asp-validation-for="ManagerEmail" class="text-danger"></span>
-                </div>
+            <div class="review-request-row">
+                <span class="review-request-label">Email address:</span>
+                <span class="review-request-value ">@(Model.ManagerEmail)</span>
+            </div>
 
-                <div class="form-floating mb-3">
-                    <input asp-for="ManagerPhoneNumber" class="form-control border-bottom-only" placeholder="Phone Number" readonly />
-                    <label asp-for="ManagerPhoneNumber" class="form-label">Phone Number</label>
-                    <span asp-validation-for="ManagerPhoneNumber" class="text-danger"></span>
-                </div>
+
+            <div class="review-request-row">
+                <span class="review-request-label">Phone number:</span>
+                <span class="review-request-value ">@(Model.ManagerPhoneNumber)</span>
+            </div>
 
                 <div class="d-flex justify-content-end">
                 @if(Model.RequestStatus == RequestStatus.Approved)
