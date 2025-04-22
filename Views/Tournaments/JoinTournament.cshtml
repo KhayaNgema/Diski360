@@ -107,6 +107,7 @@
                     <span asp-validation-for="ClubManagerEmail" class="text-danger"></span>
                 </div>
                 <div class="text-end">
+                    <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
                     <input type="submit" value="Submit" class="btn btn-success" />
                 </div>
             </div>

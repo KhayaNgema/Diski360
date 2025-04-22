@@ -360,7 +360,7 @@ namespace MyField.Controllers
                     ClubBadge = club.ClubBadge,
                     ClubHistory = club.ClubHistory,
                     ClubSummary = club.ClubSummary,
-                    DivisionId = club.DivisionId,
+                    DivisionId = club.Division.DivisionId,
                     ClubLocation = club.ClubLocation,
                     TournamentId = decryptedTournamentId,
                     ClubManagerName = $"{club.ClubManager.FirstName} {club.ClubManager.LastName}",
@@ -391,11 +391,42 @@ namespace MyField.Controllers
         [HttpPost]
         public async Task<IActionResult> JoinTournament(JoinTournamentViewModel viewModel)
         {
+            var user = await _userManager.GetUserAsync(User);
 
+            var tournament = await _context.Tournament
+                .Where(t => t.TournamentId == viewModel.TournamentId)
+                .FirstOrDefaultAsync();
 
-            var tournamentId = _encryptionService.Encrypt(viewModel.TournamentId);
+            var tournamentClub = new TournamentClubs
+            {
+                TournamentId = viewModel.TournamentId,
+                ClubAbbr = viewModel.ClubAbbr,
+                ClubBadge = viewModel.ClubBadge,
+                ClubHistory = viewModel.ClubHistory,
+                ClubLocation = viewModel.ClubLocation,
+                ClubManagerEmail = viewModel.ClubManagerEmail,
+                ClubManagerName = viewModel.ClubManagerName,
+                ClubName = viewModel.ClubName,
+                ClubSummary = viewModel.ClubSummary,
+                ClubManagerPhone = viewModel.ClubManagerPhone,
+                DivisionId = viewModel.DivisionId,
+                ManagerProfilePicture = viewModel.ManagerProfilePicture,
+                Email = viewModel.Email,
+                CreatedById = user.Id,
+                CreatedDateTime = DateTime.Now,
+                ModifiedById = user.Id,
+                ModifiedDateTime = DateTime.Now,
+                HasJoined = false,
+                IsEliminated = false,
+            };
 
-            return RedirectToAction(nameof(Details), new { tournamentId });
+            _context.Add(tournamentClub);
+            await _context.SaveChangesAsync();
+
+            await _activityLogger.Log($"Created a new club for the {tournament.TournamentName} tournament.", user.Id);
+            await _requestLogService.LogSuceededRequest("Successfully created a new tournament club", StatusCodes.Status200OK);
+
+            return RedirectToAction(nameof(AddTournamentRules));
         }
 
 
@@ -428,6 +459,7 @@ namespace MyField.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
+
                 var tournament = await _context.Tournament
                     .Where(t => t.TournamentId == tournamentId)
                     .FirstOrDefaultAsync();
