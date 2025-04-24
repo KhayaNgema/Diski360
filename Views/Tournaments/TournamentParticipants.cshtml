@@ -1,1 +1,201 @@
-﻿
+﻿@model IEnumerable<MyField.Models.TournamentClubs>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+@{
+    ViewData["Title"] = "Clubs";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.TournamentName Participating Clubs</h4>
+<br />
+@if (Model.Any())
+{
+    <p class="text-center" style="padding-right:10px; padding-left:10px;">
+       Explore the local clubs managed by Diski360. This page features a curated list of local sports teams and community clubs that Diski360 oversees, highlighting our dedication to supporting and organizing local talent and organizations.
+    </p>
+    <br />
+    <div class="fixtures-search-create-container" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
+                <div class="search-bar" style="flex: 1; margin-right: 10px;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search club..." style="width: 100%;">
+                </div>
+                @if (User.IsInRole("Sport Administrator"))
+                {
+                    <div class="create-button">
+                        <a href="@Url.Action("Create")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;">
+                            <i class="fas fa-plus"></i> Add new club
+                        </a>
+                    </div>
+                }
+                else
+                {
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <br />
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless clubs-table">
+            <thead>
+                <tr style="color:white;background-color: #324260; white-space: nowrap;">
+                    <th style="white-space: nowrap;">Name</th>
+                    <th style="white-space: nowrap;">Manager</th>
+                    <th style="white-space: nowrap;">Location</th>
+                    <th style="white-space: nowrap;">Email</th>
+                    @if (User.IsInRole("Sport Administrator"))
+                    {
+                        <th style="white-space: nowrap;">Requested By</th>
+                        <th style="white-space: nowrap;">Requested Date & Time</th>
+                        <th style="white-space: nowrap;">Updated By</th>
+                        <th style="white-space: nowrap;">Updated Date & Time</th>
+                    }
+                    else
+                    {
+
+                    }
+                    @if (User.IsInRole("Sport Administrator"))
+                    {
+                        <th style="white-space: nowrap;">Actions</th>
+                    }
+                    else
+                    {
+
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DistinctBy(club => club.ClubId))
+                {
+                    var dropdownId = "dropdownMenuButton" + item.ClubId;
+                    var encryptedClubId = encryptionService.Encrypt(@item.ClubId);
+
+                    <tr>
+                        <td class="column-max-width">
+                            <img src="~/@item.ClubBadge" alt="@item.ClubName" class="club-badge-image" style="margin-right: 20px;" />
+                            @Html.DisplayFor(modelItem => item.ClubName) (@Html.DisplayFor(modelItem => item.ClubAbbr))
+                        </td>
+                        <td class="column-max-width">
+                            <img src="~/@item.ManagerProfilePicture" alt="@item.ClubManagerName" class="club-badge-image" style="border-radius: 50%; width: 50px; height: 50px;" />
+                            @Html.DisplayFor(modelItem => item.ClubManagerName)
+                        </td>
+
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.ClubLocation)
+                        </td>
+                        <td class="column-max-width">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        @if (User.IsInRole("Sport Administrator"))
+                        {
+                            <td class="column-max-width">
+                                @Html.DisplayFor(modelItem => item.CreatedBy.FirstName) @Html.DisplayFor(modelItem => item.CreatedBy.LastName)
+                            </td>
+                            <td class="column-max-width">
+                                <div>
+                                    <span class="fa fa-calendar-alt"></span> @item.CreatedDateTime.ToString(" dd MMM yyyy")
+                                </div>
+                                <div>
+                                    <span class="fa fa-clock"></span> @item.CreatedDateTime.ToString(" HH:mm:ss")
+                                </div>
+                            </td>
+                            <td class="column-max-width">
+                                @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName) @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
+                            </td>
+                            <td class="column-max-width">
+                                <div>
+                                    <span class="fa fa-calendar-alt"></span> @item.ModifiedDateTime.ToString(" dd MMM yyyy")
+                                </div>
+                                <div>
+                                    <span class="fa fa-clock"></span> @item.ModifiedDateTime.ToString(" HH:mm:ss")
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+
+                        }
+                        @if (User.IsInRole("Sport Administrator"))
+                        {
+                            <td class="text-right">
+                                <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.ClubId">
+                                    Actions
+                                </button>
+                                <div class="action-tab" id="actionTab-@item.ClubId" style="display: none;">
+                                    <a class="tab-item" href="@Url.Action("RejoinSeason", "Clubs", new { clubId = encryptedClubId })">
+                                        <i class="fas fa-sign-in-alt" style="color: #28a745;"></i> Rejoin
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { clubId = encryptedClubId })">
+                                        <i class="fas fa-pen" class="tab-item" style="color: blue;"></i> Update
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("SuspendClub", "Clubs", new { clubId = encryptedClubId  })">
+                                        <i class="fas fa-ban" style="color: #dc3545;"></i> Suspend
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("UnsuspendClub", "Clubs", new { clubId = encryptedClubId })">
+                                        <i class="fas fa-check-circle" style="color: #ffc107;"></i> Unsuspend
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no participating clubs yet.</p>
+        @if (User.IsInRole("Sport Administrator"))
+        {
+            <div class="create-button">
+                <a href="@Url.Action("Create")" class="btn btn-outline-primary btn-create" style="white-space: nowrap;">
+                    <i class="fas fa-plus"></i> Create new
+                </a>
+            </div>
+        }
+        else
+        {
+
+        }
+    </div>
+}
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".clubs-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $(document).on('click', function (event) {
+        var $target = $(event.target);
+        if (!$target.closest('.dropdown-menu').length && !$target.closest('.dropdown-toggle').length) {
+            $('.dropdown-menu').removeClass('show');
+        }
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 3000);
+</script>

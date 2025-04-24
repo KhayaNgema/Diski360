@@ -20,7 +20,6 @@ namespace MyField.ViewModels
         public string ClubManagerName { get; set; }
         public string ClubManagerPhone { get; set; }
         public string ClubManagerEmail { get; set; }
-
         public int? DivisionId { get; set; }
     }
 }

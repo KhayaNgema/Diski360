@@ -69,7 +69,7 @@
         function previewClubBadge(event) {
             var reader = new FileReader();
             reader.onload = function () {
-                var output = document.getElementById('current-club-badge'); // Updated this line
+                var output = document.getElementById('current-club-badge');
                 output.src = reader.result;
                 output.style.display = 'block';
                 document.getElementById('club-badge-placeholder').style.display = 'none';

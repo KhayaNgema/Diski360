@@ -54,6 +54,21 @@ namespace MyField.Controllers
             return Json(rules);
         }
 
+        [Authorize(Roles = "Sport Administrator, Sport Coordinator")]
+        [HttpGet]
+        public async Task<IActionResult> TournamentParticipants(string tournamentId)
+        {
+            var decryptedTournamentId = _encryptionService.DecryptToInt(tournamentId);
+                
+                var tournamentClubs = await _context.TournamentClubs
+                .Where(tc => tc.TournamentId == decryptedTournamentId) 
+                .Include(tc => tc.CreatedBy)
+                .Include(tc => tc.ModifiedBy)
+                .ToListAsync();
+
+            return View(tournamentClubs);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> TournamentRules(string tournamentId)
@@ -389,7 +404,7 @@ namespace MyField.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> JoinTournament(JoinTournamentViewModel viewModel)
+        public async Task<IActionResult> JoinTournament(JoinTournamentViewModel viewModel, IFormFile ClubBadges, IFormFile ManagerProfilePictures)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -419,6 +434,18 @@ namespace MyField.Controllers
                 HasJoined = false,
                 IsEliminated = false,
             };
+
+            if (ClubBadges != null && ClubBadges.Length > 0)
+            {
+                var uploadedImagePath = await _fileUploadService.UploadFileAsync(ClubBadges);
+                tournamentClub.ClubBadge = uploadedImagePath;
+            }
+
+            if (ManagerProfilePictures != null && ManagerProfilePictures.Length > 0)
+            {
+                var uploadedImagePath = await _fileUploadService.UploadFileAsync(ManagerProfilePictures);
+                tournamentClub.ManagerProfilePicture = uploadedImagePath;
+            }
 
             _context.Add(tournamentClub);
             await _context.SaveChangesAsync();

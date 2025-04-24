@@ -16,7 +16,7 @@
 </head>
 
 <br />
-@await Html.PartialAsync("_HomeButton")
+@await Html.PartialAsync("_BackButton")
 <h4 class="text-center">@ViewBag.DivisionName Tournaments</h4>
 <br />
 @if (Model.Any())
@@ -191,7 +191,7 @@
                                     <a class="tab-item" href="@Url.Action("TournamentRules", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-gavel" class="tab-item" style="color: darkorange;"></i> Rules
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("Participants", "Tournaments", new { tournamentId = encryptedTournamentId  })">
+                                    <a class="tab-item" href="@Url.Action("TournamentParticipants", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Clubs
                                     </a>
                                     <a class="tab-item" href="#" onclick="event.preventDefault(); document.getElementById('cancel-form-@encryptedTournamentId').submit();">
