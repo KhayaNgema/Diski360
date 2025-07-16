@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    var divisionId = ViewBag.DivisionId;
+}
+
+
 <div class="standingsHeader" style="background-image: url('/Images/my_banner.jpg'); color:white;">
     <br />
     <p class="text-center" style="font-size:36px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Tournaments</p>
@@ -11,9 +15,14 @@
 </div>
 
 <script>
+    var divisionId = '@divisionId'
+
     function fetchTournaments() {
         $.ajax({
             url: '/Tournaments/AllTournaments',
+            data: {
+                    divisionId: divisionId
+                    },
             success: function (data) {
                 $('#tournamentsContent').html(data);
                 initializeToggleDetails();

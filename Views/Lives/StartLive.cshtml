@@ -1,7 +1,7 @@
 ﻿@model MyField.ViewModels.CombinedStartLiveViewModel
 @inject MyField.Interfaces.IEncryptionService encryptionService
 @{
-    ViewData["Title"] = "Live match";
+    ViewData["Title"] = @Model.StartLiveViewModel.HomeTeamName + " vs " + @Model.StartLiveViewModel.AwayTeamName;
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
     var userRole = Model.UserRole;
 }

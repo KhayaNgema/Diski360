@@ -1,1 +1,40 @@
-﻿
+﻿@model IEnumerable<MyField.Models.TournamentMatchResults>
+<br />
+<div class="h2h-container">
+    @if (Model.Any())
+    {
+        <div class="club-stats h2h-table">
+            <table>
+                <tr style="color:White;">
+                    <th>Match</th>
+                    <th>Score</th>
+                </tr>
+                @foreach (var knockout in Model.OrderByDescending(h => h.MatchDate))
+                {
+                    <tr>
+                        <td>
+                            <span style="padding-bottom:10px;">
+                                <img src="~/@knockout.HomeTeam.ClubBadge" alt="@knockout.HomeTeam.ClubName" class="h2h-club-image" style="margin-right:20px;" />
+                                @knockout.HomeTeam.ClubName
+                            </span>
+                            <br>
+                            <span style="padding-bottom:15px;">
+                                <img src="~/@knockout.AwayTeam.ClubBadge" alt="@knockout.AwayTeam.ClubName" class="h2h-club-image" style="margin-right:20px;" />
+                                @knockout.AwayTeam.ClubName
+                            </span>
+                        </td>
+                        <td>
+                            <span style="padding-bottom:10px;">@knockout.HomeTeamScore</span>
+                            <br>
+                            <span style="padding-bottom:15px;">@knockout.AwayTeamScore</span>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are no knockout stats yet.</p>
+    }
+</div>

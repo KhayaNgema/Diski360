@@ -39,6 +39,7 @@ namespace MyField.Data
                 .HasForeignKey(f => f.AwayTeamId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
             modelBuilder.Entity<Club>()
                 .HasOne(c => c.ClubManager)
                 .WithOne(cm => cm.Club)
@@ -90,6 +91,18 @@ namespace MyField.Data
                     v => v.ToString(),
                     v => (RedCardReason)Enum.Parse(typeof(RedCardReason), v)
                 );
+
+
+            modelBuilder.Entity<TournamentClubs>()
+                .HasKey(tc => new { tc.ClubId, tc.TournamentId });
+
+            modelBuilder.Entity<TournamentClubs>()
+                .Property(tc => tc.ClubId)
+                .ValueGeneratedOnAdd(); 
+
+            modelBuilder.Entity<TournamentClubs>()
+                .Property(tc => tc.TournamentId)
+                .ValueGeneratedNever();
         }
 
 

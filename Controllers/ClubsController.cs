@@ -14,6 +14,10 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using MyField.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Hangfire;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text.Encodings.Web;
+using System.Text;
 
 namespace MyField.Controllers
 {
@@ -25,17 +29,20 @@ namespace MyField.Controllers
         private readonly IActivityLogger _activityLogger;
         private readonly IEncryptionService _encryptionService;
         private readonly RequestLogService _requestLogService;
+        private readonly EmailService _emailService;
 
         public ClubsController(Ksans_SportsDbContext context, 
             FileUploadService fileUploadService, 
             UserManager<UserBaseModel> userManager,
             IActivityLogger activityLogger,
+            EmailService emailService,
             IEncryptionService encryptionService,
             RequestLogService requestLogService)
         {
             _context = context;
             _fileUploadService = fileUploadService;
             _userManager = userManager;
+            _emailService = emailService;
             _activityLogger = activityLogger;
             _encryptionService = encryptionService;
             _requestLogService = requestLogService;
@@ -251,6 +258,8 @@ namespace MyField.Controllers
             return PartialView("_BackOfficeClubsPartial", clubs);
         }
 
+
+        [Authorize]
         public async Task<IActionResult> ClubSummary(int? clubId)
         {
             if (clubId == null)
@@ -260,36 +269,74 @@ namespace MyField.Controllers
 
             var club = await _context.Club
                 .Include(c => c.ClubManager)
-                .FirstOrDefaultAsync(m => m.ClubId == clubId);
-            if (club == null)
+                .FirstOrDefaultAsync(c => c.ClubId == clubId);
+
+            if (club != null)
             {
-                return NotFound();
+                var viewModel = new ClubSummaryViewModel
+                {
+                    Club = club,
+                    TournamentClub = null
+                };
+                return PartialView("_ClubSummaryPartial", viewModel);
             }
 
-            return PartialView("_ClubSummaryPartial", club);
-        }
+            var tournamentClub = await _context.TournamentClubs
+                .FirstOrDefaultAsync(tc => tc.ClubId == clubId);
 
+            if (tournamentClub != null)
+            {
+                var viewModel = new ClubSummaryViewModel
+                {
+                    Club = null,
+                    TournamentClub = tournamentClub
+                };
+                return PartialView("_ClubSummaryPartial", viewModel);
+            }
+
+            return NotFound();
+        }
 
         [Authorize]
         public async Task<IActionResult> Details(string clubId)
         {
             var decryptedClubId = _encryptionService.DecryptToInt(clubId);
 
-            if (decryptedClubId == null || _context.Club == null)
+            if (decryptedClubId == null)
             {
                 return NotFound();
             }
 
             var club = await _context.Club
-                .FirstOrDefaultAsync(m => m.ClubId == decryptedClubId);
+                .FirstOrDefaultAsync(c => c.ClubId == decryptedClubId);
 
-            if (club == null)
+            if (club != null)
             {
-                return NotFound();
+                var viewModel = new ClubDetailsViewModel
+                {
+                    Club = club,
+                    TournamentClub = null
+                };
+                return View("Details", viewModel);
             }
 
-            return View(club);
+            var tournamentClub = await _context.TournamentClubs
+                .FirstOrDefaultAsync(tc => tc.ClubId == decryptedClubId);
+
+            if (tournamentClub != null)
+            {
+                var viewModel = new ClubDetailsViewModel
+                {
+                    Club = null,
+                    TournamentClub = tournamentClub
+                };
+                return View("Details", viewModel);
+            }
+
+            return NotFound();
         }
+
+
 
 
         [Authorize(Roles = ("Sport Administrator"))]
@@ -427,8 +474,8 @@ namespace MyField.Controllers
             return RedirectToAction("ClubsBackOffice");
         }
 
-        [Authorize(Roles = ("Sport Administrator"))]
-        public IActionResult Create()
+        [Authorize]
+        public async Task<IActionResult> Create()
         {
             return View();
         }
@@ -454,140 +501,223 @@ namespace MyField.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
+
                 var userId = user.Id;
 
                 var divisionId = (user as SportsMember)?.DivisionId;
 
-                var currentLeague = await _context.League.FirstOrDefaultAsync(l => l.IsCurrent && l.DivisionId == divisionId);
-
-                var matchResultsReport = await _context.MatchResultsReports
-                    .Where(m => m.Season.IsCurrent && m.DivisionId == divisionId)
-                    .Include(m => m.Season)
-                    .FirstOrDefaultAsync();
-
-                if (currentLeague == null)
+                if (divisionId != null) 
                 {
-                    ModelState.AddModelError(string.Empty, "No current league found.");
-                    return View(viewModel);
+                    var currentLeague = await _context.League.FirstOrDefaultAsync(l => l.IsCurrent && l.DivisionId == divisionId);
+
+                    var matchResultsReport = await _context.MatchResultsReports
+                        .Where(m => m.Season.IsCurrent && m.DivisionId == divisionId)
+                        .Include(m => m.Season)
+                        .FirstOrDefaultAsync();
+
+                    if (currentLeague == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "No current league found.");
+                        return View(viewModel);
+                    }
+
+                    var newClub = new Club
+                    {
+                        LeagueId = currentLeague.LeagueId,
+                        ClubName = viewModel.ClubName,
+                        ClubLocation = viewModel.ClubLocation,
+                        ClubAbbr = viewModel.ClubAbbr,
+                        CreatedById = userId,
+                        ModifiedById = userId,
+                        ClubHistory = viewModel.ClubHistory,
+                        ClubSummary = viewModel.ClubSummary,
+                        CreatedDateTime = DateTime.Now,
+                        ModifiedDateTime = DateTime.Now,
+                        Status = ClubStatus.Active,
+                        IsActive = true,
+                        ClubCode = GenerateClubCode(viewModel),
+                        Email = viewModel.Email,
+                        ClubBadge = "Images/placeholder_club_badge.jpg",
+                        DivisionId = divisionId
+                    };
+
+                    if (ClubBadges != null && ClubBadges.Length > 0)
+                    {
+                        var uploadedImagePath = await _fileUploadService.UploadFileAsync(ClubBadges);
+                        newClub.ClubBadge = uploadedImagePath;
+                    }
+
+                    _context.Add(newClub);
+                    await _context.SaveChangesAsync();
+
+                    await _activityLogger.Log($"Added {newClub.ClubName} as a new club", user.Id);
+
+                    var newStanding = new Standing
+                    {
+                        LeagueId = currentLeague.LeagueId,
+                        ClubId = newClub.ClubId,
+                        CreatedDateTime = DateTime.Now,
+                        ModifiedDateTime = DateTime.Now,
+                        CreatedById = userId,
+                        ModifiedById = userId,
+                        Position = 0,
+                        Draw = 0,
+                        Points = 0,
+                        MatchPlayed = 0,
+                        GoalDifference = 0,
+                        GoalsConceded = 0,
+                        GoalsScored = 0,
+                        Lose = 0,
+                        Wins = 0,
+                        DivisionId = divisionId
+                    };
+
+                    var clubTransferReport = new ClubTransferReport
+                    {
+                        LeagueId = currentLeague.LeagueId,
+                        ClubId = newClub.ClubId,
+                        OverallTransfersCount = 0,
+                        OutgoingTransfersCount = 0,
+                        IncomingTransfersCount = 0,
+                        SuccessfulIncomingTransfersCount = 0,
+                        SuccessfulOutgoingTransfersCount = 0,
+                        RejectedIncomingTransfersCount = 0,
+                        RejectedOutgoingTransfersCount = 0,
+                        NotActionedIncomingTransferCount = 0,
+                        NotActionedOutgoigTransferCount = 0,
+                        OutgoingTransferRate = 0,
+                        IncomingTransferRate = 0,
+                        SuccessfullIncomingTransferRate = 0,
+                        SuccessfullOutgoingTransferRate = 0,
+                        RejectedIncomingTransferRate = 0,
+                        RejectedOutgoingTransferRate = 0,
+                        NotActionedIncomingTransferRate = 0,
+                        NotActionedOutgoingTransferRate = 0,
+                        DivisionId = divisionId
+                    };
+
+                    var clubPerformanceReport = new ClubPerformanceReport
+                    {
+                        LeagueId = currentLeague.LeagueId,
+                        ClubId = newClub.ClubId,
+                        GamesToPlayCount = 0,
+                        GamesPlayedCount = 0,
+                        GamesNotPlayedCount = 0,
+                        GamesWinCount = 0,
+                        GamesLoseCount = 0,
+                        GamesDrawCount = 0,
+                        GamesPlayedRate = 0,
+                        GamesNotPlayedRate = 0,
+                        GamesWinRate = 0,
+                        GamesDrawRate = 0,
+                        GamesLoseRate = 0,
+                        DivisionId = divisionId
+                    };
+
+
+                    var newSubscription = new Subscription
+                    {
+                        ClubId = newClub.ClubId,
+                        Amount = 0,
+                        SubscriptionPlan = SubscriptionPlan.Basic,
+                        SubscriptionStatus = SubscriptionStatus.Active,
+                    };
+
+                    matchResultsReport.ExpectedResultsCount++;
+
+                    _context.Add(newSubscription);
+                    _context.Add(newStanding);
+                    _context.Add(clubPerformanceReport);
+                    _context.Add(clubTransferReport);
+                    await _context.SaveChangesAsync();
+
+
+                    TempData["Message"] = $"{viewModel.ClubName} has been added successfully.";
+
+                    await _activityLogger.Log($"Created {viewModel.ClubName} during season {currentLeague.LeagueYears}", user.Id);
+
+                    await _requestLogService.LogSuceededRequest("Successfully created a new club", StatusCodes.Status200OK);
+
+                    return RedirectToAction(nameof(ClubsBackOffice));
                 }
-
-                var newClub = new Club
+                else
                 {
-                    LeagueId = currentLeague.LeagueId,
-                    ClubName = viewModel.ClubName,
-                    ClubLocation = viewModel.ClubLocation,
-                    ClubAbbr = viewModel.ClubAbbr,
-                    CreatedById = userId,
-                    ModifiedById = userId,
-                    ClubHistory = viewModel.ClubHistory,
-                    ClubSummary = viewModel.ClubSummary,
-                    CreatedDateTime = DateTime.Now,
-                    ModifiedDateTime = DateTime.Now,
-                    Status = ClubStatus.Active,
-                    IsActive = true,
-                    ClubCode = GenerateClubCode(viewModel),
-                    Email = viewModel.Email,
-                    ClubBadge = "Images/placeholder_club_badge.jpg",
-                    DivisionId = divisionId
-                };
+                    var newClub = new Club
+                    {
+                        ClubName = viewModel.ClubName,
+                        ClubLocation = viewModel.ClubLocation,
+                        ClubAbbr = viewModel.ClubAbbr,
+                        CreatedById = userId,
+                        ModifiedById = userId,
+                        ClubHistory = viewModel.ClubHistory,
+                        ClubSummary = viewModel.ClubSummary,
+                        CreatedDateTime = DateTime.Now,
+                        ModifiedDateTime = DateTime.Now,
+                        Status = ClubStatus.Active,
+                        IsActive = true,
+                        ClubCode = GenerateClubCode(viewModel),
+                        Email = viewModel.Email,
+                        ClubBadge = "Images/placeholder_club_badge.jpg",
+                        DivisionId = divisionId
+                    };
 
-                if (ClubBadges != null && ClubBadges.Length > 0)
-                {
-                    var uploadedImagePath = await _fileUploadService.UploadFileAsync(ClubBadges);
-                    newClub.ClubBadge = uploadedImagePath;
+                    if (ClubBadges != null && ClubBadges.Length > 0)
+                    {
+                        var uploadedImagePath = await _fileUploadService.UploadFileAsync(ClubBadges);
+                        newClub.ClubBadge = uploadedImagePath;
+                    }
+
+                    _context.Add(newClub);
+                    await _context.SaveChangesAsync();
+
+                    await _activityLogger.Log($"Added {newClub.ClubName} as a new club", user.Id);
+
+                    var newSubscription = new Subscription
+                    {
+                        ClubId = newClub.ClubId,
+                        Amount = 0,
+                        SubscriptionPlan = SubscriptionPlan.Basic,
+                        SubscriptionStatus = SubscriptionStatus.Active,
+                    };
+
+                    _context.Add(newSubscription);
+                    await _context.SaveChangesAsync();
+
+                    var newClubAdministrator = await _context.UserBaseModel
+                        .Where(nca => nca.Id == user.Id)
+                        .FirstOrDefaultAsync();
+
+
+                    var result = await _userManager.UpdateAsync(newClubAdministrator);
+
+                    if (result.Succeeded)
+                    {
+                        var currentRoles = await _userManager.GetRolesAsync(newClubAdministrator);
+                        await _userManager.RemoveFromRolesAsync(newClubAdministrator, currentRoles);
+                        await _userManager.AddToRoleAsync(newClubAdministrator, "Club Administrator");
+
+                        string accountCreationEmailBody = $"Hello {user.FirstName} {user.LastName},<br><br>";
+                        accountCreationEmailBody += $"You have successfully created your new club!<br><br>";
+                        accountCreationEmailBody += $"You have been assigned a new role of being {newClub.ClubName} Administrator.<br><br>";
+                        accountCreationEmailBody += $"!Important: You won't be able to access your previous role. If you are willing to switch to your previous role, please contact the system administrator.<br>";
+                        accountCreationEmailBody += "Please note that you will still be able to log onto our system using your previous credentials.<br><br>";
+                        accountCreationEmailBody += "Thank you!";
+
+                        BackgroundJob.Enqueue(() => _emailService.SendEmailAsync(newClubAdministrator.Email, "Welcome to Diski360", accountCreationEmailBody, "Diski 360"));
+
+
+                        await _activityLogger.Log($"Updated {newClubAdministrator.FirstName} {newClubAdministrator.LastName} role to a club administrator for {newClub.ClubName}", user.Id);
+
+                        await _context.SaveChangesAsync();
+
+                    }
+
+                    TempData["Message"] = $"{viewModel.ClubName} has been added successfully.";
+
+                    await _requestLogService.LogSuceededRequest("Successfully created a new club with no division", StatusCodes.Status200OK);
+
+                    return RedirectToAction("", "");
                 }
-
-                _context.Add(newClub);
-                await _context.SaveChangesAsync();
-
-                await _activityLogger.Log($"Added {newClub.ClubName} as a new club", user.Id);
-
-                var newStanding = new Standing
-                {
-                    LeagueId = currentLeague.LeagueId,
-                    ClubId = newClub.ClubId,
-                    CreatedDateTime = DateTime.Now,
-                    ModifiedDateTime = DateTime.Now,
-                    CreatedById = userId,
-                    ModifiedById = userId,
-                    Position = 0,
-                    Draw = 0,
-                    Points = 0,
-                    MatchPlayed = 0,
-                    GoalDifference = 0,
-                    GoalsConceded = 0,
-                    GoalsScored = 0,
-                    Lose = 0,
-                    Wins = 0,
-                    DivisionId = divisionId
-                };
-
-                var clubTransferReport = new ClubTransferReport
-                {
-                    LeagueId = currentLeague.LeagueId,
-                    ClubId = newClub.ClubId,
-                    OverallTransfersCount = 0,
-                    OutgoingTransfersCount = 0,
-                    IncomingTransfersCount = 0,
-                    SuccessfulIncomingTransfersCount = 0,
-                    SuccessfulOutgoingTransfersCount = 0,
-                    RejectedIncomingTransfersCount = 0,
-                    RejectedOutgoingTransfersCount = 0,
-                    NotActionedIncomingTransferCount = 0,
-                    NotActionedOutgoigTransferCount = 0,
-                    OutgoingTransferRate = 0,
-                    IncomingTransferRate = 0,
-                    SuccessfullIncomingTransferRate = 0,
-                    SuccessfullOutgoingTransferRate = 0,
-                    RejectedIncomingTransferRate = 0,
-                    RejectedOutgoingTransferRate = 0,
-                    NotActionedIncomingTransferRate = 0,
-                    NotActionedOutgoingTransferRate = 0,
-                    DivisionId = divisionId
-                };
-
-                var clubPerformanceReport = new ClubPerformanceReport
-                {
-                    LeagueId = currentLeague.LeagueId,
-                    ClubId = newClub.ClubId,
-                    GamesToPlayCount = 0,
-                    GamesPlayedCount = 0,
-                    GamesNotPlayedCount = 0,
-                    GamesWinCount = 0,
-                    GamesLoseCount = 0,
-                    GamesDrawCount = 0,
-                    GamesPlayedRate = 0,
-                    GamesNotPlayedRate = 0,
-                    GamesWinRate = 0,
-                    GamesDrawRate = 0,
-                    GamesLoseRate = 0,
-                    DivisionId = divisionId
-                };
-
-
-                var newSubscription = new Subscription
-                {
-                    ClubId = newClub.ClubId,
-                    Amount = 0,
-                    SubscriptionPlan = SubscriptionPlan.Basic,
-                    SubscriptionStatus = SubscriptionStatus.Active,
-                };
-
-                matchResultsReport.ExpectedResultsCount++;
-
-                _context.Add(newSubscription);
-                _context.Add(newStanding);
-                _context.Add(clubPerformanceReport);
-                _context.Add(clubTransferReport);
-                await _context.SaveChangesAsync();
-
-                TempData["Message"] = $"{viewModel.ClubName} has been added successfully.";
-
-                await _activityLogger.Log($"Created {viewModel.ClubName} during season {currentLeague.LeagueYears}", user.Id);
-
-                await _requestLogService.LogSuceededRequest("Successfully created a new club", StatusCodes.Status200OK);
-
-                return RedirectToAction(nameof(ClubsBackOffice));
             }
 
             await _requestLogService.LogFailedRequest("Failed to create a new club", StatusCodes.Status500InternalServerError);
@@ -721,7 +851,7 @@ namespace MyField.Controllers
 
         [HttpGet]
         [Authorize(Roles = ("Sport Administrator, Club Administrator"))]
-        public async Task<IActionResult> Edit(string clubId)
+        public async Task<IActionResult> Update(string clubId)
         {
             var logMessages = new List<string>();
 
@@ -767,7 +897,7 @@ namespace MyField.Controllers
         [Authorize(Roles = ("Sport Administrator, Club Administrator"))]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UpdateClubViewModel viewModel, IFormFile ClubBadgeFile)
+        public async Task<IActionResult> Update(UpdateClubViewModel viewModel, IFormFile ClubBadgeFile)
         {
             var logMessages = new List<string>();
 

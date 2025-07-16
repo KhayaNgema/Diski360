@@ -5,11 +5,14 @@ namespace MyField.Models
 {
     public class TournamentClubs
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]  
         public int ClubId { get; set; }
+
+        [ForeignKey("ClubId")]
+        public virtual Club Club { get; set; }
 
         public int TournamentId { get; set; }
 
+        [ForeignKey("TournamentId")]
         public virtual Tournament Tournament { get; set; }
 
         [Required(ErrorMessage = "Club name is required")]
@@ -66,10 +69,5 @@ namespace MyField.Models
         public int? DivisionId { get; set; }
 
         public virtual Division Division { get; set; }
-
-        public TournamentClubs()
-        {
-            ClubBadge = "Images/placeholder_club_badge.jpg";
-        }
     }
 }

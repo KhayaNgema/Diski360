@@ -16,7 +16,7 @@
 </head>
 
 <br />
-@await Html.PartialAsync("_BackButton")
+@await Html.PartialAsync("_HomeButton")
 <h4 class="text-center">@ViewBag.DivisionName Tournaments</h4>
 <br />
 @if (Model.Any())
@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
                 <div class="search-bar" style="flex: 1; margin-right: 10px;">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search club..." style="width: 100%;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by tournament name, type..." style="width: 100%;">
                 </div>
                 @if (User.IsInRole("Sport Administrator"))
                 {
@@ -67,21 +67,17 @@
         </div>
     }
     <div class="table-responsive">
-        <table class="table table-striped table-borderless">
+        <table class="table table-striped table-borderless tournaments-table">
             <thead>
                 <tr style="color:white;background-color: #324260; white-space: nowrap;">
                     <th style="white-space: nowrap;">Tournament</th>
                     <th style="white-space: nowrap;">Trophy</th>
                     <th style="white-space: nowrap;">Start date</th>
                     <th style="white-space: nowrap;">Location</th>
-                    <th style="white-space: nowrap;">No. of Teams</th>
                     <th style="white-space: nowrap;">Joining fee(R)</th>
                     <th style="white-space: nowrap;">Join By Date</th>
                     <th style="white-space: nowrap;">Type</th>
                     <th style="white-space: nowrap;">Status</th>
-                    <th style="white-space: nowrap;">Sponsor</th>
-                    <th style="white-space: nowrap;">Sponsorship(R)</th>
-                    <th style="white-space: nowrap;">Sponsor contact</th>
                     <th style="white-space: nowrap;">More actions</th>
 
                 </tr>
@@ -94,15 +90,21 @@
 
                     <tr>
                         <td class="column-max-width">
-                            @if (!string.IsNullOrEmpty(item.TournamentImage))
-                            {
-                                <img src="~/@item.TournamentImage" alt="@item.TournamentImage" class="tournament-image" style="margin-right: 20px; width:70px; height:100px;object-fit:fill;" />
-                            }
-                            else
-                            {
-                                <span>N/A</span>
-                            }
-                            <span>@(string.IsNullOrEmpty(item.TournamentName) ? "N/A" : item.TournamentName)</span>
+                            <div style="display: flex; align-items: center;">
+                                @if (!string.IsNullOrEmpty(item.TournamentImage))
+                                {
+                                    <img src="~/@item.TournamentImage" alt="@item.TournamentImage"
+                                         class="tournament-image"
+                                         style="margin-right: 15px; width:70px; height:100px; object-fit:fill;" />
+                                }
+                                else
+                                {
+                                    <span style="margin-right: 15px;">N/A</span>
+                                }
+                                <span style="display: inline-block; vertical-align: middle;">
+                                    @(string.IsNullOrEmpty(item.TournamentName) ? "N/A" : item.TournamentName)
+                                </span>
+                            </div>
                         </td>
 
                         <td class="column-max-width">
@@ -122,10 +124,6 @@
 
                         <td class="column-max-width">
                             @(string.IsNullOrEmpty(item.TournamentLocation) ? "N/A" : item.TournamentLocation)
-                        </td>
-
-                        <td class="column-max-width">
-                            @(item.NumberOfTeams == null ? "N/A" : item.NumberOfTeams.ToString())
                         </td>
 
                         <td class="column-max-width">
@@ -150,18 +148,6 @@
                         <td class="column-max-width">
                             @item.TournamentStatus
                             (@(item.IsPublished ? "Approved" : "Awaiting Approval"))
-                        </td>
-
-                        <td class="column-max-width">
-                            @(string.IsNullOrEmpty(item.SponsorName) ? "N/A" : item.SponsorName)
-                        </td>
-
-                        <td class="column-max-width">
-                            @(item.Sponsorship == null ? "N/A" : $"R {item.Sponsorship}")
-                        </td>
-
-                        <td class="column-max-width">
-                            @(string.IsNullOrEmpty(item.SponsorContactDetails) ? "N/A" : item.SponsorContactDetails)
                         </td>
 
                        
@@ -193,6 +179,12 @@
                                     </a>
                                     <a class="tab-item" href="@Url.Action("TournamentParticipants", "Tournaments", new { tournamentId = encryptedTournamentId  })">
                                         <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Clubs
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("FixturesBackOffice", "Tournaments", new { tournamentId = encryptedTournamentId  })">
+                                        <i class="fas fa-calendar-alt" class="tab-item" style="color: grey;"></i> Fixtures
+                                    </a>
+                                    <a class="tab-item" href="@Url.Action("KnockoutBackOffice", "Tournaments", new { tournamentId = encryptedTournamentId  })">
+                                        <i class="fas fa-futbol" class="tab-item" style="color: grey;"></i> Knockout
                                     </a>
                                     <a class="tab-item" href="#" onclick="event.preventDefault(); document.getElementById('cancel-form-@encryptedTournamentId').submit();">
                                         <i class="fas fa-times-circle" style="color: #dc3545;"></i> Cancel
@@ -237,7 +229,7 @@ else
     $(document).ready(function () {
         $("#searchInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $(".clubs-table tbody tr").filter(function () {
+            $(".tournaments-table tbody tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

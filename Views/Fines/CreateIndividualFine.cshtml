@@ -18,7 +18,7 @@
         <form asp-action="CreateIndividualFine">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-3">
-                <select asp-for="OffenderId" class="form-control border-bottom-only" asp-items="ViewBag.SystemUsers">
+                <select id="offenderSelect" asp-for="OffenderId" class="form-control border-bottom-only" asp-items="ViewBag.SystemUsers">
                     <option value="">Select user</option>
                 </select>
                 <span asp-validation-for="OffenderId" class="text-danger"></span>
@@ -41,7 +41,7 @@
                 <span asp-validation-for="FineAmount" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="FineDuDate" class="form-control border-bottom-only" placeholder="FineDuDate" />
+                <input asp-for="FineDuDate" class="form-control border-bottom-only" placeholder="KickOffDate" type="date" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                 <label asp-for="FineDuDate" class="form-label">Fine due date</label>
                 <span asp-validation-for="FineDuDate" class="text-danger"></span>
             </div>
@@ -56,4 +56,18 @@
         </form>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#clubSelect').select2({
+            placeholder: "Select club",
+            allowClear: true
+        });
+
+        $('#offenderSelect').select2({
+            placeholder: "Select user",
+            allowClear: true
+        });
+    });
+</script>
 

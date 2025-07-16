@@ -18,7 +18,7 @@
         <form asp-action="CreateClubFine">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-3">
-                <select asp-for="ClubId" class="form-control border-bottom-only" asp-items="ViewBag.Clubs">
+                <select id="clubSelect" asp-for="ClubId" class="form-control border-bottom-only" asp-items="ViewBag.Clubs">
                     <option value="">Select club</option>
                 </select>
                 <span asp-validation-for="ClubId" class="text-danger"></span>
@@ -56,4 +56,11 @@
         </form>
     </div>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('#clubSelect').select2({
+            placeholder: "Select club",
+            allowClear: true
+        });
+    });
+</script>

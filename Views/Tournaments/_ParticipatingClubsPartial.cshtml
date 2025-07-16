@@ -1,1 +1,41 @@
-﻿
+﻿@model IEnumerable<MyField.Models.TournamentClubs>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+
+<br />
+<div class="club-list-Container">
+    <ul class="clubsList" style="border:none !important; list-style-type: none; padding: 0;">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                var encryptedClubId = encryptionService.Encrypt(item.ClubId);
+
+                <li class="club-item" data-club-id="@encryptedClubId" style="margin-bottom:10px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;">
+                    <div class="d-flex align-items-center justify-content-between" style="border: 1px solid #ddd; padding: 10px; border-radius: 8px; background-color: #fff;">
+                        <div class="d-flex align-items-center">
+                            <img src="~/@item.ClubBadge" alt="@item.ClubName" class="club-badge-image" style="margin-right:20px;" />
+                            @Html.DisplayFor(modelItem => item.ClubName) (@Html.DisplayFor(modelItem => item.ClubAbbr))
+                        </div>
+                        <a asp-action="Details" asp-route-clubId="@encryptedClubId" class="btn btn-sm">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </li>
+            }
+        }
+        else
+        {
+            <p class="text-center" style="margin-top: 20vh; margin-bottom: 20vh;">There are currently no clubs for this tournament</p>
+        }
+    </ul>
+</div>
+
+<script>
+    document.querySelectorAll('.club-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const encryptedClubId = this.getAttribute('data-club-id');
+            const url = '@Url.Action("Details", "Clubs")';
+            window.location.href = `@Url.Action("Details", "Clubs")?clubId=${encodeURIComponent(encryptedClubId)}`;
+        });
+    });
+</script>

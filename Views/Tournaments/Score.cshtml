@@ -1,0 +1,121 @@
+﻿@model MyField.ViewModels.MatchResultsViewModel
+
+@{
+    ViewData["Title"] = "Upload Match Results";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<h4 style="text-align:center;">Update Score</h4>
+<br />
+<div class="row fixturesContainer">
+    <div class="col-md-12">
+        <form asp-action="Upload" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <img src="@GetImageSrc(Model.HomeTeamBadge)" alt="Home Team Badge" class="setResultsClubBadge" style="width:100px; height:100px;" form="none" />
+                        <div class="mt-2">
+                            <label class="label" style="font-weight: bold;">@Model.HomeTeam</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="@GetImageSrc(Model.AwayTeamBadge)" alt="Away Team Badge" class="setResultsClubBadge" style="width:100px; height:100px;" form="none" />
+                        <div class="mt-2">
+                            <label class="label" style="font-weight: bold;">@Model.AwayTeam</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input asp-for="HomeTeamScore" class="form-control border-bottom-only" placeholder="Enter Home Team Score" />
+                        <span asp-validation-for="HomeTeamScore" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input asp-for="AwayTeamScore" class="form-control border-bottom-only" placeholder="Enter Away Team Score" />
+                        <span asp-validation-for="AwayTeamScore" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group hidden">
+                <label asp-for="HomeTeam" class="control-label">Home Team</label>
+                <input type="text" asp-for="HomeTeam" class="form-control" readonly />
+            </div>
+
+
+
+
+            <div class="form-group hidden">
+                <label asp-for="HomeTeamBadge" class="control-label">Home Team Badge</label>
+                <input type="text" asp-for="HomeTeamBadge" class="form-control" readonly />
+            </div>
+
+
+            <div class="form-group hidden">
+                <label asp-for="AwayTeam" class="control-label">Away Team</label>
+                <input type="text" asp-for="AwayTeam" class="form-control" readonly />
+            </div>
+
+
+            <div class="form-group hidden">
+                <label asp-for="AwayTeamBadge" class="control-label">Away Team Badge</label>
+                <input type="text" asp-for="AwayTeamBadge" class="form-control" readonly />
+            </div>
+
+            <div class="form-group hidden">
+                <label asp-for="MatchDate" class="control-label">Kickoff</label>
+                <input asp-for="MatchDate" class="form-control" readonly />
+                <span asp-validation-for="MatchDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group hidden">
+                <label asp-for="Location" class="control-label">Location</label>
+                <input asp-for="Location" class="form-control" readonly />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="display: flex; justify-content: flex-end;">
+                        <input type="hidden" asp-for="FixtureId" value="@Model?.FixtureId" />
+                        <input type="hidden" asp-for="HomeTeamId" value="@Model?.HomeTeamId" />
+                        <input type="hidden" asp-for="AwayTeamId" value="@Model?.AwayTeamId" />
+                        <input type="submit" value="Update" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@functions {
+    string GetImageSrc(string imageFile)
+    {
+        var baseUrl = Url.Content("~/");
+        var imagePath = imageFile.Replace("Tournaments/", "");
+        return $"{baseUrl}{imagePath}";
+    }
+}
+

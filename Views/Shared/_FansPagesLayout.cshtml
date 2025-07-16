@@ -202,7 +202,7 @@
                             <button class="nav-link" id="topAssists-tab" data-bs-toggle="tab" data-bs-target="#topAssists" type="button" role="tab" aria-controls="topAssists" aria-selected="false" onclick="loadTab('topAssists')">Top Assists</button>
                         </li>
                         <li class="nav-item">
-                            <button class="nav-link" id="tournaments-tab" data-bs-toggle="tab" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false" onclick="loadTab('tournaments')"><i class="fa fa-trophy"></i> Tournaments</button>
+                            <button class="nav-link" id="tournaments-tab" data-bs-toggle="tab" data-bs-target="#tournaments" type="button" role="tab" aria-controls="tournaments" aria-selected="false" onclick="loadTab('tournaments')">Tournaments</button>
                         </li>
                     </ul>
                 </div>
@@ -241,22 +241,27 @@
                         <i class="fa fa-home" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Home" asp-action="Index" class="nav-link text-light">Home</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-shield-alt" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Users" asp-action="PasswordAndSecurity" class="nav-link text-light">Account and security</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-credit-card" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Subscriptions" asp-action="MySubscriptionHistory" class="nav-link text-light">Subscriptions</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-user-shield" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Home" asp-action="PrivacyPolicy" class="nav-link text-light">Privacy policy</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-info-circle" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Home" asp-action="AboutUs" class="nav-link text-light">About us</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; list-style-type: none;">
                         <div style="display: flex; align-items: center;">
                             <i class="fa fa-user-cog" style="color: white; margin-right: 5px;"></i>
@@ -274,16 +279,17 @@
                             </li>
                         </ul>
                     </li>
-
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-envelope" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="Home" asp-action="ContactUs" class="nav-link text-light">Contact Us</a>
                     </li>
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <i class="fa fa-history" style="color: white; margin-right: 5px;"></i>
                         <a asp-controller="ActivityLogs" asp-action="MyActivityLogs" class="nav-link text-light">Activity logs</a>
                     </li>
-
+                    <hr style="background-color: white; opacity: 0.2; margin: 15px 20px;" />
                     <li class="nav-login-item" style="margin-top: 20px; margin-left: 30px; display: flex; align-items: center;">
                         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                             <i class="fa fa-sign-out-alt" style="color: white; margin-right: 10px;"></i>
@@ -298,10 +304,20 @@
     </header>
     <div id="loading-overlay">
         <div class="loading-container">
-            <div class="loading-spinner"></div>
+            <div class="circle-loader">
+                <i class="fas fa-futbol ball" style="--i: 0;"></i>
+                <i class="fas fa-futbol ball" style="--i: 1;"></i>
+                <i class="fas fa-futbol ball" style="--i: 2;"></i>
+                <i class="fas fa-futbol ball" style="--i: 3;"></i>
+                <i class="fas fa-futbol ball" style="--i: 4;"></i>
+                <i class="fas fa-futbol ball" style="--i: 5;"></i>
+                <i class="fas fa-futbol ball" style="--i: 6;"></i>
+            </div>
             <div class="loading-text">Loading...</div>
         </div>
     </div>
+
+
 
     <div id="page-content-wrapper" class="main-content">
         <div class="container-fluid" style="padding-right:0; padding-left:0;">

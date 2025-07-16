@@ -1,0 +1,187 @@
+﻿@model IEnumerable<MyField.Models.TournamentFixture>
+@inject MyField.Interfaces.IEncryptionService encryptionService
+@{
+    ViewData["Title"] = ViewBag.TournamentName + " Fixtures";
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+    var tournamentId = ViewBag.TournamentId;
+}
+
+@using System.Globalization
+
+<br />
+@await Html.PartialAsync("_HomeButton")
+<h4 class="text-center">@ViewBag.TournamentName Fixtures</h4>
+<br />
+<p class="text-center" style="padding-right:10px; padding-left:10px;">
+    On this page, you will see fixtures that are scheduled, ended, postponed, or interrupted. You will have full management capabilities for these fixtures, allowing you to update details, adjust statuses, and oversee all aspects of fixture management effectively.
+</p>
+<br>
+
+@if (Model.Any())
+{
+    var groupedFixtures = Model.GroupBy(f => f.KickOffDate?.Date);
+
+    <div class="fixtures-search-create-container" style="margin-bottom: 10px;">
+        <div class="row">
+            <div class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
+                <div class="search-bar" style="flex: 1; margin-right: 10px;">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search fixture..." style="width: 100%;">
+                </div>
+                @if (User.IsInRole("Sport Administrator") || User.IsInRole("Sport Coordinator"))
+                {
+                    <div class="create-button">
+                        <a href="@Url.Action("NewFixture", new { tournamentId = tournamentId })"
+                           class="btn btn-outline-primary btn-create"
+                           id="addButton"
+                           style="white-space: nowrap;">
+                            <i class="fas fa-plus"></i> Create new
+                        </a>
+                    </div>
+                }
+                else
+                {
+
+                }
+
+            </div>
+        </div>
+    </div>
+    @if (TempData["Message"] != null)
+    {
+        <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+            @TempData["Message"]
+            <span class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </span>
+        </div>
+    }
+
+    foreach (var group in groupedFixtures)
+    {
+        <h5 class="mt-4">@group.Key?.ToString("ddd dd MMMM, yyyy", CultureInfo.InvariantCulture)</h5>
+
+
+
+        <br />
+        <div class="table-responsive">
+            <table class="table fixtures-table table-striped table-borderless">
+                <thead>
+                    <tr style="color:white;background-color: #324260; white-space: nowrap!important;">
+                        <th>Home</th>
+                        <th>Versus</th>
+                        <th>Away</th>
+                        <th>KickOff</th>
+                        <th>Stadium</th>
+                        <th>Status</th>
+                        @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
+                        {
+                            <th>CreatedBy</th>
+                            <th>Created DateTime</th>
+                            <th>ModifiedBy</th>
+                            <th>Modified DateTime</th>
+                        }
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in group)
+                    {
+                        var encryptedFixtureId = encryptionService.Encrypt(item.FixtureId);
+
+                        <tr style="white-space: nowrap!important;">
+                            <td>
+                                @if (item.HomeTeam != null)
+                                {
+                                    <img src="~/@item.HomeTeam.ClubBadge" alt="@item.HomeTeam.ClubBadge" class="club-badge-image" style="max-width:50px; max-height: 50px;" /> @Html.DisplayFor(modelItem => item.HomeTeam.ClubName)
+                                }
+                            </td>
+                            <td>VS</td>
+                            <td>
+                                @if (item.AwayTeam != null)
+                                {
+                                    <img src="~/@item.AwayTeam.ClubBadge" alt="@item.AwayTeam.ClubBadge" class="club-badge-image" style="max-width:50px; max-height: 50px;" /> @Html.DisplayFor(modelItem => item.AwayTeam.ClubName)
+                                }
+                            </td>
+                            <td>
+                                <div>
+                                    <span class="fa fa-calendar-alt"></span> @item.KickOffDate?.ToString("ddd dd MMMM, yyyy")
+                                </div>
+                                <div>
+                                    <span class="fa fa-clock"></span> @item.KickOffTime?.ToString("HH:mm")
+                                </div>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FixtureStatus)
+                            </td>
+                            @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.CreatedBy.FirstName) @Html.DisplayFor(modelItem => item.CreatedBy.LastName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CreatedDateTime)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ModifiedBy.FirstName) @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ModifiedDateTime)</td>
+                            }
+                            <td class="text-right">
+                                <button class="btn btn-primary btn-sm action-button" type="button" data-id="@item.FixtureId">
+                                    Actions
+                                </button>
+                                <div class="action-tab" id="actionTab-@item.FixtureId" style="display: none;">
+                                    @if (User.IsInRole("Sport Administrator"))
+                                    {
+                                        <a class="tab-item" href="@Url.Action("InterruptFixture", "Fixtures", new { fixtureId = encryptedFixtureId })">
+                                            <i class="fas fa-pause" style="color: red"></i> Interrupt
+                                        </a>
+                                        <a class="tab-item" href="@Url.Action("PostponeFixture", "Fixtures", new {  fixtureId = encryptedFixtureId })">
+                                            <i class="fas fa-clock" style="color: red"></i> Postpone
+                                        </a>
+                                    }
+                                    else if (item.FixtureStatus != FixtureStatus.Ended)
+                                    {
+                                        <a class="tab-item" href="@Url.Action("ModifyFixture", "Fixtures", new { fixtureId = encryptedFixtureId })">
+                                            <i class="fas fa-pen" style="color: blue;"></i> Update
+                                        </a>
+
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center" style="height: 60vh; flex-direction: column;">
+        <p class="text-center">There are no fixtures yet.</p>
+        <div class="create-button">
+            <a href="@Url.Action("NewFixture", new { tournamentId = tournamentId })"
+               class="btn btn-outline-primary btn-create"
+               id="addButton"
+               style="white-space: nowrap;">
+                <i class="fas fa-plus"></i> Create new
+            </a>
+        </div>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".fixtures-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    setTimeout(function () {
+        document.getElementById("tempDataMessage").style.display = "none";
+    }, 5000);
+</script>

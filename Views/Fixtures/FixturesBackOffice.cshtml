@@ -69,6 +69,7 @@
                         <th>KickOff</th>
                         <th>Stadium</th>
                         <th>Status</th>
+                        <th>Interrupt reason</th>
                         @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
                         {
                             <th>CreatedBy</th>
@@ -111,6 +112,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.FixtureStatus)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InterruptReason)
                             </td>
                             @if (User.IsInRole("System Administrator") || User.IsInRole("Sport Administrator"))
                             {

@@ -524,56 +524,61 @@ html {
         z-index: 1000; /* Ensure it's above other content */
     }
 
-    .loading-spinner {
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
-        border: 10px solid rgba(255, 255, 255, 0.3);
-        border-top: 10px solid #ffffff;
+/* Overlay background */
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center container */
+.loading-container {
+    text-align: center;
+}
+
+/* Rotating ring */
+.circle-loader {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    animation: rotate-ring 3s linear infinite;
+}
+
+/* Each ball in the ring */
+.ball {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 14px;
+    color: white;
+    transform: rotate(calc(51.42deg * var(--i))) translate(30px) rotate(calc(-51.42deg * var(--i)));
+}
+
+/* Spin the full ring */
+@keyframes rotate-ring {
+    0% {
+        transform: rotate(0deg);
     }
 
-    .loading-text {
-        color: #ffffff;
-        font-size: 18px;
-        margin-top: 10px; /* Adjust spacing between spinner and text */
+    100% {
+        transform: rotate(360deg);
     }
+}
 
+/* Loading text */
+.loading-text {
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+}
 
-    /* Animation for spinner */
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        25% {
-            transform: rotate(90deg);
-        }
-
-        50% {
-            transform: rotate(180deg);
-        }
-
-        75% {
-            transform: rotate(270deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .loading-spinner {
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
-    }
-
-    .loading-text {
-        color: #ffffff;
-        margin-top: 10px;
-    }
 
 
     /* Match results card */
@@ -1575,7 +1580,7 @@ html {
         width: 150px;
         height: 150px;
         object-fit: cover;
-        border-radius: 50%;
+        border-radius: 5%;
         margin: 20px 0;
     }
 
@@ -2034,6 +2039,22 @@ html {
 .tournament-footer a,
 .tournament-footer button {
     margin-left: 10px; /* Space between icons */
+}
+
+
+/*Division Update container CSS*/
+
+.club-badge-container {
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
 }
 
 
@@ -3482,18 +3503,18 @@ html {
 
 .successfulSubscriptionContainer {
     max-width: 1500px;
-    margin: 20px auto;
+    margin: 10px auto;
     border-radius: 7px;
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 10px;
 }
 
 
 .checkmark-container {
     display: inline-block;
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     transform: translateY(10px);
 }
 
@@ -3510,8 +3531,8 @@ html {
     .checkmark::after {
         content: '';
         position: absolute;
-        width: 10px;
-        height: 20px;
+        width: 20px;
+        height: 30px;
         border: solid limegreen;
         border-width: 0 5px 5px 0;
         transform: rotate(45deg);

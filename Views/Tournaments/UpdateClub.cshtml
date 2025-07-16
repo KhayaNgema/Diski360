@@ -1,0 +1,177 @@
+﻿@model MyField.ViewModels.UpdateTournamentClubViewModel
+
+@{
+    ViewData["Title"] = "Update" + Model.ClubName;
+    Layout = "~/Views/Shared/_PagesLayout.cshtml";
+}
+
+<br />
+@await Html.PartialAsync("_BackButton")
+<br />
+<h4 class="text-center">Update @Model.ClubName</h4>
+<br />
+
+@if (TempData["Message"] != null)
+{
+    <div id="tempDataMessage" class="alert @(TempData["Message"].ToString().Contains("successfully") ? "alert-success" : "alert-danger")" role="alert">
+        @TempData["Message"]
+        <span class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </span>
+    </div>
+}
+<div class="division-add-container d-flex">
+    <form asp-action="UpdateClub" method="post" enctype="multipart/form-data" class="d-flex w-100">
+        <div class="row flex-grow-1">
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Club Details</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <div class="profile-container">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <img id="club-badge-preview" alt="" class="club-picture-image" style="display: none;" />
+                            <img id="current-club-badge" src="~/@Model.ClubBadge" alt="Club Badge" class="club-picture-image"
+                                 style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+
+                            <label for="Input_ClubBadge" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                                <i class="fa fa-camera" style="font-size: 30px;"></i>
+                                <input asp-for="ClubBadges" id="Input_ClubBadge" class="form-control" type="file" onchange="previewClubBadge(event)" accept="image/*" style="display: none;" />
+                                <input asp-for="ClubBadges" id="Input_ClubBadges" type="hidden" />
+                            </label>
+                        </div>
+                    </div>
+                    <small id="clubBadgeHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a club badge (optional).</small>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubName" class="form-control border-bottom-only" placeholder="Club Name" />
+                    <label asp-for="ClubName" class="form-label">Club Name</label>
+                    <span asp-validation-for="ClubName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubAbbr" class="form-control border-bottom-only" placeholder="Club abbreviation" />
+                    <label asp-for="ClubAbbr" class="form-label">Club abbreviation</label>
+                    <span asp-validation-for="ClubAbbr" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="ClubSummary" class="form-control border-bottom-only" placeholder="Club summary" style="min-height: 150px;"></textarea>
+                    <label asp-for="ClubSummary" class="form-label">Club summary</label>
+                    <span asp-validation-for="ClubSummary" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="ClubHistory" class="form-control border-bottom-only" placeholder="Club history" style="min-height: 150px;"></textarea>
+                    <label asp-for="ClubHistory" class="form-label">Club history</label>
+                    <span asp-validation-for="ClubHistory" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubLocation" class="form-control border-bottom-only" placeholder="Location" />
+                    <label asp-for="ClubLocation" class="form-label">Location</label>
+                    <span asp-validation-for="ClubLocation" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control border-bottom-only" placeholder="Email" />
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 division-add-form-container">
+                <h5 class="text-center">Club Manager Details</h5>
+
+                <div class="mb-3">
+                    <div class="profile-container d-flex justify-content-center">
+                        <div class="club-badge-container" style="border: 1px solid #ccc; padding: 0; border-radius: 5%; width: 150px; height: 150px; overflow: hidden; position: relative;">
+                            <img id="manager-picture-preview" alt="" class="club-picture-image" style="display: none;" />
+                            <img id="current-manager-profile-picture" src="~/@Model.ManagerProfilePicture" alt="Manager Profile Picture" class="club-picture-image"
+                                 style="max-width: 100%; max-height: 100%; object-fit: cover;" />
+
+                            <label for="Input_ManagerPicture" class="camera-icon" style="position: absolute; bottom: 10px; right: 10px; color: #000325; cursor: pointer; z-index: 1;">
+                                <i class="fa fa-camera" style="font-size: 30px;"></i>
+                                <input asp-for="ManagerProfilePictures" id="Input_ManagerPicture" class="form-control" type="file" onchange="previewManagerPicture(event)" accept="image/*" style="display: none;" />
+                                <input asp-for="ManagerProfilePictures" id="Input_ManagerPicturs" type="hidden" />
+                            </label>
+                        </div>
+                    </div>
+                    <small id="clubBadgeHelp" class="form-text text-muted text-center" style="display: block; text-align: center; margin-top: 10px;">Upload a club badge (optional).</small>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubManagerName" class="form-control border-bottom-only" placeholder="First Name(s)" />
+                    <label asp-for="ClubManagerName" class="form-label">Full Name(s)</label>
+                    <span asp-validation-for="ClubManagerName" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubManagerPhone" class="form-control border-bottom-only" placeholder="Phone number" />
+                    <label asp-for="ClubManagerPhone" class="form-label">Phone number</label>
+                    <span asp-validation-for="ClubManagerPhone" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="ClubManagerEmail" class="form-control border-bottom-only" placeholder="Email Address" type="email" />
+                    <label asp-for="ClubManagerEmail" class="form-label">Email Address</label>
+                    <span asp-validation-for="ClubManagerEmail" class="text-danger"></span>
+                </div>
+                <div class="text-end">
+                    <input type="hidden" asp-for="TournamentId" value="@Model?.TournamentId" />
+                    <input type="hidden" asp-for="ClubId" value="@Model?.ClubId" />
+                    <input type="hidden" asp-for="ClubBadge" value="@Model?.ClubBadge" />
+                    <input type="hidden" asp-for="ManagerProfilePicture" value="@Model?.ManagerProfilePicture" />
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewClubBadge(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById('club-badge-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('current-club-badge').style.display = 'none';
+            };
+
+        if (event.target.files.length > 0) {
+            reader.readAsDataURL(event.target.files[0]);
+        } else {
+            var currentBadge = document.getElementById('current-club-badge').getAttribute('src');
+            var output = document.getElementById('club-badge-preview');
+            output.src = currentBadge;
+            output.style.display = 'block';
+            document.getElementById('current-club-badge').style.display = 'none';
+        }
+        }
+
+        function previewManagerPicture(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById('manager-picture-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('current-manager-profile-picture').style.display = 'none';
+            };
+
+        if (event.target.files.length > 0) {
+            reader.readAsDataURL(event.target.files[0]);
+        } else {
+            var currentBadge = document.getElementById('current-manager-profile-picture').getAttribute('src');
+            var output = document.getElementById('manager-picture-preview');
+            output.src = currentBadge;
+            output.style.display = 'block';
+            document.getElementById('current-manager-profile-picture').style.display = 'none';
+        }
+        }
+        setTimeout(function () {
+            document.getElementById("tempDataMessage").style.display = "none";
+        }, 5000);
+
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

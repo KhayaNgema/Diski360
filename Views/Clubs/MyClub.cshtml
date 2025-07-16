@@ -42,8 +42,8 @@
                 <div class="my-club-card-footer text-right">
                     @if (User.IsInRole("Club Administrator"))
                     {
-                        <a asp-action="Edit" asp-route-clubId="@encryptedClubId" class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-pen"></i> Edit
+                        <a asp-action="Update" asp-route-clubId="@encryptedClubId" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-pen"></i> Update
                         </a>
                     }
 

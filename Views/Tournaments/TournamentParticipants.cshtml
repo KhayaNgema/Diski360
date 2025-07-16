@@ -2,20 +2,20 @@
 @inject MyField.Interfaces.IEncryptionService encryptionService
 
 @{
-    ViewData["Title"] = "Clubs";
+    ViewData["Title"] = ViewBag.TournamentName + " Participants";
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
 }
 
 
 <br />
-@await Html.PartialAsync("_HomeButton")
+@await Html.PartialAsync("_BackButton")
 <h4 class="text-center">@ViewBag.TournamentName Participating Clubs</h4>
 <br />
 @if (Model.Any())
 {
-    <p class="text-center" style="padding-right:10px; padding-left:10px;">
-       Explore the local clubs managed by Diski360. This page features a curated list of local sports teams and community clubs that Diski360 oversees, highlighting our dedication to supporting and organizing local talent and organizations.
-    </p>
+    <p class="text-center" style="padding: 0 10px;"> Discover local clubs eager to join <strong>@ViewBag.TournamentName</strong>, 
+        driven by community pride, teamwork, and passion for the game. Their participation highlights the growing excitement around the tournament, 
+        and Diski360 proudly supports their journey through a structured and professional competition platform. </p>
     <br />
     <div class="fixtures-search-create-container" style="margin-bottom: 10px;">
         <div class="row">
@@ -57,17 +57,8 @@
                     <th style="white-space: nowrap;">Manager</th>
                     <th style="white-space: nowrap;">Location</th>
                     <th style="white-space: nowrap;">Email</th>
-                    @if (User.IsInRole("Sport Administrator"))
-                    {
-                        <th style="white-space: nowrap;">Requested By</th>
-                        <th style="white-space: nowrap;">Requested Date & Time</th>
-                        <th style="white-space: nowrap;">Updated By</th>
-                        <th style="white-space: nowrap;">Updated Date & Time</th>
-                    }
-                    else
-                    {
-
-                    }
+                    <th style="white-space: nowrap;">Joined</th>
+                    <th style="white-space: nowrap;">Eliminated</th>
                     @if (User.IsInRole("Sport Administrator"))
                     {
                         <th style="white-space: nowrap;">Actions</th>
@@ -100,35 +91,35 @@
                         <td class="column-max-width">
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        @if (User.IsInRole("Sport Administrator"))
-                        {
-                            <td class="column-max-width">
-                                @Html.DisplayFor(modelItem => item.CreatedBy.FirstName) @Html.DisplayFor(modelItem => item.CreatedBy.LastName)
-                            </td>
-                            <td class="column-max-width">
-                                <div>
-                                    <span class="fa fa-calendar-alt"></span> @item.CreatedDateTime.ToString(" dd MMM yyyy")
+                        <td class="column-max-width">
+                            @if(item.HasJoined == true)
+                            {
+                                <div style="display: flex; align-items: center; background-color: #28a745; color: white; padding: 5px 5px; border-radius: 3px;">
+                                    <span style="font-weight: normal; margin-right: 4px;">JOINED</span>
+                                    <i class="fas fa-check-circle" style="margin: 0;"></i>
                                 </div>
-                                <div>
-                                    <span class="fa fa-clock"></span> @item.CreatedDateTime.ToString(" HH:mm:ss")
-                                </div>
-                            </td>
-                            <td class="column-max-width">
-                                @Html.DisplayFor(modelItem => item.ModifiedBy.FirstName) @Html.DisplayFor(modelItem => item.ModifiedBy.LastName)
-                            </td>
-                            <td class="column-max-width">
-                                <div>
-                                    <span class="fa fa-calendar-alt"></span> @item.ModifiedDateTime.ToString(" dd MMM yyyy")
-                                </div>
-                                <div>
-                                    <span class="fa fa-clock"></span> @item.ModifiedDateTime.ToString(" HH:mm:ss")
-                                </div>
-                            </td>
-                        }
-                        else
-                        {
 
-                        }
+                            }
+                            else
+                            {
+                                <text>NO</text>
+                            }
+                        </td>
+
+                        <td class="column-max-width">
+                            @if (item.IsEliminated == true)
+                            {
+                                <div style="display: flex; align-items: center; background-color: #dc3545; color: white; padding: 5px 5px; border-radius: 3px;">
+                                    <span style="font-weight: normal; margin-right: 4px;">ELIMINATED</span>
+                                    <i class="fas fa-times-circle" style="margin: 0;"></i>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <text>NO</text>
+                            }
+                        </td>
                         @if (User.IsInRole("Sport Administrator"))
                         {
                             <td class="text-right">
@@ -139,7 +130,7 @@
                                     <a class="tab-item" href="@Url.Action("RejoinSeason", "Clubs", new { clubId = encryptedClubId })">
                                         <i class="fas fa-sign-in-alt" style="color: #28a745;"></i> Rejoin
                                     </a>
-                                    <a class="tab-item" href="@Url.Action("Edit", "Clubs", new { clubId = encryptedClubId })">
+                                    <a class="tab-item" href="@Url.Action("UpdateClub", "Tournaments", new { clubId = encryptedClubId })">
                                         <i class="fas fa-pen" class="tab-item" style="color: blue;"></i> Update
                                     </a>
                                     <a class="tab-item" href="@Url.Action("SuspendClub", "Clubs", new { clubId = encryptedClubId  })">

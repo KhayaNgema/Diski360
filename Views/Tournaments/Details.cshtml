@@ -63,11 +63,11 @@
         if (tabName === 'rules') {
             url = '@Url.Action("TournamentRulesFans", "Tournaments")';
         } else if (tabName === 'clubs') {
-            url = '@Url.Action("ClubSummary", "Clubs")';
+            url = '@Url.Action("ParticipatingClubs", "Tournaments")';
         } else if (tabName === 'fixtures') {
-            url = '@Url.Action("ClubPlayers", "Clubs")';
+            url = '@Url.Action("Fixtures", "Tournaments")';
         } else if (tabName === 'knockout') {
-            url = '@Url.Action("HeadtoHead", "Clubs")';
+            url = '@Url.Action("Knockout", "Tournaments")';
         } 
 
         $.ajax({

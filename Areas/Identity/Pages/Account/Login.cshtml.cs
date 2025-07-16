@@ -186,7 +186,7 @@ namespace MyField.Areas.Identity.Pages.Account
                                         .Where(c => c.ClubId == clubId)
                                         .FirstOrDefaultAsync();
 
-                                    if(clubId != null)
+                                    if (clubId != null)
                                     {
                                         if (club.IsSuspended)
                                         {
@@ -225,7 +225,7 @@ namespace MyField.Areas.Identity.Pages.Account
                                             await _requestLogService.LogFailedRequest("Failed to log in due to incorrect email or password.", StatusCodes.Status406NotAcceptable);
                                         }
                                     }
-                                   
+
                                 }
                             }
                             else
@@ -235,7 +235,7 @@ namespace MyField.Areas.Identity.Pages.Account
                         }
                         else
                         {
-                           
+
                             var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                             if (result.Succeeded)
@@ -261,8 +261,6 @@ namespace MyField.Areas.Identity.Pages.Account
 
             return Page();
         }
-
-
 
     }
 }

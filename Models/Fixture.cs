@@ -32,6 +32,8 @@ namespace MyField.Models
         [ForeignKey("AwayTeamId")]
         public Club AwayTeam { get; set; }
 
+        public string? InterruptReason { get; set; }
+
         public DateTime CreatedDateTime { get; set; }
 
         public DateTime ModifiedDateTime { get; set; }

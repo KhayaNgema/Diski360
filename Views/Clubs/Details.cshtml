@@ -1,7 +1,10 @@
-﻿@model MyField.Models.Club
+﻿@model MyField.ViewModels.ClubDetailsViewModel
 
 @{
-    ViewData["Title"] = Model.ClubName + " Details";
+    ViewData["Title"] = Model.TournamentClub != null
+           ? Model.TournamentClub.ClubName + " Details"
+           : Model.Club?.ClubName + " Details";
+
     Layout = "~/Views/Shared/_PagesLayout.cshtml";
 }
 <style>
@@ -19,29 +22,40 @@
     </p>
     <br />
     <div class="d-flex align-items-center">
-        <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="tournament-badge-image" style="margin-right:20px;" />
-        <h3>@Model.ClubName (@Model.ClubAbbr)</h3>
+        @if (Model.TournamentClub != null)
+        {
+            <img src="~/@Model.TournamentClub.ClubBadge" alt="@Model.TournamentClub.ClubName" class="tournament-badge-image" style="margin-right:20px;" />
+            <h3>@Model.TournamentClub.ClubName (@Model.TournamentClub.ClubAbbr)</h3>
+        }
+        else if (Model.Club != null)
+        {
+            <img src="~/@Model.Club.ClubBadge" alt="@Model.Club.ClubName" class="tournament-badge-image" style="margin-right:20px;" />
+            <h3>@Model.Club.ClubName (@Model.Club.ClubAbbr)</h3>
+        }
     </div>
     <br />
+    @{
+        var clubId = Model.Club?.ClubId ?? Model.TournamentClub?.ClubId;
+    }
+
     <ul class="nav nav-tabs" id="clubTabs" role="tablist" style="background-color:white; color:black;">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="true" onclick="loadTab('summary', '@Model.ClubId')">Summary</button>
+            <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="true" onclick="loadTab('summary', '@clubId')">Summary</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false" onclick="loadTab('players', '@Model.ClubId')">Players</button>
+            <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="false" onclick="loadTab('players', '@clubId')">Players</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="h2h-tab" data-bs-toggle="tab" data-bs-target="#h2h" type="button" role="tab" aria-controls="h2h" aria-selected="false" onclick="loadTab('h2h', '@Model.ClubId')">Matches</button>
+            <button class="nav-link" id="h2h-tab" data-bs-toggle="tab" data-bs-target="#h2h" type="button" role="tab" aria-controls="h2h" aria-selected="false" onclick="loadTab('h2h', '@clubId')">Matches</button>
         </li>
-
-        @*     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="ranking-tab" data-bs-toggle="tab" data-bs-target="#ranking" type="button" role="tab" aria-controls="ranking" aria-selected="false" onclick="loadTab('ranking', 'Clubs', 'Ranking')">Ranking</button>
-        </li> *@
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings" type="button" role="tab" aria-controls="standings" aria-selected="false" onclick="loadTab('standings', '@Model.ClubId')">Table</button>
-        </li>
-
+        @if (Model.Club != null)
+        {
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings" type="button" role="tab" aria-controls="standings" aria-selected="false" onclick="loadTab('standings', '@clubId')">Table</button>
+            </li>
+        }
     </ul>
+
 </div>
 
 
@@ -120,8 +134,8 @@
     }
 
     // Load summary tab content by default on page load
-    document.addEventListener('DOMContentLoaded', function () {
-        loadTab('summary', '@Model.ClubId');
+       document.addEventListener('DOMContentLoaded', function () {
+        loadTab('summary', '@clubId');
     });
 </script>
 

@@ -69,9 +69,13 @@ namespace MyField.Controllers
                 .Include(i => i.Payment)
                 .Include(i => i.Fine)
                 .ThenInclude(t => t.Offender)
+                .Include(i => i.Fine)
+                .ThenInclude(i => i.Division)
                 .FirstOrDefaultAsync();
 
             ViewBag.FullNames = user.FirstName + " " + user.LastName;
+            ViewBag.DivisionName = invoice.Fine.Division.DivisionName;
+            ViewBag.DivisionLogo = invoice.Fine.Division.DivisionBadge;
 
             return PartialView("_MyIndividualFineInvoicePartial", invoice);
         }

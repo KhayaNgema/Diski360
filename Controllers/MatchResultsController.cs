@@ -620,6 +620,7 @@ namespace MyField.Controllers
                 _context.Update(liveMatch);
 
                 fixture.FixtureStatus = FixtureStatus.Ended;
+                fixture.InterruptReason = "N/A";
 
                 _context.Update(fixture);
 

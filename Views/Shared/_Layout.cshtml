@@ -104,11 +104,17 @@
 
 
 <body>
-    <div id="overlay" class="overlay"></div>
-
     <div id="loading-overlay">
         <div class="loading-container">
-            <div class="loading-spinner"></div>
+            <div class="circle-loader">
+                <i class="fas fa-futbol ball" style="--i: 0;"></i>
+                <i class="fas fa-futbol ball" style="--i: 1;"></i>
+                <i class="fas fa-futbol ball" style="--i: 2;"></i>
+                <i class="fas fa-futbol ball" style="--i: 3;"></i>
+                <i class="fas fa-futbol ball" style="--i: 4;"></i>
+                <i class="fas fa-futbol ball" style="--i: 5;"></i>
+                <i class="fas fa-futbol ball" style="--i: 6;"></i>
+            </div>
             <div class="loading-text">Loading...</div>
         </div>
     </div>
@@ -175,9 +181,6 @@
                             </li>
                             <li class="nav-item">
                                 <button class="nav-link" id="allFixtures-tab" data-bs-toggle="tab" data-bs-target="#allFixtures" type="button" role="tab" aria-controls="allFixtures" aria-selected="false" onclick="loadTab('allFixtures')"><i class="fa fa-calendar-alt"></i> Fixtures</button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link" id="allTournaments-tab" data-bs-toggle="tab" data-bs-target="#allTournaments" type="button" role="tab" aria-controls="allTournaments" aria-selected="false" onclick="loadTab('allTournaments')"><i class="fa fa-trophy"></i> Tournaments</button>
                             </li>
                         </ul>
                     </div>
@@ -401,9 +404,6 @@
                     break;
                 case 'allFixtures':
                     url = '@Url.Action("AllLeaguesFixtures", "Fixtures")';
-                    break;
-                case 'allTournaments':
-                    url = '@Url.Action("Tournaments", "Tournaments")';
                     break;
                 default:
                     console.error('Unknown tab:', tabName);

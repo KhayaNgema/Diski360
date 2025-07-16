@@ -2052,6 +2052,7 @@ namespace MyField.Controllers
                 liveMatch.IsLive = false;
 
                 fixture.FixtureStatus = FixtureStatus.Interrupted;
+                fixture.InterruptReason = interruptionReason;
 
                 _context.Update(liveMatch); 
                 _context.Update(fixture);
@@ -2104,6 +2105,7 @@ namespace MyField.Controllers
                 liveMatch.IsLive = true;
 
                 fixture.FixtureStatus = FixtureStatus.Live;
+                fixture.InterruptReason= null;
 
                 _context.Update(fixture);
                 _context.Update(liveMatch);

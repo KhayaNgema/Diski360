@@ -5,61 +5,43 @@ namespace MyField.Models
 {
     public class TournamentFixture
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int FixtureId { get; set; }
 
-        [Display(Name = "Home Team")]
-        [Required(ErrorMessage = "Home Team is required")]
-        [ForeignKey("HomeTeamId")]
-        public int HomeTeamId { get; set; }
+        public int HomeTeamClubId { get; set; }
+        public int HomeTeamTournamentId { get; set; }
+
+        [ForeignKey(nameof(HomeTeamClubId) + "," + nameof(HomeTeamTournamentId))]
         public TournamentClubs HomeTeam { get; set; }
 
-        [Display(Name = "Away Team")]
-        [Required(ErrorMessage = "Away Team is required")]
-        [ForeignKey("AwayTeamId")]
-        public int AwayTeamId { get; set; }
+        public int AwayTeamClubId { get; set; }
+        public int AwayTeamTournamentId { get; set; }
+
+        [ForeignKey(nameof(AwayTeamClubId) + "," + nameof(AwayTeamTournamentId))]
         public TournamentClubs AwayTeam { get; set; }
 
-        [DataType(DataType.Date)]
         public DateTime? KickOffDate { get; set; }
-
-        [DataType(DataType.Time)]
         public DateTime? KickOffTime { get; set; }
-
-        [Display(Name = "Location")]
-        [Required(ErrorMessage = "Match location is required")]
         public string? Location { get; set; }
-
         public FixtureRound FixtureRound { get; set; }
-
         public DateTime CreatedDateTime { get; set; }
-
         public DateTime ModifiedDateTime { get; set; }
 
         public string CreatedById { get; set; }
-
         [ForeignKey("CreatedById")]
-        public virtual UserBaseModel CreatedBy { get; set; }
+        public UserBaseModel CreatedBy { get; set; }
 
         public string ModifiedById { get; set; }
-
         [ForeignKey("ModifiedById")]
-        public virtual UserBaseModel ModifiedBy { get; set; }
-
+        public UserBaseModel ModifiedBy { get; set; }
 
         public FixtureStatus FixtureStatus { get; set; }
-
-        [Display(Name = "League")]
         public int TournamentId { get; set; }
 
         [ForeignKey("TournamentId")]
-        public virtual Tournament Tournament { get; set; }
-
-        public TournamentFixture()
-        {
-            KickOffDate = DateTime.MinValue;
-        }
+        public Tournament Tournament { get; set; }
     }
+
 
     public enum FixtureRound
     { 

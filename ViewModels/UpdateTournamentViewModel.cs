@@ -23,9 +23,9 @@ namespace MyField.ViewModels
 
         public DateTime JoiningDueDate { get; set; }
 
-        public string SponsorName { get; set; }
+        public string? SponsorName { get; set; }
 
-        public string Sponsorship { get; set; }
+        public string? Sponsorship { get; set; }
         public string? SponsorContactDetails { get; set; }
 
         public IFormFile TournamentImages { get; set; }

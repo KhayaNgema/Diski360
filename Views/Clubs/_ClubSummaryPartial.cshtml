@@ -1,8 +1,17 @@
-﻿@model MyField.Models.Club
+﻿@model MyField.ViewModels.ClubSummaryViewModel
+
 <br />
 <br />
+
 <div class="text-center">
-    <img src="~/@Model.ClubBadge" alt="@Model.ClubName" class="club-summary-image mb-4" style="max-width: 200px;" />
+    @if (Model.Club != null)
+    {
+        <img src="~/@Model.Club.ClubBadge" alt="@Model.Club.ClubName" class="club-summary-image mb-4" style="max-width: 200px;" />
+    }
+    else if (Model.TournamentClub != null)
+    {
+        <img src="~/@Model.TournamentClub.ClubBadge" alt="@Model.TournamentClub.ClubName" class="club-summary-image mb-4" style="max-width: 200px;" />
+    }
 </div>
 
 <div class="container">
@@ -12,15 +21,18 @@
                 <h4>Manager</h4>
                 <dl class="dl-horizontal">
                     <dd>
-                        @if(Model.ClubManager != null && Model.ClubManager.FirstName != null && Model.ClubManager.LastName != null && !Model.ClubManager.IsDeleted)
+                        @if (Model.Club != null && Model.Club.ClubManager != null && !Model.Club.ClubManager.IsDeleted)
                         {
-                            <span>@Html.DisplayFor(model => model.ClubManager.FirstName)</span> <span>@Html.DisplayFor(model => model.ClubManager.LastName)</span>
+                            <span>@Model.Club.ClubManager.FirstName</span> <span>@Model.Club.ClubManager.LastName</span>
+                        }
+                        else if (Model.TournamentClub != null)
+                        {
+                            <span>@Model.TournamentClub.ClubManagerName</span>
                         }
                         else
                         {
-                            <p>This club does not have a club manager.</p>
+                            <p>This club does not have a manager.</p>
                         }
-
                     </dd>
                 </dl>
             </div>
@@ -30,7 +42,14 @@
                 <h4>History</h4>
                 <dl class="dl-horizontal">
                     <dd>
-                        @Html.DisplayFor(model => model.ClubHistory)
+                        @if (Model.Club != null)
+                        {
+                            @Html.DisplayFor(m => m.Club.ClubHistory)
+                        }
+                        else if (Model.TournamentClub != null)
+                        {
+                            @Html.DisplayFor(m => m.TournamentClub.ClubHistory)
+                        }
                     </dd>
                 </dl>
             </div>
@@ -40,7 +59,14 @@
                 <h4>Summary</h4>
                 <dl class="dl-horizontal">
                     <dd>
-                        @Html.DisplayFor(model => model.ClubSummary)
+                        @if (Model.Club != null)
+                        {
+                            @Html.DisplayFor(m => m.Club.ClubSummary)
+                        }
+                        else if (Model.TournamentClub != null)
+                        {
+                            @Html.DisplayFor(m => m.TournamentClub.ClubSummary)
+                        }
                     </dd>
                 </dl>
             </div>
